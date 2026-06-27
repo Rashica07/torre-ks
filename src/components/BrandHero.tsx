@@ -1,116 +1,261 @@
 "use client";
-import { useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { ScrubSequence } from "./ScrubSequence";
-import { BlurText } from "./BlurText";
+import { ArrowUpRight, ArrowDown } from "lucide-react";
 import type { Brand } from "@/lib/brands";
+import Link from "next/link";
 
-type BrandHeroProps = { brand: Brand };
-
-const PARTNERS: Record<string, string[]> = {
-  magfa:         ["SWISSTECH", "TORRE UMBRIA", "TORRE HOME", "MAGFA"],
-  swisstech:     ["MAGFA GROUP", "TORRE UMBRIA", "TORRE HOME", "Schüco"],
-  "torre-umbria":["MAGFA GROUP", "SWISSTECH", "TORRE HOME", "Christie's RE"],
-  "torre-home":  ["MAGFA GROUP", "SWISSTECH", "TORRE UMBRIA", "Bosch"],
+const SIBLINGS: Record<string, { name: string; path: string }[]> = {
+  magfa:         [{ name: "SWISSTECH", path: "/swisstech" }, { name: "TORRE UMBRIA", path: "/torre-umbria" }, { name: "TORRE HOME", path: "/torre-home" }],
+  swisstech:     [{ name: "MAGFA GROUP", path: "/magfa" }, { name: "TORRE UMBRIA", path: "/torre-umbria" }, { name: "TORRE HOME", path: "/torre-home" }],
+  "torre-umbria":[{ name: "MAGFA GROUP", path: "/magfa" }, { name: "SWISSTECH", path: "/swisstech" }, { name: "TORRE HOME", path: "/torre-home" }],
+  "torre-home":  [{ name: "MAGFA GROUP", path: "/magfa" }, { name: "SWISSTECH", path: "/swisstech" }, { name: "TORRE UMBRIA", path: "/torre-umbria" }],
 };
 
-const HEADLINES: Record<string, string> = {
-  magfa:         "BUILT TO OUTLAST",
-  swisstech:     "GLASS THAT DEFINES",
-  "torre-umbria":"ITALY. ELEVATED.",
-  "torre-home":  "HOME, PERFECTED.",
-};
+type Props = { brand: Brand };
 
-const SUBS: Record<string, string> = {
-  magfa:         "Architecture and construction at the highest institutional level. From master plan to final handover — MAGFA GROUP accepts no compromise.",
-  swisstech:     "Swiss-engineered window and facade systems where thermal precision meets architectural beauty. 30-year standard warranty.",
-  "torre-umbria":"Landmark residences across Italy's most coveted addresses. Penthouses, villas, and palazzos designed to define taste.",
-  "torre-home":  "Premium homes, renovations, and interiors for discerning buyers who know what excellence feels like.",
-};
-
-export function BrandHero({ brand }: BrandHeroProps) {
-  const scrollRef = useRef<HTMLElement>(null);
-  const partners = PARTNERS[brand.id] || [];
+export function BrandHero({ brand }: Props) {
+  const siblings = SIBLINGS[brand.id] || [];
+  const accent = `hsl(${brand.accentHsl})`;
+  const accentFaint = `hsl(${brand.accentHsl} / 0.08)`;
+  const accentMid = `hsl(${brand.accentHsl} / 0.18)`;
 
   return (
-    <section ref={scrollRef} id="hero" className="relative bg-background" style={{ height: "250vh" }}>
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <ScrubSequence
-          framesPath={`/frames/${brand.id}`}
-          frameCount={120}
-          ext="jpg"
-          scrollTargetRef={scrollRef}
-          accentHsl={brand.accentHsl}
-          className="absolute inset-0 w-full h-full z-0"
-        />
-        <div className="absolute inset-0 z-[1] bg-[radial-gradient(120%_80%_at_50%_60%,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
-        <div className="absolute bottom-0 inset-x-0 h-[40vh] z-[2] gradient-fade-b" />
+    <section
+      id="hero"
+      className="relative min-h-screen flex flex-col"
+      style={{ background: "hsl(var(--background))" }}
+    >
+      {/* ambient glow behind content */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          inset: 0,
+          background: `radial-gradient(ellipse 70% 55% at 70% 45%, ${accentFaint} 0%, transparent 65%)`,
+        }}
+      />
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="liquid-glass rounded-full px-1 py-1 inline-flex items-center gap-2">
-              <span className="rounded-full px-3 py-1 text-xs font-semibold" style={{ background: `hsl(${brand.accentHsl})`, color: "hsl(var(--ink))", fontFamily: "var(--font-body)" }}>
+      {/* fine grid */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(hsl(var(--foreground) / 0.028) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground) / 0.028) 1px, transparent 1px)`,
+          backgroundSize: "72px 72px",
+        }}
+      />
+
+      {/* top border line */}
+      <div className="absolute top-0 inset-x-0 h-px" style={{ background: `linear-gradient(to right, transparent, hsl(var(--foreground) / 0.12), transparent)` }} />
+
+      {/* main hero body */}
+      <div className="relative z-10 flex-1 flex items-center max-w-[var(--max)] mx-auto w-full px-[var(--gutter)]">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 lg:gap-20 pt-36 pb-24">
+
+          {/* LEFT — headline + cta */}
+          <div className="flex flex-col justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="flex items-center gap-3 mb-10"
+            >
+              <span className="accent-line" style={{ background: accent }} />
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "11px",
+                  letterSpacing: "0.18em",
+                  color: accent,
+                  textTransform: "uppercase",
+                }}
+              >
                 {brand.category}
               </span>
-              <span className="pr-3 text-sm" style={{ color: "hsl(var(--foreground) / 0.80)", fontFamily: "var(--font-body)" }}>
-                {brand.tagline}
-              </span>
-            </div>
-          </motion.div>
+            </motion.div>
 
-          <BlurText
-            text={HEADLINES[brand.id] || brand.name}
-            as="h1"
-            startDelay={0.15}
-            delay={0.09}
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(52px, 9vw, 140px)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.02em",
-              color: "hsl(var(--foreground))",
-              marginTop: "24px",
-              maxWidth: "14ch",
-              textAlign: "center",
-            }}
-          />
+            <motion.h1
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.08, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(52px, 8.5vw, 128px)",
+                lineHeight: 0.93,
+                letterSpacing: "-0.025em",
+                color: "hsl(var(--foreground))",
+                marginBottom: "28px",
+                maxWidth: "12ch",
+              }}
+            >
+              {brand.heroHeadline}
+            </motion.h1>
 
-          <motion.p
-            initial={{ filter: "blur(10px)", opacity: 0, y: 16 }}
-            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            style={{ color: "hsl(var(--foreground) / 0.68)", fontFamily: "var(--font-body)", marginTop: "24px", maxWidth: "520px", lineHeight: 1.65, fontSize: "clamp(15px, 1.2vw, 18px)" }}
-          >
-            {SUBS[brand.id]}
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "clamp(15px, 1.1vw, 17px)",
+                color: "hsl(var(--foreground) / 0.58)",
+                lineHeight: 1.7,
+                maxWidth: "46ch",
+                marginBottom: "40px",
+              }}
+            >
+              {brand.heroSub}
+            </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 0.6 }}
-            style={{ marginTop: "40px", display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
-            <a href="#services" className="inline-flex items-center rounded-full transition-opacity hover:opacity-90"
-              style={{ background: `hsl(${brand.accentHsl})`, color: "hsl(var(--ink))", fontFamily: "var(--font-body)", padding: "14px 28px", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em" }}>
-              View Services <ArrowUpRight style={{ marginLeft: "6px", width: "16px", height: "16px" }} />
-            </a>
-            <a href="#contact" className="liquid-glass-strong inline-flex items-center rounded-full transition-opacity hover:opacity-80"
-              style={{ color: "hsl(var(--foreground))", fontFamily: "var(--font-body)", padding: "14px 28px", fontSize: "15px", letterSpacing: "-0.01em" }}>
-              Contact Us
-            </a>
-          </motion.div>
-
-          <div className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-4">
-            <span className="liquid-glass rounded-full px-4 py-1.5 text-xs" style={{ color: "hsl(var(--foreground) / 0.70)", fontFamily: "var(--font-body)" }}>
-              Part of the TORRE GROUP network
-            </span>
-            <div className="flex items-center gap-8 md:gap-14 flex-wrap justify-center px-6">
-              {partners.map((p) => (
-                <span key={p} style={{ fontFamily: "var(--font-display)", fontSize: "clamp(16px, 1.8vw, 22px)", color: "hsl(var(--foreground) / 0.50)", fontStyle: "italic", letterSpacing: "-0.01em" }}>
-                  {p}
-                </span>
-              ))}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.55 }}
+              className="flex items-center gap-3 flex-wrap"
+            >
+              <a
+                href="#services"
+                className="inline-flex items-center gap-2 rounded-full font-medium transition-all hover:opacity-85"
+                style={{
+                  background: accent,
+                  color: "hsl(var(--ink))",
+                  fontFamily: "var(--font-body)",
+                  padding: "13px 26px",
+                  fontSize: "14px",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                View Services <ArrowUpRight size={15} />
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full transition-all hover:opacity-80"
+                style={{
+                  background: accentMid,
+                  border: `1px solid hsl(${brand.accentHsl} / 0.3)`,
+                  color: accent,
+                  fontFamily: "var(--font-body)",
+                  padding: "13px 26px",
+                  fontSize: "14px",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                Contact Us
+              </a>
+            </motion.div>
           </div>
+
+          {/* RIGHT — stats panel */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.18, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:flex flex-col justify-center"
+          >
+            <div
+              className="rounded-2xl p-8 flex flex-col gap-0"
+              style={{
+                background: "rgba(255,255,255,0.025)",
+                border: "1px solid rgba(255,255,255,0.07)",
+              }}
+            >
+              {brand.stats.map((stat, i) => (
+                <div key={stat.label}>
+                  {i > 0 && (
+                    <div className="h-px my-6" style={{ background: "hsl(var(--foreground) / 0.07)" }} />
+                  )}
+                  <div
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(28px, 3vw, 42px)",
+                      lineHeight: 1,
+                      letterSpacing: "-0.02em",
+                      color: "hsl(var(--foreground))",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "12px",
+                      color: "hsl(var(--foreground) / 0.45)",
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+
+              <div className="mt-8 pt-6" style={{ borderTop: "1px solid hsl(var(--foreground) / 0.07)" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "10px",
+                    letterSpacing: "0.14em",
+                    color: "hsl(var(--foreground) / 0.30)",
+                    marginBottom: "10px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Part of TORRE GROUP
+                </div>
+                <div className="flex flex-col gap-2">
+                  {siblings.map((s) => (
+                    <Link
+                      key={s.path}
+                      href={s.path}
+                      className="flex items-center gap-2 group"
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "12px",
+                        color: "hsl(var(--foreground) / 0.40)",
+                        transition: "color 0.2s",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <span
+                        className="w-1 h-1 rounded-full"
+                        style={{ background: `hsl(${brand.accentHsl} / 0.5)` }}
+                      />
+                      {s.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
         </div>
       </div>
+
+      {/* scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.6 }}
+        className="relative z-10 flex flex-col items-center pb-10 gap-2"
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "10px",
+            letterSpacing: "0.16em",
+            color: "hsl(var(--foreground) / 0.28)",
+          }}
+        >
+          SCROLL
+        </span>
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <ArrowDown size={13} style={{ color: `hsl(${brand.accentHsl} / 0.5)` }} />
+        </motion.div>
+      </motion.div>
+
+      {/* bottom fade */}
+      <div className="absolute bottom-0 inset-x-0 h-32 fade-b pointer-events-none" />
     </section>
   );
 }

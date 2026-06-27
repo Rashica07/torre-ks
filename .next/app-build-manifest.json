@@ -21,10 +21,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/swisstech/page.js"
     ],
-    "/_not-found/page": [
+    "/torre-umbria/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/torre-umbria/page.js"
+    ],
+    "/torre-home/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/torre-home/page.js"
     ]
   }
 }

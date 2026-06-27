@@ -4,142 +4,162 @@ import { ArrowUpRight } from "lucide-react";
 import { BRANDS } from "@/lib/brands";
 import Link from "next/link";
 
-const BG_GRADIENTS: Record<string, string> = {
-  magfa:         "radial-gradient(ellipse 80% 70% at 60% 40%, hsl(35 40% 12%) 0%, hsl(240 10% 3%) 65%)",
-  swisstech:     "radial-gradient(ellipse 80% 70% at 40% 60%, hsl(200 30% 10%) 0%, hsl(240 10% 3%) 65%)",
-  "torre-umbria":"radial-gradient(ellipse 80% 70% at 55% 35%, hsl(25 35% 10%) 0%, hsl(240 10% 3%) 65%)",
-  "torre-home":  "radial-gradient(ellipse 80% 70% at 45% 65%, hsl(145 20% 8%) 0%, hsl(240 10% 3%) 65%)",
-};
-
 export default function CompanySelector() {
   return (
     <main
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
-      style={{ background: "hsl(240 10% 3%)" }}
+      style={{ background: "hsl(20 6% 4%)" }}
     >
-      {/* Animated background grid */}
+      {/* ambient warm glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `
-            linear-gradient(hsl(40 30% 90% / 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(40 30% 90% / 0.03) 1px, transparent 1px)
-          `,
-          backgroundSize: "80px 80px",
+          background: "radial-gradient(ellipse 65% 50% at 50% 40%, hsl(38 30% 8%) 0%, transparent 65%)",
+        }}
+      />
+      {/* fine grid */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(hsl(38 12% 90% / 0.025) 1px, transparent 1px), linear-gradient(90deg, hsl(38 12% 90% / 0.025) 1px, transparent 1px)`,
+          backgroundSize: "72px 72px",
         }}
       />
 
-      {/* Centre glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, hsl(35 40% 12% / 0.5) 0%, transparent 70%)" }}
-      />
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-[var(--gutter)] py-24 flex flex-col items-center">
 
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-[var(--gutter)] py-20 flex flex-col items-center">
-        {/* Header */}
+        {/* eyebrow */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-24"
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center gap-3 mb-14"
         >
-          <div
-            className="liquid-glass inline-flex items-center rounded-full px-4 py-1.5 text-xs font-medium mb-8"
-            style={{ color: "hsl(35 60% 60%)", fontFamily: "var(--font-body)", letterSpacing: "0.14em" }}
-          >
-            TORRE GROUP — TORRE-KS.COM
-          </div>
-          <h1
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(44px, 7vw, 108px)",
-              lineHeight: 0.9,
-              letterSpacing: "-0.025em",
-              color: "hsl(var(--foreground))",
-              marginBottom: "20px",
-            }}
-          >
-            ONE GROUP.<br />
-            <span style={{ color: "hsl(35 60% 60%)" }}>FOUR COMPANIES.</span>
-          </h1>
-          <p
+          <span className="w-8 h-px" style={{ background: "hsl(42 52% 62%)" }} />
+          <span
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "clamp(15px, 1.2vw, 18px)",
-              color: "hsl(var(--foreground) / 0.58)",
-              maxWidth: "480px",
-              margin: "0 auto",
-              lineHeight: 1.65,
+              fontSize: "11px",
+              letterSpacing: "0.2em",
+              color: "hsl(42 52% 62%)",
+              textTransform: "uppercase",
             }}
           >
-            Select a company to explore their services, portfolio, and expertise.
-          </p>
+            Torre Group — torre-ks.com
+          </span>
+          <span className="w-8 h-px" style={{ background: "hsl(42 52% 62%)" }} />
         </motion.div>
 
-        {/* Company cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 w-full">
+        {/* headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-6"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(42px, 7.5vw, 112px)",
+            lineHeight: 0.9,
+            letterSpacing: "-0.028em",
+            color: "hsl(38 18% 92%)",
+          }}
+        >
+          One Group.<br />
+          <span style={{ color: "hsl(42 52% 62%)" }}>Four Companies.</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="text-center mb-20"
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "clamp(14px, 1.1vw, 17px)",
+            color: "hsl(38 8% 62%)",
+            maxWidth: "44ch",
+            lineHeight: 1.7,
+          }}
+        >
+          Select a company to explore their services, portfolio, and expertise.
+        </motion.p>
+
+        {/* brand cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           {BRANDS.map((brand, i) => (
             <motion.div
               key={brand.id}
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.08, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: 0.14 + i * 0.09, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Link href={brand.path} className="block group h-full">
+              <Link href={brand.path} className="block group h-full" style={{ textDecoration: "none" }}>
                 <motion.div
-                  className="liquid-glass rounded-2xl relative overflow-hidden h-full flex flex-col"
-                  style={{ minHeight: "360px" }}
-                  whileHover={{ y: -6, scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 240, damping: 24 }}
+                  className="rounded-2xl relative overflow-hidden h-full flex flex-col"
+                  style={{
+                    minHeight: "380px",
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(255,255,255,0.07)",
+                  }}
+                  whileHover={{ y: -5 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 26 }}
                 >
-                  {/* Background gradient per brand */}
+                  {/* hover glow */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: BG_GRADIENTS[brand.id] }}
+                    style={{
+                      background: `radial-gradient(ellipse 80% 70% at 50% 30%, hsl(${brand.accentHsl} / 0.1) 0%, transparent 65%)`,
+                    }}
+                  />
+                  {/* hover border */}
+                  <div
+                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{ border: `1px solid hsl(${brand.accentHsl} / 0.22)` }}
                   />
 
                   <div className="relative z-10 p-7 flex flex-col h-full">
-                    {/* Brand accent dot */}
+                    {/* accent dot */}
                     <div
-                      className="w-3 h-3 rounded-full mb-8"
+                      className="w-2.5 h-2.5 rounded-full mb-8"
                       style={{ background: `hsl(${brand.accentHsl})` }}
                     />
 
-                    {/* Category label */}
+                    {/* category */}
                     <span
                       style={{
                         fontFamily: "var(--font-body)",
                         fontSize: "10px",
-                        letterSpacing: "0.14em",
+                        letterSpacing: "0.16em",
                         color: `hsl(${brand.accentHsl})`,
                         marginBottom: "10px",
                         display: "block",
+                        textTransform: "uppercase",
                       }}
                     >
-                      {brand.category.toUpperCase()}
+                      {brand.category}
                     </span>
 
-                    {/* Name */}
+                    {/* name */}
                     <h2
                       style={{
                         fontFamily: "var(--font-display)",
-                        fontSize: "clamp(22px, 2.2vw, 30px)",
+                        fontSize: "clamp(22px, 2.2vw, 28px)",
                         lineHeight: 1.0,
                         letterSpacing: "-0.015em",
-                        color: "hsl(var(--foreground))",
-                        marginBottom: "12px",
+                        color: "hsl(38 18% 92%)",
+                        marginBottom: "14px",
                       }}
                     >
                       {brand.name}
                     </h2>
 
-                    {/* Tagline */}
+                    {/* desc */}
                     <p
                       style={{
                         fontFamily: "var(--font-body)",
                         fontSize: "13px",
-                        color: "hsl(var(--foreground) / 0.55)",
-                        lineHeight: 1.6,
+                        color: "hsl(38 8% 55%)",
+                        lineHeight: 1.65,
                         marginBottom: "24px",
                         flex: 1,
                       }}
@@ -147,35 +167,34 @@ export default function CompanySelector() {
                       {brand.description}
                     </p>
 
-                    {/* Subdomain */}
+                    {/* subdomain */}
                     <div
                       className="text-xs mb-5"
-                      style={{ color: "hsl(var(--foreground) / 0.30)", fontFamily: "var(--font-body)" }}
+                      style={{ color: "hsl(38 8% 34%)", fontFamily: "var(--font-body)", letterSpacing: "0.04em" }}
                     >
                       {brand.subdomain}
                     </div>
 
-                    {/* Price range — lowest service price */}
+                    {/* price badge */}
                     <div
-                      className="rounded-full px-3 py-1 text-xs font-medium inline-flex self-start mb-5"
-                      style={{ background: `hsl(${brand.accentHsl} / 0.12)`, color: `hsl(${brand.accentHsl})`, fontFamily: "var(--font-body)" }}
+                      className="rounded-full px-3 py-1 text-xs font-medium inline-flex self-start mb-6"
+                      style={{
+                        background: `hsl(${brand.accentHsl} / 0.1)`,
+                        color: `hsl(${brand.accentHsl})`,
+                        fontFamily: "var(--font-body)",
+                        border: `1px solid hsl(${brand.accentHsl} / 0.2)`,
+                      }}
                     >
                       {brand.services[0].price}
                     </div>
 
-                    {/* CTA */}
+                    {/* cta */}
                     <div
-                      className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium"
                       style={{ color: `hsl(${brand.accentHsl})`, fontFamily: "var(--font-body)" }}
                     >
                       Explore
-                      <motion.span
-                        className="inline-block"
-                        animate={{ x: 0 }}
-                        whileHover={{ x: 3 }}
-                      >
-                        <ArrowUpRight size={15} />
-                      </motion.span>
+                      <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
                     </div>
                   </div>
                 </motion.div>
@@ -184,15 +203,15 @@ export default function CompanySelector() {
           ))}
         </div>
 
-        {/* Footer note */}
+        {/* footer */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
+          transition={{ delay: 0.7, duration: 0.6 }}
           className="mt-20 text-center"
-          style={{ fontFamily: "var(--font-body)", fontSize: "12px", color: "hsl(var(--foreground) / 0.28)" }}
+          style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "hsl(38 8% 30%)", letterSpacing: "0.06em" }}
         >
-          &copy; {new Date().getFullYear()} TORRE GROUP — torre-ks.com &nbsp;·&nbsp; MAGFA &nbsp;·&nbsp; SWISSTECH &nbsp;·&nbsp; TORRE UMBRIA &nbsp;·&nbsp; TORRE HOME
+          &copy; {new Date().getFullYear()} TORRE GROUP — torre-ks.com &nbsp;&middot;&nbsp; MAGFA &nbsp;&middot;&nbsp; SWISSTECH &nbsp;&middot;&nbsp; TORRE UMBRIA &nbsp;&middot;&nbsp; TORRE HOME
         </motion.p>
       </div>
     </main>

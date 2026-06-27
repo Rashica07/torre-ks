@@ -6,7 +6,10 @@ export type Brand = {
   subdomain: string;
   path: string;
   accentHsl: string;
+  accentDark: string;
   category: string;
+  heroHeadline: string;
+  heroSub: string;
   services: Service[];
   stats: Stat[];
   testimonials: Testimonial[];
@@ -29,14 +32,17 @@ export const BRANDS: Brand[] = [
     id: "magfa",
     name: "MAGFA GROUP",
     tagline: "Excellence in Construction",
-    description: "The parent company. Architecture, engineering, and design at an institutional scale — built for clients who accept nothing less than extraordinary.",
+    description: "Architecture, engineering and design at institutional scale — built for clients who accept nothing less than extraordinary.",
     subdomain: "magfa.torre-ks.com",
     path: "/magfa",
-    accentHsl: "35 60% 60%",
+    accentHsl: "42 52% 62%",
+    accentDark: "42 45% 20%",
     category: "Architecture & Construction",
+    heroHeadline: "Built to Outlast.",
+    heroSub: "Architecture and construction at the highest institutional level. From master plan to final handover — MAGFA GROUP accepts no compromise.",
     services: [
       { title: "Architecture & Master Planning", description: "End-to-end architectural direction from concept through planning permission to construction drawings.", price: "From €450,000", icon: "Building2" },
-      { title: "Construction Management", description: "On-site programme management with Swiss-precision scheduling and zero-compromise quality control.", price: "From €850,000", icon: "HardHat" },
+      { title: "Construction Management", description: "On-site programme management with precision scheduling and zero-compromise quality control.", price: "From €850,000", icon: "HardHat" },
       { title: "Interior Design", description: "Material-led interior environments. Every surface, fixture and fitting selected with editorial rigour.", price: "From €120,000", icon: "Sparkles" },
       { title: "Facade Engineering", description: "Technically complex facades engineered for longevity, energy performance, and visual impact.", price: "From €220,000", icon: "Layers" },
       { title: "Project Finance Advisory", description: "Structuring and oversight for large-scale development finance — from senior debt to equity.", price: "From €35,000", icon: "TrendingUp" },
@@ -68,11 +74,14 @@ export const BRANDS: Brand[] = [
     id: "swisstech",
     name: "SWISSTECH",
     tagline: "Precision Window & Facade Systems",
-    description: "Swiss-engineered window systems, curtain walls, and facade solutions for luxury residential and commercial architecture. Where performance meets beauty.",
+    description: "Swiss-engineered window systems, curtain walls and facade solutions for luxury residential and commercial architecture.",
     subdomain: "swisstech.torre-ks.com",
     path: "/swisstech",
-    accentHsl: "200 50% 55%",
+    accentHsl: "205 18% 68%",
+    accentDark: "205 20% 18%",
     category: "Windows & Facades",
+    heroHeadline: "Glass That Defines.",
+    heroSub: "Swiss-engineered window and facade systems where thermal precision meets architectural beauty. 30-year standard warranty on every system.",
     services: [
       { title: "Bespoke Window Systems", description: "Thermally-broken aluminium and timber-aluminium composite windows engineered to Passivhaus standards.", price: "From CHF 85,000", icon: "Square" },
       { title: "Curtain Wall Facades", description: "Unitised and stick-built curtain wall systems for commercial and high-rise residential.", price: "From CHF 350,000", icon: "Building" },
@@ -107,11 +116,14 @@ export const BRANDS: Brand[] = [
     id: "torre-umbria",
     name: "TORRE UMBRIA",
     tagline: "Luxury Real Estate Development",
-    description: "Landmark residential development across Italy's most coveted addresses. Penthouses, villas, and urban residences designed for those who define taste.",
+    description: "Landmark residential development across Italy's most coveted addresses. Penthouses, villas and palazzos designed for those who define taste.",
     subdomain: "torre-umbria.torre-ks.com",
     path: "/torre-umbria",
-    accentHsl: "25 55% 55%",
+    accentHsl: "22 55% 58%",
+    accentDark: "22 40% 18%",
     category: "Luxury Real Estate",
+    heroHeadline: "Italy. Elevated.",
+    heroSub: "Landmark residences across Italy's most coveted addresses. Penthouses, villas, and palazzos designed to last generations.",
     services: [
       { title: "Luxury Villas", description: "Architect-designed private villas across Umbria, Tuscany, and the Italian Lakes. Bespoke construction on curated land.", price: "From €2,400,000", icon: "Home" },
       { title: "Penthouse Collection", description: "Rooftop residences in Florence, Rome, and Milan. Floor-to-ceiling glass, private terraces, concierge by default.", price: "From €1,200,000", icon: "Building2" },
@@ -146,11 +158,14 @@ export const BRANDS: Brand[] = [
     id: "torre-home",
     name: "TORRE HOME",
     tagline: "Premium Residential Living",
-    description: "Thoughtfully designed homes for discerning buyers. TORRE HOME brings luxury sensibility to the premium residential market — accessible excellence.",
+    description: "Thoughtfully designed homes and renovations for discerning buyers. TORRE HOME brings luxury sensibility to the premium residential market.",
     subdomain: "torre-home.torre-ks.com",
     path: "/torre-home",
-    accentHsl: "145 35% 45%",
+    accentHsl: "152 20% 54%",
+    accentDark: "152 18% 14%",
     category: "Premium Residences",
+    heroHeadline: "Home, Perfected.",
+    heroSub: "Premium homes, renovations, and interiors for buyers who know what excellence feels like. Every detail considered. Every finish chosen.",
     services: [
       { title: "Premium Residences", description: "Architect-designed homes in curated locations. Superior build quality, superior materials, superior management.", price: "From €380,000", icon: "Home" },
       { title: "Home Renovations", description: "Full residential renovations — from kitchen replacement to whole-house transformation. Managed end-to-end.", price: "From €95,000", icon: "Wrench" },
@@ -170,7 +185,7 @@ export const BRANDS: Brand[] = [
       { quote: "The smart home system TORRE HOME installed is intuitive and invisible. Exactly what premium should be.", name: "Thomas Müller", role: "Private Client, Hamburg", rating: 5 },
       { quote: "Our garden was a blank canvas. TORRE HOME turned it into the best room in the house.", name: "Catherine Fournier", role: "Private Client, Lyon", rating: 5 },
       { quote: "The property management service is worth every euro. My home is in better condition than when I leave it.", name: "Roberto Esposito", role: "Private Client, Milan", rating: 5 },
-      { quote: "From first call to handover — they anticipated every need before we'd articulated it. True hospitality industry service standards.", name: "Anya Kovacs", role: "Private Client, Vienna", rating: 5 },
+      { quote: "From first call to handover — they anticipated every need before we'd articulated it. True hospitality-level service.", name: "Anya Kovacs", role: "Private Client, Vienna", rating: 5 },
       { quote: "The interior styling package transformed our new build from a house into a home in two weeks.", name: "Henrik Larsson", role: "Private Client, Stockholm", rating: 5 },
     ],
     faqs: [
