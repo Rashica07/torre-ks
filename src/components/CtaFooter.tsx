@@ -5,91 +5,96 @@ import type { Brand } from "@/lib/brands";
 const FOOTER_LINKS = [
   { label: "Politika e Privatësisë", href: "#" },
   { label: "Kushtet e Shërbimit", href: "#" },
-  { label: "Karriera", href: "#" },
+  { label: "Kontakt", href: "#" },
 ];
 
 export function CtaFooter({ brand }: { brand: Brand }) {
-  const accent = `hsl(${brand.accentHsl})`;
+  const t = brand.theme;
 
   return (
-    <section id="contact" className="relative" style={{ background: "hsl(var(--bg))" }}>
-      <div className="relative py-24 md:py-36">
-        <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)] flex flex-col items-center text-center">
+    <footer id="contact" style={{ background: t.bg }}>
+      <div className="mx-auto px-[var(--gutter)] pt-20 md:pt-32 pb-8" style={{ maxWidth: "var(--max)" }}>
+        <div
+          className="rounded-xl p-10 md:p-16 flex flex-col items-center text-center relative overflow-hidden"
+          style={{ background: t.surface, border: `1px solid ${t.border}` }}
+        >
+          {/* Subtle background decoration */}
+          <div
+            className="absolute top-0 right-0 w-64 h-64 rounded-full blur-[100px] pointer-events-none opacity-50"
+            style={{ background: t.accent, transform: "translate(30%, -30%)" }}
+          />
+          <div
+            className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-[100px] pointer-events-none opacity-50"
+            style={{ background: t.accent, transform: "translate(-30%, 30%)" }}
+          />
+
           <span
-            className="block text-[11px] tracking-[0.18em] uppercase mb-8"
-            style={{ color: accent }}
+            className="block text-[11px] tracking-[0.18em] uppercase mb-6 relative z-10"
+            style={{ color: t.accent }}
           >
-            Filloni Projektin
+            Faza Tjetër
           </span>
-
           <h2
-            style={{
-              fontSize: "clamp(32px, 5.5vw, 68px)",
-              color: "hsl(var(--fg))",
-              maxWidth: "18ch",
-              marginBottom: "24px",
-            }}
+            className="mb-6 relative z-10"
+            style={{ fontSize: "clamp(32px, 5vw, 64px)", color: t.fg, maxWidth: "15ch" }}
           >
-            Le të Ndërtojmë Diçka të Jashtëzakonshme.
+            Gati Për Të Filluar?
           </h2>
-
           <p
-            className="text-sm leading-relaxed mb-10"
-            style={{
-              color: "hsl(var(--muted))",
-              maxWidth: "44ch",
-            }}
+            className="text-base leading-relaxed mb-10 relative z-10"
+            style={{ color: t.muted, maxWidth: "40ch" }}
           >
-            Çdo projekt fillon me një bisedë. Përgjigjemi brenda 24 orësh.
+            Kontaktoni ekipin e {brand.name} për të diskutuar vizionin tuaj. Ne jemi këtu për t'ju ndihmuar.
           </p>
 
-          <div className="flex items-center gap-4 flex-wrap justify-center">
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto relative z-10">
             <a
-              href={`mailto:info@${brand.subdomain}`}
-              className="inline-flex items-center gap-2 rounded-full text-sm font-medium no-underline px-7 py-3.5 transition-opacity duration-200 hover:opacity-85"
-              style={{
-                background: "hsl(var(--fg))",
-                color: "hsl(var(--bg))",
-              }}
+              href="mailto:contact@torre-ks.com"
+              className="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-full text-sm font-medium no-underline px-8 py-3 transition-opacity duration-200 hover:opacity-85"
+              style={{ background: t.accent, color: t.accentFg }}
             >
-              Filloni Bisedën <ArrowRight size={14} />
+              Na Shkruani <ArrowRight size={14} />
             </a>
             <a
-              href="/"
-              className="inline-flex items-center gap-2 rounded-full text-sm no-underline px-7 py-3.5 transition-all duration-200 hover:opacity-75"
-              style={{
-                border: "1px solid hsl(var(--border))",
-                color: "hsl(var(--muted))",
-              }}
+              href="tel:+38344123456"
+              className="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-full text-sm no-underline px-8 py-3 transition-opacity duration-200 hover:opacity-75"
+              style={{ border: `1px solid ${t.border}`, color: t.muted }}
             >
-              Kthehu te TORRE GROUP
+              +383 44 123 456
             </a>
           </div>
         </div>
-      </div>
 
-      <div
-        className="w-full"
-        style={{ borderTop: "1px solid hsl(var(--border))" }}
-      >
-        <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)] py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-[11px]" style={{ color: "hsl(var(--muted))" }}>
-            &copy; {new Date().getFullYear()} {brand.name}. Pjesë e TORRE GROUP. Të gjitha të drejtat e rezervuara.
-          </span>
-          <nav className="flex items-center gap-6">
-            {FOOTER_LINKS.map((l) => (
+        <div
+          className="mt-20 pt-8 flex flex-col md:flex-row items-center justify-between gap-6"
+          style={{ borderTop: `1px solid ${t.border}` }}
+        >
+          <div className="flex items-center gap-2">
+            <span
+              className="text-xs font-semibold tracking-[0.12em] uppercase"
+              style={{ color: t.accent }}
+            >
+              {brand.name.split(" ")[0]}
+            </span>
+            <span className="text-xs" style={{ color: t.muted }}>
+              © {new Date().getFullYear()} TORRE GROUP. Të gjitha të drejtat e rezervuara.
+            </span>
+          </div>
+
+          <div className="flex items-center gap-6">
+            {FOOTER_LINKS.map((link) => (
               <a
-                key={l.label}
-                href={l.href}
-                className="text-[11px] no-underline hover:opacity-75"
-                style={{ color: "hsl(var(--muted))" }}
+                key={link.label}
+                href={link.href}
+                className="text-xs no-underline transition-opacity duration-200 hover:opacity-60"
+                style={{ color: t.muted }}
               >
-                {l.label}
+                {link.label}
               </a>
             ))}
-          </nav>
+          </div>
         </div>
       </div>
-    </section>
+    </footer>
   );
 }

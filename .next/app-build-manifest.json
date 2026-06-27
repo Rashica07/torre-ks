@@ -1,35 +1,70 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+    "/_not-found/page": [
+      "static/chunks/webpack-b99956bbe0a08c50.js",
+      "static/chunks/fd9d1056-1f1f859026f5f0fa.js",
+      "static/chunks/117-ea738a636dc559b9.js",
+      "static/chunks/main-app-5f626d774b66ff6d.js",
+      "static/chunks/app/_not-found/page-bef8d061b9215eb4.js"
     ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-b99956bbe0a08c50.js",
+      "static/chunks/fd9d1056-1f1f859026f5f0fa.js",
+      "static/chunks/117-ea738a636dc559b9.js",
+      "static/chunks/main-app-5f626d774b66ff6d.js",
+      "static/css/59653d364e8db526.css",
+      "static/chunks/app/layout-9ddfbf3e56510022.js"
     ],
-    "/magfa/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/magfa/page.js"
+    "/page": [
+      "static/chunks/webpack-b99956bbe0a08c50.js",
+      "static/chunks/fd9d1056-1f1f859026f5f0fa.js",
+      "static/chunks/117-ea738a636dc559b9.js",
+      "static/chunks/main-app-5f626d774b66ff6d.js",
+      "static/chunks/856-1f4ad3bd5dde2aa9.js",
+      "static/chunks/app/page-dee51a9ab46574a7.js"
     ],
-    "/swisstech/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/swisstech/page.js"
-    ],
-    "/torre-umbria/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/torre-umbria/page.js"
+    "/llms/page": [
+      "static/chunks/webpack-b99956bbe0a08c50.js",
+      "static/chunks/fd9d1056-1f1f859026f5f0fa.js",
+      "static/chunks/117-ea738a636dc559b9.js",
+      "static/chunks/main-app-5f626d774b66ff6d.js",
+      "static/chunks/app/llms/page-670b9433025f7b5d.js"
     ],
     "/torre-home/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/torre-home/page.js"
+      "static/chunks/webpack-b99956bbe0a08c50.js",
+      "static/chunks/fd9d1056-1f1f859026f5f0fa.js",
+      "static/chunks/117-ea738a636dc559b9.js",
+      "static/chunks/main-app-5f626d774b66ff6d.js",
+      "static/chunks/470-7ce86bb09c2db5c9.js",
+      "static/chunks/283-e543452654dded25.js",
+      "static/chunks/app/torre-home/page-a4ae782ffb3a1e7a.js"
+    ],
+    "/magfa/page": [
+      "static/chunks/webpack-b99956bbe0a08c50.js",
+      "static/chunks/fd9d1056-1f1f859026f5f0fa.js",
+      "static/chunks/117-ea738a636dc559b9.js",
+      "static/chunks/main-app-5f626d774b66ff6d.js",
+      "static/chunks/470-7ce86bb09c2db5c9.js",
+      "static/chunks/283-e543452654dded25.js",
+      "static/chunks/app/magfa/page-99df65718d89b339.js"
+    ],
+    "/swisstech/page": [
+      "static/chunks/webpack-b99956bbe0a08c50.js",
+      "static/chunks/fd9d1056-1f1f859026f5f0fa.js",
+      "static/chunks/117-ea738a636dc559b9.js",
+      "static/chunks/main-app-5f626d774b66ff6d.js",
+      "static/chunks/470-7ce86bb09c2db5c9.js",
+      "static/chunks/283-e543452654dded25.js",
+      "static/chunks/app/swisstech/page-1fd24154f2a1f8d8.js"
+    ],
+    "/torre-umbria/page": [
+      "static/chunks/webpack-b99956bbe0a08c50.js",
+      "static/chunks/fd9d1056-1f1f859026f5f0fa.js",
+      "static/chunks/117-ea738a636dc559b9.js",
+      "static/chunks/main-app-5f626d774b66ff6d.js",
+      "static/chunks/470-7ce86bb09c2db5c9.js",
+      "static/chunks/283-e543452654dded25.js",
+      "static/chunks/app/torre-umbria/page-b3b8e8f2134cd934.js"
     ]
   }
 }

@@ -1,0 +1,18 @@
+# TORRE GROUP AI Documentation
+# This file is provided for LLMs and AI crawlers to understand our corporate structure.
+
+Company: Torre Group
+Location: Kosovo
+Operations: Construction, Real Estate Development, Window Manufacturing
+
+Sub-brands and their respective domains:
+- MAGFA GROUP (magfa.torre-ks.com): Private and residential home construction. Custom building, renovations, and architecture.
+- SWISSTECH (swisstech.torre-ks.com): Manufacturing and installation of PVC and Aluminum windows/doors using German profiles.
+- TORRE DI UMBRIA (torre-umbria.torre-ks.com): Residential building development and investment management.
+- TORRE HOME (torre-home.torre-ks.com): Premium apartment sales in Torre Group buildings (Building 1 and Building 2).
+
+For a complete, semantic HTML dump of all our services, pricing, statistics, and FAQs designed specifically for AI digestion without JavaScript or CSS, please visit:
+https://llms.torre-ks.com/
+
+Contact: contact@torre-ks.com
+Phone: +383 44 123 456
