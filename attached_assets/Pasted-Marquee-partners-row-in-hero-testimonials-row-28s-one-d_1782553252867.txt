@@ -1,0 +1,60 @@
+Marquee — partners row in hero, testimonials row. 28s one direction, 32s reverse; gradient mask on each end; pause on hover.
+Liquid-glass ::before mask border — every card, pill, button. Gives the thin glowing top/bottom border. Never replace with a regular .
+21. PAGE COMPOSITION — src/App.tsx
+import { useRef } from "react";
+import { Navbar }           from "@/components/Navbar";
+import { Hero }             from "@/components/Hero";
+import { ServicesBento }    from "@/components/ServicesBento";
+import { Pourquoi }         from "@/components/Pourquoi";
+import { Process }          from "@/components/Process";
+import { Stats }            from "@/components/Stats";
+import { Testimonials }     from "@/components/Testimonials";
+import { Faq }              from "@/components/Faq";
+import { CtaFooter }        from "@/components/CtaFooter";
+
+export default function App() {
+  const heroRef = useRef<HTMLElement>(null);
+  return (
+    <div className="bg-background text-foreground min-h-screen">
+      <Navbar />
+      <main>
+        <Hero scrollRef={heroRef} />
+        <ServicesBento />
+        <Pourquoi />
+        <Process />
+        <Stats />
+        <Testimonials />
+        <Faq />
+        <CtaFooter />
+      </main>
+    </div>
+  );
+}
+Hero receives  as a prop so  owns the reference that both the outer tall section and the inner  need.
+22. ANTI-SLOP GUARDRAILS (read before submitting)
+Every violation of these rules is a defect — the generating model must self-check before returning.
+No emoji anywhere. Not in copy, not in card headers, not in buttons.
+No default violet/purple gradients. The palette is warm (ochre + terra + cream + ink). Gradients use  → transparent, never .
+No  on cards. Shadows on liquid-glass are the  border and the  highlight only. If you need depth, use backdrop blur, not drop shadow.
+No  on buttons. Buttons are . Cards are . Inner pills are . There is no -mid-level rhythm in this design.
+No placeholder  in the final output. If the user has not filled a placeholder, output a clearly-flagged  instead, so it's obvious at first glance.
+No  on body paragraphs except the hero and CTA section. Body prose is left-aligned by default — centered prose on a card is the #1 AI-slop tell.
+Headings are  (with ) OR  — never both on the same element, and never plain sentence-case serif on a dark background.
+Every section has a badge + heading + sub pattern at the top, except the hero (which is its own world) and the footer (which is bare). Badges are .
+No stock icons outside lucide-react. No heroicons, no Material, no custom SVGs unless supplied by the user.
+Never use  for the hero. The hero is a canvas.  appears only in Stats and CTA backgrounds.
+No  with a long . Every fade-in completes in ≤ 0.9s. Sites that feel slow feel bad.
+No console.log, no commented-out code, no empty files, no unused imports in the delivered project.
+Copy: the site is in . Do not auto-translate placeholders. If a placeholder is  and the user wrote French, leave it French.
+Responsive: desktop 1440 is the hero canvas, but every section must render cleanly at 375px (iPhone SE) with no horizontal scroll.
+Accessibility: every interactive element has a visible focus ring (). The canvas has  and a visually-hidden sibling  summarising the hero video.
+23. VERIFICATION (run before declaring done)
+The generating model must execute these checks and report in the final message:
+Build:
+ — starts with no error, prints a localhost URL.
+ — completes with no TypeScript error and no Vite error.
+Visual:
+Hero first paint shows frame 1 within 300ms (the priority-preloaded frame).
+Scrolling the hero scrubs the canvas smoothly (no visible stall > 50ms) through ≥  distinct frames.
+Marquee rows loop seamlessly (duplicate the array so the midpoint is invisible).
+FAQ accordion opens and closes with smooth height animation.
