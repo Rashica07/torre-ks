@@ -2,8 +2,8 @@ import { BrandPage } from "@/components/BrandPage";
 import { BRANDS } from "@/lib/brands";
 
 export const metadata = {
-  title: "TORRE HOME — Premium Residential Living",
-  description: "Thoughtfully designed homes, renovations, and interiors for discerning buyers.",
+  title: "TORRE HOME — Apartamente në Kosovë",
+  description: "Blini apartamentin tuaj ideal në ndërtesat moderne të TORRE GROUP në Kosovë.",
 };
 
 export default function TorreHomePage() {

@@ -2,8 +2,8 @@ import { BrandPage } from "@/components/BrandPage";
 import { BRANDS } from "@/lib/brands";
 
 export const metadata = {
-  title: "TORRE UMBRIA — Luxury Real Estate Development",
-  description: "Landmark residential development across Italy's most coveted addresses.",
+  title: "TORRE DI UMBRIA — Zhvillim Rezidencial",
+  description: "Ndërtim dhe zhvillim i ndërtesave rezidenciale moderne në Kosovë.",
 };
 
 export default function TorreUmbriaPage() {

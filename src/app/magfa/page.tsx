@@ -2,8 +2,8 @@ import { BrandPage } from "@/components/BrandPage";
 import { BRANDS } from "@/lib/brands";
 
 export const metadata = {
-  title: "MAGFA GROUP — Excellence in Construction",
-  description: "Architecture and construction at the highest institutional level. From master plan to final handover.",
+  title: "MAGFA GROUP — Ndërtim Rezidencial",
+  description: "Ndërtim shtëpish private dhe rezidenciale me materiale premium. Nga themeli deri te çelësi.",
 };
 
 export default function MagfaPage() {

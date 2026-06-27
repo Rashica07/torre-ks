@@ -1,9 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { BRANDS } from "@/lib/brands";
+import { useRouter } from "next/navigation";
 
 export default function CompanySelector() {
+  const router = useRouter();
+
   return (
     <main
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
@@ -35,15 +38,7 @@ export default function CompanySelector() {
           className="flex items-center gap-3 mb-14"
         >
           <span className="w-8 h-px" style={{ background: "hsl(220 14% 60%)" }} />
-          <span
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "11px",
-              letterSpacing: "0.2em",
-              color: "hsl(220 14% 50%)",
-              textTransform: "uppercase",
-            }}
-          >
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.2em", color: "hsl(220 14% 50%)", textTransform: "uppercase" }}>
             Torre Group — torre-ks.com
           </span>
           <span className="w-8 h-px" style={{ background: "hsl(220 14% 60%)" }} />
@@ -92,119 +87,90 @@ export default function CompanySelector() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.14 + i * 0.09, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <a
-                href={brand.externalUrl}
-                className="block group h-full"
-                style={{ textDecoration: "none" }}
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.div
+                className="rounded-2xl relative overflow-hidden flex flex-col cursor-pointer group"
+                style={{
+                  minHeight: "400px",
+                  background: "hsl(var(--surface))",
+                  border: "1px solid hsl(var(--border))",
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+                }}
+                whileHover={{ y: -5, boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+                transition={{ type: "spring", stiffness: 260, damping: 26 }}
+                onClick={() => router.push(brand.path)}
               >
-                <motion.div
-                  className="rounded-2xl relative overflow-hidden h-full flex flex-col"
-                  style={{
-                    minHeight: "380px",
-                    background: "hsl(var(--surface))",
-                    border: "1px solid hsl(var(--border))",
-                    boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
-                  }}
-                  whileHover={{ y: -5, boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
-                  transition={{ type: "spring", stiffness: 260, damping: 26 }}
-                >
-                  {/* hover glow */}
+                {/* hover glow */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: `radial-gradient(ellipse 80% 70% at 50% 30%, hsl(${brand.accentHsl} / 0.06) 0%, transparent 65%)` }}
+                />
+                {/* hover border */}
+                <div
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ border: `1px solid hsl(${brand.accentHsl} / 0.35)` }}
+                />
+
+                <div className="relative z-10 p-7 flex flex-col h-full">
+                  {/* accent dot */}
+                  <div className="w-2.5 h-2.5 rounded-full mb-8" style={{ background: `hsl(${brand.accentHsl})` }} />
+
+                  {/* category */}
+                  <span style={{
+                    fontFamily: "var(--font-body)", fontSize: "10px", letterSpacing: "0.16em",
+                    color: `hsl(${brand.accentHsl})`, marginBottom: "10px", display: "block", textTransform: "uppercase",
+                  }}>
+                    {brand.category}
+                  </span>
+
+                  {/* name */}
+                  <h2 style={{
+                    fontFamily: "var(--font-display)", fontSize: "clamp(22px, 2.2vw, 28px)",
+                    lineHeight: 1.0, letterSpacing: "-0.015em", color: "hsl(var(--foreground))", marginBottom: "14px",
+                  }}>
+                    {brand.name}
+                  </h2>
+
+                  {/* desc */}
+                  <p style={{
+                    fontFamily: "var(--font-body)", fontSize: "13px", color: "hsl(var(--muted-fg))",
+                    lineHeight: 1.65, marginBottom: "24px", flex: 1,
+                  }}>
+                    {brand.description}
+                  </p>
+
+                  {/* price badge */}
                   <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    className="rounded-full px-3 py-1 text-xs font-medium inline-flex self-start mb-5"
                     style={{
-                      background: `radial-gradient(ellipse 80% 70% at 50% 30%, hsl(${brand.accentHsl} / 0.06) 0%, transparent 65%)`,
+                      background: `hsl(${brand.accentHsl} / 0.08)`, color: `hsl(${brand.accentHsl})`,
+                      fontFamily: "var(--font-body)", border: `1px solid hsl(${brand.accentHsl} / 0.2)`,
                     }}
-                  />
-                  {/* hover border */}
-                  <div
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{ border: `1px solid hsl(${brand.accentHsl} / 0.35)` }}
-                  />
+                  >
+                    {brand.services[0].price}
+                  </div>
 
-                  <div className="relative z-10 p-7 flex flex-col h-full">
-                    {/* accent dot */}
-                    <div
-                      className="w-2.5 h-2.5 rounded-full mb-8"
-                      style={{ background: `hsl(${brand.accentHsl})` }}
-                    />
-
-                    {/* category */}
-                    <span
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "10px",
-                        letterSpacing: "0.16em",
-                        color: `hsl(${brand.accentHsl})`,
-                        marginBottom: "10px",
-                        display: "block",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {brand.category}
-                    </span>
-
-                    {/* name */}
-                    <h2
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "clamp(22px, 2.2vw, 28px)",
-                        lineHeight: 1.0,
-                        letterSpacing: "-0.015em",
-                        color: "hsl(var(--foreground))",
-                        marginBottom: "14px",
-                      }}
-                    >
-                      {brand.name}
-                    </h2>
-
-                    {/* desc */}
-                    <p
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "13px",
-                        color: "hsl(var(--muted-fg))",
-                        lineHeight: 1.65,
-                        marginBottom: "24px",
-                        flex: 1,
-                      }}
-                    >
-                      {brand.description}
-                    </p>
-
-                    {/* subdomain */}
-                    <div
-                      className="text-xs mb-5"
-                      style={{ color: "hsl(220 10% 60%)", fontFamily: "var(--font-body)", letterSpacing: "0.04em" }}
-                    >
-                      {brand.subdomain}
-                    </div>
-
-                    {/* price badge */}
-                    <div
-                      className="rounded-full px-3 py-1 text-xs font-medium inline-flex self-start mb-6"
-                      style={{
-                        background: `hsl(${brand.accentHsl} / 0.08)`,
-                        color: `hsl(${brand.accentHsl})`,
-                        fontFamily: "var(--font-body)",
-                        border: `1px solid hsl(${brand.accentHsl} / 0.2)`,
-                      }}
-                    >
-                      {brand.services[0].price}
-                    </div>
-
-                    {/* cta */}
-                    <div
-                      className="inline-flex items-center gap-1.5 text-sm font-medium"
-                      style={{ color: `hsl(${brand.accentHsl})`, fontFamily: "var(--font-body)" }}
-                    >
+                  {/* bottom row */}
+                  <div className="flex items-center justify-between">
+                    <div className="inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: `hsl(${brand.accentHsl})`, fontFamily: "var(--font-body)" }}>
                       Eksploro
                       <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
                     </div>
+
+                    {/* external domain link — separate element, stops card click propagation */}
+                    <a
+                      href={brand.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1 text-xs transition-opacity hover:opacity-70"
+                      style={{ color: "hsl(220 10% 58%)", fontFamily: "var(--font-body)", textDecoration: "none" }}
+                    >
+                      <ExternalLink size={11} />
+                      {brand.subdomain}
+                    </a>
                   </div>
-                </motion.div>
-              </a>
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

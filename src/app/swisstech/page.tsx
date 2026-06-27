@@ -2,8 +2,8 @@ import { BrandPage } from "@/components/BrandPage";
 import { BRANDS } from "@/lib/brands";
 
 export const metadata = {
-  title: "SWISSTECH — Precision Window & Facade Systems",
-  description: "Swiss-engineered window systems, curtain walls, and facade solutions for luxury architecture.",
+  title: "SWISSTECH — Dritare & Fasada",
+  description: "Prodhim dhe montim i dritareve dhe dyerve PVC e alumini me cilësi evropiane.",
 };
 
 export default function SwissTechPage() {
