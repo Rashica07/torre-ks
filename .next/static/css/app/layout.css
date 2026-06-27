@@ -1331,15 +1331,12 @@ video {
 }
 
 :root {
-  --ink:    20 6% 4%;
-  --cream:  38 18% 92%;
-  --warm:   38 14% 88%;
-
-  --background:         var(--ink);
-  --foreground:         var(--cream);
-  --muted:              20 5% 12%;
-  --muted-foreground:   38 8% 62%;
-  --border:             38 12% 88%;
+  --bg:               40 14% 97%;
+  --bg-alt:           220 8% 94%;
+  --surface:          0 0% 100%;
+  --foreground:       220 20% 10%;
+  --muted-fg:         220 8% 46%;
+  --border:           220 10% 86%;
 
   --font-display: "Playfair Display", Georgia, serif;
   --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
@@ -1347,7 +1344,7 @@ video {
   --max: 1440px;
 }
 
-html, body { background: hsl(var(--background)); color: hsl(var(--foreground)); }
+html, body { background: hsl(var(--bg)); color: hsl(var(--foreground)); }
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
@@ -1356,44 +1353,31 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── Noise overlay for cinematic texture ─── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
+/* ─── Cards ─── */
+.card {
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  border-color: hsl(var(--border) / 0.6);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
 }
 
-/* ─── Glass UI ─── */
-.glass {
-  background: rgba(255,255,255,0.035);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(255,255,255,0.09);
-}
-.glass-pill {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.glass-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  transition: background 0.35s ease, border-color 0.35s ease;
-}
-.glass-card:hover {
-  background: rgba(255,255,255,0.055);
-  border-color: rgba(255,255,255,0.14);
+/* ─── Navbar frosted (dark on white) ─── */
+.nav-frosted {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
 }
 
 /* ─── Section fades ─── */
-.fade-b { background: linear-gradient(to bottom, transparent, hsl(var(--background))); }
-.fade-t { background: linear-gradient(to top, transparent, hsl(var(--background))); }
+.fade-b { background: linear-gradient(to bottom, transparent, hsl(var(--bg))); }
+.fade-t { background: linear-gradient(to top, transparent, hsl(var(--bg))); }
+.fade-b-alt { background: linear-gradient(to bottom, transparent, hsl(var(--bg-alt))); }
+.fade-t-alt { background: linear-gradient(to top, transparent, hsl(var(--bg-alt))); }
 
 /* ─── Marquee ─── */
 @keyframes marquee     { from { transform: translateX(0) }    to { transform: translateX(-50%) } }
@@ -1401,12 +1385,8 @@ body::before {
 .animate-marquee     { animation: marquee     30s linear infinite; }
 .animate-marquee-rev { animation: marquee-rev 34s linear infinite; }
 
-/* ─── Thin accent line ─── */
-.accent-line {
-  width: 40px;
-  height: 1px;
-  display: block;
-}
+/* ─── Accent line ─── */
+.accent-line { width: 36px; height: 1.5px; display: inline-block; flex-shrink: 0; }
 
 *:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 

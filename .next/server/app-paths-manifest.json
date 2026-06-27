@@ -1,7 +1,4 @@
 {
-  "/magfa/page": "app/magfa/page.js",
-  "/swisstech/page": "app/swisstech/page.js",
-  "/torre-umbria/page": "app/torre-umbria/page.js",
   "/page": "app/page.js",
-  "/torre-home/page": "app/torre-home/page.js"
+  "/magfa/page": "app/magfa/page.js"
 }
