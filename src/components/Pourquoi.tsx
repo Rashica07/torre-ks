@@ -1,9 +1,11 @@
 "use client";
 import { ShieldCheck, Clock, Leaf, Award } from "lucide-react";
-import { motion } from "framer-motion";
 import type { Brand } from "@/lib/brands";
 
-const PILLARS_BY_BRAND: Record<string, { icon: React.ElementType; title: string; body: string }[]> = {
+const PILLARS_BY_BRAND: Record<
+  string,
+  { icon: React.ElementType; title: string; body: string }[]
+> = {
   magfa: [
     { icon: ShieldCheck, title: "E Siguruar Plotësisht", body: "Çdo projekt mbulohet nga sigurimi i plotë ndërtimor. Investimi juaj është i mbrojtur në çdo fazë." },
     { icon: Clock, title: "Dorëzim në Kohë", body: "Dorëzojmë në datën e kontratës. Programi ynë është angazhim, jo vlerësim." },
@@ -32,76 +34,45 @@ const PILLARS_BY_BRAND: Record<string, { icon: React.ElementType; title: string;
 
 export function Pourquoi({ brand }: { brand: Brand }) {
   const pillars = PILLARS_BY_BRAND[brand.id] || PILLARS_BY_BRAND.magfa;
-  const accent = `hsl(${brand.accentHsl})`;
+  const t = brand.theme;
 
   return (
-    <section id="pourquoi" className="py-24 md:py-36" style={{ background: "hsl(var(--bg-alt))" }}>
-      <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)]">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2.2fr] gap-16 lg:gap-24">
+    <section id="pourquoi" className="py-20 md:py-32" style={{ background: t.bgAlt }}>
+      <div className="mx-auto px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-14 lg:gap-20">
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="accent-line" style={{ background: accent }} />
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-                Pse Ne
-              </span>
-            </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(28px, 3.5vw, 54px)",
-                lineHeight: 0.93,
-                letterSpacing: "-0.022em",
-                color: "hsl(var(--foreground))",
-                marginBottom: "20px",
-              }}
-            >
+            <span className="block text-[11px] tracking-[0.18em] uppercase mb-6" style={{ color: t.accent }}>
+              Pse Ne
+            </span>
+            <h2 className="mb-5" style={{ fontSize: "clamp(26px, 3.2vw, 44px)", color: t.fg }}>
               Besimi Ndërtohet Para Gurit të Parë.
             </h2>
-            <p style={{ color: "hsl(var(--muted-fg))", fontFamily: "var(--font-body)", fontSize: "14px", lineHeight: 1.7 }}>
+            <p className="text-sm leading-relaxed" style={{ color: t.muted }}>
               Katër standarde të palëvizshme në çdo projekt të {brand.name}.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {pillars.map(({ icon: Icon, title, body }, i) => (
-              <motion.div
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 gap-px rounded-xl overflow-hidden"
+            style={{ border: `1px solid ${t.border}` }}
+          >
+            {pillars.map(({ icon: Icon, title, body }) => (
+              <div
                 key={title}
-                className="rounded-2xl p-7 flex flex-col gap-5"
-                style={{
-                  background: "hsl(var(--surface))",
-                  border: "1px solid hsl(var(--border))",
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                viewport={{ once: true, margin: "-60px" }}
+                className="p-7 flex flex-col gap-5"
+                style={{ background: t.surface }}
               >
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{ background: `hsl(${brand.accentHsl} / 0.08)`, border: `1px solid hsl(${brand.accentHsl} / 0.18)` }}
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `${t.accent}12` }}
                 >
-                  <Icon style={{ width: "17px", height: "17px", color: accent }} />
+                  <Icon style={{ width: "16px", height: "16px", color: t.accent }} />
                 </div>
                 <div>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "18px",
-                      lineHeight: 1.15,
-                      letterSpacing: "-0.01em",
-                      color: "hsl(var(--foreground))",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {title}
-                  </h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "hsl(var(--muted-fg))", lineHeight: 1.7 }}>
-                    {body}
-                  </p>
+                  <h3 className="text-base mb-2" style={{ color: t.fg }}>{title}</h3>
+                  <p className="text-[13px] leading-relaxed" style={{ color: t.muted }}>{body}</p>
                 </div>
-                <div className="h-px mt-auto" style={{ background: `linear-gradient(to right, hsl(${brand.accentHsl} / 0.3), transparent)` }} />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

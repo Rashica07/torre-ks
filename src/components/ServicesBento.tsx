@@ -1,6 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Building2, HardHat, Sparkles, Layers, TrendingUp, Star, Square, Building, Sun, Wrench, ShieldCheck, Home, Briefcase, MapPin, Zap, Leaf } from "lucide-react";
+import { ArrowRight, Building2, HardHat, Sparkles, Layers, TrendingUp, Star, Square, Building, Sun, Wrench, ShieldCheck, Home, Briefcase, MapPin, Zap, Leaf } from "lucide-react";
 import type { Brand } from "@/lib/brands";
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -10,115 +9,61 @@ const ICON_MAP: Record<string, React.ElementType> = {
 type Props = { brand: Brand };
 
 export function ServicesBento({ brand }: Props) {
-  const accent = `hsl(${brand.accentHsl})`;
+  const t = brand.theme;
 
   return (
-    <section id="services" className="py-24 md:py-36" style={{ background: "hsl(var(--bg))" }}>
-      <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)]">
-        <div className="flex items-end justify-between mb-16 gap-8 flex-wrap">
-          <div className="max-w-xl">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="accent-line" style={{ background: accent }} />
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-                Shërbimet
-              </span>
-            </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(32px, 4.2vw, 64px)",
-                lineHeight: 0.93,
-                letterSpacing: "-0.022em",
-                color: "hsl(var(--foreground))",
-              }}
-            >
-              Çfarë Ndërtojmë.<br />
-              <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>Çfarë Ofrojmë.</span>
-            </h2>
-          </div>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--muted-fg))", maxWidth: "32ch", lineHeight: 1.7 }}>
-            Gjashtë shërbime. Çdo projekt i realizuar me standarde të larta cilësie.
+    <section id="services" className="py-20 md:py-32" style={{ background: t.bg }}>
+      <div className="mx-auto px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
+        <div className="mb-16">
+          <span className="block text-[11px] tracking-[0.18em] uppercase mb-5" style={{ color: t.accent }}>
+            Shërbimet
+          </span>
+          <h2 className="mb-4" style={{ fontSize: "clamp(28px, 4vw, 52px)", color: t.fg }}>
+            Çfarë Ofrojmë.
+          </h2>
+          <p className="text-sm" style={{ color: t.muted, maxWidth: "40ch" }}>
+            Gjashtë shërbime. Çdo projekt i realizuar me standarde të larta.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {brand.services.map((service, i) => {
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px rounded-xl overflow-hidden"
+          style={{ border: `1px solid ${t.border}` }}
+        >
+          {brand.services.map((service) => {
             const Icon = ICON_MAP[service.icon] || Building2;
-            const isFeature = i === 0;
             return (
-              <motion.div
+              <div
                 key={service.title}
-                className={`rounded-2xl p-7 relative overflow-hidden group cursor-pointer ${isFeature ? "md:row-span-2" : ""}`}
-                whileHover={{ y: -3, boxShadow: "0 8px 32px rgba(0,0,0,0.09)" }}
-                transition={{ type: "spring", stiffness: 280, damping: 28 }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                style={{
-                  transitionDelay: `${i * 0.06}s`,
-                  background: "hsl(var(--surface))",
-                  border: "1px solid hsl(var(--border))",
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-                }}
+                className="p-7 flex flex-col gap-5"
+                style={{ background: t.surface }}
               >
-                {/* hover accent line */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: `linear-gradient(to right, transparent, ${accent}, transparent)` }}
-                />
-
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-6"
-                  style={{ background: `hsl(${brand.accentHsl} / 0.08)`, border: `1px solid hsl(${brand.accentHsl} / 0.18)` }}
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `${t.accent}12` }}
                 >
-                  <Icon style={{ width: "17px", height: "17px", color: accent }} />
+                  <Icon style={{ width: "16px", height: "16px", color: t.accent }} />
                 </div>
 
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: isFeature ? "clamp(22px, 2.2vw, 32px)" : "clamp(17px, 1.6vw, 22px)",
-                    lineHeight: 0.97,
-                    letterSpacing: "-0.015em",
-                    color: "hsl(var(--foreground))",
-                    marginBottom: "12px",
-                    maxWidth: "20ch",
-                  }}
-                >
-                  {service.title}
-                </h3>
+                <div className="flex-1">
+                  <h3 className="mb-2" style={{ fontSize: "clamp(16px, 1.4vw, 20px)", color: t.fg }}>
+                    {service.title}
+                  </h3>
+                  <p className="text-[13px] leading-relaxed" style={{ color: t.muted }}>
+                    {service.description}
+                  </p>
+                </div>
 
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "13px",
-                    color: "hsl(var(--muted-fg))",
-                    lineHeight: 1.7,
-                    maxWidth: "38ch",
-                  }}
+                <div
+                  className="flex items-center justify-between pt-4"
+                  style={{ borderTop: `1px solid ${t.border}` }}
                 >
-                  {service.description}
-                </p>
-
-                <div className="mt-6 flex items-center justify-between">
-                  <span
-                    className="rounded-full px-3 py-1 text-xs font-medium"
-                    style={{
-                      background: `hsl(${brand.accentHsl} / 0.08)`,
-                      color: accent,
-                      fontFamily: "var(--font-body)",
-                      border: `1px solid hsl(${brand.accentHsl} / 0.18)`,
-                    }}
-                  >
+                  <span className="text-xs font-medium" style={{ color: t.accent }}>
                     {service.price}
                   </span>
-                  <ArrowUpRight
-                    size={16}
-                    className="opacity-20 group-hover:opacity-60 transition-opacity"
-                    style={{ color: accent }}
-                  />
+                  <ArrowRight size={14} style={{ color: t.border }} />
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

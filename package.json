@@ -11,8 +11,6 @@
     "start": "next start --port 5000"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.2.8",
-    "@fontsource/playfair-display": "^5.2.8",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.400.0",

@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { BRANDS } from "@/lib/brands";
 import { useRouter } from "next/navigation";
 
@@ -9,169 +9,130 @@ export default function CompanySelector() {
 
   return (
     <main
-      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center"
       style={{ background: "hsl(var(--bg))" }}
     >
-      {/* subtle grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(hsl(220 10% 86% / 0.5) 1px, transparent 1px), linear-gradient(90deg, hsl(220 10% 86% / 0.5) 1px, transparent 1px)`,
-          backgroundSize: "72px 72px",
-        }}
-      />
-      {/* ambient top glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse 70% 45% at 50% 0%, hsl(200 60% 92% / 0.6) 0%, transparent 65%)",
-        }}
-      />
-
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-[var(--gutter)] py-24 flex flex-col items-center">
-
+      <div className="w-full max-w-[var(--max)] mx-auto px-[var(--gutter)] py-24 flex flex-col items-center">
         {/* eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-3 mb-14"
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="text-xs tracking-[0.2em] uppercase mb-10"
+          style={{ color: "hsl(var(--muted))" }}
         >
-          <span className="w-8 h-px" style={{ background: "hsl(220 14% 60%)" }} />
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.2em", color: "hsl(220 14% 50%)", textTransform: "uppercase" }}>
-            Torre Group — torre-ks.com
-          </span>
-          <span className="w-8 h-px" style={{ background: "hsl(220 14% 60%)" }} />
-        </motion.div>
+          Torre Group
+        </motion.span>
 
         {/* headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-6"
+          transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-5"
           style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(42px, 7.5vw, 112px)",
-            lineHeight: 0.9,
-            letterSpacing: "-0.028em",
-            color: "hsl(var(--foreground))",
+            fontSize: "clamp(36px, 6vw, 80px)",
+            color: "hsl(var(--fg))",
           }}
         >
-          Një Grup.{" "}
-          <span style={{ color: "hsl(174 62% 38%)" }}>Katër Kompani.</span>
+          Një Grup.
+          <br />
+          <span style={{ color: "hsl(var(--muted))" }}>Katër Kompani.</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
+          transition={{ delay: 0.25, duration: 0.6 }}
           className="text-center mb-20"
           style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "clamp(14px, 1.1vw, 17px)",
-            color: "hsl(var(--muted-fg))",
-            maxWidth: "44ch",
+            fontSize: "clamp(14px, 1vw, 16px)",
+            color: "hsl(var(--muted))",
+            maxWidth: "42ch",
             lineHeight: 1.7,
           }}
         >
-          Zgjidhni një kompani për të eksploruar shërbimet, portofolin dhe ekspertizën e tyre.
+          Zgjidhni një kompani për të eksploruar shërbimet, portofolin dhe
+          ekspertizën e tyre.
         </motion.p>
 
         {/* brand cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px w-full rounded-xl overflow-hidden"
+          style={{ border: "1px solid hsl(var(--border))" }}
+        >
           {BRANDS.map((brand, i) => (
-            <motion.div
+            <motion.button
               key={brand.id}
-              initial={{ opacity: 0, y: 32 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.14 + i * 0.09, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                delay: 0.15 + i * 0.08,
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              onClick={() => router.push(brand.path)}
+              className="text-left flex flex-col justify-between group"
+              style={{
+                padding: "32px 28px",
+                minHeight: "280px",
+                background: "hsl(var(--surface))",
+                borderRight:
+                  i < BRANDS.length - 1
+                    ? "1px solid hsl(var(--border))"
+                    : undefined,
+                cursor: "pointer",
+              }}
             >
-              <motion.div
-                className="rounded-2xl relative overflow-hidden flex flex-col cursor-pointer group"
-                style={{
-                  minHeight: "400px",
-                  background: "hsl(var(--surface))",
-                  border: "1px solid hsl(var(--border))",
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
-                }}
-                whileHover={{ y: -5, boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
-                transition={{ type: "spring", stiffness: 260, damping: 26 }}
-                onClick={() => router.push(brand.path)}
+              <div>
+                {/* accent dot */}
+                <div
+                  className="w-2 h-2 rounded-full mb-8"
+                  style={{ background: `hsl(${brand.accentHsl})` }}
+                />
+
+                {/* category */}
+                <span
+                  className="block text-[10px] tracking-[0.15em] uppercase mb-3"
+                  style={{ color: "hsl(var(--muted))" }}
+                >
+                  {brand.category}
+                </span>
+
+                {/* name */}
+                <h2
+                  className="mb-3"
+                  style={{
+                    fontSize: "clamp(20px, 2vw, 24px)",
+                    color: "hsl(var(--fg))",
+                  }}
+                >
+                  {brand.name}
+                </h2>
+
+                {/* desc */}
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{
+                    color: "hsl(var(--muted))",
+                    maxWidth: "28ch",
+                  }}
+                >
+                  {brand.tagline}
+                </p>
+              </div>
+
+              {/* bottom link */}
+              <div
+                className="flex items-center gap-2 text-sm mt-6 transition-all duration-200 group-hover:gap-3"
+                style={{ color: `hsl(${brand.accentHsl})` }}
               >
-                {/* hover glow */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{ background: `radial-gradient(ellipse 80% 70% at 50% 30%, hsl(${brand.accentHsl} / 0.06) 0%, transparent 65%)` }}
+                Eksploro
+                <ArrowRight
+                  size={14}
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
                 />
-                {/* hover border */}
-                <div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{ border: `1px solid hsl(${brand.accentHsl} / 0.35)` }}
-                />
-
-                <div className="relative z-10 p-7 flex flex-col h-full">
-                  {/* accent dot */}
-                  <div className="w-2.5 h-2.5 rounded-full mb-8" style={{ background: `hsl(${brand.accentHsl})` }} />
-
-                  {/* category */}
-                  <span style={{
-                    fontFamily: "var(--font-body)", fontSize: "10px", letterSpacing: "0.16em",
-                    color: `hsl(${brand.accentHsl})`, marginBottom: "10px", display: "block", textTransform: "uppercase",
-                  }}>
-                    {brand.category}
-                  </span>
-
-                  {/* name */}
-                  <h2 style={{
-                    fontFamily: "var(--font-display)", fontSize: "clamp(22px, 2.2vw, 28px)",
-                    lineHeight: 1.0, letterSpacing: "-0.015em", color: "hsl(var(--foreground))", marginBottom: "14px",
-                  }}>
-                    {brand.name}
-                  </h2>
-
-                  {/* desc */}
-                  <p style={{
-                    fontFamily: "var(--font-body)", fontSize: "13px", color: "hsl(var(--muted-fg))",
-                    lineHeight: 1.65, marginBottom: "24px", flex: 1,
-                  }}>
-                    {brand.description}
-                  </p>
-
-                  {/* price badge */}
-                  <div
-                    className="rounded-full px-3 py-1 text-xs font-medium inline-flex self-start mb-5"
-                    style={{
-                      background: `hsl(${brand.accentHsl} / 0.08)`, color: `hsl(${brand.accentHsl})`,
-                      fontFamily: "var(--font-body)", border: `1px solid hsl(${brand.accentHsl} / 0.2)`,
-                    }}
-                  >
-                    {brand.services[0].price}
-                  </div>
-
-                  {/* bottom row */}
-                  <div className="flex items-center justify-between">
-                    <div className="inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: `hsl(${brand.accentHsl})`, fontFamily: "var(--font-body)" }}>
-                      Eksploro
-                      <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-                    </div>
-
-                    {/* external domain link — separate element, stops card click propagation */}
-                    <a
-                      href={brand.externalUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 text-xs transition-opacity hover:opacity-70"
-                      style={{ color: "hsl(220 10% 58%)", fontFamily: "var(--font-body)", textDecoration: "none" }}
-                    >
-                      <ExternalLink size={11} />
-                      {brand.subdomain}
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </motion.button>
           ))}
         </div>
 
@@ -179,11 +140,11 @@ export default function CompanySelector() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.7, duration: 0.6 }}
-          className="mt-20 text-center"
-          style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "hsl(220 10% 55%)", letterSpacing: "0.06em" }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+          className="mt-16 text-center text-[11px] tracking-wide"
+          style={{ color: "hsl(var(--muted))" }}
         >
-          &copy; {new Date().getFullYear()} TORRE GROUP — torre-ks.com &nbsp;&middot;&nbsp; MAGFA &nbsp;&middot;&nbsp; SWISSTECH &nbsp;&middot;&nbsp; TORRE DI UMBRIA &nbsp;&middot;&nbsp; TORRE HOME
+          &copy; {new Date().getFullYear()} Torre Group — torre-ks.com
         </motion.p>
       </div>
     </main>

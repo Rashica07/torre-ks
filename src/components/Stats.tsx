@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
-import { motion } from "framer-motion";
 import type { Brand } from "@/lib/brands";
 
 function CountUp({ value, inView }: { value: string; inView: boolean }) {
@@ -32,82 +30,47 @@ function CountUp({ value, inView }: { value: string; inView: boolean }) {
 
 export function Stats({ brand }: { brand: Brand }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const accent = `hsl(${brand.accentHsl})`;
+  const [inView, setInView] = useState(false);
+  const t = brand.theme;
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { rootMargin: "-100px" }
+    );
+    obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <section id="stats" className="py-24 md:py-36 relative overflow-hidden" style={{ background: "hsl(var(--bg-alt))" }}>
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 60% 50% at 50% 50%, hsl(${brand.accentHsl} / 0.05) 0%, transparent 65%)`,
-        }}
-      />
-
-      <div className="relative z-10 max-w-[var(--max)] mx-auto px-[var(--gutter)]">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="accent-line" style={{ background: accent }} />
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-            Në Numra
-          </span>
-        </div>
-        <h2
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(30px, 4.5vw, 68px)",
-            lineHeight: 0.93,
-            letterSpacing: "-0.022em",
-            color: "hsl(var(--foreground))",
-            marginBottom: "60px",
-          }}
-        >
+    <section id="stats" className="py-20 md:py-32" style={{ background: t.bgAlt }}>
+      <div className="mx-auto px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
+        <span className="block text-[11px] tracking-[0.18em] uppercase mb-5" style={{ color: t.accent }}>
+          Në Numra
+        </span>
+        <h2 className="mb-14" style={{ fontSize: "clamp(28px, 4vw, 52px)", color: t.fg }}>
           Numrat Flasin Vetë.
         </h2>
 
         <div
           ref={ref}
-          className="grid grid-cols-2 lg:grid-cols-4"
-          style={{ border: "1px solid hsl(var(--border))", borderRadius: "16px", overflow: "hidden", background: "hsl(var(--surface))" }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-xl overflow-hidden"
+          style={{ border: `1px solid ${t.border}` }}
         >
-          {brand.stats.map((stat, i) => (
-            <motion.div
+          {brand.stats.map((stat) => (
+            <div
               key={stat.label}
-              className="p-8 md:p-10 flex flex-col gap-2 relative"
-              style={{
-                borderRight: i < 3 ? "1px solid hsl(var(--border))" : undefined,
-                borderBottom: i < 2 ? "1px solid hsl(var(--border))" : undefined,
-              }}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              viewport={{ once: true, margin: "-60px" }}
+              className="p-8 md:p-10 flex flex-col gap-2"
+              style={{ background: t.surface }}
             >
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(32px, 4vw, 60px)",
-                  lineHeight: 1,
-                  letterSpacing: "-0.025em",
-                  color: "hsl(var(--foreground))",
-                }}
-              >
+              <div style={{ fontSize: "clamp(28px, 3.5vw, 48px)", color: t.fg, lineHeight: 1 }}>
                 <CountUp value={stat.value} inView={inView} />
               </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "12px",
-                  color: "hsl(var(--muted-fg))",
-                  letterSpacing: "0.04em",
-                }}
-              >
+              <div className="text-xs" style={{ color: t.muted, letterSpacing: "0.03em" }}>
                 {stat.label}
               </div>
-              <div
-                className="absolute bottom-0 left-0 right-0 h-0.5"
-                style={{ background: `linear-gradient(to right, hsl(${brand.accentHsl} / 0.25), transparent)` }}
-              />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

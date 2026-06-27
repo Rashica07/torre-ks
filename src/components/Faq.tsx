@@ -1,107 +1,71 @@
 "use client";
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import type { Brand } from "@/lib/brands";
 
-function Item({ item, i, accent }: { item: { q: string; a: string }; i: number; accent: string }) {
+function Item({ item, accent, fg, muted, border }: {
+  item: { q: string; a: string }; accent: string; fg: string; muted: string; border: string;
+}) {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ borderBottom: "1px solid hsl(var(--border))" }}>
+    <div style={{ borderBottom: `1px solid ${border}` }}>
       <button
-        className="w-full flex items-start justify-between py-6 text-left gap-6"
+        className="w-full flex items-start justify-between py-5 text-left gap-6"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
         <span
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(15px, 1.4vw, 19px)",
-            letterSpacing: "-0.01em",
-            color: open ? `hsl(${accent})` : "hsl(var(--foreground))",
-            transition: "color 0.2s",
-            lineHeight: 1.25,
-          }}
+          className="text-[15px]"
+          style={{ color: open ? accent : fg, transition: "color 0.2s", lineHeight: 1.4 }}
         >
           {item.q}
         </span>
         <span className="shrink-0 mt-0.5">
-          {open
-            ? <Minus size={15} style={{ color: `hsl(${accent})` }} />
-            : <Plus size={15} style={{ color: "hsl(var(--muted-fg))" }} />
-          }
+          {open ? <Minus size={14} style={{ color: accent }} /> : <Plus size={14} style={{ color: muted }} />}
         </span>
       </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            key={`faq-${i}`}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            style={{ overflow: "hidden" }}
-          >
-            <p
-              className="pb-6"
-              style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--muted-fg))", lineHeight: 1.75, maxWidth: "60ch" }}
-            >
-              {item.a}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div
+        className="grid transition-all duration-300 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <p className="pb-5 text-sm leading-relaxed" style={{ color: muted, maxWidth: "56ch" }}>
+            {item.a}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
 
 export function Faq({ brand }: { brand: Brand }) {
-  const accent = `hsl(${brand.accentHsl})`;
+  const t = brand.theme;
 
   return (
-    <section id="faq" className="py-24 md:py-36" style={{ background: "hsl(var(--bg-alt))" }}>
-      <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)]">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-16 lg:gap-28">
+    <section id="faq" className="py-20 md:py-32" style={{ background: t.bgAlt }}>
+      <div className="mx-auto px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-14 lg:gap-24">
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="accent-line" style={{ background: accent }} />
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-                Pyetje të Shpeshta
-              </span>
-            </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(26px, 3.2vw, 50px)",
-                lineHeight: 0.93,
-                letterSpacing: "-0.022em",
-                color: "hsl(var(--foreground))",
-                marginBottom: "20px",
-              }}
-            >
+            <span className="block text-[11px] tracking-[0.18em] uppercase mb-6" style={{ color: t.accent }}>
+              Pyetje të Shpeshta
+            </span>
+            <h2 className="mb-5" style={{ fontSize: "clamp(24px, 3vw, 42px)", color: t.fg }}>
               Pyetje me Përgjigje.
             </h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "32px" }}>
+            <p className="text-sm leading-relaxed mb-8" style={{ color: t.muted }}>
               Nuk gjeni përgjigjen? Kontaktoni ekipin tonë direkt.
             </p>
             <a
               href="#contact"
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "13px",
-                color: accent,
-                fontWeight: 500,
-                textDecoration: "none",
-                borderBottom: `1px solid hsl(${brand.accentHsl} / 0.35)`,
-                paddingBottom: "2px",
-              }}
+              className="text-[13px] font-medium no-underline"
+              style={{ color: t.accent, borderBottom: `1px solid ${t.accent}40`, paddingBottom: "2px" }}
             >
               Na kontaktoni →
             </a>
           </div>
           <div>
             {brand.faqs.map((item, i) => (
-              <Item key={i} item={item} i={i} accent={brand.accentHsl} />
+              <Item key={i} item={item} accent={t.accent} fg={t.fg} muted={t.muted} border={t.border} />
             ))}
           </div>
         </div>

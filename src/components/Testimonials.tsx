@@ -1,36 +1,30 @@
 "use client";
-import { Star } from "lucide-react";
 import type { Brand } from "@/lib/brands";
-import { motion } from "framer-motion";
 
-function Card({ quote, name, role, rating, accent }: { quote: string; name: string; role: string; rating: number; accent: string }) {
+function Card({
+  quote, name, role, surface, border, fg, muted, bgAlt,
+}: {
+  quote: string; name: string; role: string;
+  surface: string; border: string; fg: string; muted: string; bgAlt: string;
+}) {
   return (
     <div
-      className="flex flex-col gap-5 shrink-0 w-[300px] md:w-[340px] p-6 rounded-2xl"
-      style={{
-        background: "hsl(var(--surface))",
-        border: "1px solid hsl(var(--border))",
-        boxShadow: "0 1px 8px rgba(0,0,0,0.05)",
-      }}
+      className="flex flex-col gap-5 shrink-0 w-[280px] md:w-[320px] p-6 rounded-xl"
+      style={{ background: surface, border: `1px solid ${border}` }}
     >
-      <div className="flex gap-1">
-        {Array.from({ length: rating }).map((_, i) => (
-          <Star key={i} style={{ width: "12px", height: "12px", fill: `hsl(${accent})`, color: `hsl(${accent})` }} />
-        ))}
-      </div>
-      <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "hsl(var(--muted-fg))", lineHeight: 1.75, flex: 1 }}>
+      <p className="text-[13px] leading-relaxed flex-1" style={{ color: muted }}>
         &ldquo;{quote}&rdquo;
       </p>
       <div className="flex items-center gap-3">
         <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
-          style={{ background: `hsl(${accent} / 0.10)`, color: `hsl(${accent})`, fontFamily: "var(--font-display)" }}
+          className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-semibold shrink-0"
+          style={{ background: bgAlt, color: fg }}
         >
           {name.charAt(0)}
         </div>
         <div>
-          <div style={{ fontFamily: "var(--font-body)", fontSize: "13px", fontWeight: 500, color: "hsl(var(--foreground))" }}>{name}</div>
-          <div style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "hsl(var(--muted-fg))", letterSpacing: "0.03em" }}>{role}</div>
+          <div className="text-[13px] font-medium" style={{ color: fg }}>{name}</div>
+          <div className="text-[11px]" style={{ color: muted }}>{role}</div>
         </div>
       </div>
     </div>
@@ -38,29 +32,18 @@ function Card({ quote, name, role, rating, accent }: { quote: string; name: stri
 }
 
 export function Testimonials({ brand }: { brand: Brand }) {
-  const t = brand.testimonials;
-  const row1 = [...t, ...t];
-  const row2 = [...t.slice(3), ...t.slice(0, 3), ...t.slice(3), ...t.slice(0, 3)];
-  const accent = `hsl(${brand.accentHsl})`;
+  const t = brand.theme;
+  const items = brand.testimonials;
+  const row1 = [...items, ...items];
+  const row2 = [...items.slice(3), ...items.slice(0, 3), ...items.slice(3), ...items.slice(0, 3)];
 
   return (
-    <section id="testimonials" className="py-24 md:py-36 overflow-hidden" style={{ background: "hsl(var(--bg))" }}>
-      <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)] mb-16">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="accent-line" style={{ background: accent }} />
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-            Dëshmitë
-          </span>
-        </div>
-        <h2
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(28px, 3.8vw, 58px)",
-            lineHeight: 0.93,
-            letterSpacing: "-0.022em",
-            color: "hsl(var(--foreground))",
-          }}
-        >
+    <section id="testimonials" className="py-20 md:py-32 overflow-hidden" style={{ background: t.bg }}>
+      <div className="mx-auto px-[var(--gutter)] mb-14" style={{ maxWidth: "var(--max)" }}>
+        <span className="block text-[11px] tracking-[0.18em] uppercase mb-5" style={{ color: t.accent }}>
+          Dëshmitë
+        </span>
+        <h2 style={{ fontSize: "clamp(26px, 3.5vw, 48px)", color: t.fg }}>
           Çfarë Thonë Klientët Tanë.
         </h2>
       </div>
@@ -72,19 +55,15 @@ export function Testimonials({ brand }: { brand: Brand }) {
           WebkitMaskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
         }}
       >
-        <div
-          className="flex gap-4 w-max animate-marquee"
-          onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.animationPlayState = "paused"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.animationPlayState = "running"; }}
-        >
-          {row1.map((t, i) => <Card key={i} {...t} accent={brand.accentHsl} />)}
+        <div className="flex gap-4 w-max animate-marquee">
+          {row1.map((item, i) => (
+            <Card key={i} {...item} surface={t.surface} border={t.border} fg={t.fg} muted={t.muted} bgAlt={t.bgAlt} />
+          ))}
         </div>
-        <div
-          className="flex gap-4 w-max animate-marquee-rev"
-          onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.animationPlayState = "paused"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.animationPlayState = "running"; }}
-        >
-          {row2.map((t, i) => <Card key={i} {...t} accent={brand.accentHsl} />)}
+        <div className="flex gap-4 w-max animate-marquee-rev">
+          {row2.map((item, i) => (
+            <Card key={i} {...item} surface={t.surface} border={t.border} fg={t.fg} muted={t.muted} bgAlt={t.bgAlt} />
+          ))}
         </div>
       </div>
     </section>

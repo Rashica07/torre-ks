@@ -1,71 +1,62 @@
-@import "@fontsource/playfair-display/400.css";
-@import "@fontsource/playfair-display/500.css";
-@import "@fontsource/playfair-display/700.css";
-@import "@fontsource/inter/300.css";
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Design Tokens ─── */
 :root {
-  --bg:               40 14% 97%;
-  --bg-alt:           220 8% 94%;
-  --surface:          0 0% 100%;
-  --foreground:       220 20% 10%;
-  --muted-fg:         220 8% 46%;
-  --border:           220 10% 86%;
-
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
-  --gutter: clamp(20px, 4.2vw, 72px);
-  --max: 1440px;
+  --bg: 0 0% 98%;
+  --bg-alt: 0 0% 95%;
+  --surface: 0 0% 100%;
+  --fg: 0 0% 8%;
+  --muted: 0 0% 45%;
+  --border: 0 0% 90%;
+  --radius: 12px;
+  --max: 1200px;
+  --gutter: clamp(20px, 5vw, 64px);
 }
 
-html, body { background: hsl(var(--bg)); color: hsl(var(--foreground)); }
-html { scroll-behavior: smooth; }
+/* ─── Base ─── */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  background: hsl(var(--bg));
+  color: hsl(var(--fg));
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* ─── Cards ─── */
-.card {
-  background: hsl(var(--surface));
-  border: 1px solid hsl(var(--border));
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-.card:hover {
-  border-color: hsl(var(--border) / 0.6);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+/* ─── Typography ─── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
 }
 
-/* ─── Navbar frosted (dark on white) ─── */
-.nav-frosted {
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(0,0,0,0.08);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+/* ─── Focus ─── */
+*:focus-visible {
+  outline: 2px solid hsl(var(--fg));
+  outline-offset: 3px;
 }
-
-/* ─── Section fades ─── */
-.fade-b { background: linear-gradient(to bottom, transparent, hsl(var(--bg))); }
-.fade-t { background: linear-gradient(to top, transparent, hsl(var(--bg))); }
-.fade-b-alt { background: linear-gradient(to bottom, transparent, hsl(var(--bg-alt))); }
-.fade-t-alt { background: linear-gradient(to top, transparent, hsl(var(--bg-alt))); }
 
 /* ─── Marquee ─── */
-@keyframes marquee     { from { transform: translateX(0) }    to { transform: translateX(-50%) } }
-@keyframes marquee-rev { from { transform: translateX(-50%) } to { transform: translateX(0) } }
-.animate-marquee     { animation: marquee     30s linear infinite; }
-.animate-marquee-rev { animation: marquee-rev 34s linear infinite; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-rev {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.animate-marquee { animation: marquee 40s linear infinite; }
+.animate-marquee-rev { animation: marquee-rev 44s linear infinite; }
 
-/* ─── Accent line ─── */
-.accent-line { width: 36px; height: 1.5px; display: inline-block; flex-shrink: 0; }
-
-*:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+/* ─── Selection ─── */
+::selection {
+  background: hsl(var(--fg));
+  color: hsl(var(--bg));
+}

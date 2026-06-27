@@ -1,1 +1,1 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{},\"appUsingSizeAdjust\":false,\"pagesUsingSizeAdjust\":false}"
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/user/Documents/GitHub/torre-ks/src/app/layout\":[\"static/media/8e9860b6e62d6359-s.p.woff2\",\"static/media/e4af272ccee01ff0-s.p.woff2\",\"static/media/98848575513c9742-s.p.woff2\",\"static/media/7b0b24f36b1a6d0b-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"

@@ -1,3 +1,16 @@
+export type BrandTheme = {
+  bg: string;
+  bgAlt: string;
+  surface: string;
+  fg: string;
+  muted: string;
+  border: string;
+  accent: string;
+  accentFg: string;       // text color on accent bg
+  navBg: string;          // scrolled navbar bg
+  heroBg: string;         // hero section bg (can differ from page bg)
+};
+
 export type Brand = {
   id: string;
   name: string;
@@ -14,6 +27,7 @@ export type Brand = {
   stats: Stat[];
   testimonials: Testimonial[];
   faqs: Faq[];
+  theme: BrandTheme;
 };
 
 export type Service = { title: string; description: string; price: string; icon: string; };
@@ -30,7 +44,7 @@ export const BRANDS: Brand[] = [
     subdomain: "magfa.torre-ks.com",
     externalUrl: "https://magfa.torre-ks.com",
     path: "/magfa",
-    accentHsl: "174 62% 38%",
+    accentHsl: "200 100% 45%",
     category: "Ndërtim Rezidencial",
     heroHeadline: "Shtëpia Juaj, e Ndërtuar Saktë.",
     heroSub: "MAGFA GROUP specializohet në ndërtimin e shtëpive private dhe rezidenciale. Cilësi superiore, materiale premium dhe dorëzim në kohë — garantuar.",
@@ -63,6 +77,18 @@ export const BRANDS: Brand[] = [
       { q: "A kryeni punë edhe jashtë Prishtinës?", a: "Po — operojmë në të gjithë Kosovën, duke përfshirë Prizrenin, Ferizajn, Gjakovën, Pejën dhe Mitrovicën. Transporti dhe logjistika përfshihen në ofertë." },
       { q: "A mund të na ndihmoni me lejet e ndërtimit?", a: "Po — MAGFA GROUP ofron ndihmë të plotë me procedurën e lejeve të ndërtimit, duke punuar me arkitektë të licencuar dhe duke u marrë me të gjitha dokumentet e nevojshme." },
     ],
+    theme: {
+      bg: "#faf8f6",
+      bgAlt: "#f3efeb",
+      surface: "#ffffff",
+      fg: "#2c2420",
+      muted: "#8d7e74",
+      border: "#e0d6ce",
+      accent: "#00a0e9",
+      accentFg: "#ffffff",
+      navBg: "rgba(250, 248, 246, 0.92)",
+      heroBg: "#faf8f6",
+    },
   },
   {
     id: "swisstech",
@@ -72,7 +98,7 @@ export const BRANDS: Brand[] = [
     subdomain: "swisstech.torre-ks.com",
     externalUrl: "https://swisstech.torre-ks.com",
     path: "/swisstech",
-    accentHsl: "186 78% 38%",
+    accentHsl: "180 100% 30%",
     category: "Dritare & Fasada",
     heroHeadline: "Dritaret e Cilësisë Evropiane.",
     heroSub: "SWISSTECH prodhon dhe monton dritare e dyer PVC dhe alumini me precizion gjerman. Fabrika jonë garanton cilësi maksimale dhe izolim termik superior.",
@@ -105,6 +131,18 @@ export const BRANDS: Brand[] = [
       { q: "A bëni matje në terren?", a: "Po — ekipi ynë teknik vjen falas për matje të sakta në terren para se të fillojë prodhimi. Saktësia e matjes është çelësi i montimit perfekt." },
       { q: "A punoni me kontraktorë dhe arkitektë?", a: "Po — kemi program special për kontraktorë dhe arkitektë me çmime preferenciale, suport teknik dhe dorëzim prioritar. Na kontaktoni për partneritet." },
     ],
+    theme: {
+      bg: "#0f1419",
+      bgAlt: "#1a2028",
+      surface: "#1e2630",
+      fg: "#e8edf2",
+      muted: "#7a8a9a",
+      border: "#2a3642",
+      accent: "#009698",
+      accentFg: "#ffffff",
+      navBg: "rgba(15, 20, 25, 0.92)",
+      heroBg: "#0f1419",
+    },
   },
   {
     id: "torre-umbria",
@@ -114,7 +152,7 @@ export const BRANDS: Brand[] = [
     subdomain: "torre-umbria.torre-ks.com",
     externalUrl: "https://torre-umbria.torre-ks.com",
     path: "/torre-umbria",
-    accentHsl: "142 50% 36%",
+    accentHsl: "142 70% 45%",
     category: "Zhvillim Rezidencial",
     heroHeadline: "Ndërtesa Moderne. Cilësi e Garantuar.",
     heroSub: "TORRE DI UMBRIA zhvillon ndërtesa rezidenciale moderne në Kosovë — nga koncepti arkitekturor deri te dorëzimi final, me standarde ndërtimi të larta.",
@@ -147,6 +185,18 @@ export const BRANDS: Brand[] = [
       { q: "A merreni me të gjitha lejet e ndërtimit?", a: "Po — TORRE DI UMBRIA merret me të gjithë procesin e lejeve: urbanistike, ndërtimore, mjedisore dhe çdo dokument tjetër i nevojshëm nga institucionet kompetente." },
       { q: "A ofrohet garanci pas dorëzimit?", a: "Po — ofrojmë garanci 10-vjeçare për strukturën dhe fondaminët, 5-vjeçare për punimet e ndërtimit dhe 2-vjeçare për instalimet dhe punimet e brendshme." },
     ],
+    theme: {
+      bg: "#0a0f0a",
+      bgAlt: "#111a11",
+      surface: "#162016",
+      fg: "#e4f0e4",
+      muted: "#6b8a6b",
+      border: "#243024",
+      accent: "#22c55e",
+      accentFg: "#ffffff",
+      navBg: "rgba(10, 15, 10, 0.92)",
+      heroBg: "#0a0f0a",
+    },
   },
   {
     id: "torre-home",
@@ -189,5 +239,17 @@ export const BRANDS: Brand[] = [
       { q: "A janë apartamentet gati për t'u banuar?", a: "Apartamentet janë gati me finime standarde premium (dysheme laminat/parket, flise banje, bojëra, instalime elektrike dhe hidraulike). Opsioni i mobilimit është i disponueshëm." },
       { q: "A ka parking i siguruar?", a: "Po — çdo apartament ka të paktën 1 vend parkimi të siguruar. Apartamentet me 3 dhoma kanë 2 vende parkimi. Parkingu nëntokësor është i mbrojtur 24/7." },
     ],
+    theme: {
+      bg: "#f0f3f7",
+      bgAlt: "#e4e9f0",
+      surface: "#ffffff",
+      fg: "#1a2a3a",
+      muted: "#5f7e9f",
+      border: "#cdd6e0",
+      accent: "#5f7e9f",
+      accentFg: "#ffffff",
+      navBg: "rgba(240, 243, 247, 0.92)",
+      heroBg: "#f0f3f7",
+    },
   },
 ];
