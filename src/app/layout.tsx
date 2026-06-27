@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "TORRE GROUP — Luxury Construction & Design",
-  description: "MAGFA GROUP, SWISSTECH, TORRE UMBRIA, TORRE HOME — A family of luxury construction and design companies delivering excellence across Europe.",
+  title: "TORRE GROUP — Ndërtim & Dizajn",
+  description: "MAGFA GROUP, SWISSTECH, TORRE DI UMBRIA, TORRE HOME — Grupi familjar i ndërtimit dhe dizajnit premium në Kosovë.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="sq">
       <body>{children}</body>
     </html>
   );

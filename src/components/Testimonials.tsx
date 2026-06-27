@@ -8,8 +8,9 @@ function Card({ quote, name, role, rating, accent }: { quote: string; name: stri
     <div
       className="flex flex-col gap-5 shrink-0 w-[300px] md:w-[340px] p-6 rounded-2xl"
       style={{
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: "hsl(var(--surface))",
+        border: "1px solid hsl(var(--border))",
+        boxShadow: "0 1px 8px rgba(0,0,0,0.05)",
       }}
     >
       <div className="flex gap-1">
@@ -17,19 +18,19 @@ function Card({ quote, name, role, rating, accent }: { quote: string; name: stri
           <Star key={i} style={{ width: "12px", height: "12px", fill: `hsl(${accent})`, color: `hsl(${accent})` }} />
         ))}
       </div>
-      <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "hsl(var(--foreground) / 0.72)", lineHeight: 1.75, flex: 1 }}>
+      <p style={{ fontFamily: "var(--font-body)", fontSize: "13px", color: "hsl(var(--muted-fg))", lineHeight: 1.75, flex: 1 }}>
         &ldquo;{quote}&rdquo;
       </p>
       <div className="flex items-center gap-3">
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
-          style={{ background: `hsl(${accent} / 0.12)`, color: `hsl(${accent})`, fontFamily: "var(--font-display)" }}
+          style={{ background: `hsl(${accent} / 0.10)`, color: `hsl(${accent})`, fontFamily: "var(--font-display)" }}
         >
           {name.charAt(0)}
         </div>
         <div>
           <div style={{ fontFamily: "var(--font-body)", fontSize: "13px", fontWeight: 500, color: "hsl(var(--foreground))" }}>{name}</div>
-          <div style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "hsl(var(--foreground) / 0.38)", letterSpacing: "0.03em" }}>{role}</div>
+          <div style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "hsl(var(--muted-fg))", letterSpacing: "0.03em" }}>{role}</div>
         </div>
       </div>
     </div>
@@ -43,12 +44,12 @@ export function Testimonials({ brand }: { brand: Brand }) {
   const accent = `hsl(${brand.accentHsl})`;
 
   return (
-    <section id="testimonials" className="py-24 md:py-36 overflow-hidden" style={{ background: "hsl(var(--background))" }}>
+    <section id="testimonials" className="py-24 md:py-36 overflow-hidden" style={{ background: "hsl(var(--bg))" }}>
       <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)] mb-16">
         <div className="flex items-center gap-3 mb-6">
           <span className="accent-line" style={{ background: accent }} />
           <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-            Testimonials
+            Dëshmitë
           </span>
         </div>
         <h2
@@ -60,7 +61,7 @@ export function Testimonials({ brand }: { brand: Brand }) {
             color: "hsl(var(--foreground))",
           }}
         >
-          What Our Clients Say.
+          Çfarë Thonë Klientët Tanë.
         </h2>
       </div>
 

@@ -36,11 +36,11 @@ export function Stats({ brand }: { brand: Brand }) {
   const accent = `hsl(${brand.accentHsl})`;
 
   return (
-    <section id="stats" className="py-24 md:py-36 relative overflow-hidden" style={{ background: "hsl(20 5% 6%)" }}>
+    <section id="stats" className="py-24 md:py-36 relative overflow-hidden" style={{ background: "hsl(var(--bg-alt))" }}>
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 60% 50% at 50% 50%, hsl(${brand.accentHsl} / 0.07) 0%, transparent 65%)`,
+          background: `radial-gradient(ellipse 60% 50% at 50% 50%, hsl(${brand.accentHsl} / 0.05) 0%, transparent 65%)`,
         }}
       />
 
@@ -48,7 +48,7 @@ export function Stats({ brand }: { brand: Brand }) {
         <div className="flex items-center gap-3 mb-6">
           <span className="accent-line" style={{ background: accent }} />
           <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-            By the Numbers
+            Në Numra
           </span>
         </div>
         <h2
@@ -61,21 +61,21 @@ export function Stats({ brand }: { brand: Brand }) {
             marginBottom: "60px",
           }}
         >
-          Numbers That Speak.
+          Numrat Flasin Vetë.
         </h2>
 
         <div
           ref={ref}
           className="grid grid-cols-2 lg:grid-cols-4"
-          style={{ border: "1px solid hsl(var(--foreground) / 0.07)", borderRadius: "16px", overflow: "hidden" }}
+          style={{ border: "1px solid hsl(var(--border))", borderRadius: "16px", overflow: "hidden", background: "hsl(var(--surface))" }}
         >
           {brand.stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               className="p-8 md:p-10 flex flex-col gap-2 relative"
               style={{
-                borderRight: i < 3 ? "1px solid hsl(var(--foreground) / 0.07)" : undefined,
-                borderBottom: i < 2 ? "1px solid hsl(var(--foreground) / 0.07)" : undefined,
+                borderRight: i < 3 ? "1px solid hsl(var(--border))" : undefined,
+                borderBottom: i < 2 ? "1px solid hsl(var(--border))" : undefined,
               }}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ export function Stats({ brand }: { brand: Brand }) {
                 style={{
                   fontFamily: "var(--font-body)",
                   fontSize: "12px",
-                  color: "hsl(var(--foreground) / 0.42)",
+                  color: "hsl(var(--muted-fg))",
                   letterSpacing: "0.04em",
                 }}
               >
@@ -105,7 +105,7 @@ export function Stats({ brand }: { brand: Brand }) {
               </div>
               <div
                 className="absolute bottom-0 left-0 right-0 h-0.5"
-                style={{ background: `linear-gradient(to right, hsl(${brand.accentHsl} / 0.0), hsl(${brand.accentHsl} / 0.0))` }}
+                style={{ background: `linear-gradient(to right, hsl(${brand.accentHsl} / 0.25), transparent)` }}
               />
             </motion.div>
           ))}

@@ -5,10 +5,10 @@ import type { Brand } from "@/lib/brands";
 import Link from "next/link";
 
 const SIBLINGS: Record<string, { name: string; path: string }[]> = {
-  magfa:         [{ name: "SWISSTECH", path: "/swisstech" }, { name: "TORRE UMBRIA", path: "/torre-umbria" }, { name: "TORRE HOME", path: "/torre-home" }],
-  swisstech:     [{ name: "MAGFA GROUP", path: "/magfa" }, { name: "TORRE UMBRIA", path: "/torre-umbria" }, { name: "TORRE HOME", path: "/torre-home" }],
+  magfa:         [{ name: "SWISSTECH", path: "/swisstech" }, { name: "TORRE DI UMBRIA", path: "/torre-umbria" }, { name: "TORRE HOME", path: "/torre-home" }],
+  swisstech:     [{ name: "MAGFA GROUP", path: "/magfa" }, { name: "TORRE DI UMBRIA", path: "/torre-umbria" }, { name: "TORRE HOME", path: "/torre-home" }],
   "torre-umbria":[{ name: "MAGFA GROUP", path: "/magfa" }, { name: "SWISSTECH", path: "/swisstech" }, { name: "TORRE HOME", path: "/torre-home" }],
-  "torre-home":  [{ name: "MAGFA GROUP", path: "/magfa" }, { name: "SWISSTECH", path: "/swisstech" }, { name: "TORRE UMBRIA", path: "/torre-umbria" }],
+  "torre-home":  [{ name: "MAGFA GROUP", path: "/magfa" }, { name: "SWISSTECH", path: "/swisstech" }, { name: "TORRE DI UMBRIA", path: "/torre-umbria" }],
 };
 
 type Props = { brand: Brand };
@@ -16,16 +16,16 @@ type Props = { brand: Brand };
 export function BrandHero({ brand }: Props) {
   const siblings = SIBLINGS[brand.id] || [];
   const accent = `hsl(${brand.accentHsl})`;
-  const accentFaint = `hsl(${brand.accentHsl} / 0.08)`;
-  const accentMid = `hsl(${brand.accentHsl} / 0.18)`;
+  const accentFaint = `hsl(${brand.accentHsl} / 0.07)`;
+  const accentMid = `hsl(${brand.accentHsl} / 0.12)`;
 
   return (
     <section
       id="hero"
       className="relative min-h-screen flex flex-col"
-      style={{ background: "hsl(var(--background))" }}
+      style={{ background: "hsl(var(--bg))" }}
     >
-      {/* ambient glow behind content */}
+      {/* ambient glow */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -38,13 +38,13 @@ export function BrandHero({ brand }: Props) {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(hsl(var(--foreground) / 0.028) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground) / 0.028) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(hsl(220 10% 86% / 0.55) 1px, transparent 1px), linear-gradient(90deg, hsl(220 10% 86% / 0.55) 1px, transparent 1px)`,
           backgroundSize: "72px 72px",
         }}
       />
 
       {/* top border line */}
-      <div className="absolute top-0 inset-x-0 h-px" style={{ background: `linear-gradient(to right, transparent, hsl(var(--foreground) / 0.12), transparent)` }} />
+      <div className="absolute top-0 inset-x-0 h-px" style={{ background: `linear-gradient(to right, transparent, hsl(var(--border)), transparent)` }} />
 
       {/* main hero body */}
       <div className="relative z-10 flex-1 flex items-center max-w-[var(--max)] mx-auto w-full px-[var(--gutter)]">
@@ -96,7 +96,7 @@ export function BrandHero({ brand }: Props) {
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(15px, 1.1vw, 17px)",
-                color: "hsl(var(--foreground) / 0.58)",
+                color: "hsl(var(--muted-fg))",
                 lineHeight: 1.7,
                 maxWidth: "46ch",
                 marginBottom: "40px",
@@ -116,21 +116,21 @@ export function BrandHero({ brand }: Props) {
                 className="inline-flex items-center gap-2 rounded-full font-medium transition-all hover:opacity-85"
                 style={{
                   background: accent,
-                  color: "hsl(var(--ink))",
+                  color: "#fff",
                   fontFamily: "var(--font-body)",
                   padding: "13px 26px",
                   fontSize: "14px",
                   letterSpacing: "-0.01em",
                 }}
               >
-                View Services <ArrowUpRight size={15} />
+                Shikoni Shërbimet <ArrowUpRight size={15} />
               </a>
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-full transition-all hover:opacity-80"
                 style={{
                   background: accentMid,
-                  border: `1px solid hsl(${brand.accentHsl} / 0.3)`,
+                  border: `1px solid hsl(${brand.accentHsl} / 0.25)`,
                   color: accent,
                   fontFamily: "var(--font-body)",
                   padding: "13px 26px",
@@ -138,7 +138,7 @@ export function BrandHero({ brand }: Props) {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Contact Us
+                Na Kontaktoni
               </a>
             </motion.div>
           </div>
@@ -153,14 +153,15 @@ export function BrandHero({ brand }: Props) {
             <div
               className="rounded-2xl p-8 flex flex-col gap-0"
               style={{
-                background: "rgba(255,255,255,0.025)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "hsl(var(--surface))",
+                border: "1px solid hsl(var(--border))",
+                boxShadow: "0 2px 24px rgba(0,0,0,0.07)",
               }}
             >
               {brand.stats.map((stat, i) => (
                 <div key={stat.label}>
                   {i > 0 && (
-                    <div className="h-px my-6" style={{ background: "hsl(var(--foreground) / 0.07)" }} />
+                    <div className="h-px my-6" style={{ background: "hsl(var(--border))" }} />
                   )}
                   <div
                     style={{
@@ -178,7 +179,7 @@ export function BrandHero({ brand }: Props) {
                     style={{
                       fontFamily: "var(--font-body)",
                       fontSize: "12px",
-                      color: "hsl(var(--foreground) / 0.45)",
+                      color: "hsl(var(--muted-fg))",
                       letterSpacing: "0.04em",
                     }}
                   >
@@ -187,18 +188,18 @@ export function BrandHero({ brand }: Props) {
                 </div>
               ))}
 
-              <div className="mt-8 pt-6" style={{ borderTop: "1px solid hsl(var(--foreground) / 0.07)" }}>
+              <div className="mt-8 pt-6" style={{ borderTop: "1px solid hsl(var(--border))" }}>
                 <div
                   style={{
                     fontFamily: "var(--font-body)",
                     fontSize: "10px",
                     letterSpacing: "0.14em",
-                    color: "hsl(var(--foreground) / 0.30)",
+                    color: "hsl(var(--muted-fg))",
                     marginBottom: "10px",
                     textTransform: "uppercase",
                   }}
                 >
-                  Part of TORRE GROUP
+                  Pjesë e TORRE GROUP
                 </div>
                 <div className="flex flex-col gap-2">
                   {siblings.map((s) => (
@@ -209,7 +210,7 @@ export function BrandHero({ brand }: Props) {
                       style={{
                         fontFamily: "var(--font-body)",
                         fontSize: "12px",
-                        color: "hsl(var(--foreground) / 0.40)",
+                        color: "hsl(var(--muted-fg))",
                         transition: "color 0.2s",
                         textDecoration: "none",
                       }}
@@ -241,7 +242,7 @@ export function BrandHero({ brand }: Props) {
             fontFamily: "var(--font-body)",
             fontSize: "10px",
             letterSpacing: "0.16em",
-            color: "hsl(var(--foreground) / 0.28)",
+            color: "hsl(var(--muted-fg))",
           }}
         >
           SCROLL

@@ -2,27 +2,26 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { BRANDS } from "@/lib/brands";
-import Link from "next/link";
 
 export default function CompanySelector() {
   return (
     <main
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
-      style={{ background: "hsl(20 6% 4%)" }}
+      style={{ background: "hsl(var(--bg))" }}
     >
-      {/* ambient warm glow */}
+      {/* subtle grid */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 65% 50% at 50% 40%, hsl(38 30% 8%) 0%, transparent 65%)",
+          backgroundImage: `linear-gradient(hsl(220 10% 86% / 0.5) 1px, transparent 1px), linear-gradient(90deg, hsl(220 10% 86% / 0.5) 1px, transparent 1px)`,
+          backgroundSize: "72px 72px",
         }}
       />
-      {/* fine grid */}
+      {/* ambient top glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(hsl(38 12% 90% / 0.025) 1px, transparent 1px), linear-gradient(90deg, hsl(38 12% 90% / 0.025) 1px, transparent 1px)`,
-          backgroundSize: "72px 72px",
+          background: "radial-gradient(ellipse 70% 45% at 50% 0%, hsl(200 60% 92% / 0.6) 0%, transparent 65%)",
         }}
       />
 
@@ -35,19 +34,19 @@ export default function CompanySelector() {
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center gap-3 mb-14"
         >
-          <span className="w-8 h-px" style={{ background: "hsl(42 52% 62%)" }} />
+          <span className="w-8 h-px" style={{ background: "hsl(220 14% 60%)" }} />
           <span
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "11px",
               letterSpacing: "0.2em",
-              color: "hsl(42 52% 62%)",
+              color: "hsl(220 14% 50%)",
               textTransform: "uppercase",
             }}
           >
             Torre Group — torre-ks.com
           </span>
-          <span className="w-8 h-px" style={{ background: "hsl(42 52% 62%)" }} />
+          <span className="w-8 h-px" style={{ background: "hsl(220 14% 60%)" }} />
         </motion.div>
 
         {/* headline */}
@@ -61,11 +60,11 @@ export default function CompanySelector() {
             fontSize: "clamp(42px, 7.5vw, 112px)",
             lineHeight: 0.9,
             letterSpacing: "-0.028em",
-            color: "hsl(38 18% 92%)",
+            color: "hsl(var(--foreground))",
           }}
         >
-          One Group.<br />
-          <span style={{ color: "hsl(42 52% 62%)" }}>Four Companies.</span>
+          Një Grup.{" "}
+          <span style={{ color: "hsl(174 62% 38%)" }}>Katër Kompani.</span>
         </motion.h1>
 
         <motion.p
@@ -76,12 +75,12 @@ export default function CompanySelector() {
           style={{
             fontFamily: "var(--font-body)",
             fontSize: "clamp(14px, 1.1vw, 17px)",
-            color: "hsl(38 8% 62%)",
+            color: "hsl(var(--muted-fg))",
             maxWidth: "44ch",
             lineHeight: 1.7,
           }}
         >
-          Select a company to explore their services, portfolio, and expertise.
+          Zgjidhni një kompani për të eksploruar shërbimet, portofolin dhe ekspertizën e tyre.
         </motion.p>
 
         {/* brand cards */}
@@ -93,28 +92,35 @@ export default function CompanySelector() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.14 + i * 0.09, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Link href={brand.path} className="block group h-full" style={{ textDecoration: "none" }}>
+              <a
+                href={brand.externalUrl}
+                className="block group h-full"
+                style={{ textDecoration: "none" }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <motion.div
                   className="rounded-2xl relative overflow-hidden h-full flex flex-col"
                   style={{
                     minHeight: "380px",
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.07)",
+                    background: "hsl(var(--surface))",
+                    border: "1px solid hsl(var(--border))",
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
                   }}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -5, boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
                   transition={{ type: "spring", stiffness: 260, damping: 26 }}
                 >
                   {/* hover glow */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     style={{
-                      background: `radial-gradient(ellipse 80% 70% at 50% 30%, hsl(${brand.accentHsl} / 0.1) 0%, transparent 65%)`,
+                      background: `radial-gradient(ellipse 80% 70% at 50% 30%, hsl(${brand.accentHsl} / 0.06) 0%, transparent 65%)`,
                     }}
                   />
                   {/* hover border */}
                   <div
                     className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{ border: `1px solid hsl(${brand.accentHsl} / 0.22)` }}
+                    style={{ border: `1px solid hsl(${brand.accentHsl} / 0.35)` }}
                   />
 
                   <div className="relative z-10 p-7 flex flex-col h-full">
@@ -146,7 +152,7 @@ export default function CompanySelector() {
                         fontSize: "clamp(22px, 2.2vw, 28px)",
                         lineHeight: 1.0,
                         letterSpacing: "-0.015em",
-                        color: "hsl(38 18% 92%)",
+                        color: "hsl(var(--foreground))",
                         marginBottom: "14px",
                       }}
                     >
@@ -158,7 +164,7 @@ export default function CompanySelector() {
                       style={{
                         fontFamily: "var(--font-body)",
                         fontSize: "13px",
-                        color: "hsl(38 8% 55%)",
+                        color: "hsl(var(--muted-fg))",
                         lineHeight: 1.65,
                         marginBottom: "24px",
                         flex: 1,
@@ -170,7 +176,7 @@ export default function CompanySelector() {
                     {/* subdomain */}
                     <div
                       className="text-xs mb-5"
-                      style={{ color: "hsl(38 8% 34%)", fontFamily: "var(--font-body)", letterSpacing: "0.04em" }}
+                      style={{ color: "hsl(220 10% 60%)", fontFamily: "var(--font-body)", letterSpacing: "0.04em" }}
                     >
                       {brand.subdomain}
                     </div>
@@ -179,7 +185,7 @@ export default function CompanySelector() {
                     <div
                       className="rounded-full px-3 py-1 text-xs font-medium inline-flex self-start mb-6"
                       style={{
-                        background: `hsl(${brand.accentHsl} / 0.1)`,
+                        background: `hsl(${brand.accentHsl} / 0.08)`,
                         color: `hsl(${brand.accentHsl})`,
                         fontFamily: "var(--font-body)",
                         border: `1px solid hsl(${brand.accentHsl} / 0.2)`,
@@ -193,12 +199,12 @@ export default function CompanySelector() {
                       className="inline-flex items-center gap-1.5 text-sm font-medium"
                       style={{ color: `hsl(${brand.accentHsl})`, fontFamily: "var(--font-body)" }}
                     >
-                      Explore
+                      Eksploro
                       <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
                     </div>
                   </div>
                 </motion.div>
-              </Link>
+              </a>
             </motion.div>
           ))}
         </div>
@@ -209,9 +215,9 @@ export default function CompanySelector() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.6 }}
           className="mt-20 text-center"
-          style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "hsl(38 8% 30%)", letterSpacing: "0.06em" }}
+          style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "hsl(220 10% 55%)", letterSpacing: "0.06em" }}
         >
-          &copy; {new Date().getFullYear()} TORRE GROUP — torre-ks.com &nbsp;&middot;&nbsp; MAGFA &nbsp;&middot;&nbsp; SWISSTECH &nbsp;&middot;&nbsp; TORRE UMBRIA &nbsp;&middot;&nbsp; TORRE HOME
+          &copy; {new Date().getFullYear()} TORRE GROUP — torre-ks.com &nbsp;&middot;&nbsp; MAGFA &nbsp;&middot;&nbsp; SWISSTECH &nbsp;&middot;&nbsp; TORRE DI UMBRIA &nbsp;&middot;&nbsp; TORRE HOME
         </motion.p>
       </div>
     </main>

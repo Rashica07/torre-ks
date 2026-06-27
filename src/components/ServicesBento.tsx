@@ -13,14 +13,14 @@ export function ServicesBento({ brand }: Props) {
   const accent = `hsl(${brand.accentHsl})`;
 
   return (
-    <section id="services" className="py-24 md:py-36" style={{ background: "hsl(var(--background))" }}>
+    <section id="services" className="py-24 md:py-36" style={{ background: "hsl(var(--bg))" }}>
       <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)]">
         <div className="flex items-end justify-between mb-16 gap-8 flex-wrap">
           <div className="max-w-xl">
             <div className="flex items-center gap-3 mb-6">
               <span className="accent-line" style={{ background: accent }} />
               <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-                Services
+                Shërbimet
               </span>
             </div>
             <h2
@@ -32,12 +32,12 @@ export function ServicesBento({ brand }: Props) {
                 color: "hsl(var(--foreground))",
               }}
             >
-              What We Build.<br />
-              <span style={{ color: "hsl(var(--foreground) / 0.45)", fontStyle: "italic" }}>What We Deliver.</span>
+              Çfarë Ndërtojmë.<br />
+              <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>Çfarë Ofrojmë.</span>
             </h2>
           </div>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--muted-foreground))", maxWidth: "32ch", lineHeight: 1.7 }}>
-            Six disciplines. Every service delivered to institutional quality standards.
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--muted-fg))", maxWidth: "32ch", lineHeight: 1.7 }}>
+            Gjashtë shërbime. Çdo projekt i realizuar me standarde të larta cilësie.
           </p>
         </div>
 
@@ -48,14 +48,17 @@ export function ServicesBento({ brand }: Props) {
             return (
               <motion.div
                 key={service.title}
-                className={`glass-card rounded-2xl p-7 relative overflow-hidden group cursor-pointer ${isFeature ? "md:row-span-2" : ""}`}
-                whileHover={{ y: -3 }}
+                className={`rounded-2xl p-7 relative overflow-hidden group cursor-pointer ${isFeature ? "md:row-span-2" : ""}`}
+                whileHover={{ y: -3, boxShadow: "0 8px 32px rgba(0,0,0,0.09)" }}
                 transition={{ type: "spring", stiffness: 280, damping: 28 }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 style={{
                   transitionDelay: `${i * 0.06}s`,
+                  background: "hsl(var(--surface))",
+                  border: "1px solid hsl(var(--border))",
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
                 }}
               >
                 {/* hover accent line */}
@@ -66,7 +69,7 @@ export function ServicesBento({ brand }: Props) {
 
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center mb-6"
-                  style={{ background: `hsl(${brand.accentHsl} / 0.1)`, border: `1px solid hsl(${brand.accentHsl} / 0.2)` }}
+                  style={{ background: `hsl(${brand.accentHsl} / 0.08)`, border: `1px solid hsl(${brand.accentHsl} / 0.18)` }}
                 >
                   <Icon style={{ width: "17px", height: "17px", color: accent }} />
                 </div>
@@ -89,7 +92,7 @@ export function ServicesBento({ brand }: Props) {
                   style={{
                     fontFamily: "var(--font-body)",
                     fontSize: "13px",
-                    color: "hsl(var(--foreground) / 0.55)",
+                    color: "hsl(var(--muted-fg))",
                     lineHeight: 1.7,
                     maxWidth: "38ch",
                   }}
@@ -101,7 +104,7 @@ export function ServicesBento({ brand }: Props) {
                   <span
                     className="rounded-full px-3 py-1 text-xs font-medium"
                     style={{
-                      background: `hsl(${brand.accentHsl} / 0.1)`,
+                      background: `hsl(${brand.accentHsl} / 0.08)`,
                       color: accent,
                       fontFamily: "var(--font-body)",
                       border: `1px solid hsl(${brand.accentHsl} / 0.18)`,
@@ -111,7 +114,7 @@ export function ServicesBento({ brand }: Props) {
                   </span>
                   <ArrowUpRight
                     size={16}
-                    className="opacity-25 group-hover:opacity-70 transition-opacity"
+                    className="opacity-20 group-hover:opacity-60 transition-opacity"
                     style={{ color: accent }}
                   />
                 </div>

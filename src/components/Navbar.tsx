@@ -11,10 +11,10 @@ type NavbarProps = {
 };
 
 const DEFAULT_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Why Us", href: "#pourquoi" },
-  { label: "Process", href: "#process" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Shërbimet", href: "#services" },
+  { label: "Pse Ne", href: "#pourquoi" },
+  { label: "Procesi", href: "#process" },
+  { label: "Pyetje", href: "#faq" },
 ];
 
 export function Navbar({ brandName, accentHsl, links = DEFAULT_LINKS }: NavbarProps) {
@@ -72,9 +72,10 @@ export function Navbar({ brandName, accentHsl, links = DEFAULT_LINKS }: NavbarPr
           <motion.div
             className="hidden md:flex items-center gap-1 rounded-full"
             animate={{
-              background: scrolled ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0)",
-              backdropFilter: scrolled ? "blur(40px)" : "blur(0px)",
-              border: scrolled ? "1px solid rgba(255,255,255,0.10)" : "1px solid rgba(255,255,255,0)",
+              background: scrolled ? "rgba(255,255,255,0.90)" : "rgba(255,255,255,0)",
+              backdropFilter: scrolled ? "blur(24px) saturate(180%)" : "blur(0px)",
+              border: scrolled ? "1px solid rgba(0,0,0,0.08)" : "1px solid transparent",
+              boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.07)" : "none",
               paddingLeft: scrolled ? "10px" : "0px",
               paddingRight: scrolled ? "10px" : "0px",
             }}
@@ -89,7 +90,7 @@ export function Navbar({ brandName, accentHsl, links = DEFAULT_LINKS }: NavbarPr
                   className="relative px-3 py-2 text-sm transition-colors"
                   style={{
                     fontFamily: "var(--font-body)",
-                    color: isActive ? accent : "hsl(var(--foreground) / 0.58)",
+                    color: isActive ? accent : "hsl(var(--foreground) / 0.55)",
                     fontSize: "13px",
                     textDecoration: "none",
                   }}
@@ -114,7 +115,7 @@ export function Navbar({ brandName, accentHsl, links = DEFAULT_LINKS }: NavbarPr
               className="hidden md:inline-flex items-center rounded-full text-sm transition-opacity hover:opacity-85"
               style={{
                 background: accent,
-                color: "hsl(20 6% 4%)",
+                color: "#fff",
                 fontFamily: "var(--font-body)",
                 padding: "8px 20px",
                 fontSize: "13px",
@@ -122,13 +123,13 @@ export function Navbar({ brandName, accentHsl, links = DEFAULT_LINKS }: NavbarPr
                 textDecoration: "none",
               }}
             >
-              Contact
+              Kontakt
             </a>
             <button
               className="md:hidden p-2 rounded-full"
               style={{ color: "hsl(var(--foreground) / 0.7)" }}
               onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Toggle menu"
+              aria-label="Hap menunë"
             >
               {menuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -144,11 +145,11 @@ export function Navbar({ brandName, accentHsl, links = DEFAULT_LINKS }: NavbarPr
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
-            style={{ background: "rgba(20,14,10,0.97)", backdropFilter: "blur(24px)" }}
+            style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(24px)" }}
           >
             <button
               className="absolute top-5 right-6"
-              style={{ color: "hsl(var(--foreground) / 0.5)" }}
+              style={{ color: "hsl(var(--foreground) / 0.4)" }}
               onClick={() => setMenuOpen(false)}
             >
               <X size={20} />
@@ -172,10 +173,10 @@ export function Navbar({ brandName, accentHsl, links = DEFAULT_LINKS }: NavbarPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: links.length * 0.07 }}
               className="px-8 py-3 rounded-full font-medium"
-              style={{ background: accent, color: "hsl(20 6% 4%)", fontFamily: "var(--font-body)", textDecoration: "none" }}
+              style={{ background: accent, color: "#fff", fontFamily: "var(--font-body)", textDecoration: "none" }}
               onClick={() => setMenuOpen(false)}
             >
-              Contact Us
+              Na Kontaktoni
             </motion.a>
           </motion.div>
         )}

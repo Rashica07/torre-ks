@@ -7,7 +7,7 @@ import type { Brand } from "@/lib/brands";
 function Item({ item, i, accent }: { item: { q: string; a: string }; i: number; accent: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ borderBottom: "1px solid hsl(var(--foreground) / 0.08)" }}>
+    <div style={{ borderBottom: "1px solid hsl(var(--border))" }}>
       <button
         className="w-full flex items-start justify-between py-6 text-left gap-6"
         onClick={() => setOpen((v) => !v)}
@@ -28,7 +28,7 @@ function Item({ item, i, accent }: { item: { q: string; a: string }; i: number; 
         <span className="shrink-0 mt-0.5">
           {open
             ? <Minus size={15} style={{ color: `hsl(${accent})` }} />
-            : <Plus size={15} style={{ color: "hsl(var(--foreground) / 0.35)" }} />
+            : <Plus size={15} style={{ color: "hsl(var(--muted-fg))" }} />
           }
         </span>
       </button>
@@ -44,7 +44,7 @@ function Item({ item, i, accent }: { item: { q: string; a: string }; i: number; 
           >
             <p
               className="pb-6"
-              style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--foreground) / 0.62)", lineHeight: 1.75, maxWidth: "60ch" }}
+              style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--muted-fg))", lineHeight: 1.75, maxWidth: "60ch" }}
             >
               {item.a}
             </p>
@@ -59,14 +59,14 @@ export function Faq({ brand }: { brand: Brand }) {
   const accent = `hsl(${brand.accentHsl})`;
 
   return (
-    <section id="faq" className="py-24 md:py-36" style={{ background: "hsl(20 5% 6%)" }}>
+    <section id="faq" className="py-24 md:py-36" style={{ background: "hsl(var(--bg-alt))" }}>
       <div className="max-w-[var(--max)] mx-auto px-[var(--gutter)]">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-16 lg:gap-28">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <div className="flex items-center gap-3 mb-8">
               <span className="accent-line" style={{ background: accent }} />
               <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", letterSpacing: "0.18em", color: accent, textTransform: "uppercase" }}>
-                FAQ
+                Pyetje të Shpeshta
               </span>
             </div>
             <h2
@@ -79,10 +79,10 @@ export function Faq({ brand }: { brand: Brand }) {
                 marginBottom: "20px",
               }}
             >
-              Questions Answered.
+              Pyetje me Përgjigje.
             </h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--muted-foreground))", lineHeight: 1.7, marginBottom: "32px" }}>
-              Can&apos;t find what you&apos;re looking for? Reach our team directly.
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "32px" }}>
+              Nuk gjeni përgjigjen? Kontaktoni ekipin tonë direkt.
             </p>
             <a
               href="#contact"
@@ -92,11 +92,11 @@ export function Faq({ brand }: { brand: Brand }) {
                 color: accent,
                 fontWeight: 500,
                 textDecoration: "none",
-                borderBottom: `1px solid hsl(${brand.accentHsl} / 0.4)`,
+                borderBottom: `1px solid hsl(${brand.accentHsl} / 0.35)`,
                 paddingBottom: "2px",
               }}
             >
-              Contact us →
+              Na kontaktoni →
             </a>
           </div>
           <div>
