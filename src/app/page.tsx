@@ -2,11 +2,8 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { BRANDS } from "@/lib/brands";
-import { useRouter } from "next/navigation";
 
 export default function CompanySelector() {
-  const router = useRouter();
-
   return (
     <main
       className="min-h-screen flex flex-col items-center justify-center"
@@ -61,7 +58,7 @@ export default function CompanySelector() {
           style={{ border: "1px solid hsl(var(--border))" }}
         >
           {BRANDS.map((brand, i) => (
-            <motion.button
+            <motion.a
               key={brand.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -70,8 +67,8 @@ export default function CompanySelector() {
                 duration: 0.6,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              onClick={() => router.push(brand.path)}
-              className="text-left flex flex-col justify-between group"
+              href={brand.externalUrl}
+              className="text-left flex flex-col justify-between group no-underline"
               style={{
                 padding: "32px 28px",
                 minHeight: "280px",
@@ -132,7 +129,7 @@ export default function CompanySelector() {
                   className="transition-transform duration-200 group-hover:translate-x-0.5"
                 />
               </div>
-            </motion.button>
+            </motion.a>
           ))}
         </div>
 

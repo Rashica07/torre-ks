@@ -16,11 +16,26 @@ export function middleware(request: NextRequest) {
   // Extract subdomain — works for *.torre-ks.com in production
   // and *.replit.dev in preview
   const parts = host.split(".");
-  if (parts.length >= 3) {
+  if (parts.length >= 3 && parts[0] !== "www") {
     const sub = parts[0];
     const target = SUBDOMAIN_MAP[sub];
     if (target && request.nextUrl.pathname === "/") {
       return NextResponse.rewrite(new URL(target, request.url));
+    }
+  } else {
+    // If no subdomain, redirect direct paths like /magfa to the subdomain
+    const pathname = request.nextUrl.pathname;
+    const sub = Object.keys(SUBDOMAIN_MAP).find(k => 
+      pathname === SUBDOMAIN_MAP[k] || pathname.startsWith(SUBDOMAIN_MAP[k] + "/")
+    );
+    if (sub) {
+      // Keep any trailing path (e.g. /magfa/about -> /about)
+      const rest = pathname.slice(SUBDOMAIN_MAP[sub].length) || "/";
+      const redirectUrl = new URL(rest, `https://${sub}.torre-ks.com`);
+      request.nextUrl.searchParams.forEach((val, key) => {
+        redirectUrl.searchParams.append(key, val);
+      });
+      return NextResponse.redirect(redirectUrl);
     }
   }
 
