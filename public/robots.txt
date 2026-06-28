@@ -10,6 +10,12 @@ Allow: /llms
 User-agent: ChatGPT-User
 Allow: /
 Allow: /llms
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /llms
+User-agent: CCBot
+Allow: /
+Allow: /llms
 User-agent: Google-Extended
 Allow: /
 Allow: /llms
