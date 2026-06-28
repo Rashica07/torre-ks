@@ -1,9 +1,20 @@
 import { BrandPage } from "@/components/BrandPage";
 import { BRANDS } from "@/lib/brands";
 
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "SWISSTECH — Dritare & Fasada",
   description: "Prodhim dhe montim i dritareve dhe dyerve PVC e alumini me cilësi evropiane.",
+  alternates: { canonical: "https://swisstech.torre-ks.com" },
+  openGraph: {
+    title: "SWISSTECH — Dritare & Fasada",
+    description: "Prodhim dhe montim i dritareve dhe dyerve PVC e alumini me cilësi evropiane.",
+    url: "https://swisstech.torre-ks.com",
+    siteName: "SWISSTECH",
+    locale: "sq_AL",
+    type: "website",
+  },
 };
 
 export default function SwissTechPage() {
