@@ -5,7 +5,6 @@ const SUBDOMAIN_MAP: Record<string, string> = {
   "swisstech": "/swisstech",
   "torre-umbria": "/torre-umbria",
   "torrehome": "/torrehome",
-  "torrehome": "/torrehome",
   "llms": "/llms",
 };
 
@@ -31,7 +30,7 @@ export function middleware(request: NextRequest) {
     );
     if (sub) {
       const rest = pathname.slice(SUBDOMAIN_MAP[sub].length) || "/";
-      const subDomainKey = sub === "torre-home" ? "torrehome" : sub;
+      const subDomainKey = sub === "torrehome" ? "torrehome" : sub;
       const redirectUrl = new URL(rest, `https://${subDomainKey}.torre-ks.com`);
       request.nextUrl.searchParams.forEach((val, key) => {
         redirectUrl.searchParams.append(key, val);
