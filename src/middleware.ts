@@ -5,7 +5,7 @@ const SUBDOMAIN_MAP: Record<string, string> = {
   "swisstech": "/swisstech",
   "torre-umbria": "/torre-umbria",
   "torrehome": "/torrehome",
-  "torre-home": "/torrehome",
+  "torrehome": "/torrehome",
   "llms": "/llms",
 };
 
