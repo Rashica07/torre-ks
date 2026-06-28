@@ -1,4 +1,10 @@
 {
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/llms/page": "app/llms/page.js",
+  "/magfa/page": "app/magfa/page.js",
   "/page": "app/page.js",
-  "/magfa/page": "app/magfa/page.js"
+  "/swisstech/page": "app/swisstech/page.js",
+  "/torre-home/page": "app/torre-home/page.js",
+  "/torre-umbria/page": "app/torre-umbria/page.js"
 }
