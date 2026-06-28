@@ -28,10 +28,12 @@ export function middleware(request: NextRequest) {
     const sub = Object.keys(SUBDOMAIN_MAP).find(k =>
       pathname === SUBDOMAIN_MAP[k] || pathname.startsWith(SUBDOMAIN_MAP[k] + "/")
     );
+
     if (sub) {
       const rest = pathname.slice(SUBDOMAIN_MAP[sub].length) || "/";
-      const subDomainKey = sub === "torrehome" ? "torrehome" : sub;
-      const redirectUrl = new URL(rest, `https://${subDomainKey}.torre-ks.com`);
+      // CLEANED: Removed the redundant 'torrehome' ternary operator
+      const redirectUrl = new URL(rest, `https://${sub}.torre-ks.com`);
+
       request.nextUrl.searchParams.forEach((val, key) => {
         redirectUrl.searchParams.append(key, val);
       });
