@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const SUBDOMAIN_MAP: Record<string, string> = {
-  "magfa":        "/magfa",
-  "swisstech":    "/swisstech",
+  "magfa": "/magfa",
+  "swisstech": "/swisstech",
   "torre-umbria": "/torre-umbria",
-  "torre-home":   "/torre-home",
-  "llms":         "/llms",
+  "torrehome": "/torrehome",
+  "torre-home": "/torrehome",
+  "llms": "/llms",
 };
 
 export function middleware(request: NextRequest) {
@@ -25,13 +26,14 @@ export function middleware(request: NextRequest) {
   } else {
     // If no subdomain, redirect direct paths like /magfa to the subdomain
     const pathname = request.nextUrl.pathname;
-    const sub = Object.keys(SUBDOMAIN_MAP).find(k => 
+    const sub = Object.keys(SUBDOMAIN_MAP).find(k =>
       pathname === SUBDOMAIN_MAP[k] || pathname.startsWith(SUBDOMAIN_MAP[k] + "/")
     );
     if (sub) {
       // Keep any trailing path (e.g. /magfa/about -> /about)
       const rest = pathname.slice(SUBDOMAIN_MAP[sub].length) || "/";
-      const redirectUrl = new URL(rest, `https://${sub}.torre-ks.com`);
+      const subDomainKey = sub === "torre-home" ? "torrehome" : sub;
+      const redirectUrl = new URL(rest, `https://${subDomainKey}.torre-ks.com`);
       request.nextUrl.searchParams.forEach((val, key) => {
         redirectUrl.searchParams.append(key, val);
       });

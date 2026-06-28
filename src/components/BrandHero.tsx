@@ -1,28 +1,27 @@
 "use client";
 import { ArrowRight } from "lucide-react";
 import type { Brand } from "@/lib/brands";
-import Link from "next/link";
 
-const SIBLINGS: Record<string, { name: string; path: string }[]> = {
+const SIBLINGS: Record<string, { name: string; url: string }[]> = {
   magfa: [
-    { name: "SWISSTECH", path: "/swisstech" },
-    { name: "TORRE DI UMBRIA", path: "/torre-umbria" },
-    { name: "TORRE HOME", path: "/torre-home" },
+    { name: "SWISSTECH", url: "https://swisstech.torre-ks.com" },
+    { name: "TORRE DI UMBRIA", url: "https://torre-umbria.torre-ks.com" },
+    { name: "TORRE HOME", url: "https://torrehome.torre-ks.com" },
   ],
   swisstech: [
-    { name: "MAGFA GROUP", path: "/magfa" },
-    { name: "TORRE DI UMBRIA", path: "/torre-umbria" },
-    { name: "TORRE HOME", path: "/torre-home" },
+    { name: "MAGFA GROUP", url: "https://magfa.torre-ks.com" },
+    { name: "TORRE DI UMBRIA", url: "https://torre-umbria.torre-ks.com" },
+    { name: "TORRE HOME", url: "https://torrehome.torre-ks.com" },
   ],
   "torre-umbria": [
-    { name: "MAGFA GROUP", path: "/magfa" },
-    { name: "SWISSTECH", path: "/swisstech" },
-    { name: "TORRE HOME", path: "/torre-home" },
+    { name: "MAGFA GROUP", url: "https://magfa.torre-ks.com" },
+    { name: "SWISSTECH", url: "https://swisstech.torre-ks.com" },
+    { name: "TORRE HOME", url: "https://torrehome.torre-ks.com" },
   ],
-  "torre-home": [
-    { name: "MAGFA GROUP", path: "/magfa" },
-    { name: "SWISSTECH", path: "/swisstech" },
-    { name: "TORRE DI UMBRIA", path: "/torre-umbria" },
+  torrehome: [
+    { name: "MAGFA GROUP", url: "https://magfa.torre-ks.com" },
+    { name: "SWISSTECH", url: "https://swisstech.torre-ks.com" },
+    { name: "TORRE DI UMBRIA", url: "https://torre-umbria.torre-ks.com" },
   ],
 };
 
@@ -108,15 +107,15 @@ export function BrandHero({ brand }: Props) {
                 </div>
                 <div className="flex flex-col gap-2">
                   {siblings.map((s) => (
-                    <Link
-                      key={s.path}
-                      href={s.path}
+                    <a
+                      key={s.url}
+                      href={s.url}
                       className="flex items-center gap-2 text-xs no-underline transition-opacity duration-200 hover:opacity-60"
                       style={{ color: t.muted }}
                     >
                       <span className="w-1 h-1 rounded-full" style={{ background: t.border }} />
                       {s.name}
-                    </Link>
+                    </a>
                   ))}
                 </div>
               </div>
