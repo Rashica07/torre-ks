@@ -275,7 +275,10 @@ export const BRANDS: Brand[] = [
       { src: "/images/torrehome/hero-day.jpg", alt: "TORRE HOME, pamje ditore e fasadës", caption: "Fasada Kryesore" },
       { src: "/images/torrehome/exterior-night.jpg", alt: "TORRE HOME i ndriçuar natën", caption: "Ndërtesa Natën" },
       { src: "/images/torrehome/exterior-alt.jpg", alt: "TORRE HOME, pamje nga këndi i rrugës", caption: "Pamje nga Rruga" },
-      { src: "/images/torrehome/terrace-detail.jpg", alt: "Detaj i tarracave dhe hapësirave të gjelbra", caption: "Tarraca & Hapësira të Gjelbra" },
+      // terrace-detail.jpg dropped: it's a composite marketing slide (photo +
+      // baked-in text panel), not a plain photo — object-cover crops it
+      // unpredictably depending on tile aspect ratio. Re-add once a
+      // photo-only crop of it exists.
       { src: "/images/torrehome/duplex-lower.jpg", alt: "Render 3D i katit të poshtëm të një dupleksi, me kuzhinë, ndenjëse dhe tarracë", caption: "Duplex — Kati i Poshtëm" },
       { src: "/images/torrehome/duplex-upper.jpg", alt: "Render 3D i katit të sipërm të një dupleksi me shkallë të brendshme", caption: "Duplex — Kati i Sipërm" },
       { src: "/images/torrehome/penthouse-layout.jpg", alt: "Render 3D i planimetrisë së penthouse-it me tri dhoma gjumi", caption: "Penthouse — Planimetria" },

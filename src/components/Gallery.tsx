@@ -129,13 +129,14 @@ export function Gallery({ brand, index }: Props) {
                   </div>
                 </button>
                 <figcaption
-                  className="text-step--1 tracking-wide"
+                  className="absolute top-4 right-4 text-step--1 tracking-wide opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 pointer-events-none"
                   style={{
-                    color: t.muted,
-                    padding:
-                      d.cardStyle === "ruled"
-                        ? "var(--space-3) 0 0"
-                        : "var(--space-3) var(--space-4)",
+                    color: "#fff",
+                    background: "rgba(0,0,0,0.45)",
+                    padding: "var(--space-2) var(--space-3)",
+                    borderRadius: "var(--radius-sm)",
+                    maxWidth: "70%",
+                    textAlign: "right",
                   }}
                 >
                   {img.caption}
@@ -158,7 +159,7 @@ export function Gallery({ brand, index }: Props) {
           <button
             type="button"
             onClick={close}
-            className="absolute top-5 right-5 p-2 rounded-full transition-opacity hover:opacity-70"
+            className="absolute top-5 right-5 z-10 p-2 rounded-full transition-opacity hover:opacity-70"
             style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}
             aria-label="Mbyll"
           >
@@ -170,7 +171,7 @@ export function Gallery({ brand, index }: Props) {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); step(-1); }}
-                className="absolute left-3 md:left-6 p-2.5 rounded-full transition-opacity hover:opacity-70"
+                className="absolute left-3 md:left-6 z-10 p-2.5 rounded-full transition-opacity hover:opacity-70"
                 style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}
                 aria-label="Imazhi i mëparshëm"
               >
@@ -179,7 +180,7 @@ export function Gallery({ brand, index }: Props) {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); step(1); }}
-                className="absolute right-3 md:right-6 p-2.5 rounded-full transition-opacity hover:opacity-70"
+                className="absolute right-3 md:right-6 z-10 p-2.5 rounded-full transition-opacity hover:opacity-70"
                 style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}
                 aria-label="Imazhi tjetër"
               >
@@ -189,7 +190,7 @@ export function Gallery({ brand, index }: Props) {
           )}
 
           <figure
-            className="relative flex flex-col items-center max-w-5xl w-full"
+            className="relative z-0 flex flex-col items-center max-w-5xl w-full"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative w-full" style={{ height: "min(80vh, 720px)" }}>
