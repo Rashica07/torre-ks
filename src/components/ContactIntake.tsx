@@ -246,7 +246,11 @@ export function ContactIntake({ brand }: { brand: Brand }) {
             }}
             className="animate-message-in flex items-center gap-2"
           >
+            <label htmlFor="contact-intake-input" className="sr-only">
+              {step === "name" ? "Emri juaj" : answers.method === "Email" ? "Adresa e email-it" : "Numri i telefonit"}
+            </label>
             <input
+              id="contact-intake-input"
               autoFocus
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
