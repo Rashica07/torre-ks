@@ -23,10 +23,13 @@ export type Brand = {
   category: string;
   heroHeadline: string;
   heroSub: string;
+  heroImage?: string;
+  heroImageAlt?: string;
   services: Service[];
   stats: Stat[];
   testimonials: Testimonial[];
   faqs: Faq[];
+  gallery?: GalleryImage[];
   theme: BrandTheme;
 };
 
@@ -34,6 +37,7 @@ export type Service = { title: string; description: string; price: string; icon:
 export type Stat = { value: string; label: string };
 export type Testimonial = { quote: string; name: string; role: string; rating: number };
 export type Faq = { q: string; a: string };
+export type GalleryImage = { src: string; alt: string; caption: string };
 
 export const BRANDS: Brand[] = [
   {
@@ -201,15 +205,25 @@ export const BRANDS: Brand[] = [
   {
     id: "torrehome",
     name: "TORRE HOME",
-    tagline: "Apartamente Premium në Kosovë",
-    description: "Blini apartamentin tuaj ideal në ndërtesat moderne të TORRE GROUP në Kosovë. Ndërtesa 1 dhe Ndërtesa 2 ofrojnë jetesë të rehatshme med standarde evropiane.",
+    tagline: "Katër Breza Ndërtimi. Një Adresë e Re.",
+    description: "TORRE HOME sjell trashëgiminë familjare të TORRE GROUP në rrugën Emin Duraku, Ferizaj. Ndërtesa 1 dhe Ndërtesa 2 ofrojnë apartamente premium me standarde evropiane, pranë parkut të ri të qytetit dhe komunës.",
     subdomain: "torrehome.torre-ks.com",
     externalUrl: "https://torrehome.torre-ks.com",
     path: "/",
     accentHsl: "215 20% 46%",
-    category: "Apartamente në Kosovë",
-    heroHeadline: "Apartamenti Juaj në Kosovë.",
-    heroSub: "TORRE HOME ju ofron mundësinë të blini apartament premium në ndërtesat tona moderne. Ndërtesa 1 dhe Ndërtesa 2 — cilësi e lartë, çmim i drejtë, lokacion ideal.",
+    category: "Apartamente në Ferizaj",
+    heroHeadline: "Apartamenti Juaj, Në Zemër të Ferizajt.",
+    heroSub: "TORRE HOME ndërton në rrugën Emin Duraku — pranë parkut të ri të qytetit dhe komunës së Ferizajt. Ndërtesa 1 dhe Ndërtesa 2 sjellin katër breza trashëgimi ndërtimi në një lokacion premium.",
+    heroImage: "/images/torrehome/hero-day.jpg",
+    heroImageAlt: "Fasada e Ndërtesës TORRE HOME, pamje dite",
+    gallery: [
+      { src: "/images/torrehome/hero-day.jpg", alt: "TORRE HOME, pamje ditore e fasadës", caption: "Fasada Kryesore" },
+      { src: "/images/torrehome/exterior-night.jpg", alt: "TORRE HOME i ndriçuar natën", caption: "Ndërtesa Natën" },
+      { src: "/images/torrehome/exterior-alt.jpg", alt: "TORRE HOME, pamje nga këndi i rrugës", caption: "Pamje nga Rruga" },
+      { src: "/images/torrehome/terrace-detail.jpg", alt: "Detaj i tarracave dhe hapësirave të gjelbra", caption: "Tarraca & Hapësira të Gjelbra" },
+      { src: "/images/torrehome/floorplan-a2.jpg", alt: "Plan apartamenti 3-dhomësh, tip A2, 132.39 m²", caption: "Plan Apartamenti — Tip A2" },
+      { src: "/images/torrehome/parking.jpg", alt: "Parkingu nëntokësor i sigurt i TORRE HOME", caption: "Parkingu Nëntokësor" },
+    ],
     services: [
       { title: "Ndërtesa 1 — Apartamente", description: "Apartamente 1+1, 2+1 dhe 3+1 në Ndërtesën 1. Kati i parë deri kati i tetë. Pamje panoramike dhe parking i siguruar.", price: "Nga €55,000", icon: "Building2" },
       { title: "Ndërtesa 2 — Apartamente", description: "Apartamente luksoze 2+1 dhe 3+1 në Ndërtesën 2 me finime premium. Tarracë, ashensor dhe sistem sigurie 24/7.", price: "Nga €75,000", icon: "Building" },
@@ -236,7 +250,7 @@ export const BRANDS: Brand[] = [
       { q: "Çfarë dokumentesh nevojiten për të blerë apartament?", a: "Dokumentet kryesore janë: letërnjoftimi/pasaporta, numri fiskal dhe raporti i të ardhurave (për blerje me kredi). Ekipi ynë i shitjes ju udhëzon hap pas hapi." },
       { q: "A mund të blej me kredi bankare?", a: "Po — bashkëpunojmë me bankat kryesore në Kosovë për të ofruar kushte krediti preferenciale. Mund të financohet deri 80% e vlerës së apartamentit me afat deri 30 vjet." },
       { q: "Sa janë shpenzimet shtesë (taksat, noteri)?", a: "Transferi i pronësisë tatohet me 0% TVSH (banesa e parë) ose 8% për blerje të dytë. Noteri kushton rreth €200–400. Regjistri i Pronave kosto €30–50. Ne ju orientojmë për gjithçka." },
-      { q: "A janë apartamentet gati për t'u banuar?", a: "Apartamentet janë gati med finime standarde premium (dysheme laminat/parket, flise banje, bojëra, instalime elektrike dhe hidraulike). Opsioni i mobilimit është i disponueshëm." },
+      { q: "A janë apartamentet gati për t'u banuar?", a: "Apartamentet janë gati me finime standarde premium (dysheme laminat/parket, flise banje, bojëra, instalime elektrike dhe hidraulike). Opsioni i mobilimit është i disponueshëm." },
       { q: "A ka parking i siguruar?", a: "Po — çdo apartament ka të paktën 1 vend parkimi të siguruar. Apartamentet me 3 dhoma kanë 2 vende parkimi. Parkingu nëntokësor është i mbrojtur 24/7." },
     ],
     theme: {

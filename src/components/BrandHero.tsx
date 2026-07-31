@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { Brand } from "@/lib/brands";
 
@@ -34,10 +35,28 @@ export function BrandHero({ brand }: Props) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col"
+      className="relative min-h-screen flex flex-col overflow-hidden"
       style={{ background: t.heroBg }}
     >
-      <div className="flex-1 flex items-center mx-auto w-full px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
+      {brand.heroImage && (
+        <>
+          <Image
+            src={brand.heroImage}
+            alt={brand.heroImageAlt || brand.name}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(180deg, ${t.heroBg}f2 0%, ${t.heroBg}cc 35%, ${t.heroBg}f2 100%)`,
+            }}
+          />
+        </>
+      )}
+      <div className="relative flex-1 flex items-center mx-auto w-full px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
         <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 lg:gap-20 pt-32 pb-20">
           <div className="flex flex-col justify-center animate-[fadeUp_0.7s_ease_both]">
             <span

@@ -9,6 +9,7 @@ const SUBDOMAIN_MAP: Record<string, string> = {
 };
 
 export function middleware(request: NextRequest) {
+  if (process.env.NODE_ENV === "development") return NextResponse.next();
   const hostname = request.headers.get("host") || "";
   const host = hostname.split(":")[0];
   const pathname = request.nextUrl.pathname;

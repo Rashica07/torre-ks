@@ -1,6 +1,6 @@
 "use client";
-import { ArrowRight } from "lucide-react";
 import type { Brand } from "@/lib/brands";
+import { ContactIntake } from "./ContactIntake";
 
 const FOOTER_LINKS = [
   { label: "Politika e Privatësisë", href: "#" },
@@ -47,21 +47,14 @@ export function CtaFooter({ brand }: { brand: Brand }) {
             Kontaktoni ekipin e {brand.name} për të diskutuar vizionin tuaj. Ne jemi këtu për t'ju ndihmuar.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto relative z-10">
-            <a
-              href="mailto:contact@torre-ks.com"
-              className="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-full text-sm font-medium no-underline px-8 py-3 transition-opacity duration-200 hover:opacity-85"
-              style={{ background: t.accent, color: t.accentFg }}
-            >
-              Na Shkruani <ArrowRight size={14} />
-            </a>
-            <a
-              href="tel:+38344123456"
-              className="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-full text-sm no-underline px-8 py-3 transition-opacity duration-200 hover:opacity-75"
-              style={{ border: `1px solid ${t.border}`, color: t.muted }}
-            >
-              +383 44 123 456
-            </a>
+          <div className="w-full relative z-10">
+            <ContactIntake brand={brand} />
+            <p className="text-xs mt-5" style={{ color: t.muted }}>
+              Ose telefononi direkt:{" "}
+              <a href="tel:+38344123456" className="no-underline" style={{ color: t.accent }}>
+                +383 44 123 456
+              </a>
+            </p>
           </div>
         </div>
 

@@ -3,7 +3,7 @@ import type { Brand } from "@/lib/brands";
 import { Navbar } from "./Navbar";
 import { BrandHero } from "./BrandHero";
 import { ServicesBento } from "./ServicesBento";
-import { Stats } from "./Stats";
+import { Gallery } from "./Gallery";
 import { Testimonials } from "./Testimonials";
 import { Faq } from "./Faq";
 import { CtaFooter } from "./CtaFooter";
@@ -37,7 +37,7 @@ export function BrandPage({ brand }: { brand: Brand }) {
         <ServicesBento brand={brand} />
         <Pourquoi brand={brand} />
         <Process brand={brand} />
-        <Stats brand={brand} />
+        <Gallery brand={brand} />
         <Testimonials brand={brand} />
         <Faq brand={brand} />
         <CtaFooter brand={brand} />

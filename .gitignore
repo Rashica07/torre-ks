@@ -24,3 +24,6 @@ yarn-error.log*
 agents/
 attached_assets/
 .replit
+
+# Local Claude tooling
+.claude/
