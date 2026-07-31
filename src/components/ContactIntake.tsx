@@ -155,7 +155,7 @@ export function ContactIntake({ brand }: { brand: Brand }) {
         )}
         {step === "done" && (
           <a
-            href={`mailto:contact@torre-ks.com?subject=${subject}&body=${body}`}
+            href={`mailto:${brand.email}?subject=${subject}&body=${body}`}
             className="inline-flex items-center justify-center gap-2 w-full rounded-full text-sm font-medium no-underline px-6 py-3 transition-opacity hover:opacity-85"
             style={{ background: t.accent, color: t.accentFg }}
           >

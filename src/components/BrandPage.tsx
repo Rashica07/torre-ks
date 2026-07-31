@@ -13,6 +13,14 @@ import { Process } from "./Process";
 export function BrandPage({ brand }: { brand: Brand }) {
   const t = brand.theme;
 
+  const navLinks = [
+    { label: "Shërbimet", href: "#services" },
+    { label: "Pse Ne", href: "#pourquoi" },
+    { label: "Procesi", href: "#process" },
+    ...(brand.gallery?.length ? [{ label: "Galeria", href: "#gallery" }] : []),
+    { label: "Pyetje", href: "#faq" },
+  ];
+
   return (
     <div
       style={{
@@ -31,7 +39,7 @@ export function BrandPage({ brand }: { brand: Brand }) {
         minHeight: "100vh",
       } as React.CSSProperties}
     >
-      <Navbar brandName={brand.name} accentHsl={brand.accentHsl} theme={t} />
+      <Navbar brandName={brand.name} accentHsl={brand.accentHsl} theme={t} links={navLinks} />
       <main>
         <BrandHero brand={brand} />
         <ServicesBento brand={brand} />

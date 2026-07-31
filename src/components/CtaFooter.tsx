@@ -51,8 +51,12 @@ export function CtaFooter({ brand }: { brand: Brand }) {
             <ContactIntake brand={brand} />
             <p className="text-xs mt-5" style={{ color: t.muted }}>
               Ose telefononi direkt:{" "}
-              <a href="tel:+38344123456" className="no-underline" style={{ color: t.accent }}>
-                +383 44 123 456
+              <a
+                href={`tel:${brand.phone.replace(/\s/g, "")}`}
+                className="no-underline"
+                style={{ color: t.accent }}
+              >
+                {brand.phone}
               </a>
             </p>
           </div>
