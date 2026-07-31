@@ -3,9 +3,9 @@ import type { Brand } from "@/lib/brands";
 import { ContactIntake } from "./ContactIntake";
 
 const FOOTER_LINKS = [
-  { label: "Politika e Privatësisë", href: "#" },
-  { label: "Kushtet e Shërbimit", href: "#" },
-  { label: "Kontakt", href: "#" },
+  { label: "Politika e Privatësisë", href: "/politika-e-privatesise" },
+  { label: "Kushtet e Shërbimit", href: "/kushtet-e-sherbimit" },
+  { label: "Kontakt", href: "#contact" },
 ];
 
 export function CtaFooter({ brand }: { brand: Brand }) {
