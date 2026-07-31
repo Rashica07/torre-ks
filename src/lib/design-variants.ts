@@ -101,8 +101,8 @@ export const VARIANTS: Record<DesignVariantId, DesignVariant> = {
 /** Multiplier applied to the CSS motion duration tokens. */
 export const MOTION_SCALE: Record<MotionLevel, number> = {
   minimal: 0,
-  subtle: 1,
-  cinematic: 1.9,
+  subtle: 0.6,
+  cinematic: 1.3,
 };
 
 export function isDesignVariant(value: string): value is DesignVariantId {

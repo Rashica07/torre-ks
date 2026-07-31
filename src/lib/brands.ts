@@ -63,11 +63,14 @@ export const BRANDS: Brand[] = [
     // TODO: replace with real contact details before launch
     phone: "+383 44 123 456",
     email: "info@magfa.torre-ks.com",
-    motion: "cinematic",
+    motion: "subtle",
     accentHsl: "200 100% 45%",
     category: "Ndërtim Rezidencial",
     heroHeadline: "Shtëpia Juaj, e Ndërtuar Saktë.",
     heroSub: "MAGFA GROUP specializohet në ndërtimin e shtëpive private dhe rezidenciale. Cilësi superiore, materiale premium dhe dorëzim në kohë — garantuar.",
+    // Stock photography, used as decorative hero backdrop only — not a MAGFA project.
+    heroImage: "/images/magfa/hero.jpg",
+    heroImageAlt: "Punëtor ndërtimi mbi strukturën e një shtëpie në ndërtim e sipër",
     services: [
       { title: "Ndërtim Shtëpish Private", description: "Ndërtim shtëpish individuale nga themeli deri te përfundimi. Çdo detaj i planifikuar dhe realizuar me kujdes.", price: "Nga €45,000", icon: "Home" },
       { title: "Dizajn Arkitekturor", description: "Projektim arkitekturor i personalizuar sipas nevojave dhe dëshirave tuaja. Plani ideal për shtëpinë tuaj.", price: "Nga €2,500", icon: "Building2" },
@@ -126,6 +129,9 @@ export const BRANDS: Brand[] = [
     category: "Dritare & Fasada",
     heroHeadline: "Dritaret e Cilësisë Evropiane.",
     heroSub: "SWISSTECH prodhon dhe monton dritare e dyer PVC dhe alumini me precizion gjerman. Fabrika jonë garanton cilësi maksimale dhe izolim termik superior.",
+    // Stock photography, used as decorative hero backdrop only — not a SWISSTECH project.
+    heroImage: "/images/swisstech/hero.jpg",
+    heroImageAlt: "Fasadë moderne me xham strukturor që reflekton qiellin",
     services: [
       { title: "Dritare PVC", description: "Dritare PVC me profil gjerman — izolim termik dhe akustik i shkëlqyer. Të disponueshme në të gjitha madhësitë dhe ngjyrat.", price: "Nga €85/m²", icon: "Square" },
       { title: "Dritare Alumini", description: "Dritare dhe fasada alumini me ndërprerje termike për ndërtesa residenciale dhe komerciale. Dizajn modern dhe i qëndrueshëm.", price: "Nga €120/m²", icon: "Layers" },
@@ -179,11 +185,14 @@ export const BRANDS: Brand[] = [
     // TODO: replace with real contact details before launch
     phone: "+383 44 123 456",
     email: "info@torre-umbria.torre-ks.com",
-    motion: "cinematic",
+    motion: "subtle",
     accentHsl: "142 70% 45%",
     category: "Zhvillim Rezidencial",
     heroHeadline: "Ndërtesa Moderne. Cilësi e Garantuar.",
     heroSub: "TORRE DI UMBRIA zhvillon ndërtesa rezidenciale moderne në Kosovë — nga koncepti arkitekturor deri te dorëzimi final, me standarde ndërtimi të larta.",
+    // Stock photography, used as decorative hero backdrop only — not a TORRE DI UMBRIA project.
+    heroImage: "/images/torre-umbria/hero.jpg",
+    heroImageAlt: "Ndërtesë moderne rezidenciale e bardhë me ballkone",
     services: [
       { title: "Zhvillim Ndërtesash", description: "Projektim dhe ndërtim ndërtesash rezidenciale moderne me arkitekturë bashkëkohore dhe materiale cilësore.", price: "Me kërkesë", icon: "Building2" },
       { title: "Menaxhim Projekti", description: "Menaxhim i plotë i projekteve të ndërtimit — planifikim, koordinim, mbikëqyrje dhe raportim periodik.", price: "Me kërkesë", icon: "HardHat" },
@@ -238,7 +247,7 @@ export const BRANDS: Brand[] = [
     phone: "+383 44 123 456",
     email: "info@torrehome.torre-ks.com",
     motion: "subtle",
-    accentHsl: "215 20% 46%",
+    accentHsl: "212 47% 29%",
     category: "Apartamente në Ferizaj",
     heroHeadline: "Apartamenti Juaj, Në Zemër të Ferizajt.",
     heroSub: "TORRE HOME ndërton në rrugën Emin Duraku — pranë parkut të ri të qytetit dhe komunës së Ferizajt. Ndërtesa 1 dhe Ndërtesa 2 sjellin katër breza trashëgimi ndërtimi në një lokacion premium.",
@@ -291,9 +300,9 @@ export const BRANDS: Brand[] = [
       fg: "#1a2a3a",
       muted: "#506a85",
       border: "#cdd6e0",
-      // Warm bronze against the cool blue-grey — distinct from muted, and from the
-      // blue/teal/green accents the sibling brands already use.
-      accent: "#7f6238",
+      // Deeper shade of the original blue-grey. Kept in the same family so the brand
+      // still reads as it did, but dark enough to separate from muted text.
+      accent: "#27496d",
       accentFg: "#ffffff",
       navBg: "rgba(240, 243, 247, 0.92)",
       heroBg: "#f0f3f7",

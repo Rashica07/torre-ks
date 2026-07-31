@@ -99,7 +99,7 @@ h1, h2, h3, h4 {
 /* Applied by the useReveal hook once an element enters the viewport. */
 .reveal {
   opacity: 0;
-  transform: translateY(calc(20px * var(--motion-scale)));
+  transform: translateY(calc(10px * var(--motion-scale)));
   transition:
     opacity var(--dur-slow) var(--ease-out),
     transform var(--dur-slow) var(--ease-out);
