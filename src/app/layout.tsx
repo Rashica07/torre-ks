@@ -39,14 +39,26 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://torre-ks.com"),
   title: "TORRE GROUP — Ndërtim & Dizajn",
   description: "MAGFA GROUP, SWISSTECH, TORRE DI UMBRIA, TORRE HOME — Grupi familjar i ndërtimit dhe dizajnit premium në Kosovë.",
+  // Explicit /icons/*.svg paths rather than the icon.svg file-convention: a
+  // route-segment icon file's auto-generated URL gets redirected by
+  // middleware.ts's subdomain logic and resolves against the wrong segment.
+  // See src/app/api/og/route.tsx for the same issue with OG images.
+  icons: {
+    icon: "/icons/torre.svg",
+    shortcut: "/icons/torre.svg",
+    apple: "/icons/torre.svg",
+  },
+  manifest: "/manifest.webmanifest",
   openGraph: {
     type: "website",
     locale: "sq_AL",
     url: "https://torre-ks.com",
     siteName: "TORRE GROUP",
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "TORRE GROUP" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/api/og"],
   },
 };
 

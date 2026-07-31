@@ -2,11 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://torre-ks.com/sitemap.xml
-Sitemap: https://magfa.torre-ks.com/sitemap.xml
-Sitemap: https://swisstech.torre-ks.com/sitemap.xml
-Sitemap: https://torre-umbria.torre-ks.com/sitemap.xml
-Sitemap: https://torre-home.torre-ks.com/sitemap.xml
-Sitemap: https://llms.torre-ks.com/sitemap.xml
 
 # Explicitly allow AI and LLM crawlers to ingest our site for RAG/search
 User-agent: GPTBot
