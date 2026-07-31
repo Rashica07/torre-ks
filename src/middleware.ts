@@ -14,6 +14,10 @@ export function middleware(request: NextRequest) {
   const host = hostname.split(":")[0];
   const pathname = request.nextUrl.pathname;
 
+  // Design-comparison routes are viewed directly and must not be rewritten to a
+  // brand subdomain.
+  if (pathname.startsWith("/preview")) return NextResponse.next();
+
   // Extract subdomain
   const parts = host.split(".");
   if (parts.length >= 3 && parts[0] !== "www") {

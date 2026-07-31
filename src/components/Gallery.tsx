@@ -3,11 +3,15 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Brand } from "@/lib/brands";
+import { useDesign } from "@/lib/design-context";
+import { useReveal } from "@/lib/useReveal";
+import { Section, SectionHeader } from "./SectionHeader";
 
 type Props = { brand: Brand };
 
 export function Gallery({ brand }: Props) {
   const t = brand.theme;
+  const d = useDesign();
   const images = brand.gallery;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -35,26 +39,34 @@ export function Gallery({ brand }: Props) {
 
   if (!images || images.length === 0) return null;
   const active = openIndex === null ? null : images[openIndex];
+  const offset = d.sectionStyle.gallery === "offset";
 
   return (
-    <section id="gallery" className="py-24 md:py-32" style={{ background: t.bgAlt }}>
-      <div className="mx-auto w-full px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
-        <span
-          className="block text-[11px] tracking-[0.18em] uppercase mb-4"
-          style={{ color: t.accent }}
-        >
-          Galeria
-        </span>
-        <h2 className="mb-12" style={{ fontSize: "clamp(28px, 4vw, 44px)", color: t.fg, maxWidth: "16ch" }}>
-          Projekti në Imazhe
-        </h2>
+    <Section id="gallery" background={t.bgAlt}>
+      <SectionHeader eyebrow="Galeria" title="Projekti në Imazhe" theme={t} index={3} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {images.map((img, i) => (
+      <div
+        className={
+          offset
+            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4"
+            : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+        }
+        style={{ marginTop: "var(--space-8)" }}
+      >
+        {images.map((img, i) => (
+          <Tile
+            key={img.src}
+            delay={i * 60}
+            // Editorial: every fourth tile spans wide, breaking the uniform grid.
+            className={offset ? (i % 4 === 0 ? "lg:col-span-4" : "lg:col-span-2") : ""}
+          >
             <figure
-              key={img.src}
-              className="relative rounded-xl overflow-hidden group"
-              style={{ border: `1px solid ${t.border}`, background: t.surface }}
+              className="relative overflow-hidden group h-full"
+              style={{
+                border: d.cardStyle === "ruled" ? "none" : `1px solid ${t.border}`,
+                borderRadius: d.radius,
+                background: t.surface,
+              }}
             >
               <button
                 type="button"
@@ -62,28 +74,40 @@ export function Gallery({ brand }: Props) {
                 className="block w-full text-left cursor-zoom-in"
                 aria-label={`Hap imazhin: ${img.caption}`}
               >
-                <div className="relative w-full aspect-[4/3]">
+                <div
+                  className="relative w-full"
+                  style={{ aspectRatio: offset && i % 4 === 0 ? "16 / 9" : "4 / 3" }}
+                >
                   <Image
                     src={img.src}
                     alt={img.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-slow ease-out group-hover:scale-[1.04]"
                   />
                 </div>
               </button>
-              <figcaption className="px-4 py-3 text-xs tracking-wide" style={{ color: t.muted }}>
+              <figcaption
+                className="text-step--1 tracking-wide"
+                style={{
+                  color: t.muted,
+                  padding:
+                    d.cardStyle === "ruled"
+                      ? "var(--space-3) 0 0"
+                      : "var(--space-3) var(--space-4)",
+                }}
+              >
                 {img.caption}
               </figcaption>
             </figure>
-          ))}
-        </div>
+          </Tile>
+        ))}
       </div>
 
       {active && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
-          style={{ background: "rgba(0,0,0,0.9)" }}
+          style={{ background: "rgba(0,0,0,0.92)" }}
           onClick={close}
           role="dialog"
           aria-modal="true"
@@ -127,13 +151,7 @@ export function Gallery({ brand }: Props) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative w-full" style={{ height: "min(80vh, 720px)" }}>
-              <Image
-                src={active.src}
-                alt={active.alt}
-                fill
-                sizes="100vw"
-                className="object-contain"
-              />
+              <Image src={active.src} alt={active.alt} fill sizes="100vw" className="object-contain" />
             </div>
             <figcaption className="mt-4 text-sm text-center" style={{ color: "rgba(255,255,255,0.75)" }}>
               {active.caption}
@@ -144,6 +162,27 @@ export function Gallery({ brand }: Props) {
           </figure>
         </div>
       )}
-    </section>
+    </Section>
+  );
+}
+
+function Tile({
+  children,
+  delay,
+  className,
+}: {
+  children: React.ReactNode;
+  delay: number;
+  className?: string;
+}) {
+  const ref = useReveal<HTMLDivElement>();
+  return (
+    <div
+      ref={ref}
+      className={`reveal h-full ${className ?? ""}`}
+      style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}
+    >
+      {children}
+    </div>
   );
 }

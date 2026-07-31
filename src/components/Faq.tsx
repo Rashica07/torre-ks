@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import type { Brand } from "@/lib/brands";
+import { Section, SectionHeader } from "./SectionHeader";
 
 function Item({ item, index, accent, fg, muted, border, bgAlt }: {
   item: { q: string; a: string }; index: number;
@@ -61,43 +62,45 @@ export function Faq({ brand }: { brand: Brand }) {
   const t = brand.theme;
 
   return (
-    <section id="faq" className="py-20 md:py-32" style={{ background: t.bg }}>
-      <div className="mx-auto px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-14 lg:gap-24">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <span className="block text-[11px] tracking-[0.18em] uppercase mb-6" style={{ color: t.accent }}>
-              Pyetje të Shpeshta
-            </span>
-            <h2 className="mb-5" style={{ fontSize: "clamp(24px, 3vw, 42px)", color: t.fg }}>
-              Pyetje me Përgjigje.
-            </h2>
-            <p className="text-sm leading-relaxed mb-8" style={{ color: t.muted }}>
-              Nuk gjeni përgjigjen? Kontaktoni ekipin tonë direkt.
-            </p>
-            <a
-              href="#contact"
-              className="text-[13px] font-medium no-underline"
-              style={{ color: t.accent, borderBottom: `1px solid ${t.accent}40`, paddingBottom: "2px" }}
-            >
-              Na kontaktoni →
-            </a>
-          </div>
-          <div style={{ borderTop: `1px solid ${t.border}` }}>
-            {brand.faqs.map((item, i) => (
-              <Item
-                key={i}
-                item={item}
-                index={i}
-                accent={t.accent}
-                fg={t.fg}
-                muted={t.muted}
-                border={t.border}
-                bgAlt={t.bgAlt}
-              />
-            ))}
-          </div>
+    <Section id="faq" background={t.bg}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-14 lg:gap-24">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+            <SectionHeader
+              eyebrow="Pyetje të Shpeshta"
+              title="Pyetje me Përgjigje."
+              lead="Nuk gjeni përgjigjen? Kontaktoni ekipin tonë direkt."
+              theme={t}
+              index={5}
+            />
+          <a
+            href="#contact"
+            className="text-[13px] font-medium no-underline"
+            style={{
+              color: t.accent,
+              borderBottom: `1px solid ${t.accent}40`,
+              paddingBottom: "2px",
+              marginTop: "var(--space-6)",
+              display: "inline-block",
+            }}
+          >
+            Na kontaktoni →
+          </a>
+        </div>
+        <div style={{ borderTop: `1px solid ${t.border}` }}>
+          {brand.faqs.map((item, i) => (
+            <Item
+              key={i}
+              item={item}
+              index={i}
+              accent={t.accent}
+              fg={t.fg}
+              muted={t.muted}
+              border={t.border}
+              bgAlt={t.bgAlt}
+            />
+          ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

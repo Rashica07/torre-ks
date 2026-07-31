@@ -1,7 +1,12 @@
 "use client";
-import type { Brand } from "@/lib/brands";
+import type { Brand, BrandId, BrandTheme } from "@/lib/brands";
+import { useDesign } from "@/lib/design-context";
+import { useReveal } from "@/lib/useReveal";
+import { Section, SectionHeader } from "./SectionHeader";
 
-const STEPS_BY_BRAND: Record<string, { title: string; body: string }[]> = {
+type Step = { title: string; body: string };
+
+const STEPS_BY_BRAND: Record<BrandId, Step[]> = {
   magfa: [
     { title: "Konsultimi", body: "Takohemi me ju për të kuptuar vizionin, buxhetin dhe afatin kohor. Konsultimi fillestar është plotësisht falas." },
     { title: "Projektimi", body: "Arkitektët tanë dizajnojnë planin e shtëpisë sipas nevojave tuaja dhe marrin lejet e nevojshme të ndërtimit." },
@@ -20,7 +25,7 @@ const STEPS_BY_BRAND: Record<string, { title: string; body: string }[]> = {
     { title: "Ndërtimi", body: "Ekzekutim me standardet tona të larta — raportim periodik dhe inspektime të vazhdueshme cilësie." },
     { title: "Legalizimi", body: "Dorëzim me dokumentacion të plotë — certifikata ndërtimore, energjetike dhe çertifikata pronësie." },
   ],
-  "torre-home": [
+  torrehome: [
     { title: "Vizita", body: "Vizitoni showroom-in tonë ose ndërtesat fizikisht. Ju tregojmë çdo apartament të disponueshëm." },
     { title: "Zgjedhja", body: "Zgjidhni apartamentin, katin dhe orientimin. Personalizoni finimet sipas preferencave tuaja." },
     { title: "Kontrata", body: "Nënshkruajmë kontratën e blerjes me çmim fiks — pa kosto të fshehura. Procesi ligjor plotësisht i mbrojtur." },
@@ -29,57 +34,129 @@ const STEPS_BY_BRAND: Record<string, { title: string; body: string }[]> = {
 };
 
 export function Process({ brand }: { brand: Brand }) {
-  const steps = STEPS_BY_BRAND[brand.id] || STEPS_BY_BRAND.magfa;
+  const steps = STEPS_BY_BRAND[brand.id];
   const t = brand.theme;
+  const d = useDesign();
 
   return (
-    <section id="process" className="py-20 md:py-32" style={{ background: t.bg }}>
-      <div className="mx-auto px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
-        <span className="block text-[11px] tracking-[0.18em] uppercase mb-5" style={{ color: t.accent }}>
-          Si Punojmë
-        </span>
-        <div className="flex items-end justify-between mb-14 gap-8 flex-wrap">
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 52px)", color: t.fg }}>
-            Procesi Ynë.
-          </h2>
-          <p className="text-sm" style={{ color: t.muted, maxWidth: "28ch", lineHeight: 1.7 }}>
-            Katër hapa. Qartësi totale në çdo fazë.
-          </p>
-        </div>
+    <Section id="process" background={d.id === "minimal" ? t.bg : t.bgAlt}>
+      <SectionHeader
+        eyebrow="Si Punojmë"
+        title="Procesi Ynë."
+        lead="Katër hapa. Qartësi totale në çdo fazë."
+        theme={t}
+        index={2}
+      />
+      <div style={{ marginTop: "var(--space-8)" }}>
+        {d.sectionStyle.process === "split" ? (
+          <SplitTimeline steps={steps} t={t} />
+        ) : (
+          <StepColumns steps={steps} t={t} ruled={d.cardStyle === "ruled"} />
+        )}
+      </div>
+    </Section>
+  );
+}
 
-        <div
-          className="grid grid-cols-1 md:grid-cols-4 gap-px rounded-xl overflow-hidden"
-          style={{ border: `1px solid ${t.border}` }}
-        >
-          {steps.map((step, i) => (
-            <div
-              key={step.title}
-              className="p-8 flex flex-col gap-5"
-              style={{ background: t.surface }}
-            >
+/* ── Architectural: vertical timeline with a spine, numerals in the gutter ── */
+function SplitTimeline({ steps, t }: { steps: Step[]; t: BrandTheme }) {
+  return (
+    <div className="relative">
+      <div
+        className="absolute top-0 bottom-0 hidden md:block"
+        style={{ left: "78px", width: "1px", background: t.border }}
+      />
+      {steps.map((s, i) => (
+        <Item key={s.title} delay={i * 90}>
+          <div
+            className="grid grid-cols-1 md:grid-cols-[80px_1fr] gap-5 md:gap-10 items-start relative"
+            style={{ paddingBlock: "var(--space-6)" }}
+          >
+            <div className="flex md:justify-start">
               <span
-                className="block"
+                className="font-mono tabular-nums flex items-center justify-center relative z-10"
                 style={{
-                  fontSize: "clamp(48px, 5vw, 72px)",
-                  color: t.border,
-                  userSelect: "none",
-                  lineHeight: 1,
+                  fontSize: "var(--step-1)",
+                  color: t.accentFg,
+                  background: t.accent,
+                  width: "44px",
+                  height: "44px",
+                  fontWeight: 700,
                 }}
               >
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <div>
-                <h3 className="mb-2" style={{ fontSize: "clamp(17px, 1.4vw, 22px)", color: t.fg }}>
-                  {step.title}
-                </h3>
-                <p className="text-[13px] leading-relaxed" style={{ color: t.muted }}>
-                  {step.body}
-                </p>
-              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
+            <div style={{ maxWidth: "56ch" }}>
+              <h3
+                className="text-step-2 uppercase mb-2"
+                style={{ color: t.fg, fontWeight: 700, letterSpacing: "-0.01em" }}
+              >
+                {s.title}
+              </h3>
+              <p className="text-step-0" style={{ color: t.muted, lineHeight: 1.7 }}>
+                {s.body}
+              </p>
+            </div>
+          </div>
+        </Item>
+      ))}
+    </div>
+  );
+}
+
+/* ── Editorial / minimal: four columns, oversized ghost numerals ── */
+function StepColumns({ steps, t, ruled }: { steps: Step[]; t: BrandTheme; ruled: boolean }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+      {steps.map((s, i) => (
+        <Item key={s.title} delay={i * 90}>
+          <div
+            className="h-full flex flex-col gap-4"
+            style={
+              ruled
+                ? { borderTop: `1px solid ${t.border}`, paddingTop: "var(--space-5)" }
+                : {
+                    background: t.surface,
+                    border: `1px solid ${t.border}`,
+                    borderRadius: "var(--radius)",
+                    padding: "var(--space-6)",
+                  }
+            }
+          >
+            <span
+              aria-hidden
+              style={{
+                fontSize: "var(--step-4)",
+                color: t.accent,
+                opacity: ruled ? 0.28 : 0.18,
+                lineHeight: 1,
+                userSelect: "none",
+                fontWeight: 600,
+              }}
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h3 className="text-step-1 mb-2" style={{ color: t.fg, fontWeight: 600 }}>
+                {s.title}
+              </h3>
+              <p className="text-step--1" style={{ color: t.muted, lineHeight: 1.7 }}>
+                {s.body}
+              </p>
+            </div>
+          </div>
+        </Item>
+      ))}
+    </div>
+  );
+}
+
+function Item({ children, delay }: { children: React.ReactNode; delay: number }) {
+  const ref = useReveal<HTMLDivElement>();
+  return (
+    <div ref={ref} className="reveal h-full" style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}>
+      {children}
+    </div>
   );
 }

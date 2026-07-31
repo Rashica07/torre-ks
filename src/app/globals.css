@@ -10,9 +10,44 @@
   --fg: 0 0% 8%;
   --muted: 0 0% 45%;
   --border: 0 0% 90%;
-  --radius: 12px;
   --max: 1200px;
   --gutter: clamp(20px, 5vw, 64px);
+
+  /* Radius scale — components reference these instead of hardcoding rounded-* */
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* Spacing scale, 8px base. Section padding uses --space-* rather than ad-hoc py-20/24/32 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Fluid type scale — one ramp replaces the five bespoke clamp() values that
+     previously lived inline in each section component. */
+  --step--1: clamp(11px, 0.7vw + 9px, 13px);
+  --step-0: clamp(13px, 0.4vw + 12px, 15px);
+  --step-1: clamp(16px, 0.6vw + 14px, 20px);
+  --step-2: clamp(20px, 1vw + 17px, 26px);
+  --step-3: clamp(26px, 2.2vw + 20px, 40px);
+  --step-4: clamp(32px, 4vw + 20px, 60px);
+  --step-5: clamp(40px, 7vw + 16px, 96px);
+
+  /* Motion tokens. Per-brand intensity multiplies --motion-scale (see BrandPage). */
+  --motion-scale: 1;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: calc(160ms * var(--motion-scale));
+  --dur-base: calc(280ms * var(--motion-scale));
+  --dur-slow: calc(560ms * var(--motion-scale));
 }
 
 /* ─── Base ─── */
@@ -37,26 +72,71 @@ h1, h2, h3, h4 {
   letter-spacing: -0.025em;
 }
 
-/* ─── Focus ─── */
+/* ─── Focus ───
+   Driven by the brand accent so it stays visible on the dark SwissTech and
+   Torre di Umbria themes; falls back to --fg outside a themed subtree. */
 *:focus-visible {
-  outline: 2px solid hsl(var(--fg));
+  outline: 2px solid var(--t-accent, hsl(var(--fg)));
   outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }
 
-/* ─── Marquee ─── */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+/* ─── Entrance / scroll reveal ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
 }
-@keyframes marquee-rev {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+
+/* Slow zoom on hero imagery for brands set to cinematic motion. */
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
 }
-.animate-marquee { animation: marquee 40s linear infinite; }
-.animate-marquee-rev { animation: marquee-rev 44s linear infinite; }
+.animate-kenburns {
+  animation: kenburns 22s var(--ease-in-out) infinite alternate;
+}
+
+/* Applied by the useReveal hook once an element enters the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(calc(20px * var(--motion-scale)));
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
 
 /* ─── Selection ─── */
 ::selection {
   background: hsl(var(--fg));
   color: hsl(var(--bg));
+}
+
+/* ─── Reduced motion ───
+   Honours the OS setting: no transforms, no reveals, nothing that moves. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .animate-kenburns {
+    animation: none;
+  }
+}
+
+/* Motion level "minimal" zeroes the duration tokens, so also drop the ambient loop. */
+[data-motion="minimal"] .animate-kenburns {
+  animation: none;
 }

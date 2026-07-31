@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -11,6 +11,21 @@ const inter = Inter({
 const outfit = Outfit({
   subsets: ["latin", "latin-ext"],
   variable: "--font-display",
+  display: "swap",
+});
+
+// Display face for the editorial variant.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-serif",
+  display: "swap",
+});
+
+// Spec/numeral accents for the architectural variant.
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -41,7 +56,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="sq" className={`${inter.variable} ${outfit.variable}`}>
+    <html
+      lang="sq"
+      className={`${inter.variable} ${outfit.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

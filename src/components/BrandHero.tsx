@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { Brand } from "@/lib/brands";
+import { useDesign } from "@/lib/design-context";
 
 const SIBLINGS: Record<string, { name: string; url: string }[]> = {
   magfa: [
@@ -31,6 +32,9 @@ type Props = { brand: Brand };
 export function BrandHero({ brand }: Props) {
   const siblings = SIBLINGS[brand.id] || [];
   const t = brand.theme;
+  const d = useDesign();
+  // Cinematic brands get a slow parallax drift on the hero image.
+  const cinematic = brand.motion === "cinematic";
 
   return (
     <section
@@ -46,7 +50,7 @@ export function BrandHero({ brand }: Props) {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className={`object-cover ${cinematic ? "animate-kenburns" : ""}`}
           />
           <div
             className="absolute inset-0"
@@ -69,7 +73,10 @@ export function BrandHero({ brand }: Props) {
             <h1
               className="mb-6"
               style={{
-                fontSize: "clamp(40px, 7vw, 88px)",
+                fontSize: "var(--step-5)",
+                fontFamily: d.displayFont === "serif" ? "var(--font-serif), Georgia, serif" : undefined,
+                fontWeight: d.id === "architectural" ? 700 : d.displayFont === "serif" ? 400 : 600,
+                lineHeight: d.displayFont === "serif" ? 1.02 : 1.05,
                 color: t.fg,
                 maxWidth: "12ch",
               }}
@@ -78,8 +85,8 @@ export function BrandHero({ brand }: Props) {
             </h1>
 
             <p
-              className="text-[15px] leading-relaxed mb-10"
-              style={{ color: t.muted, maxWidth: "44ch" }}
+              className="text-step-0 mb-10"
+              style={{ color: t.muted, maxWidth: "44ch", lineHeight: 1.7 }}
             >
               {brand.heroSub}
             </p>

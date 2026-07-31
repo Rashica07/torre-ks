@@ -11,8 +11,16 @@ export type BrandTheme = {
   heroBg: string;         // hero section bg (can differ from page bg)
 };
 
+import type { MotionLevel } from "./design-variants";
+
+export const BRAND_IDS = ["magfa", "swisstech", "torre-umbria", "torrehome"] as const;
+
+/** Union of the four brand ids. Keying per-brand content maps by this type makes a
+ *  mistyped or missing key a compile error rather than a silent fallback. */
+export type BrandId = (typeof BRAND_IDS)[number];
+
 export type Brand = {
-  id: string;
+  id: BrandId;
   name: string;
   tagline: string;
   description: string;
@@ -21,6 +29,8 @@ export type Brand = {
   path: string;
   phone: string;
   email: string;
+  /** Animation intensity for this brand's page. */
+  motion: MotionLevel;
   accentHsl: string;
   category: string;
   heroHeadline: string;
@@ -53,6 +63,7 @@ export const BRANDS: Brand[] = [
     // TODO: replace with real contact details before launch
     phone: "+383 44 123 456",
     email: "info@magfa.torre-ks.com",
+    motion: "cinematic",
     accentHsl: "200 100% 45%",
     category: "Ndërtim Rezidencial",
     heroHeadline: "Shtëpia Juaj, e Ndërtuar Saktë.",
@@ -91,9 +102,9 @@ export const BRANDS: Brand[] = [
       bgAlt: "#f3efeb",
       surface: "#ffffff",
       fg: "#2c2420",
-      muted: "#8d7e74",
+      muted: "#776a61",
       border: "#e0d6ce",
-      accent: "#00a0e9",
+      accent: "#0072a7",
       accentFg: "#ffffff",
       navBg: "rgba(250, 248, 246, 0.92)",
       heroBg: "#faf8f6",
@@ -110,6 +121,7 @@ export const BRANDS: Brand[] = [
     // TODO: replace with real contact details before launch
     phone: "+383 44 123 456",
     email: "info@swisstech.torre-ks.com",
+    motion: "subtle",
     accentHsl: "180 100% 30%",
     category: "Dritare & Fasada",
     heroHeadline: "Dritaret e Cilësisë Evropiane.",
@@ -148,10 +160,10 @@ export const BRANDS: Brand[] = [
       bgAlt: "#1a2028",
       surface: "#1e2630",
       fg: "#e8edf2",
-      muted: "#7a8a9a",
+      muted: "#808f9e",
       border: "#2a3642",
-      accent: "#009698",
-      accentFg: "#ffffff",
+      accent: "#00a0a2",
+      accentFg: "#111111",
       navBg: "rgba(15, 20, 25, 0.92)",
       heroBg: "#0f1419",
     },
@@ -167,6 +179,7 @@ export const BRANDS: Brand[] = [
     // TODO: replace with real contact details before launch
     phone: "+383 44 123 456",
     email: "info@torre-umbria.torre-ks.com",
+    motion: "cinematic",
     accentHsl: "142 70% 45%",
     category: "Zhvillim Rezidencial",
     heroHeadline: "Ndërtesa Moderne. Cilësi e Garantuar.",
@@ -205,10 +218,10 @@ export const BRANDS: Brand[] = [
       bgAlt: "#111a11",
       surface: "#162016",
       fg: "#e4f0e4",
-      muted: "#6b8a6b",
+      muted: "#6d8d6d",
       border: "#243024",
       accent: "#22c55e",
-      accentFg: "#ffffff",
+      accentFg: "#111111",
       navBg: "rgba(10, 15, 10, 0.92)",
       heroBg: "#0a0f0a",
     },
@@ -224,6 +237,7 @@ export const BRANDS: Brand[] = [
     // TODO: replace with real contact details before launch
     phone: "+383 44 123 456",
     email: "info@torrehome.torre-ks.com",
+    motion: "subtle",
     accentHsl: "215 20% 46%",
     category: "Apartamente në Ferizaj",
     heroHeadline: "Apartamenti Juaj, Në Zemër të Ferizajt.",
@@ -275,9 +289,11 @@ export const BRANDS: Brand[] = [
       bgAlt: "#e4e9f0",
       surface: "#ffffff",
       fg: "#1a2a3a",
-      muted: "#5f7e9f",
+      muted: "#506a85",
       border: "#cdd6e0",
-      accent: "#5f7e9f",
+      // Warm bronze against the cool blue-grey — distinct from muted, and from the
+      // blue/teal/green accents the sibling brands already use.
+      accent: "#7f6238",
       accentFg: "#ffffff",
       navBg: "rgba(240, 243, 247, 0.92)",
       heroBg: "#f0f3f7",
