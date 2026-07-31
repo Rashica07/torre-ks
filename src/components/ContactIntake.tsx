@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Send, ArrowRight, Mail, Phone } from "lucide-react";
+import { Send, ArrowRight, Mail, Phone, RotateCcw } from "lucide-react";
 import type { Brand } from "@/lib/brands";
 
 type Message = { from: "bot" | "user"; text: string };
-type Step = "interest" | "timeline" | "contactMethod" | "contactDetail" | "done";
+type Step = "interest" | "timeline" | "name" | "contactMethod" | "contactDetail" | "review";
+type Answers = { interest?: string; timeline?: string; name?: string; method?: string; detail?: string };
 
 const INTEREST_OPTIONS = ["Blej Apartament", "Çmimet & Oferta", "Vizitë në Ambient", "Diçka Tjetër"];
 const TIMELINE_OPTIONS = ["Sa më shpejt", "Brenda një muaji", "2–3 muaj", "Vetëm duke shikuar"];
@@ -17,19 +18,26 @@ function typingDuration(text: string) {
   return Math.min(1400, 450 + text.length * 18);
 }
 
+function greeting(brand: Brand): string[] {
+  return [
+    `Përshëndetje! Unë jam asistenti i ${brand.name}. Disa pyetje të shpejta dhe ekipi ynë ju kontakton.`,
+    "Çfarë ju intereson?",
+  ];
+}
+
 export function ContactIntake({ brand }: { brand: Brand }) {
   const t = brand.theme;
   const [step, setStep] = useState<Step>("interest");
   const [messages, setMessages] = useState<Message[]>([]);
   const [typing, setTyping] = useState(false);
-  const [answers, setAnswers] = useState<{ interest?: string; timeline?: string; method?: string; detail?: string }>({});
+  const [answers, setAnswers] = useState<Answers>({});
   const [inputValue, setInputValue] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const mounted = useRef(false);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, typing]);
+  }, [messages, typing, step]);
 
   // Reveals bot replies one at a time behind a typing indicator, instead of
   // dumping every message in at once — reads as composed, not teleported.
@@ -46,10 +54,7 @@ export function ContactIntake({ brand }: { brand: Brand }) {
   useEffect(() => {
     if (mounted.current) return; // guards React StrictMode's double-invoke in dev
     mounted.current = true;
-    speakBot([
-      `Përshëndetje! Unë jam asistenti i ${brand.name}. Tri pyetje të shpejta dhe ekipi ynë ju kontakton.`,
-      "Çfarë ju intereson?",
-    ]);
+    speakBot(greeting(brand));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -62,8 +67,8 @@ export function ContactIntake({ brand }: { brand: Brand }) {
       speakBot(["Cili është afati juaj kohor?"]);
     } else if (step === "timeline") {
       setAnswers((a) => ({ ...a, timeline: value }));
-      setStep("contactMethod");
-      speakBot(["Si preferoni t'ju kontaktojmë?"]);
+      setStep("name");
+      speakBot(["Si quheni?"]);
     } else if (step === "contactMethod") {
       setAnswers((a) => ({ ...a, method: value }));
       setStep("contactDetail");
@@ -71,23 +76,44 @@ export function ContactIntake({ brand }: { brand: Brand }) {
     }
   }
 
-  function submitDetail() {
+  function submitText() {
     if (!inputValue.trim()) return;
-    const detail = inputValue.trim();
-    setMessages((m) => [...m, { from: "user", text: detail }]);
-    setAnswers((a) => ({ ...a, detail }));
-    setStep("done");
+    const value = inputValue.trim();
+    setMessages((m) => [...m, { from: "user", text: value }]);
     setInputValue("");
-    speakBot(["Faleminderit! Klikoni më poshtë për të dërguar kërkesën."]);
+
+    if (step === "name") {
+      setAnswers((a) => ({ ...a, name: value }));
+      setStep("contactMethod");
+      speakBot(["Si preferoni t'ju kontaktojmë?"]);
+    } else if (step === "contactDetail") {
+      setAnswers((a) => ({ ...a, detail: value }));
+      setStep("review");
+      speakBot(["Ja çka kam mbledhur — kontrolloni dhe dërgojeni kur të jeni gati."]);
+    }
+  }
+
+  function switchMethod() {
+    setAnswers((a) => ({ ...a, method: undefined, detail: undefined }));
+    setStep("contactMethod");
+    setMessages((m) => [...m, { from: "bot", text: "Sigurisht — si preferoni t'ju kontaktojmë?" }]);
+  }
+
+  function restart() {
+    setAnswers({});
+    setMessages([]);
+    setInputValue("");
+    setTyping(false);
+    setStep("interest");
+    speakBot(greeting(brand));
   }
 
   const subject = encodeURIComponent(`Kërkesë e re nga ${brand.name}`);
   const body = encodeURIComponent(
-    `Interes: ${answers.interest || "-"}\nAfati kohor: ${answers.timeline || "-"}\nKontakt (${answers.method || "-"}): ${answers.detail || "-"}`
+    `Emri: ${answers.name || "-"}\nInteres: ${answers.interest || "-"}\nAfati kohor: ${answers.timeline || "-"}\nKontakt (${answers.method || "-"}): ${answers.detail || "-"}`
   );
 
-  const options =
-    step === "interest" ? INTEREST_OPTIONS : step === "timeline" ? TIMELINE_OPTIONS : step === "contactMethod" ? CONTACT_OPTIONS : [];
+  const options = step === "interest" ? INTEREST_OPTIONS : step === "timeline" ? TIMELINE_OPTIONS : [];
   // Buttons/input for the current step only make sense once the assistant has
   // actually finished asking — otherwise you could answer a question it hasn't sent yet.
   const awaitingReply = typing;
@@ -109,7 +135,7 @@ export function ContactIntake({ brand }: { brand: Brand }) {
         </span>
       </div>
 
-      <div ref={scrollRef} className="flex flex-col gap-3 px-5 py-5 max-h-72 overflow-y-auto">
+      <div ref={scrollRef} className="flex flex-col gap-3 px-5 py-5 max-h-80 overflow-y-auto">
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"}`}>
             <div
@@ -140,6 +166,44 @@ export function ContactIntake({ brand }: { brand: Brand }) {
                   style={{ background: t.muted, animationDelay: `${i * 0.15}s` }}
                 />
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Review summary — recaps every answer before anything is sent. */}
+        {step === "review" && !awaitingReply && (
+          <div
+            className="animate-message-in rounded-lg p-4"
+            style={{ background: t.surface, border: `1px solid ${t.border}` }}
+          >
+            <dl className="flex flex-col gap-2 text-[13px]" style={{ color: t.fg }}>
+              <SummaryRow label="Interesi" value={answers.interest} muted={t.muted} />
+              <SummaryRow label="Afati" value={answers.timeline} muted={t.muted} />
+              <SummaryRow label="Emri" value={answers.name} muted={t.muted} />
+              <SummaryRow
+                label={answers.method === "Email" ? "Email" : "Telefoni"}
+                value={answers.detail}
+                muted={t.muted}
+              />
+            </dl>
+
+            <div className="flex items-center justify-between mt-3 pt-3" style={{ borderTop: `1px solid ${t.border}` }}>
+              <button
+                type="button"
+                onClick={switchMethod}
+                className="text-[11px] no-underline transition-opacity hover:opacity-70"
+                style={{ color: t.accent }}
+              >
+                Ndrysho kontaktin
+              </button>
+              <button
+                type="button"
+                onClick={restart}
+                className="inline-flex items-center gap-1 text-[11px] transition-opacity hover:opacity-70"
+                style={{ color: t.muted }}
+              >
+                <RotateCcw size={11} /> Fillo nga e para
+              </button>
             </div>
           </div>
         )}
@@ -174,11 +238,11 @@ export function ContactIntake({ brand }: { brand: Brand }) {
             ))}
           </div>
         )}
-        {step === "contactDetail" && !awaitingReply && (
+        {(step === "name" || step === "contactDetail") && !awaitingReply && (
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              submitDetail();
+              submitText();
             }}
             className="animate-message-in flex items-center gap-2"
           >
@@ -186,7 +250,9 @@ export function ContactIntake({ brand }: { brand: Brand }) {
               autoFocus
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder={answers.method === "Email" ? "you@example.com" : "+383 4X XXX XXX"}
+              placeholder={
+                step === "name" ? "Emri juaj" : answers.method === "Email" ? "you@example.com" : "+383 4X XXX XXX"
+              }
               className="flex-1 text-sm rounded-full px-4 py-2.5 outline-none"
               style={{ background: t.surface, border: `1px solid ${t.border}`, color: t.fg }}
             />
@@ -200,7 +266,7 @@ export function ContactIntake({ brand }: { brand: Brand }) {
             </button>
           </form>
         )}
-        {step === "done" && !awaitingReply && (
+        {step === "review" && !awaitingReply && (
           <a
             href={`mailto:${brand.email}?subject=${subject}&body=${body}`}
             className="animate-message-in inline-flex items-center justify-center gap-2 w-full rounded-full text-sm font-medium no-underline px-6 py-3 transition-opacity hover:opacity-85"
@@ -210,6 +276,15 @@ export function ContactIntake({ brand }: { brand: Brand }) {
           </a>
         )}
       </div>
+    </div>
+  );
+}
+
+function SummaryRow({ label, value, muted }: { label: string; value?: string; muted: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4">
+      <dt style={{ color: muted }}>{label}</dt>
+      <dd className="text-right font-medium">{value || "—"}</dd>
     </div>
   );
 }
