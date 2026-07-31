@@ -24,10 +24,19 @@ const NAV_LABELS: Record<SectionKey, string> = {
 export function BrandPage({
   brand,
   variant,
+  simplified = true,
 }: {
   brand: Brand;
   /** Explicit override used by /preview routes; production pages use the brand's own vibe. */
   variant?: DesignVariantId;
+  /**
+   * Forces Services/Process onto their plain card treatment regardless of
+   * variant — the client found the dossier variant's ledger/TOC-style
+   * density "too complicated." The elaborate per-variant treatments stay in
+   * the components themselves (for reuse on future client sites) and remain
+   * visible on /preview, which explicitly opts out of this default.
+   */
+  simplified?: boolean;
 }) {
   const t = brand.theme;
   const activeVariant = variant ?? brand.vibe;
@@ -39,9 +48,9 @@ export function BrandPage({
   const sectionIndex = (key: SectionKey) => brand.sectionOrder.indexOf(key);
 
   const sections: Record<SectionKey, React.ReactNode> = {
-    services: <ServicesBento key="services" brand={brand} index={sectionIndex("services")} />,
+    services: <ServicesBento key="services" brand={brand} index={sectionIndex("services")} simplified={simplified} />,
     pourquoi: <Pourquoi key="pourquoi" brand={brand} index={sectionIndex("pourquoi")} />,
-    process: <Process key="process" brand={brand} index={sectionIndex("process")} />,
+    process: <Process key="process" brand={brand} index={sectionIndex("process")} simplified={simplified} />,
     gallery: <Gallery key="gallery" brand={brand} index={sectionIndex("gallery")} />,
     testimonials: <Testimonials key="testimonials" brand={brand} index={sectionIndex("testimonials")} />,
     faq: <Faq key="faq" brand={brand} index={sectionIndex("faq")} />,

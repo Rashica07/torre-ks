@@ -69,7 +69,7 @@ export default function CompanySelector() {
           </div>
 
           <ol
-            className="list-none m-0 p-0"
+            className="hidden lg:block list-none m-0 p-0"
             style={{ borderLeft: "1px solid hsl(var(--border))", paddingLeft: "var(--space-6)" }}
           >
             {HISTORIKU.map((h) => (

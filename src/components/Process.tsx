@@ -33,7 +33,7 @@ const STEPS_BY_BRAND: Record<BrandId, Step[]> = {
   ],
 };
 
-export function Process({ brand, index }: { brand: Brand; index: number }) {
+export function Process({ brand, index, simplified }: { brand: Brand; index: number; simplified?: boolean }) {
   const steps = STEPS_BY_BRAND[brand.id];
   const t = brand.theme;
   const d = useDesign();
@@ -48,10 +48,16 @@ export function Process({ brand, index }: { brand: Brand; index: number }) {
         index={index}
       />
       <div style={{ marginTop: "var(--space-8)" }}>
-        {d.sectionStyle.process === "split" && <SplitTimeline steps={steps} t={t} />}
-        {d.sectionStyle.process === "dossier" && <TocList steps={steps} t={t} />}
-        {(d.sectionStyle.process === "stacked" || d.sectionStyle.process === "offset" || d.sectionStyle.process === "banded") && (
+        {simplified ? (
           <StepColumns steps={steps} t={t} ruled={d.cardStyle === "ruled"} />
+        ) : (
+          <>
+            {d.sectionStyle.process === "split" && <SplitTimeline steps={steps} t={t} />}
+            {d.sectionStyle.process === "dossier" && <TocList steps={steps} t={t} />}
+            {(d.sectionStyle.process === "stacked" || d.sectionStyle.process === "offset" || d.sectionStyle.process === "banded") && (
+              <StepColumns steps={steps} t={t} ruled={d.cardStyle === "ruled"} />
+            )}
+          </>
         )}
       </div>
     </Section>

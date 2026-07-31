@@ -31,7 +31,10 @@ export default async function PreviewPage({
   return (
     <>
       <VariantSwitcher activeVariant={variant} activeBrand={brand.id} />
-      <BrandPage brand={brand} variant={variant} />
+      {/* This comparison tool is the living backup of every variant's full
+          treatment (ledger/TOC/banded/offset, etc.) — production pages
+          default to the simplified layout, this route opts out. */}
+      <BrandPage brand={brand} variant={variant} simplified={false} />
     </>
   );
 }

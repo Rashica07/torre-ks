@@ -9,9 +9,9 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Building2, HardHat, Sparkles, Layers, TrendingUp, Star, Square, Building, Sun, Wrench, ShieldCheck, Home, Briefcase, MapPin, Zap, Leaf,
 };
 
-type Props = { brand: Brand; index: number };
+type Props = { brand: Brand; index: number; simplified?: boolean };
 
-export function ServicesBento({ brand, index }: Props) {
+export function ServicesBento({ brand, index, simplified }: Props) {
   const t = brand.theme;
   const d = useDesign();
   const style = d.sectionStyle.services;
@@ -27,10 +27,16 @@ export function ServicesBento({ brand, index }: Props) {
       />
 
       <div style={{ marginTop: "var(--space-8)" }}>
-        {style === "offset" && <OffsetList services={brand.services} t={t} />}
-        {style === "banded" && <BandedRows services={brand.services} t={t} />}
-        {style === "dossier" && <LedgerList services={brand.services} t={t} />}
-        {(style === "stacked" || style === "split") && <RaisedGrid services={brand.services} t={t} />}
+        {simplified ? (
+          <RaisedGrid services={brand.services} t={t} />
+        ) : (
+          <>
+            {style === "offset" && <OffsetList services={brand.services} t={t} />}
+            {style === "banded" && <BandedRows services={brand.services} t={t} />}
+            {style === "dossier" && <LedgerList services={brand.services} t={t} />}
+            {(style === "stacked" || style === "split") && <RaisedGrid services={brand.services} t={t} />}
+          </>
+        )}
       </div>
     </Section>
   );
