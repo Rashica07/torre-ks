@@ -198,7 +198,12 @@ export const BRANDS: Brand[] = [
     phone: "+383 49 599 405",
     email: "info@torre-umbria.torre-ks.com",
     motion: "subtle",
-    vibe: "editorial",
+    // Was "editorial" — identical to Torrehome, which is the worst possible pair to
+    // share layout with (Torre di Umbria develops the buildings Torre Home sells).
+    // "minimal" pairs it with Magfa instead: still a shared layout mechanic, not a
+    // real fix, but their theme colors are near-opposite and the businesses are
+    // less directly the same customer funnel.
+    vibe: "minimal",
     sectionOrder: ["pourquoi", "services", "process", "testimonials", "faq"],
     accentHsl: "142 70% 45%",
     category: "Zhvillim Rezidencial",
