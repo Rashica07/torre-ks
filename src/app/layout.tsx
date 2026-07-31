@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Outfit, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationSchema } from "@/lib/schema";
 import "./globals.css";
 
 const inter = Inter({
@@ -72,7 +74,10 @@ export default function RootLayout({
       lang="sq"
       className={`${inter.variable} ${outfit.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <JsonLd data={organizationSchema()} />
+        {children}
+      </body>
     </html>
   );
 }

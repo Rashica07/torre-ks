@@ -1,60 +1,78 @@
 User-agent: *
 Allow: /
+Disallow: /preview
 
 Sitemap: https://torre-ks.com/sitemap.xml
 
 # Explicitly allow AI and LLM crawlers to ingest our site for RAG/search
 User-agent: GPTBot
 Allow: /
+Disallow: /preview
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /preview
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /preview
 
 User-agent: CCBot
 Allow: /
+Disallow: /preview
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /preview
 
 User-agent: Claude-Web
 Allow: /
+Disallow: /preview
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /preview
 
 User-agent: Omgili
 Allow: /
+Disallow: /preview
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /preview
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /preview
 
 User-agent: Cohere-training-data-crawler
 Allow: /
+Disallow: /preview
 
 # Standard web crawlers
 User-agent: Googlebot
 Allow: /
+Disallow: /preview
 
 User-agent: Bingbot
 Allow: /
+Disallow: /preview
 
 User-agent: Slurp
 Allow: /
+Disallow: /preview
 
 User-agent: DuckDuckBot
 Allow: /
+Disallow: /preview
 
 User-agent: Baiduspider
 Allow: /
+Disallow: /preview
 
 User-agent: YandexBot
 Allow: /
+Disallow: /preview
 
 # Block aggressive SEO crawlers to save bandwidth
 User-agent: AhrefsBot

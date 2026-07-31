@@ -1,5 +1,7 @@
 import { BrandPage } from "@/components/BrandPage";
+import { JsonLd } from "@/components/JsonLd";
 import { BRANDS } from "@/lib/brands";
+import { brandSchema } from "@/lib/schema";
 
 import type { Metadata, Viewport } from "next";
 
@@ -30,5 +32,10 @@ export const metadata: Metadata = {
 };
 
 export default function TorreUmbriaPage() {
-  return <BrandPage brand={brand} />;
+  return (
+    <>
+      <JsonLd data={brandSchema(brand)} />
+      <BrandPage brand={brand} />
+    </>
+  );
 }

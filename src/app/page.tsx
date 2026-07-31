@@ -1,10 +1,6 @@
-"use client";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { BRANDS } from "@/lib/brands";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 // Company history, condensed from the group's own record.
 const HISTORIKU = [
@@ -16,99 +12,86 @@ const HISTORIKU = [
 
 export default function CompanySelector() {
   return (
-    <main
-      className="min-h-screen flex flex-col items-center justify-center"
-      style={{ background: "hsl(var(--bg))" }}
-    >
+    <main className="min-h-screen" style={{ background: "hsl(var(--bg))", color: "hsl(var(--fg))" }}>
       <div
-        className="w-full mx-auto px-[var(--gutter)] flex flex-col items-center"
+        className="mx-auto px-[var(--gutter)]"
         style={{ maxWidth: "var(--max)", paddingBlock: "var(--space-9)" }}
       >
-        {/* eyebrow */}
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="text-[11px] tracking-[0.2em] uppercase"
-          style={{ color: "hsl(var(--muted))", marginBottom: "var(--space-6)" }}
-        >
-          Torre Group
-        </motion.span>
-
-        {/* headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05, duration: 0.45, ease: EASE }}
-          className="text-center"
-          style={{ fontSize: "var(--step-5)", color: "hsl(var(--fg))", marginBottom: "var(--space-4)" }}
-        >
-          Një Grup.
-          <br />
-          <span style={{ color: "hsl(var(--muted))" }}>Katër Kompani.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.15, duration: 0.4 }}
-          className="text-center text-step-0"
+        {/* masthead — asymmetric: oversized mixed-weight headline against a
+            dense timeline spine, not a centered hero */}
+        <div
+          className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-x-16 gap-y-10"
           style={{
-            color: "hsl(var(--muted))",
-            maxWidth: "42ch",
-            lineHeight: 1.7,
+            borderBottom: "1px solid hsl(var(--border))",
+            paddingBottom: "var(--space-8)",
             marginBottom: "var(--space-8)",
           }}
         >
-          Zgjidhni një kompani për të eksploruar shërbimet, portofolin dhe
-          ekspertizën e tyre.
-        </motion.p>
-
-        {/* historiku strip */}
-        <motion.ol
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.45, ease: EASE }}
-          className="w-full grid grid-cols-2 lg:grid-cols-4 gap-6 list-none"
-          style={{
-            borderTop: "1px solid hsl(var(--border))",
-            paddingTop: "var(--space-5)",
-            marginBottom: "var(--space-8)",
-          }}
-        >
-          {HISTORIKU.map((h) => (
-            <li key={h.year}>
+          <div style={{ animation: "fadeUp 0.5s var(--ease-out) both" }}>
+            <span
+              className="block font-mono text-[11px] tracking-[0.2em] uppercase"
+              style={{ color: "hsl(var(--muted))", marginBottom: "var(--space-5)" }}
+            >
+              Torre Group — Themeluar 1950, Stubëll e Vitisë
+            </span>
+            <h1 className="text-step-5" style={{ lineHeight: 0.98, marginBottom: "var(--space-5)" }}>
+              <span style={{ fontWeight: 700 }}>Katër kompani.</span>{" "}
               <span
-                className="block text-[11px] tracking-[0.14em] uppercase mb-1.5"
-                style={{ color: "hsl(var(--fg))" }}
+                style={{
+                  fontFamily: "var(--font-serif), Georgia, serif",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  color: "hsl(var(--muted))",
+                }}
               >
-                {h.year}
+                Një themel.
               </span>
-              <span className="block text-step--1" style={{ color: "hsl(var(--muted))", lineHeight: 1.6 }}>
-                {h.text}
-              </span>
-            </li>
-          ))}
-        </motion.ol>
+            </h1>
+            <p
+              className="text-step-0"
+              style={{ color: "hsl(var(--muted))", maxWidth: "52ch", lineHeight: 1.7 }}
+            >
+              Katër breza mjeshtërie ndërtimi — nga Stubëlli i Vitisë te tregu
+              zviceran — sot të organizuar në katër kompani të pavarura,
+              secila me specializimin e vet.
+            </p>
+          </div>
 
-        {/* brand cards — each previews its own vibe: theme colours + hero backdrop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+          <ol
+            className="list-none m-0 p-0"
+            style={{ borderLeft: "1px solid hsl(var(--border))", paddingLeft: "var(--space-6)" }}
+          >
+            {HISTORIKU.map((h) => (
+              <li key={h.year} style={{ paddingBottom: "var(--space-4)" }}>
+                <span
+                  className="block font-mono text-[11px] tracking-[0.1em]"
+                  style={{ color: "hsl(var(--fg))" }}
+                >
+                  {h.year}
+                </span>
+                <span className="block text-step--1" style={{ color: "hsl(var(--muted))", lineHeight: 1.6 }}>
+                  {h.text}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {/* directory — full-width rows, not a symmetric card grid. Each row
+            reveals its own brand's hero image and accent color on hover. */}
+        <div role="list">
           {BRANDS.map((brand, i) => {
             const t = brand.theme;
             return (
-              <motion.a
+              <a
                 key={brand.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25 + i * 0.06, duration: 0.4, ease: EASE }}
                 href={brand.externalUrl}
-                className="relative overflow-hidden text-left flex flex-col justify-between group no-underline transition-transform duration-base ease-out hover:-translate-y-1"
+                role="listitem"
+                className="group relative flex items-center justify-between gap-6 no-underline overflow-hidden"
                 style={{
-                  padding: "var(--space-6) var(--space-5)",
-                  minHeight: "300px",
-                  background: t.bg,
-                  border: `1px solid ${t.border}`,
-                  borderRadius: "var(--radius)",
+                  borderTop: i === 0 ? "1px solid hsl(var(--border))" : undefined,
+                  borderBottom: "1px solid hsl(var(--border))",
+                  paddingBlock: "var(--space-6)",
                 }}
               >
                 {brand.heroImage && (
@@ -117,60 +100,69 @@ export default function CompanySelector() {
                       src={brand.heroImage}
                       alt=""
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-slow ease-out group-hover:scale-[1.04]"
+                      sizes="100vw"
+                      className="object-cover opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
+                      style={{ zIndex: 0 }}
                     />
-                    {/* Theme-tinted scrim keeps each card's text legible over its image. */}
                     <div
-                      className="absolute inset-0"
+                      className="absolute inset-0 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
                       style={{
-                        background: `linear-gradient(180deg, ${t.bg}e6 20%, ${t.bg}b3 60%, ${t.bg}f0 100%)`,
+                        background: `linear-gradient(90deg, ${t.bg} 0%, ${t.bg}cc 42%, transparent 100%)`,
+                        zIndex: 1,
                       }}
                     />
                   </>
                 )}
 
-                <div className="relative">
-                  <div className="w-2 h-2 rounded-full" style={{ background: t.accent, marginBottom: "var(--space-6)" }} />
+                <div className="relative flex items-baseline gap-6" style={{ zIndex: 2 }}>
                   <span
-                    className="block text-[10px] tracking-[0.15em] uppercase mb-3"
-                    style={{ color: t.muted }}
+                    className="font-mono text-[13px] tabular-nums"
+                    style={{ color: "hsl(var(--muted))" }}
                   >
-                    {brand.category}
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h2 className="mb-3 text-step-2" style={{ color: t.fg }}>
-                    {brand.name}
-                  </h2>
-                  <p className="text-step--1" style={{ color: t.muted, maxWidth: "28ch", lineHeight: 1.6 }}>
-                    {brand.tagline}
-                  </p>
+                  <div>
+                    <span className="block text-step-3" style={{ fontWeight: 600 }}>
+                      {brand.name}
+                    </span>
+                    <span className="block text-step--1" style={{ color: "hsl(var(--muted))" }}>
+                      {brand.category} — {brand.tagline}
+                    </span>
+                  </div>
                 </div>
 
-                <div
-                  className="relative flex items-center gap-2 text-step--1 mt-6 transition-all duration-base group-hover:gap-3"
-                  style={{ color: t.accent }}
+                <span
+                  className="relative flex items-center gap-2 text-step--1 font-medium shrink-0 transition-transform duration-base ease-out group-hover:translate-x-1"
+                  style={{ color: t.accent, zIndex: 2 }}
                 >
-                  Eksploro
-                  <ArrowRight
-                    size={14}
-                    className="transition-transform duration-base group-hover:translate-x-0.5"
-                  />
-                </div>
-              </motion.a>
+                  Vizito
+                  <ArrowRight size={14} />
+                </span>
+              </a>
             );
           })}
         </div>
 
         {/* footer */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.4 }}
-          className="text-center text-[11px] tracking-wide"
-          style={{ color: "hsl(var(--muted))", marginTop: "var(--space-8)" }}
+        <div
+          className="flex flex-wrap items-center justify-between gap-4"
+          style={{ marginTop: "var(--space-8)", paddingTop: "var(--space-5)", borderTop: "1px solid hsl(var(--border))" }}
         >
-          &copy; {new Date().getFullYear()} Torre Group — torre-ks.com
-        </motion.p>
+          <span className="text-[11px]" style={{ color: "hsl(var(--muted))" }}>
+            &copy; {new Date().getFullYear()} Torre Group — torre-ks.com
+          </span>
+          <div className="flex gap-5 text-[11px]" style={{ color: "hsl(var(--muted))" }}>
+            <a href="/politika-e-privatesise" style={{ color: "inherit" }}>
+              Politika e Privatësisë
+            </a>
+            <a href="/kushtet-e-sherbimit" style={{ color: "inherit" }}>
+              Kushtet e Shërbimit
+            </a>
+            <a href="/deklarata-e-qasshmerise" style={{ color: "inherit" }}>
+              Qasshmëria
+            </a>
+          </div>
+        </div>
       </div>
     </main>
   );

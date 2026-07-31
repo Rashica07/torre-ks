@@ -84,12 +84,36 @@ export default function PrivacyPolicyPage() {
 
       <LegalSection heading="9. Na kontaktoni">
         <p>
-          Për çdo pyetje rreth privatësisë, na shkruani në{" "}
-          <a href="mailto:contact@torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
-            contact@torre-ks.com
-          </a>
-          .
+          TORRE GROUP nuk ka një adresë email të përbashkët — çdo markë ka të vetën. Për çdo
+          pyetje rreth privatësisë, na shkruani në adresën e markës me të cilën keni
+          komunikuar:
         </p>
+        <ul className="list-disc pl-5 flex flex-col gap-1.5">
+          <li>
+            MAGFA GROUP —{" "}
+            <a href="mailto:info@magfa.torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
+              info@magfa.torre-ks.com
+            </a>
+          </li>
+          <li>
+            SWISSTECH —{" "}
+            <a href="mailto:info@swisstech.torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
+              info@swisstech.torre-ks.com
+            </a>
+          </li>
+          <li>
+            TORRE DI UMBRIA —{" "}
+            <a href="mailto:info@torre-umbria.torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
+              info@torre-umbria.torre-ks.com
+            </a>
+          </li>
+          <li>
+            TORRE HOME —{" "}
+            <a href="mailto:info@torrehome.torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
+              info@torrehome.torre-ks.com
+            </a>
+          </li>
+        </ul>
       </LegalSection>
     </LegalPage>
   );

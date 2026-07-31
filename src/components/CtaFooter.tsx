@@ -5,6 +5,7 @@ import { ContactIntake } from "./ContactIntake";
 const FOOTER_LINKS = [
   { label: "Politika e Privatësisë", href: "/politika-e-privatesise" },
   { label: "Kushtet e Shërbimit", href: "/kushtet-e-sherbimit" },
+  { label: "Qasshmëria", href: "/deklarata-e-qasshmerise" },
   { label: "Kontakt", href: "#contact" },
 ];
 

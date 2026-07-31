@@ -39,5 +39,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    {
+      url: "https://torre-ks.com/deklarata-e-qasshmerise",
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: "https://llms.torre-ks.com",
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.1,
+    },
   ];
 }
