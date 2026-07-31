@@ -2,6 +2,17 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { BRANDS } from "@/lib/brands";
 
+// CSS's `transparent` keyword is rgba(0,0,0,0) — fading a colored stop toward
+// it interpolates through black mid-gradient, not toward "this color at 0
+// alpha". Keeping the same RGB channels and only dropping alpha avoids the
+// black-wash artifact entirely.
+function transparentVariant(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, 0)`;
+}
+
 // Company history, condensed from the group's own record.
 const HISTORIKU = [
   { year: "1950", text: "Fillimet në Stubëll të Vitisë — tri breza mjeshtërie ndërtimi." },
@@ -115,10 +126,11 @@ export default function CompanySelector() {
                     <div
                       className="absolute inset-0 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
                       style={{
-                        // Solid through 55% — comfortably past where the text
-                        // column ends — then fades out, so the image reveal
-                        // never has to compete with the text for contrast.
-                        background: `linear-gradient(90deg, ${t.bg} 0%, ${t.bg} 55%, transparent 100%)`,
+                        // Solid only under the index number, then a same-hue
+                        // alpha fade (not the `transparent` keyword — see
+                        // transparentVariant above) reveals the photo cleanly
+                        // through the text column instead of washing to black.
+                        background: `linear-gradient(90deg, ${t.bg} 0%, ${t.bg} 18%, ${transparentVariant(t.bg)} 78%)`,
                         zIndex: 1,
                       }}
                     />
