@@ -1,5 +1,5 @@
 "use client";
-import type { Brand } from "@/lib/brands";
+import type { Brand, SectionKey } from "@/lib/brands";
 import { MOTION_SCALE, type DesignVariantId } from "@/lib/design-variants";
 import { DesignProvider } from "@/lib/design-context";
 import { Navbar } from "./Navbar";
@@ -12,27 +12,45 @@ import { CtaFooter } from "./CtaFooter";
 import { Pourquoi } from "./Pourquoi";
 import { Process } from "./Process";
 
+const NAV_LABELS: Record<SectionKey, string> = {
+  services: "Shërbimet",
+  pourquoi: "Pse Ne",
+  process: "Procesi",
+  gallery: "Galeria",
+  testimonials: "Dëshmitë",
+  faq: "Pyetje",
+};
+
 export function BrandPage({
   brand,
-  variant = "minimal",
+  variant,
 }: {
   brand: Brand;
+  /** Explicit override used by /preview routes; production pages use the brand's own vibe. */
   variant?: DesignVariantId;
 }) {
   const t = brand.theme;
+  const activeVariant = variant ?? brand.vibe;
 
-  const navLinks = [
-    { label: "Shërbimet", href: "#services" },
-    { label: "Pse Ne", href: "#pourquoi" },
-    { label: "Procesi", href: "#process" },
-    ...(brand.gallery?.length ? [{ label: "Galeria", href: "#gallery" }] : []),
-    { label: "Pyetje", href: "#faq" },
-  ];
+  const sections: Record<SectionKey, React.ReactNode> = {
+    services: <ServicesBento key="services" brand={brand} />,
+    pourquoi: <Pourquoi key="pourquoi" brand={brand} />,
+    process: <Process key="process" brand={brand} />,
+    gallery: <Gallery key="gallery" brand={brand} />,
+    testimonials: <Testimonials key="testimonials" brand={brand} />,
+    faq: <Faq key="faq" brand={brand} />,
+  };
+
+  // Nav mirrors the page's actual placement; gallery link only when there are images.
+  const navLinks = brand.sectionOrder
+    .filter((key) => key !== "gallery" || (brand.gallery?.length ?? 0) > 0)
+    .filter((key) => key !== "testimonials")
+    .map((key) => ({ label: NAV_LABELS[key], href: `#${key}` }));
 
   return (
-    <DesignProvider variant={variant}>
+    <DesignProvider variant={activeVariant}>
       <div
-        data-variant={variant}
+        data-variant={activeVariant}
         data-motion={brand.motion}
         style={{
           "--t-bg": t.bg,
@@ -56,14 +74,9 @@ export function BrandPage({
         <Navbar brandName={brand.name} accentHsl={brand.accentHsl} theme={t} links={navLinks} />
         <main>
           <BrandHero brand={brand} />
-          <ServicesBento brand={brand} />
-          <Pourquoi brand={brand} />
-          <Process brand={brand} />
-          <Gallery brand={brand} />
-          <Testimonials brand={brand} />
-          <Faq brand={brand} />
-          <CtaFooter brand={brand} />
+          {brand.sectionOrder.map((key) => sections[key])}
         </main>
+        <CtaFooter brand={brand} />
       </div>
     </DesignProvider>
   );

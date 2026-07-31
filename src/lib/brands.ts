@@ -11,7 +11,11 @@ export type BrandTheme = {
   heroBg: string;         // hero section bg (can differ from page bg)
 };
 
-import type { MotionLevel } from "./design-variants";
+import type { DesignVariantId, MotionLevel } from "./design-variants";
+
+/** Page sections a brand can arrange. Gallery renders nothing without images. */
+export const SECTION_KEYS = ["services", "pourquoi", "process", "gallery", "testimonials", "faq"] as const;
+export type SectionKey = (typeof SECTION_KEYS)[number];
 
 export const BRAND_IDS = ["magfa", "swisstech", "torre-umbria", "torrehome"] as const;
 
@@ -31,6 +35,10 @@ export type Brand = {
   email: string;
   /** Animation intensity for this brand's page. */
   motion: MotionLevel;
+  /** Design direction this brand's production page renders with. */
+  vibe: DesignVariantId;
+  /** Section placement — the order sections appear on the page. */
+  sectionOrder: SectionKey[];
   accentHsl: string;
   category: string;
   heroHeadline: string;
@@ -64,6 +72,8 @@ export const BRANDS: Brand[] = [
     phone: "+383 44 123 456",
     email: "info@magfa.torre-ks.com",
     motion: "subtle",
+    vibe: "minimal",
+    sectionOrder: ["services", "pourquoi", "process", "testimonials", "faq"],
     accentHsl: "200 100% 45%",
     category: "Ndërtim Rezidencial",
     heroHeadline: "Shtëpia Juaj, e Ndërtuar Saktë.",
@@ -125,6 +135,8 @@ export const BRANDS: Brand[] = [
     phone: "+383 44 123 456",
     email: "info@swisstech.torre-ks.com",
     motion: "subtle",
+    vibe: "architectural",
+    sectionOrder: ["services", "process", "pourquoi", "faq", "testimonials"],
     accentHsl: "180 100% 30%",
     category: "Dritare & Fasada",
     heroHeadline: "Dritaret e Cilësisë Evropiane.",
@@ -186,6 +198,8 @@ export const BRANDS: Brand[] = [
     phone: "+383 44 123 456",
     email: "info@torre-umbria.torre-ks.com",
     motion: "subtle",
+    vibe: "editorial",
+    sectionOrder: ["pourquoi", "services", "process", "testimonials", "faq"],
     accentHsl: "142 70% 45%",
     category: "Zhvillim Rezidencial",
     heroHeadline: "Ndërtesa Moderne. Cilësi e Garantuar.",
@@ -247,6 +261,8 @@ export const BRANDS: Brand[] = [
     phone: "+383 44 123 456",
     email: "info@torrehome.torre-ks.com",
     motion: "subtle",
+    vibe: "editorial",
+    sectionOrder: ["gallery", "services", "pourquoi", "process", "testimonials", "faq"],
     accentHsl: "212 47% 29%",
     category: "Apartamente në Ferizaj",
     heroHeadline: "Apartamenti Juaj, Në Zemër të Ferizajt.",
