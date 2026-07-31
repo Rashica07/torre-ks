@@ -92,7 +92,15 @@ export default function CompanySelector() {
                   borderTop: i === 0 ? "1px solid hsl(var(--border))" : undefined,
                   borderBottom: "1px solid hsl(var(--border))",
                   paddingBlock: "var(--space-6)",
-                }}
+                  paddingInline: "var(--space-2)",
+                  // Exposed to children below so hover text color can swap to
+                  // this brand's own fg/muted — the row's default text is the
+                  // root theme's dark-on-light color, which goes invisible the
+                  // moment a dark-themed brand's own dark backdrop reveals on
+                  // hover (SwissTech, Torre di Umbria) unless it swaps too.
+                  "--hoverFg": t.fg,
+                  "--hoverMuted": t.muted,
+                } as React.CSSProperties}
               >
                 {brand.heroImage && (
                   <>
@@ -107,32 +115,37 @@ export default function CompanySelector() {
                     <div
                       className="absolute inset-0 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
                       style={{
-                        background: `linear-gradient(90deg, ${t.bg} 0%, ${t.bg}cc 42%, transparent 100%)`,
+                        // Solid through 55% — comfortably past where the text
+                        // column ends — then fades out, so the image reveal
+                        // never has to compete with the text for contrast.
+                        background: `linear-gradient(90deg, ${t.bg} 0%, ${t.bg} 55%, transparent 100%)`,
                         zIndex: 1,
                       }}
                     />
                   </>
                 )}
 
-                <div className="relative flex items-baseline gap-6" style={{ zIndex: 2 }}>
+                <div className="relative flex items-center gap-5" style={{ zIndex: 2 }}>
                   <span
-                    className="font-mono text-[13px] tabular-nums"
-                    style={{ color: "hsl(var(--muted))" }}
+                    className="font-mono text-[13px] tabular-nums transition-colors duration-300 text-[hsl(var(--muted))] group-hover:text-[var(--hoverMuted)]"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
-                    <span className="block text-step-3" style={{ fontWeight: 600 }}>
+                    <span
+                      className="block text-step-3 transition-colors duration-300 text-[hsl(var(--fg))] group-hover:text-[var(--hoverFg)]"
+                      style={{ fontWeight: 600 }}
+                    >
                       {brand.name}
                     </span>
-                    <span className="block text-step--1" style={{ color: "hsl(var(--muted))" }}>
+                    <span className="block text-step--1 transition-colors duration-300 text-[hsl(var(--muted))] group-hover:text-[var(--hoverMuted)]">
                       {brand.category} — {brand.tagline}
                     </span>
                   </div>
                 </div>
 
                 <span
-                  className="relative flex items-center gap-2 text-step--1 font-medium shrink-0 transition-transform duration-base ease-out group-hover:translate-x-1"
+                  className="relative flex items-center gap-2 text-step--1 font-medium shrink-0 transition-transform duration-base ease-out group-hover:translate-x-0.5"
                   style={{ color: t.accent, zIndex: 2 }}
                 >
                   Vizito
