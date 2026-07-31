@@ -68,8 +68,8 @@ export const BRANDS: Brand[] = [
     subdomain: "magfa.torre-ks.com",
     externalUrl: "https://magfa.torre-ks.com",
     path: "/",
-    // TODO: replace with real contact details before launch
-    phone: "+383 44 123 456",
+    // TODO: replace with real email before launch (phone is now real)
+    phone: "+383 49 599 405",
     email: "info@magfa.torre-ks.com",
     motion: "subtle",
     vibe: "minimal",
@@ -131,8 +131,8 @@ export const BRANDS: Brand[] = [
     subdomain: "swisstech.torre-ks.com",
     externalUrl: "https://swisstech.torre-ks.com",
     path: "/",
-    // TODO: replace with real contact details before launch
-    phone: "+383 44 123 456",
+    // TODO: replace with real email before launch (phone is now real)
+    phone: "+383 49 599 405",
     email: "info@swisstech.torre-ks.com",
     motion: "subtle",
     vibe: "architectural",
@@ -194,8 +194,8 @@ export const BRANDS: Brand[] = [
     subdomain: "torre-umbria.torre-ks.com",
     externalUrl: "https://torre-umbria.torre-ks.com",
     path: "/",
-    // TODO: replace with real contact details before launch
-    phone: "+383 44 123 456",
+    // TODO: replace with real email before launch (phone is now real)
+    phone: "+383 49 599 405",
     email: "info@torre-umbria.torre-ks.com",
     motion: "subtle",
     vibe: "editorial",
@@ -257,8 +257,8 @@ export const BRANDS: Brand[] = [
     subdomain: "torrehome.torre-ks.com",
     externalUrl: "https://torrehome.torre-ks.com",
     path: "/",
-    // TODO: replace with real contact details before launch
-    phone: "+383 44 123 456",
+    // TODO: replace with real email before launch (phone is now real)
+    phone: "+383 49 599 405",
     email: "info@torrehome.torre-ks.com",
     motion: "subtle",
     vibe: "editorial",

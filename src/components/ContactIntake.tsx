@@ -10,20 +10,48 @@ const INTEREST_OPTIONS = ["Blej Apartament", "Çmimet & Oferta", "Vizitë në Am
 const TIMELINE_OPTIONS = ["Sa më shpejt", "Brenda një muaji", "2–3 muaj", "Vetëm duke shikuar"];
 const CONTACT_OPTIONS = ["Email", "Telefon"];
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** Roughly how long a reply of this length would take to "type" — capped so it never drags. */
+function typingDuration(text: string) {
+  return Math.min(1400, 450 + text.length * 18);
+}
+
 export function ContactIntake({ brand }: { brand: Brand }) {
   const t = brand.theme;
   const [step, setStep] = useState<Step>("interest");
-  const [messages, setMessages] = useState<Message[]>([
-    { from: "bot", text: `Përshëndetje! Unë jam asistenti i ${brand.name}. Tri pyetje të shpejta dhe ekipi ynë ju kontakton.` },
-    { from: "bot", text: "Çfarë ju intereson?" },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [typing, setTyping] = useState(false);
   const [answers, setAnswers] = useState<{ interest?: string; timeline?: string; method?: string; detail?: string }>({});
   const [inputValue, setInputValue] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const mounted = useRef(false);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages]);
+  }, [messages, typing]);
+
+  // Reveals bot replies one at a time behind a typing indicator, instead of
+  // dumping every message in at once — reads as composed, not teleported.
+  async function speakBot(texts: string[]) {
+    for (const text of texts) {
+      setTyping(true);
+      await delay(typingDuration(text));
+      setTyping(false);
+      setMessages((m) => [...m, { from: "bot", text }]);
+      await delay(120);
+    }
+  }
+
+  useEffect(() => {
+    if (mounted.current) return; // guards React StrictMode's double-invoke in dev
+    mounted.current = true;
+    speakBot([
+      `Përshëndetje! Unë jam asistenti i ${brand.name}. Tri pyetje të shpejta dhe ekipi ynë ju kontakton.`,
+      "Çfarë ju intereson?",
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function choose(value: string) {
     setMessages((m) => [...m, { from: "user", text: value }]);
@@ -31,18 +59,15 @@ export function ContactIntake({ brand }: { brand: Brand }) {
     if (step === "interest") {
       setAnswers((a) => ({ ...a, interest: value }));
       setStep("timeline");
-      setMessages((m) => [...m, { from: "bot", text: "Cili është afati juaj kohor?" }]);
+      speakBot(["Cili është afati juaj kohor?"]);
     } else if (step === "timeline") {
       setAnswers((a) => ({ ...a, timeline: value }));
       setStep("contactMethod");
-      setMessages((m) => [...m, { from: "bot", text: "Si preferoni t'ju kontaktojmë?" }]);
+      speakBot(["Si preferoni t'ju kontaktojmë?"]);
     } else if (step === "contactMethod") {
       setAnswers((a) => ({ ...a, method: value }));
       setStep("contactDetail");
-      setMessages((m) => [
-        ...m,
-        { from: "bot", text: value === "Email" ? "Cila është adresa juaj e email-it?" : "Cili është numri juaj i telefonit?" },
-      ]);
+      speakBot([value === "Email" ? "Cila është adresa juaj e email-it?" : "Cili është numri juaj i telefonit?"]);
     }
   }
 
@@ -52,8 +77,8 @@ export function ContactIntake({ brand }: { brand: Brand }) {
     setMessages((m) => [...m, { from: "user", text: detail }]);
     setAnswers((a) => ({ ...a, detail }));
     setStep("done");
-    setMessages((m) => [...m, { from: "bot", text: "Faleminderit! Klikoni më poshtë për të dërguar kërkesën." }]);
     setInputValue("");
+    speakBot(["Faleminderit! Klikoni më poshtë për të dërguar kërkesën."]);
   }
 
   const subject = encodeURIComponent(`Kërkesë e re nga ${brand.name}`);
@@ -63,6 +88,9 @@ export function ContactIntake({ brand }: { brand: Brand }) {
 
   const options =
     step === "interest" ? INTEREST_OPTIONS : step === "timeline" ? TIMELINE_OPTIONS : step === "contactMethod" ? CONTACT_OPTIONS : [];
+  // Buttons/input for the current step only make sense once the assistant has
+  // actually finished asking — otherwise you could answer a question it hasn't sent yet.
+  const awaitingReply = typing;
 
   return (
     <div
@@ -85,7 +113,7 @@ export function ContactIntake({ brand }: { brand: Brand }) {
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"}`}>
             <div
-              className="text-[13px] leading-relaxed rounded-lg px-4 py-2.5 max-w-[85%]"
+              className="animate-message-in text-[13px] leading-relaxed rounded-lg px-4 py-2.5 max-w-[85%]"
               style={
                 msg.from === "user"
                   ? { background: t.accent, color: t.accentFg }
@@ -96,16 +124,35 @@ export function ContactIntake({ brand }: { brand: Brand }) {
             </div>
           </div>
         ))}
+
+        {typing && (
+          <div className="flex justify-start">
+            <div
+              className="animate-message-in flex items-center gap-1 rounded-lg px-4 py-3"
+              style={{ background: t.surface, border: `1px solid ${t.border}` }}
+              aria-live="polite"
+              aria-label={`${brand.name} po shkruan`}
+            >
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className="typing-dot w-1.5 h-1.5 rounded-full"
+                  style={{ background: t.muted, animationDelay: `${i * 0.15}s` }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="px-5 pb-5">
-        {(step === "interest" || step === "timeline") && (
+        {(step === "interest" || step === "timeline") && !awaitingReply && (
           <div className="flex flex-wrap gap-2">
             {options.map((opt) => (
               <button
                 key={opt}
                 onClick={() => choose(opt)}
-                className="text-xs rounded-full px-4 py-2 transition-opacity hover:opacity-75"
+                className="animate-message-in text-xs rounded-full px-4 py-2 transition-opacity hover:opacity-75"
                 style={{ border: `1px solid ${t.accent}`, color: t.accent }}
               >
                 {opt}
@@ -113,13 +160,13 @@ export function ContactIntake({ brand }: { brand: Brand }) {
             ))}
           </div>
         )}
-        {step === "contactMethod" && (
+        {step === "contactMethod" && !awaitingReply && (
           <div className="flex flex-wrap gap-2">
             {CONTACT_OPTIONS.map((opt) => (
               <button
                 key={opt}
                 onClick={() => choose(opt)}
-                className="inline-flex items-center gap-1.5 text-xs rounded-full px-4 py-2 transition-opacity hover:opacity-75"
+                className="animate-message-in inline-flex items-center gap-1.5 text-xs rounded-full px-4 py-2 transition-opacity hover:opacity-75"
                 style={{ border: `1px solid ${t.accent}`, color: t.accent }}
               >
                 {opt === "Email" ? <Mail size={12} /> : <Phone size={12} />} {opt}
@@ -127,13 +174,13 @@ export function ContactIntake({ brand }: { brand: Brand }) {
             ))}
           </div>
         )}
-        {step === "contactDetail" && (
+        {step === "contactDetail" && !awaitingReply && (
           <form
             onSubmit={(e) => {
               e.preventDefault();
               submitDetail();
             }}
-            className="flex items-center gap-2"
+            className="animate-message-in flex items-center gap-2"
           >
             <input
               autoFocus
@@ -153,10 +200,10 @@ export function ContactIntake({ brand }: { brand: Brand }) {
             </button>
           </form>
         )}
-        {step === "done" && (
+        {step === "done" && !awaitingReply && (
           <a
             href={`mailto:${brand.email}?subject=${subject}&body=${body}`}
-            className="inline-flex items-center justify-center gap-2 w-full rounded-full text-sm font-medium no-underline px-6 py-3 transition-opacity hover:opacity-85"
+            className="animate-message-in inline-flex items-center justify-center gap-2 w-full rounded-full text-sm font-medium no-underline px-6 py-3 transition-opacity hover:opacity-85"
             style={{ background: t.accent, color: t.accentFg }}
           >
             Dërgo Kërkesën <ArrowRight size={14} />
