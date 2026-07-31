@@ -9,9 +9,9 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Building2, HardHat, Sparkles, Layers, TrendingUp, Star, Square, Building, Sun, Wrench, ShieldCheck, Home, Briefcase, MapPin, Zap, Leaf,
 };
 
-type Props = { brand: Brand };
+type Props = { brand: Brand; index: number };
 
-export function ServicesBento({ brand }: Props) {
+export function ServicesBento({ brand, index }: Props) {
   const t = brand.theme;
   const d = useDesign();
   const style = d.sectionStyle.services;
@@ -23,14 +23,14 @@ export function ServicesBento({ brand }: Props) {
         title="Çfarë Ofrojmë."
         lead="Gjashtë shërbime. Çdo projekt i realizuar me standarde të larta."
         theme={t}
-        index={0}
+        index={index}
       />
 
       <div style={{ marginTop: "var(--space-8)" }}>
         {style === "offset" && <OffsetList services={brand.services} t={t} />}
         {style === "banded" && <BandedRows services={brand.services} t={t} />}
-        {style === "stacked" && <RaisedGrid services={brand.services} t={t} />}
-        {style === "split" && <RaisedGrid services={brand.services} t={t} />}
+        {style === "dossier" && <LedgerList services={brand.services} t={t} />}
+        {(style === "stacked" || style === "split") && <RaisedGrid services={brand.services} t={t} />}
       </div>
     </Section>
   );
@@ -179,6 +179,56 @@ function RaisedGrid({ services, t }: { services: Service[]; t: BrandTheme }) {
           </Row>
         );
       })}
+    </div>
+  );
+}
+
+/* ── Dossier: an invoice-register ledger — service, unit line, price flush right ── */
+function LedgerList({ services, t }: { services: Service[]; t: BrandTheme }) {
+  return (
+    <div style={{ border: `1px solid ${t.border}` }}>
+      <div
+        className="hidden md:grid font-mono text-[10px] uppercase tracking-[0.14em]"
+        style={{
+          gridTemplateColumns: "56px 1fr 240px 140px",
+          color: t.muted,
+          padding: "var(--space-3) var(--space-5)",
+          borderBottom: `1px solid ${t.border}`,
+          background: t.bgAlt,
+        }}
+      >
+        <span>Nr.</span>
+        <span>Shërbimi</span>
+        <span>Përshkrimi</span>
+        <span className="text-right">Çmimi</span>
+      </div>
+      {services.map((s, i) => (
+        <Row key={s.title} delay={i * 50}>
+          <div
+            className="grid grid-cols-1 md:grid-cols-[56px_1fr_240px_140px] gap-2 md:gap-6 items-baseline"
+            style={{
+              padding: "var(--space-5)",
+              borderBottom: i < services.length - 1 ? `1px solid ${t.border}` : "none",
+            }}
+          >
+            <span className="font-mono text-step--1" style={{ color: t.muted }}>
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <h3 className="text-step-1" style={{ color: t.fg, fontWeight: 500 }}>
+              {s.title}
+            </h3>
+            <p className="text-step--1" style={{ color: t.muted, lineHeight: 1.6 }}>
+              {s.description}
+            </p>
+            <span
+              className="font-mono text-step--1 md:text-right"
+              style={{ color: t.accent }}
+            >
+              {s.price}
+            </span>
+          </div>
+        </Row>
+      ))}
     </div>
   );
 }

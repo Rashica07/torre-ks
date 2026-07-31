@@ -1,5 +1,6 @@
 "use client";
-import { Star, Quote } from "lucide-react";
+import { useState } from "react";
+import { Star, Quote, ArrowLeft, ArrowRight } from "lucide-react";
 import type { Brand, Testimonial, BrandTheme } from "@/lib/brands";
 import { useDesign } from "@/lib/design-context";
 import { useReveal } from "@/lib/useReveal";
@@ -20,7 +21,7 @@ function Stars({ rating, accent, border }: { rating: number; accent: string; bor
   );
 }
 
-export function Testimonials({ brand }: { brand: Brand }) {
+export function Testimonials({ brand, index }: { brand: Brand; index: number }) {
   const t = brand.theme;
   const d = useDesign();
   const style = d.sectionStyle.testimonials;
@@ -31,14 +32,14 @@ export function Testimonials({ brand }: { brand: Brand }) {
         eyebrow="Dëshmitë"
         title="Çfarë Thonë Klientët Tanë."
         theme={t}
-        index={4}
+        index={index}
         align={style === "offset" ? "center" : "left"}
       />
       <div style={{ marginTop: "var(--space-8)" }}>
         {style === "offset" && <PullQuotes items={brand.testimonials} t={t} />}
         {style === "banded" && <QuoteTable items={brand.testimonials} t={t} />}
-        {style === "stacked" && <QuoteGrid items={brand.testimonials} t={t} />}
-        {style === "split" && <QuoteGrid items={brand.testimonials} t={t} />}
+        {style === "dossier" && <ExhibitCarousel items={brand.testimonials} t={t} />}
+        {(style === "stacked" || style === "split") && <QuoteGrid items={brand.testimonials} t={t} />}
       </div>
     </Section>
   );
@@ -153,6 +154,78 @@ function QuoteGrid({ items, t }: { items: Testimonial[]; t: BrandTheme }) {
           </figure>
         </Reveal>
       ))}
+    </div>
+  );
+}
+
+/* ── Dossier: one exhibit at a time — a cited statement, not a wall of cards ── */
+function ExhibitCarousel({ items, t }: { items: Testimonial[]; t: BrandTheme }) {
+  const [index, setIndex] = useState(0);
+  const item = items[index];
+
+  function step(delta: number) {
+    setIndex((i) => (i + delta + items.length) % items.length);
+  }
+
+  return (
+    <div
+      onKeyDown={(e) => {
+        if (e.key === "ArrowRight") step(1);
+        if (e.key === "ArrowLeft") step(-1);
+      }}
+    >
+      <div
+        className="font-mono text-[11px] uppercase tracking-[0.14em] flex items-center justify-between"
+        style={{ color: t.muted, paddingBottom: "var(--space-4)", borderBottom: `1px solid ${t.border}` }}
+      >
+        <span>
+          Dëshmia {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+        </span>
+        <Stars rating={item.rating} accent={t.accent} border={t.border} />
+      </div>
+
+      <div style={{ padding: "var(--space-8) 0" }} aria-live="polite">
+        <blockquote className="text-step-2" style={{ color: t.fg, lineHeight: 1.45, maxWidth: "70ch" }}>
+          &ldquo;{item.quote}&rdquo;
+        </blockquote>
+        <div className="mt-6 font-mono text-step--1" style={{ color: t.muted }}>
+          <span style={{ color: t.fg }}>{item.name}</span> — {item.role}
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between" style={{ paddingTop: "var(--space-4)", borderTop: `1px solid ${t.border}` }}>
+        <div className="flex gap-1" aria-hidden>
+          {items.map((_, i) => (
+            <span
+              key={i}
+              className="h-1"
+              style={{
+                width: i === index ? "20px" : "8px",
+                background: i === index ? t.accent : t.border,
+                transition: "width var(--dur-base) var(--ease-out), background var(--dur-base)",
+              }}
+            />
+          ))}
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => step(-1)}
+            aria-label="Dëshmia e mëparshme"
+            className="w-9 h-9 flex items-center justify-center transition-opacity hover:opacity-60"
+            style={{ border: `1px solid ${t.border}`, color: t.fg }}
+          >
+            <ArrowLeft size={14} />
+          </button>
+          <button
+            onClick={() => step(1)}
+            aria-label="Dëshmia tjetër"
+            className="w-9 h-9 flex items-center justify-center transition-opacity hover:opacity-60"
+            style={{ border: `1px solid ${t.border}`, color: t.fg }}
+          >
+            <ArrowRight size={14} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -57,15 +57,32 @@ export function SectionHeader({
         </span>
       )}
 
+      {/* Dossier: a section reference stamp, not a decorative label — reads like a
+          clause number in a prospectus (§ 01 · PSE NE) between two hairline rules. */}
+      {d.eyebrowStyle === "index" && (
+        <div style={{ marginBottom: "var(--space-6)" }}>
+          <div className="h-px" style={{ background: t.border }} />
+          <div
+            className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em]"
+            style={{ color: t.muted, padding: "var(--space-3) 0" }}
+          >
+            <span>§ {String((index ?? 0) + 1).padStart(2, "0")}</span>
+            <span style={{ color: t.accent }}>{eyebrow}</span>
+          </div>
+          <div className="h-px" style={{ background: t.border }} />
+        </div>
+      )}
+
       <h2
         style={{
           fontSize: `var(--${d.headingSize})`,
           fontFamily: isSerif ? "var(--font-serif), Georgia, serif" : undefined,
-          fontWeight: d.id === "architectural" ? 700 : isSerif ? 400 : 600,
-          letterSpacing: isSerif ? "-0.01em" : "-0.025em",
+          fontWeight: d.id === "architectural" ? 700 : d.headingCase === "upper" ? 500 : isSerif ? 400 : 600,
+          letterSpacing: d.headingCase === "upper" ? "0.01em" : isSerif ? "-0.01em" : "-0.025em",
           lineHeight: isSerif ? 1.02 : 1.05,
+          textTransform: d.headingCase === "upper" ? "uppercase" : undefined,
           color: t.fg,
-          maxWidth: "18ch",
+          maxWidth: d.headingCase === "upper" ? "22ch" : "18ch",
           marginInline: align === "center" ? "auto" : undefined,
         }}
       >

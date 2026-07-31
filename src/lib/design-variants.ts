@@ -6,13 +6,13 @@
  * the same repeated eyebrow -> heading -> card-grid rhythm.
  */
 
-export const DESIGN_VARIANTS = ["editorial", "minimal", "architectural"] as const;
+export const DESIGN_VARIANTS = ["editorial", "minimal", "architectural", "dossier"] as const;
 export type DesignVariantId = (typeof DESIGN_VARIANTS)[number];
 
 export type MotionLevel = "minimal" | "subtle" | "cinematic";
 
 /** How a section lays its content out. Components branch on this. */
-export type SectionStyle = "stacked" | "split" | "offset" | "banded";
+export type SectionStyle = "stacked" | "split" | "offset" | "banded" | "dossier";
 
 export type DesignVariant = {
   id: DesignVariantId;
@@ -26,7 +26,9 @@ export type DesignVariant = {
   /** Whether section headings keep the trailing period of the original design. */
   headingPeriod: boolean;
   /** Uppercase wide-tracked eyebrow, or sentence-case lead-in. */
-  eyebrowStyle: "caps" | "numeral" | "none";
+  eyebrowStyle: "caps" | "numeral" | "none" | "index";
+  /** All-caps, wide-tracked headings — the dossier variant's cover-page register. */
+  headingCase?: "upper";
 
   /** Vertical rhythm between sections. */
   sectionPadding: string;
@@ -94,6 +96,26 @@ export const VARIANTS: Record<DesignVariantId, DesignVariant> = {
       process: "split",
       testimonials: "banded",
       gallery: "offset",
+    },
+  },
+  dossier: {
+    id: "dossier",
+    label: "Institutional dossier",
+    description: "Ledgers, exhibits, plate numbers — a developer's prospectus, not a storefront.",
+    displayFont: "display",
+    headingSize: "step-4",
+    headingPeriod: false,
+    headingCase: "upper",
+    eyebrowStyle: "index",
+    sectionPadding: "var(--space-9) 0",
+    radius: "0px",
+    cardStyle: "ruled",
+    sectionStyle: {
+      services: "dossier",
+      pourquoi: "dossier",
+      process: "dossier",
+      testimonials: "dossier",
+      gallery: "dossier",
     },
   },
 };

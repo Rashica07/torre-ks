@@ -7,9 +7,9 @@ import { useDesign } from "@/lib/design-context";
 import { useReveal } from "@/lib/useReveal";
 import { Section, SectionHeader } from "./SectionHeader";
 
-type Props = { brand: Brand };
+type Props = { brand: Brand; index: number };
 
-export function Gallery({ brand }: Props) {
+export function Gallery({ brand, index }: Props) {
   const t = brand.theme;
   const d = useDesign();
   const images = brand.gallery;
@@ -40,69 +40,111 @@ export function Gallery({ brand }: Props) {
   if (!images || images.length === 0) return null;
   const active = openIndex === null ? null : images[openIndex];
   const offset = d.sectionStyle.gallery === "offset";
+  const dossier = d.sectionStyle.gallery === "dossier";
 
   return (
     <Section id="gallery" background={t.bgAlt}>
-      <SectionHeader eyebrow="Galeria" title="Projekti në Imazhe" theme={t} index={3} />
+      <SectionHeader eyebrow="Galeria" title="Projekti në Imazhe" theme={t} index={index} />
 
-      <div
-        className={
-          offset
-            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4"
-            : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-        }
-        style={{ marginTop: "var(--space-8)" }}
-      >
-        {images.map((img, i) => (
-          <Tile
-            key={img.src}
-            delay={i * 60}
-            // Editorial: every fourth tile spans wide, breaking the uniform grid.
-            className={offset ? (i % 4 === 0 ? "lg:col-span-4" : "lg:col-span-2") : ""}
-          >
-            <figure
-              className="relative overflow-hidden group h-full"
-              style={{
-                border: d.cardStyle === "ruled" ? "none" : `1px solid ${t.border}`,
-                borderRadius: d.radius,
-                background: t.surface,
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setOpenIndex(i)}
-                className="block w-full text-left cursor-zoom-in"
-                aria-label={`Hap imazhin: ${img.caption}`}
-              >
-                <div
-                  className="relative w-full"
-                  style={{ aspectRatio: offset && i % 4 === 0 ? "16 / 9" : "4 / 3" }}
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-slow ease-out group-hover:scale-[1.04]"
-                  />
-                </div>
-              </button>
-              <figcaption
-                className="text-step--1 tracking-wide"
+      {dossier ? (
+        <div style={{ marginTop: "var(--space-8)" }}>
+          {images.map((img, i) => (
+            <Tile key={img.src} delay={i * 70}>
+              <figure
+                className="group"
                 style={{
-                  color: t.muted,
-                  padding:
-                    d.cardStyle === "ruled"
-                      ? "var(--space-3) 0 0"
-                      : "var(--space-3) var(--space-4)",
+                  borderTop: `1px solid ${t.border}`,
+                  paddingTop: "var(--space-5)",
+                  paddingBottom: "var(--space-8)",
                 }}
               >
-                {img.caption}
-              </figcaption>
-            </figure>
-          </Tile>
-        ))}
-      </div>
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(i)}
+                  className="block w-full text-left cursor-zoom-in relative overflow-hidden"
+                  aria-label={`Hap imazhin: ${img.caption}`}
+                >
+                  <div className="relative w-full" style={{ aspectRatio: "16 / 9" }}>
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 900px"
+                      className="object-cover transition-transform duration-slow ease-out group-hover:scale-[1.02]"
+                    />
+                  </div>
+                </button>
+                <figcaption
+                  className="font-mono text-step--1 flex items-center gap-3"
+                  style={{ color: t.muted, marginTop: "var(--space-3)" }}
+                >
+                  <span style={{ color: t.accent }}>FIG. {String(i + 1).padStart(2, "0")}</span>
+                  <span>{img.caption}</span>
+                </figcaption>
+              </figure>
+            </Tile>
+          ))}
+        </div>
+      ) : (
+        <div
+          className={
+            offset
+              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4"
+              : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          }
+          style={{ marginTop: "var(--space-8)" }}
+        >
+          {images.map((img, i) => (
+            <Tile
+              key={img.src}
+              delay={i * 60}
+              // Editorial: every fourth tile spans wide, breaking the uniform grid.
+              className={offset ? (i % 4 === 0 ? "lg:col-span-4" : "lg:col-span-2") : ""}
+            >
+              <figure
+                className="relative overflow-hidden group h-full"
+                style={{
+                  border: d.cardStyle === "ruled" ? "none" : `1px solid ${t.border}`,
+                  borderRadius: d.radius,
+                  background: t.surface,
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(i)}
+                  className="block w-full text-left cursor-zoom-in"
+                  aria-label={`Hap imazhin: ${img.caption}`}
+                >
+                  <div
+                    className="relative w-full"
+                    style={{ aspectRatio: offset && i % 4 === 0 ? "16 / 9" : "4 / 3" }}
+                  >
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-slow ease-out group-hover:scale-[1.04]"
+                    />
+                  </div>
+                </button>
+                <figcaption
+                  className="text-step--1 tracking-wide"
+                  style={{
+                    color: t.muted,
+                    padding:
+                      d.cardStyle === "ruled"
+                        ? "var(--space-3) 0 0"
+                        : "var(--space-3) var(--space-4)",
+                  }}
+                >
+                  {img.caption}
+                </figcaption>
+              </figure>
+            </Tile>
+          ))}
+        </div>
+      )}
 
       {active && (
         <div

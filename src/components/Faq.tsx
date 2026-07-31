@@ -58,7 +58,7 @@ function Item({ item, index, accent, fg, muted, border, bgAlt }: {
   );
 }
 
-export function Faq({ brand }: { brand: Brand }) {
+export function Faq({ brand, index }: { brand: Brand; index: number }) {
   const t = brand.theme;
 
   return (
@@ -70,7 +70,7 @@ export function Faq({ brand }: { brand: Brand }) {
               title="Pyetje me Përgjigje."
               lead="Nuk gjeni përgjigjen? Kontaktoni ekipin tonë direkt."
               theme={t}
-              index={5}
+              index={index}
             />
           <a
             href="#contact"

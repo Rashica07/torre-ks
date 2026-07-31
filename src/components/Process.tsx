@@ -33,7 +33,7 @@ const STEPS_BY_BRAND: Record<BrandId, Step[]> = {
   ],
 };
 
-export function Process({ brand }: { brand: Brand }) {
+export function Process({ brand, index }: { brand: Brand; index: number }) {
   const steps = STEPS_BY_BRAND[brand.id];
   const t = brand.theme;
   const d = useDesign();
@@ -45,12 +45,12 @@ export function Process({ brand }: { brand: Brand }) {
         title="Procesi Ynë."
         lead="Katër hapa. Qartësi totale në çdo fazë."
         theme={t}
-        index={2}
+        index={index}
       />
       <div style={{ marginTop: "var(--space-8)" }}>
-        {d.sectionStyle.process === "split" ? (
-          <SplitTimeline steps={steps} t={t} />
-        ) : (
+        {d.sectionStyle.process === "split" && <SplitTimeline steps={steps} t={t} />}
+        {d.sectionStyle.process === "dossier" && <TocList steps={steps} t={t} />}
+        {(d.sectionStyle.process === "stacked" || d.sectionStyle.process === "offset" || d.sectionStyle.process === "banded") && (
           <StepColumns steps={steps} t={t} ruled={d.cardStyle === "ruled"} />
         )}
       </div>
@@ -145,6 +145,39 @@ function StepColumns({ steps, t, ruled }: { steps: Step[]; t: BrandTheme; ruled:
                 {s.body}
               </p>
             </div>
+          </div>
+        </Item>
+      ))}
+    </div>
+  );
+}
+
+/* ── Dossier: a prospectus table of contents — leader dots to a page-style index ── */
+function TocList({ steps, t }: { steps: Step[]; t: BrandTheme }) {
+  return (
+    <div>
+      {steps.map((s, i) => (
+        <Item key={s.title} delay={i * 80}>
+          <div style={{ paddingBlock: "var(--space-5)", borderBottom: `1px solid ${t.border}` }}>
+            <div className="flex items-baseline gap-3">
+              <h3 className="text-step-2 shrink-0" style={{ color: t.fg, fontWeight: 500 }}>
+                {s.title}
+              </h3>
+              <span
+                aria-hidden
+                className="flex-1"
+                style={{
+                  borderBottom: `1px dotted ${t.border}`,
+                  transform: "translateY(-4px)",
+                }}
+              />
+              <span className="font-mono text-step--1 shrink-0" style={{ color: t.accent }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+            <p className="text-step--1 mt-2" style={{ color: t.muted, lineHeight: 1.7, maxWidth: "62ch" }}>
+              {s.body}
+            </p>
           </div>
         </Item>
       ))}

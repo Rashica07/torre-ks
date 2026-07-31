@@ -73,12 +73,14 @@ export function BrandHero({ brand }: Props) {
             <h1
               className="mb-6"
               style={{
-                fontSize: "var(--step-5)",
+                fontSize: d.headingCase === "upper" ? "var(--step-4)" : "var(--step-5)",
                 fontFamily: d.displayFont === "serif" ? "var(--font-serif), Georgia, serif" : undefined,
-                fontWeight: d.id === "architectural" ? 700 : d.displayFont === "serif" ? 400 : 600,
-                lineHeight: d.displayFont === "serif" ? 1.02 : 1.05,
+                fontWeight: d.id === "architectural" ? 700 : d.headingCase === "upper" ? 500 : d.displayFont === "serif" ? 400 : 600,
+                letterSpacing: d.headingCase === "upper" ? "0.01em" : undefined,
+                textTransform: d.headingCase === "upper" ? "uppercase" : undefined,
+                lineHeight: d.displayFont === "serif" ? 1.02 : 1.1,
                 color: t.fg,
-                maxWidth: "12ch",
+                maxWidth: d.headingCase === "upper" ? "16ch" : "12ch",
               }}
             >
               {brand.heroHeadline}
@@ -112,8 +114,8 @@ export function BrandHero({ brand }: Props) {
           {/* RIGHT — stats panel */}
           <div className="hidden lg:flex flex-col justify-center animate-[fadeUp_0.7s_0.15s_ease_both]">
             <div
-              className="rounded-xl p-8 flex flex-col"
-              style={{ background: t.surface, border: `1px solid ${t.border}` }}
+              className="p-8 flex flex-col"
+              style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: d.radius }}
             >
               {brand.stats.map((stat, i) => (
                 <div key={stat.label}>

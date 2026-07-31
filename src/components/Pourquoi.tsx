@@ -35,72 +35,115 @@ const PILLARS_BY_BRAND: Record<
   ],
 };
 
-export function Pourquoi({ brand }: { brand: Brand }) {
+export function Pourquoi({ brand, index }: { brand: Brand; index: number }) {
   const pillars = PILLARS_BY_BRAND[brand.id];
   const t = brand.theme;
   const d = useDesign();
-  const banded = d.sectionStyle.pourquoi === "banded";
+  const style = d.sectionStyle.pourquoi;
+  const banded = style === "banded";
+  const dossier = style === "dossier";
 
   return (
     <Section id="pourquoi" background={d.id === "minimal" ? t.bgAlt : t.bg}>
       <div
         className={
-          banded ? "" : "grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-14 lg:gap-20"
+          banded || dossier ? "" : "grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-14 lg:gap-20"
         }
       >
-        <div className={banded ? "" : "lg:sticky lg:top-28 lg:self-start"}>
+        <div className={banded || dossier ? "" : "lg:sticky lg:top-28 lg:self-start"}>
           <SectionHeader
             eyebrow="Pse Ne"
             title="Besimi Ndërtohet Para Gurit të Parë."
             lead={`Katër standarde të palëvizshme në çdo projekt të ${brand.name}.`}
             theme={t}
-            index={1}
+            index={index}
           />
         </div>
 
-        <div
-          className={`grid grid-cols-1 sm:grid-cols-2 ${banded ? "lg:grid-cols-4" : ""} gap-5`}
-          style={{ marginTop: banded ? "var(--space-8)" : undefined }}
-        >
-          {pillars.map(({ icon: Icon, title, body }, i) => (
-            <Pillar key={title} delay={i * 70}>
-              <div
-                className="h-full flex flex-col gap-4 transition-transform duration-base ease-out hover:-translate-y-1"
-                style={
-                  d.cardStyle === "ruled"
-                    ? { borderTop: `1px solid ${t.border}`, paddingTop: "var(--space-5)" }
-                    : {
-                        background: t.surface,
-                        border: `1px solid ${t.border}`,
-                        borderRadius: d.radius,
-                        padding: "var(--space-6)",
-                      }
-                }
-              >
+        {dossier ? (
+          <ClauseList pillars={pillars} t={t} />
+        ) : (
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-2 ${banded ? "lg:grid-cols-4" : ""} gap-5`}
+            style={{ marginTop: banded ? "var(--space-8)" : undefined }}
+          >
+            {pillars.map(({ icon: Icon, title, body }, i) => (
+              <Pillar key={title} delay={i * 70}>
                 <div
-                  className="w-10 h-10 flex items-center justify-center shrink-0"
-                  style={{
-                    background: d.cardStyle === "ruled" ? "transparent" : `${t.accent}14`,
-                    borderRadius: d.radius === "0px" ? "0px" : "var(--radius-sm)",
-                    marginLeft: d.cardStyle === "ruled" ? "-2px" : undefined,
-                  }}
+                  className="h-full flex flex-col gap-4 transition-transform duration-base ease-out hover:-translate-y-1"
+                  style={
+                    d.cardStyle === "ruled"
+                      ? { borderTop: `1px solid ${t.border}`, paddingTop: "var(--space-5)" }
+                      : {
+                          background: t.surface,
+                          border: `1px solid ${t.border}`,
+                          borderRadius: d.radius,
+                          padding: "var(--space-6)",
+                        }
+                  }
                 >
-                  <Icon size={18} style={{ color: t.accent }} />
+                  <div
+                    className="w-10 h-10 flex items-center justify-center shrink-0"
+                    style={{
+                      background: d.cardStyle === "ruled" ? "transparent" : `${t.accent}14`,
+                      borderRadius: d.radius === "0px" ? "0px" : "var(--radius-sm)",
+                      marginLeft: d.cardStyle === "ruled" ? "-2px" : undefined,
+                    }}
+                  >
+                    <Icon size={18} style={{ color: t.accent }} />
+                  </div>
+                  <div>
+                    <h3 className="text-step-1 mb-2" style={{ color: t.fg, fontWeight: 600 }}>
+                      {title}
+                    </h3>
+                    <p className="text-step--1" style={{ color: t.muted, lineHeight: 1.7 }}>
+                      {body}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-step-1 mb-2" style={{ color: t.fg, fontWeight: 600 }}>
-                    {title}
-                  </h3>
-                  <p className="text-step--1" style={{ color: t.muted, lineHeight: 1.7 }}>
-                    {body}
-                  </p>
-                </div>
-              </div>
-            </Pillar>
-          ))}
-        </div>
+              </Pillar>
+            ))}
+          </div>
+        )}
       </div>
     </Section>
+  );
+}
+
+/* ── Dossier: numbered clauses, hanging indent, read like articles in an agreement ── */
+function ClauseList({
+  pillars,
+  t,
+}: {
+  pillars: { icon: React.ElementType; title: string; body: string }[];
+  t: import("@/lib/brands").BrandTheme;
+}) {
+  return (
+    <div style={{ marginTop: "var(--space-8)", borderTop: `1px solid ${t.border}` }}>
+      {pillars.map(({ icon: Icon, title, body }, i) => (
+        <Pillar key={title} delay={i * 70}>
+          <div
+            className="grid grid-cols-[auto_1fr] gap-5 items-start"
+            style={{ padding: "var(--space-6) 0", borderBottom: `1px solid ${t.border}` }}
+          >
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-step--1" style={{ color: t.accent }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <Icon size={17} style={{ color: t.muted }} />
+            </div>
+            <div>
+              <h3 className="text-step-1 mb-1.5" style={{ color: t.fg, fontWeight: 500 }}>
+                {title}
+              </h3>
+              <p className="text-step--1" style={{ color: t.muted, lineHeight: 1.7, maxWidth: "64ch" }}>
+                {body}
+              </p>
+            </div>
+          </div>
+        </Pillar>
+      ))}
+    </div>
   );
 }
 

@@ -32,13 +32,19 @@ export function BrandPage({
   const t = brand.theme;
   const activeVariant = variant ?? brand.vibe;
 
+  // Section numbering (used by the dossier variant's "§ 01" markers, and available
+  // to any future variant that numbers sections) reflects this brand's actual
+  // sectionOrder rather than a fixed per-component constant — otherwise a brand
+  // with a non-default order shows its sections out of sequence.
+  const sectionIndex = (key: SectionKey) => brand.sectionOrder.indexOf(key);
+
   const sections: Record<SectionKey, React.ReactNode> = {
-    services: <ServicesBento key="services" brand={brand} />,
-    pourquoi: <Pourquoi key="pourquoi" brand={brand} />,
-    process: <Process key="process" brand={brand} />,
-    gallery: <Gallery key="gallery" brand={brand} />,
-    testimonials: <Testimonials key="testimonials" brand={brand} />,
-    faq: <Faq key="faq" brand={brand} />,
+    services: <ServicesBento key="services" brand={brand} index={sectionIndex("services")} />,
+    pourquoi: <Pourquoi key="pourquoi" brand={brand} index={sectionIndex("pourquoi")} />,
+    process: <Process key="process" brand={brand} index={sectionIndex("process")} />,
+    gallery: <Gallery key="gallery" brand={brand} index={sectionIndex("gallery")} />,
+    testimonials: <Testimonials key="testimonials" brand={brand} index={sectionIndex("testimonials")} />,
+    faq: <Faq key="faq" brand={brand} index={sectionIndex("faq")} />,
   };
 
   // Nav mirrors the page's actual placement; gallery link only when there are images.
