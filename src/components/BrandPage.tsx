@@ -24,22 +24,25 @@ const NAV_LABELS: Record<SectionKey, string> = {
 export function BrandPage({
   brand,
   variant,
-  simplified = true,
+  simplified,
 }: {
   brand: Brand;
   /** Explicit override used by /preview routes; production pages use the brand's own vibe. */
   variant?: DesignVariantId;
   /**
-   * Forces Services/Process onto their plain card treatment regardless of
-   * variant — the client found the dossier variant's ledger/TOC-style
-   * density "too complicated." The elaborate per-variant treatments stay in
-   * the components themselves (for reuse on future client sites) and remain
-   * visible on /preview, which explicitly opts out of this default.
+   * Forces Services/Process onto the plain card treatment regardless of
+   * variant. Only the dossier variant (Torre di Umbria) actually drew the
+   * "too complicated" complaint — its ledger-table/dotted-TOC formatting.
+   * The other three brands' own treatments (banded rows, split timeline,
+   * offset list) are a different kind of visual, not that density problem,
+   * and stay live in production. Defaults per-variant; /preview passes
+   * false explicitly so it always shows every variant's full treatment.
    */
   simplified?: boolean;
 }) {
   const t = brand.theme;
   const activeVariant = variant ?? brand.vibe;
+  const resolvedSimplified = simplified ?? activeVariant === "dossier";
 
   // Section numbering (used by the dossier variant's "§ 01" markers, and available
   // to any future variant that numbers sections) reflects this brand's actual
@@ -48,9 +51,9 @@ export function BrandPage({
   const sectionIndex = (key: SectionKey) => brand.sectionOrder.indexOf(key);
 
   const sections: Record<SectionKey, React.ReactNode> = {
-    services: <ServicesBento key="services" brand={brand} index={sectionIndex("services")} simplified={simplified} />,
+    services: <ServicesBento key="services" brand={brand} index={sectionIndex("services")} simplified={resolvedSimplified} />,
     pourquoi: <Pourquoi key="pourquoi" brand={brand} index={sectionIndex("pourquoi")} />,
-    process: <Process key="process" brand={brand} index={sectionIndex("process")} simplified={simplified} />,
+    process: <Process key="process" brand={brand} index={sectionIndex("process")} simplified={resolvedSimplified} />,
     gallery: <Gallery key="gallery" brand={brand} index={sectionIndex("gallery")} />,
     testimonials: <Testimonials key="testimonials" brand={brand} index={sectionIndex("testimonials")} />,
     faq: <Faq key="faq" brand={brand} index={sectionIndex("faq")} />,
