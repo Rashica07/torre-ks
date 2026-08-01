@@ -137,8 +137,14 @@ function BandedRows({ services, t }: { services: Service[]; t: BrandTheme }) {
   );
 }
 
-/* ── Minimal: the familiar grid, but with elevation on hover instead of flat borders ── */
+/* ── Minimal: the familiar grid, but with elevation on hover instead of flat borders.
+   Also used as the "simplified" treatment for every variant, so it reads
+   d.cardStyle/d.radius instead of hardcoding rounded boxes — otherwise a
+   variant like dossier (sharp corners, ruled cards, no boxes) ends up
+   rendering pixel-identical to minimal here, losing its own identity. ── */
 function RaisedGrid({ services, t }: { services: Service[]; t: BrandTheme }) {
+  const d = useDesign();
+  const ruled = d.cardStyle === "ruled";
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {services.map((s, i) => {
@@ -147,16 +153,24 @@ function RaisedGrid({ services, t }: { services: Service[]; t: BrandTheme }) {
           <Row key={s.title} delay={i * 60}>
             <article
               className="group h-full flex flex-col gap-5 transition-all duration-base ease-out hover:-translate-y-1"
-              style={{
-                background: t.surface,
-                border: `1px solid ${t.border}`,
-                borderRadius: "var(--radius)",
-                padding: "var(--space-6)",
-              }}
+              style={
+                ruled
+                  ? { borderTop: `1px solid ${t.border}`, paddingTop: "var(--space-5)" }
+                  : {
+                      background: t.surface,
+                      border: `1px solid ${t.border}`,
+                      borderRadius: d.radius,
+                      padding: "var(--space-6)",
+                    }
+              }
             >
               <div
                 className="w-10 h-10 flex items-center justify-center transition-colors duration-base"
-                style={{ background: `${t.accent}14`, borderRadius: "var(--radius-sm)" }}
+                style={{
+                  background: ruled ? "transparent" : `${t.accent}14`,
+                  borderRadius: ruled ? "0px" : "var(--radius-sm)",
+                  marginLeft: ruled ? "-2px" : undefined,
+                }}
               >
                 <Icon size={17} style={{ color: t.accent }} />
               </div>
