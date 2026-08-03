@@ -14,7 +14,7 @@ export type BrandTheme = {
 import type { DesignVariantId, MotionLevel } from "./design-variants";
 
 /** Page sections a brand can arrange. Gallery renders nothing without images. */
-export const SECTION_KEYS = ["services", "pourquoi", "process", "gallery", "testimonials", "faq"] as const;
+export const SECTION_KEYS = ["proof", "services", "pourquoi", "process", "gallery", "testimonials", "faq"] as const;
 export type SectionKey = (typeof SECTION_KEYS)[number];
 
 export const BRAND_IDS = ["magfa", "swisstech", "torre-umbria", "torrehome"] as const;
@@ -37,17 +37,26 @@ export type Brand = {
   motion: MotionLevel;
   /** Design direction this brand's production page renders with. */
   vibe: DesignVariantId;
-  /** Section placement — the order sections appear on the page. */
+  /** Section placement for the production page — kept short by design. */
   sectionOrder: SectionKey[];
+  /** Full section set for the /preview comparison route, so every variant's
+   *  richer treatment (services/pourquoi/process/testimonials) stays
+   *  demonstrable even though production doesn't render it anymore. */
+  previewSectionOrder: SectionKey[];
   accentHsl: string;
   category: string;
   heroHeadline: string;
   heroSub: string;
   heroImage?: string;
   heroImageAlt?: string;
+  /** The "Proof" section — three specific, brand-true facts. Not a promise list. */
+  proofEyebrow: string;
+  proofTitle: string;
+  proofFacts: string[];
   services: Service[];
   stats: Stat[];
   testimonials: Testimonial[];
+  faqIntro: string;
   faqs: Faq[];
   gallery?: GalleryImage[];
   theme: BrandTheme;
@@ -64,36 +73,43 @@ export const BRANDS: Brand[] = [
     id: "magfa",
     name: "MAGFA GROUP",
     tagline: "Ndërtim Shtëpish me Cilësi",
-    description: "Ndërtim shtëpish private dhe rezidenciale me materiale premium. Nga themeli deri te çelësi — MAGFA GROUP ndërton ëndrrën tuaj.",
+    description: "Ndërtim shtëpish private dhe rezidenciale në Kosovë. Nga themeli deri te çelësi.",
     subdomain: "magfa.torre-ks.com",
     externalUrl: "https://magfa.torre-ks.com",
     path: "/",
-    // TODO: replace with real email before launch (phone is now real)
     phone: "+383 49 599 405",
     email: "info@magfa.torre-ks.com",
     motion: "subtle",
     vibe: "minimal",
-    sectionOrder: ["services", "pourquoi", "process", "faq"],
+    sectionOrder: ["proof", "services", "faq"],
+    previewSectionOrder: ["services", "pourquoi", "process", "faq"],
     accentHsl: "200 100% 45%",
     category: "Ndërtim Rezidencial",
     heroHeadline: "Shtëpia Juaj, e Ndërtuar Saktë.",
-    heroSub: "MAGFA GROUP specializohet në ndërtimin e shtëpive private dhe rezidenciale. Cilësi superiore, materiale premium dhe dorëzim në kohë — garantuar.",
+    heroSub: "MAGFA GROUP ndërton shtëpi private dhe rezidenciale. Materiale premium. Dorëzim në kohën e caktuar.",
     // Stock photography, used as decorative hero backdrop only — not a MAGFA project.
     heroImage: "/images/magfa/hero.jpg",
     heroImageAlt: "Punëtor ndërtimi mbi strukturën e një shtëpie në ndërtim e sipër",
+    proofEyebrow: "Pse MAGFA",
+    proofTitle: "Familje ndërtuesish, jo agjenci marketingu.",
+    proofFacts: [
+      "Pjesë e TORRE GROUP — familje ndërtuesish që nga 1950, Stubëll e Vitisë.",
+      "Ndërtojmë në Prishtinë, Ferizaj, Prizren, Gjakovë, Pejë dhe Mitrovicë.",
+      "Konsultimi fillestar është falas, pa asnjë detyrim.",
+    ],
     services: [
-      { title: "Ndërtim Shtëpish Private", description: "Ndërtim shtëpish individuale nga themeli deri te përfundimi. Çdo detaj i planifikuar dhe realizuar me kujdes.", price: "Nga €45,000", icon: "Home" },
-      { title: "Dizajn Arkitekturor", description: "Projektim arkitekturor i personalizuar sipas nevojave dhe dëshirave tuaja. Plani ideal për shtëpinë tuaj.", price: "Nga €2,500", icon: "Building2" },
-      { title: "Renovim & Rinovim", description: "Renovim i plotë ose i pjesshëm i shtëpive ekzistuese. Transformojmë hapësirën tuaj me cilësi dhe stil.", price: "Nga €8,000", icon: "Wrench" },
-      { title: "Dizajn Interiori", description: "Dizajn i brendshëm profesional — nga zgjedhja e ngjyrave deri te vendosja e mobiljeve dhe ndriçimit.", price: "Nga €1,500", icon: "Sparkles" },
-      { title: "Mbikëqyrje e Ndërtimit", description: "Mbikëqyrje profesionale e çdo faze të ndërtimit. Sigurohemi që gjithçka realizohet sipas standardeve.", price: "Nga €900", icon: "HardHat" },
-      { title: "Konsultim Falas", description: "Konsultim fillestar falas për të diskutuar projektin tuaj, buxhetin dhe afatet kohore.", price: "Falas", icon: "Star" },
+      { title: "Ndërtim Shtëpish Private", description: "Ndërtim shtëpish individuale nga themeli deri te përfundimi. Çdo detaj i planifikuar dhe realizuar me kujdes.", price: "Kërkoni ofertë", icon: "Home" },
+      { title: "Dizajn Arkitekturor", description: "Projektim arkitekturor i personalizuar sipas nevojave dhe dëshirave tuaja. Plani ideal për shtëpinë tuaj.", price: "Kërkoni ofertë", icon: "Building2" },
+      { title: "Renovim & Rinovim", description: "Renovim i plotë ose i pjesshëm i shtëpive ekzistuese. Transformojmë hapësirën tuaj me cilësi dhe stil.", price: "Kërkoni ofertë", icon: "Wrench" },
+      { title: "Dizajn Interiori", description: "Dizajn i brendshëm profesional — nga zgjedhja e ngjyrave deri te vendosja e mobiljeve dhe ndriçimit.", price: "Kërkoni ofertë", icon: "Sparkles" },
+      { title: "Mbikëqyrje e Ndërtimit", description: "Mbikëqyrje profesionale e çdo faze të ndërtimit. Sigurohemi që gjithçka realizohet sipas standardeve.", price: "Kërkoni ofertë", icon: "HardHat" },
+      { title: "Konsultim Fillestar", description: "Diskutojmë projektin tuaj, buxhetin dhe afatet kohore, pa detyrim.", price: "Falas", icon: "Star" },
     ],
     stats: [
-      { value: "350+", label: "Shtëpi të Ndërtuara" },
-      { value: "15+", label: "Vjet Përvojë" },
-      { value: "98%", label: "Klientë të Kënaqur" },
-      { value: "100%", label: "Dorëzim në Kohë" },
+      { value: "1950", label: "Origjina e Familjes" },
+      { value: "4", label: "Kompani nën TORRE GROUP" },
+      { value: "6", label: "Qytete ku Ndërtojmë" },
+      { value: "0€", label: "Konsultimi Fillestar" },
     ],
     testimonials: [
       { quote: "MAGFA GROUP ndërtoi shtëpinë tonë saktësisht siç e imagjinonim. Cilësia e materialeve dhe punës është e jashtëzakonshme.", name: "Arben Krasniqi", role: "Klient, Prishtinë", rating: 5 },
@@ -103,12 +119,11 @@ export const BRANDS: Brand[] = [
       { quote: "Shtëpia jonë është realizimi i ëndrrës. MAGFA GROUP e ktheu vizionin tonë në realitet.", name: "Shqipe Gashi", role: "Klient, Mitrovicë", rating: 5 },
       { quote: "Punë cilësore, njerëz të besueshëm. MAGFA GROUP është zgjedhja e duhur për çdo projekt ndërtimi.", name: "Mentor Aliu", role: "Klient, Pejë", rating: 5 },
     ],
+    faqIntro: "Pyetjet më të shpeshta të klientëve tanë.",
     faqs: [
       { q: "Sa kohë zgjat ndërtimi i një shtëpie?", a: "Koha e ndërtimit varet nga madhësia dhe kompleksiteti i projektit. Mesatarisht, një shtëpi standarde (150–200m²) ndërtohet brenda 8–14 muajsh nga fillimi i punimeve." },
-      { q: "A jepni garanci për punën e kryer?", a: "Po — ofrojmë garanci 5-vjeçare për strukturën e ndërtimit dhe 2-vjeçare për punimet e brendshme (suvatime, bojëra, veshje). Çdo material vjen me garancitë e prodhuesit." },
+      { q: "A jepni garanci për punën e kryer?", a: "Po. Ofrojmë garanci 5-vjeçare për strukturën e ndërtimit dhe 2-vjeçare për punimet e brendshme (suvatime, bojëra, veshje). Çdo material vjen me garancitë e prodhuesit." },
       { q: "Si funksionon procesi i pagesës?", a: "Pagesat bëhen në faza sipas avancimit të punimeve: 20% në nënshkrimin e kontratës, 30% në përfundimin e strukturës, 30% në suvatim, dhe 20% në dorëzim final." },
-      { q: "A kryeni punë edhe jashtë Prishtinës?", a: "Po — operojmë në të gjithë Kosovën, duke përfshirë Prizrenin, Ferizajn, Gjakovën, Pejën dhe Mitrovicën. Transporti dhe logjistika përfshihen në ofertë." },
-      { q: "A mund të na ndihmoni me lejet e ndërtimit?", a: "Po — MAGFA GROUP ofron ndihmë të plotë me procedurën e lejeve të ndërtimit, duke punuar me arkitektë të licencuar dhe duke u marrë me të gjitha dokumentet e nevojshme." },
     ],
     theme: {
       bg: "#faf8f6",
@@ -127,23 +142,30 @@ export const BRANDS: Brand[] = [
     id: "swisstech",
     name: "SWISSTECH",
     tagline: "Fabrikë Dritaresh & Montim Professional",
-    description: "Prodhim dhe montim i dritareve dhe dyerve PVC e alumini me cilësi evropiane. Fabrika jonë lokale siguron çmime konkurruese dhe dorëzim të shpejtë.",
+    description: "Prodhim dhe montim i dritareve dhe dyerve PVC e alumini me profil gjerman, prodhim vendor.",
     subdomain: "swisstech.torre-ks.com",
     externalUrl: "https://swisstech.torre-ks.com",
     path: "/",
-    // TODO: replace with real email before launch (phone is now real)
     phone: "+383 49 599 405",
     email: "info@swisstech.torre-ks.com",
     motion: "subtle",
     vibe: "architectural",
-    sectionOrder: ["services", "process", "pourquoi", "faq"],
+    sectionOrder: ["proof", "services", "faq"],
+    previewSectionOrder: ["services", "process", "pourquoi", "faq"],
     accentHsl: "180 100% 30%",
     category: "Dritare & Fasada",
     heroHeadline: "Dritaret e Cilësisë Evropiane.",
-    heroSub: "SWISSTECH prodhon dhe monton dritare e dyer PVC dhe alumini me precizion gjerman. Fabrika jonë garanton cilësi maksimale dhe izolim termik superior.",
+    heroSub: "SWISSTECH prodhon dritare dhe dyer PVC e alumini. Profil gjerman, prodhim vendor.",
     // Stock photography, used as decorative hero backdrop only — not a SWISSTECH project.
     heroImage: "/images/swisstech/hero.jpg",
     heroImageAlt: "Fasadë moderne me xham strukturor që reflekton qiellin",
+    proofEyebrow: "Pse SWISSTECH",
+    proofTitle: "Fabrikë reale. Jo importues, jo ndërmjetës.",
+    proofFacts: [
+      "Prodhim lokal me profil gjerman të certifikuar CE.",
+      "Garanci 10-vjeçare për çdo profil PVC dhe alumini.",
+      "Fabrika jonë është e hapur për vizitë, me takim paraprak.",
+    ],
     services: [
       { title: "Dritare PVC", description: "Dritare PVC me profil gjerman — izolim termik dhe akustik i shkëlqyer. Të disponueshme në të gjitha madhësitë dhe ngjyrat.", price: "Nga €85/m²", icon: "Square" },
       { title: "Dritare Alumini", description: "Dritare dhe fasada alumini me ndërprerje termike për ndërtesa residenciale dhe komerciale. Dizajn modern dhe i qëndrueshëm.", price: "Nga €120/m²", icon: "Layers" },
@@ -153,10 +175,10 @@ export const BRANDS: Brand[] = [
       { title: "Servisim & Riparim", description: "Servisim periodik, rregullim dhe riparim i dritareve dhe dyerve ekzistuese. Zëvendësim xhami dhe guarnicionesh.", price: "Nga €30", icon: "Wrench" },
     ],
     stats: [
-      { value: "5,000+", label: "Dritare të Montuara" },
-      { value: "12+", label: "Vjet në Treg" },
+      { value: "10", label: "Vjet Garanci Profil" },
+      { value: "CE", label: "Certifikim Gjerman" },
+      { value: "10–15", label: "Ditë Pune, Porosi Standarde" },
       { value: "48h", label: "Dorëzim Oferte" },
-      { value: "10 vjet", label: "Garanci Profile" },
     ],
     testimonials: [
       { quote: "Dritaret e SWISSTECH-ut janë të jashtëzakonshme — shtëpia jonë është shumë më e ngrohtë gjatë dimrit dhe ka reduktuar konsumin e ngrohjes.", name: "Burim Kastrati", role: "Klient, Prishtinë", rating: 5 },
@@ -166,12 +188,11 @@ export const BRANDS: Brand[] = [
       { quote: "Kemi punuar me SWISSTECH-un për disa projekte. Cilësia është konstante dhe montimi gjithmonë preciz.", name: "Agron Berisha", role: "Kontraktor, AB Ndërtim", rating: 5 },
       { quote: "Fasada e ndërtesës sonë u realizua nga SWISSTECH — rezultati është impresionues dhe klientët na pyesin çdo ditë.", name: "Nita Bajrami", role: "Pronare, Qendra Tregtare Nano", rating: 5 },
     ],
+    faqIntro: "Pyetje teknike? Ja përgjigjet.",
     faqs: [
-      { q: "Sa kohë duhet nga porosia deri te montimi?", a: "Prodhimi standard zgjat 10–15 ditë pune. Për porosi urgjente, ofrojmë shërbim të përshpejtuar brenda 7 ditësh (me tarifë shtesë). Montimi planifikohet menjëherë pas arritjes së produkteve." },
+      { q: "Sa kohë duhet nga porosia deri te montimi?", a: "Prodhimi standard zgjat 10–15 ditë pune. Për porosi urgjente, ofrojmë shërbim të përshpejtuar brenda 7 ditësh (me tarifë shtesë)." },
       { q: "Çfarë garancish ofroni?", a: "Ofrojmë garanci 10-vjeçare për profilet PVC dhe alumini, 5-vjeçare për mekanizmat dhe aksesorët, dhe 2-vjeçare për montimin. Xhami garanton nga prodhuesi (6–8 vjet)." },
-      { q: "A mund të vizitojmë fabrikën tuaj?", a: "Po — fabrika jonë është e hapur për vizita me takim paraprak. Mund të shihni procesin e prodhimit dhe kampionët e materialeve direkt." },
-      { q: "A bëni matje në terren?", a: "Po — ekipi ynë teknik vjen falas për matje të sakta në terren para se të fillojë prodhimi. Saktësia e matjes është çelësi i montimit perfekt." },
-      { q: "A punoni met kontraktorë dhe arkitektë?", a: "Po — kemi program special për kontraktorë dhe arkitektë met çmime preferenciale, suport teknik dhe dorëzim prioritar. Na kontaktoni për partneritet." },
+      { q: "A mund të vizitojmë fabrikën tuaj?", a: "Po. Fabrika jonë është e hapur për vizita me takim paraprak. Mund të shihni procesin e prodhimit dhe kampionët e materialeve direkt." },
     ],
     theme: {
       bg: "#0f1419",
@@ -190,25 +211,32 @@ export const BRANDS: Brand[] = [
     id: "torre-umbria",
     name: "TORRE DI UMBRIA",
     tagline: "Zhvillim i Ndërtesave Rezidenciale",
-    description: "Ndërtim dhe zhvillim i ndërtesave rezidenciale moderne në Kosovë. Projektet tona combinojnë arkitekturë bashkëkohore me cilësi ndërtimi të lartë.",
+    description: "Zhvillim ndërtesash rezidenciale në Kosovë, nga koncepti deri te dorëzimi final.",
     subdomain: "torre-umbria.torre-ks.com",
     externalUrl: "https://torre-umbria.torre-ks.com",
     path: "/",
-    // TODO: replace with real email before launch (phone is now real)
     phone: "+383 49 599 405",
     email: "info@torre-umbria.torre-ks.com",
     motion: "subtle",
     // Bespoke 4th variant, unique to this brand — see design-variants.ts. Was briefly
     // "minimal" (shared with Magfa) as a stopgap before this was built.
     vibe: "dossier",
-    sectionOrder: ["pourquoi", "services", "process", "faq"],
-    accentHsl: "142 70% 45%",
+    sectionOrder: ["proof", "services", "faq"],
+    previewSectionOrder: ["pourquoi", "services", "process", "faq"],
+    accentHsl: "132 21% 47%",
     category: "Zhvillim Rezidencial",
     heroHeadline: "Ndërtesa Moderne. Cilësi e Garantuar.",
-    heroSub: "TORRE DI UMBRIA zhvillon ndërtesa rezidenciale moderne në Kosovë — nga koncepti arkitekturor deri te dorëzimi final, me standarde ndërtimi të larta.",
+    heroSub: "TORRE DI UMBRIA zhvillon ndërtesa rezidenciale në Kosovë. Nga koncepti deri te dorëzimi final.",
     // Stock photography, used as decorative hero backdrop only — not a TORRE DI UMBRIA project.
     heroImage: "/images/torre-umbria/hero.jpg",
     heroImageAlt: "Ndërtesë moderne rezidenciale e bardhë me ballkone",
+    proofEyebrow: "Pse TORRE DI UMBRIA",
+    proofTitle: "Zhvillues, jo ndërtues i rastësishëm.",
+    proofFacts: [
+      "Themeluar nga TORRE GROUP — familje ndërtuesish që nga 1950.",
+      "Menaxhojmë çdo leje — urbanistike, ndërtimore dhe mjedisore.",
+      "Garanci 10-vjeçare për strukturën dhe fondamentin.",
+    ],
     services: [
       { title: "Zhvillim Ndërtesash", description: "Projektim dhe ndërtim ndërtesash rezidenciale moderne me arkitekturë bashkëkohore dhe materiale cilësore.", price: "Me kërkesë", icon: "Building2" },
       { title: "Menaxhim Projekti", description: "Menaxhim i plotë i projekteve të ndërtimit — planifikim, koordinim, mbikëqyrje dhe raportim periodik.", price: "Me kërkesë", icon: "HardHat" },
@@ -218,10 +246,10 @@ export const BRANDS: Brand[] = [
       { title: "Certifikim & Dokumentacion", description: "Trajtim i të gjitha lejeve, certifikatave dhe dokumenteve ligjore të nevojshme për legalizim dhe regjistrim.", price: "Me kërkesë", icon: "ShieldCheck" },
     ],
     stats: [
-      { value: "8+", label: "Ndërtesa të Realizuara" },
-      { value: "500+", label: "Njësi Rezidenciale" },
-      { value: "10+", label: "Vjet Përvojë" },
+      { value: "1950", label: "Origjina e Familjes" },
+      { value: "10", label: "Vjet Garanci Strukture" },
       { value: "100%", label: "Projekte të Legalizuara" },
+      { value: "1", label: "Pikë Kontakti, Nga Fillimi te Fundi" },
     ],
     testimonials: [
       { quote: "TORRE DI UMBRIA ndërtoi ndërtesën tonë sipas çdo specifikimi. Cilësia e punës dhe serioziteti i ekipit janë të jashtëzakonshëm.", name: "Kushtrim Gashi", role: "Investitor, Prishtinë", rating: 5 },
@@ -231,44 +259,46 @@ export const BRANDS: Brand[] = [
       { quote: "TORRE DI UMBRIA menaxhoi projektin tonë me efikasitet total. Asnjë surprizë, asnjë vonesë.", name: "Faton Kelmendi", role: "Investitor, Gjakovë", rating: 5 },
       { quote: "Punojmë me TORRE DI UMBRIA-n prej vitesh. Standartet e tyre janë konstante dhe rezultatet janë gjithmonë sipër pritshmërive.", name: "Shpend Canolli", role: "Zhvillues, SC Properties", rating: 5 },
     ],
+    faqIntro: "Pyetjet e investitorëve tanë.",
     faqs: [
-      { q: "Si fillon bashkëpunimi me TORRE DI UMBRIA-n?", a: "Procesi fillon me një takim konsultativ ku diskutojmë projektin, tokën/lokacionin, buxhetin dhe afatet. Pastaj ekipi ynë përgatit një studim parafizibilitet falas." },
-      { q: "A merreni me gjetjen e tokës?", a: "Po — mund t'ju ndihmojmë në identifikimin e lokacioneve të përshtatshme për zhvillim, duke marrë parasysh infrastrukturën, aksesin dhe potencialin e zhvillimit." },
+      { q: "Si fillon bashkëpunimi me TORRE DI UMBRIA-n?", a: "Procesi fillon me një takim konsultativ ku diskutojmë projektin, tokën/lokacionin, buxhetin dhe afatet. Pastaj ekipi ynë përgatit një studim parafizibiliteti falas." },
       { q: "Sa kohë zgjat ndërtimi i një ndërtese?", a: "Koha varet nga madhësia dhe kompleksiteti. Zakonisht, ndërtimi i një ndërtese 5–8 katësh zgjat 18–30 muaj nga marrja e lejeve deri te dorëzimi." },
-      { q: "A merreni me të gjitha lejet e ndërtimit?", a: "Po — TORRE DI UMBRIA merret me të gjithë procesin e lejeve: urbanistike, ndërtimore, mjedisore dhe çdo dokument tjetër i nevojshëm nga institucionet kompetente." },
-      { q: "A ofrohet garanci pas dorëzimit?", a: "Po — ofrojmë garanci 10-vjeçare për strukturën dhe fondaminët, 5-vjeçare për punimet e ndërtimit dhe 2-vjeçare për instalimet dhe punimet e brendshme." },
+      { q: "A ofrohet garanci pas dorëzimit?", a: "Po. Ofrojmë garanci 10-vjeçare për strukturën dhe fondamentin, 5-vjeçare për punimet e ndërtimit dhe 2-vjeçare për instalimet dhe punimet e brendshme." },
     ],
     theme: {
-      bg: "#0a0f0a",
-      bgAlt: "#111a11",
-      surface: "#162016",
-      fg: "#e4f0e4",
-      muted: "#6d8d6d",
-      border: "#243024",
-      accent: "#22c55e",
+      // Deep warm charcoal, not clinical pure black — reads as a developer's
+      // office, not a terminal. Same for the desaturated forest-green accent
+      // below: still green (the brand differentiator), just not neon.
+      bg: "#14171a",
+      bgAlt: "#1b1f1e",
+      surface: "#20241f",
+      fg: "#e8ece6",
+      muted: "#8a9a8a",
+      border: "#2a2f2a",
+      accent: "#5f9169",
       accentFg: "#111111",
-      navBg: "rgba(10, 15, 10, 0.92)",
-      heroBg: "#0a0f0a",
+      navBg: "rgba(20, 23, 26, 0.92)",
+      heroBg: "#14171a",
     },
   },
   {
     id: "torrehome",
     name: "TORRE HOME",
     tagline: "Katër Breza Ndërtimi. Një Adresë e Re.",
-    description: "TORRE HOME sjell trashëgiminë familjare të TORRE GROUP në rrugën Emin Duraku, Ferizaj. Ndërtesa 1 dhe Ndërtesa 2 ofrojnë apartamente premium me standarde evropiane, pranë parkut të ri të qytetit dhe komunës.",
+    description: "TORRE HOME ndërton në rrugën Emin Duraku, Ferizaj. Apartamente premium në Ndërtesa 1 dhe Ndërtesa 2.",
     subdomain: "torrehome.torre-ks.com",
     externalUrl: "https://torrehome.torre-ks.com",
     path: "/",
-    // TODO: replace with real email before launch (phone is now real)
     phone: "+383 49 599 405",
     email: "info@torrehome.torre-ks.com",
     motion: "subtle",
     vibe: "editorial",
-    sectionOrder: ["gallery", "services", "pourquoi", "process", "faq"],
+    sectionOrder: ["gallery", "proof", "services", "faq"],
+    previewSectionOrder: ["gallery", "services", "pourquoi", "process", "faq"],
     accentHsl: "212 47% 29%",
     category: "Apartamente në Ferizaj",
     heroHeadline: "Apartamenti Juaj, Në Zemër të Ferizajt.",
-    heroSub: "TORRE HOME ndërton në rrugën Emin Duraku — pranë parkut të ri të qytetit dhe komunës së Ferizajt. Ndërtesa 1 dhe Ndërtesa 2 sjellin katër breza trashëgimi ndërtimi në një lokacion premium.",
+    heroSub: "TORRE HOME ndërton në rrugën Emin Duraku, Ferizaj. Ndërtesa 1 dhe Ndërtesa 2, pranë parkut të ri të qytetit.",
     heroImage: "/images/torrehome/hero-day.jpg",
     heroImageAlt: "Fasada e Ndërtesës TORRE HOME, pamje dite",
     gallery: [
@@ -285,6 +315,13 @@ export const BRANDS: Brand[] = [
       { src: "/images/torrehome/floorplan-a2.jpg", alt: "Plan apartamenti 3-dhomësh, tip A2, 132.39 m²", caption: "Plan Apartamenti — Tip A2" },
       { src: "/images/torrehome/parking.jpg", alt: "Parkingu nëntokësor i sigurt i TORRE HOME", caption: "Parkingu Nëntokësor" },
     ],
+    proofEyebrow: "Pse TORRE HOME",
+    proofTitle: "Dy ndërtesa reale, jo një koncept.",
+    proofFacts: [
+      "Katër breza trashëgimi ndërtimi, që nga 1950 në Stubëll të Vitisë.",
+      "Dy ndërtesa reale në rrugën Emin Duraku, Ferizaj.",
+      "0% paradhënie me kredi, sipas bankave partnere.",
+    ],
     services: [
       { title: "Ndërtesa 1 — Apartamente", description: "Apartamente 1+1, 2+1 dhe 3+1 në Ndërtesën 1. Kati i parë deri kati i tetë. Pamje panoramike dhe parking i siguruar.", price: "Nga €55,000", icon: "Building2" },
       { title: "Ndërtesa 2 — Apartamente", description: "Apartamente luksoze 2+1 dhe 3+1 në Ndërtesën 2 me finime premium. Tarracë, ashensor dhe sistem sigurie 24/7.", price: "Nga €75,000", icon: "Building" },
@@ -294,10 +331,10 @@ export const BRANDS: Brand[] = [
       { title: "Menaxhim Prone", description: "Shërbim menaxhimi prone për investitorët — qiradhënie, mirëmbajtje dhe administrim profesional i apartamentit tuaj.", price: "Nga €80/muaj", icon: "ShieldCheck" },
     ],
     stats: [
-      { value: "2", label: "Ndërtesa Aktive" },
-      { value: "120+", label: "Apartamente Disponueshme" },
+      { value: "2", label: "Ndërtesa Reale" },
+      { value: "1950", label: "Origjina e Familjes" },
+      { value: "0%", label: "Paradhënie me Kredi" },
       { value: "A+", label: "Klasa Energjetike" },
-      { value: "24/7", label: "Siguri & Mbikëqyrje" },
     ],
     testimonials: [
       { quote: "Blemë apartamentin tonë në Ndërtesën 1 — procesi ishte i thjeshtë dhe transparent. Jemi shumë të kënaqur me cilësinë.", name: "Besnik Aliu", role: "Pronar Apartamenti, Ndërtesa 1", rating: 5 },
@@ -307,12 +344,11 @@ export const BRANDS: Brand[] = [
       { quote: "Kualiteti i ndërtimit të Ndërtesës 2 është i dukshëm — dyshemetë, muret, izolimi — gjithçka e nivelit të lartë.", name: "Edon Gashi", role: "Pronar Apartamenti, Ndërtesa 2", rating: 5 },
       { quote: "Personalizuam finimin e apartamentit tonë sipas preferencave tona. TORRE HOME e realizoi çdo kërkesë me profesionalizëm.", name: "Valbona Musliu", role: "Pronare Apartamenti, Ndërtesa 1", rating: 5 },
     ],
+    faqIntro: "Pyetjet e blerësve tanë.",
     faqs: [
-      { q: "Çfarë dokumentesh nevojiten për të blerë apartament?", a: "Dokumentet kryesore janë: letërnjoftimi/pasaporta, numri fiskal dhe raporti i të ardhurave (për blerje me kredi). Ekipi ynë i shitjes ju udhëzon hap pas hapi." },
-      { q: "A mund të blej me kredi bankare?", a: "Po — bashkëpunojmë me bankat kryesore në Kosovë për të ofruar kushte krediti preferenciale. Mund të financohet deri 80% e vlerës së apartamentit me afat deri 30 vjet." },
-      { q: "Sa janë shpenzimet shtesë (taksat, noteri)?", a: "Transferi i pronësisë tatohet me 0% TVSH (banesa e parë) ose 8% për blerje të dytë. Noteri kushton rreth €200–400. Regjistri i Pronave kosto €30–50. Ne ju orientojmë për gjithçka." },
-      { q: "A janë apartamentet gati për t'u banuar?", a: "Apartamentet janë gati me finime standarde premium (dysheme laminat/parket, flise banje, bojëra, instalime elektrike dhe hidraulike). Opsioni i mobilimit është i disponueshëm." },
-      { q: "A ka parking i siguruar?", a: "Po — çdo apartament ka të paktën 1 vend parkimi të siguruar. Apartamentet me 3 dhoma kanë 2 vende parkimi. Parkingu nëntokësor është i mbrojtur 24/7." },
+      { q: "A mund të blej me kredi bankare?", a: "Po. Bashkëpunojmë me bankat kryesore në Kosovë për të ofruar kushte krediti preferenciale. Mund të financohet deri 80% e vlerës së apartamentit me afat deri 30 vjet." },
+      { q: "Sa janë shpenzimet shtesë (taksat, noteri)?", a: "Transferi i pronësisë tatohet me 0% TVSH (banesa e parë) ose 8% për blerje të dytë. Noteri kushton rreth €200–400. Regjistri i Pronave kushton €30–50." },
+      { q: "A ka parking i siguruar?", a: "Po. Çdo apartament ka të paktën 1 vend parkimi të siguruar. Apartamentet me 3 dhoma kanë 2 vende parkimi. Parkingu nëntokësor është i mbrojtur 24/7." },
     ],
     theme: {
       bg: "#f0f3f7",

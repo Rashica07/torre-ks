@@ -9,6 +9,7 @@ export const metadata = {
 };
 
 const SECTION_LABELS: Record<SectionKey, string> = {
+  proof: "Pse Ne",
   services: "Shërbimet",
   pourquoi: "Pse Ne",
   process: "Procesi",

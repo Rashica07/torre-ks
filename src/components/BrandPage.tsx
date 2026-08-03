@@ -4,6 +4,7 @@ import { MOTION_SCALE, type DesignVariantId } from "@/lib/design-variants";
 import { DesignProvider } from "@/lib/design-context";
 import { Navbar } from "./Navbar";
 import { BrandHero } from "./BrandHero";
+import { Proof } from "./Proof";
 import { ServicesBento } from "./ServicesBento";
 import { Gallery } from "./Gallery";
 import { Testimonials } from "./Testimonials";
@@ -13,6 +14,7 @@ import { Pourquoi } from "./Pourquoi";
 import { Process } from "./Process";
 
 const NAV_LABELS: Record<SectionKey, string> = {
+  proof: "Pse Ne",
   services: "Shërbimet",
   pourquoi: "Pse Ne",
   process: "Procesi",
@@ -25,6 +27,7 @@ export function BrandPage({
   brand,
   variant,
   simplified,
+  sectionOrder,
 }: {
   brand: Brand;
   /** Explicit override used by /preview routes; production pages use the brand's own vibe. */
@@ -39,18 +42,28 @@ export function BrandPage({
    * false explicitly so it always shows every variant's full treatment.
    */
   simplified?: boolean;
+  /**
+   * Explicit override used by /preview routes to show the full section set
+   * (services/pourquoi/process/testimonials/faq). Production pages default
+   * to brand.sectionOrder — the short, real hero->proof->gallery->contact
+   * skeleton — while /preview passes brand.previewSectionOrder so every
+   * variant's richer treatment stays demonstrable for future client sites.
+   */
+  sectionOrder?: SectionKey[];
 }) {
   const t = brand.theme;
   const activeVariant = variant ?? brand.vibe;
   const resolvedSimplified = simplified ?? activeVariant === "dossier";
+  const order = sectionOrder ?? brand.sectionOrder;
 
   // Section numbering (used by the dossier variant's "§ 01" markers, and available
-  // to any future variant that numbers sections) reflects this brand's actual
-  // sectionOrder rather than a fixed per-component constant — otherwise a brand
+  // to any future variant that numbers sections) reflects this page's actual
+  // rendered order rather than a fixed per-component constant — otherwise a brand
   // with a non-default order shows its sections out of sequence.
-  const sectionIndex = (key: SectionKey) => brand.sectionOrder.indexOf(key);
+  const sectionIndex = (key: SectionKey) => order.indexOf(key);
 
   const sections: Record<SectionKey, React.ReactNode> = {
+    proof: <Proof key="proof" brand={brand} index={sectionIndex("proof")} />,
     services: <ServicesBento key="services" brand={brand} index={sectionIndex("services")} simplified={resolvedSimplified} />,
     pourquoi: <Pourquoi key="pourquoi" brand={brand} index={sectionIndex("pourquoi")} />,
     process: <Process key="process" brand={brand} index={sectionIndex("process")} simplified={resolvedSimplified} />,
@@ -60,9 +73,10 @@ export function BrandPage({
   };
 
   // Nav mirrors the page's actual placement; gallery link only when there are images.
-  const navLinks = brand.sectionOrder
+  const navLinks = order
     .filter((key) => key !== "gallery" || (brand.gallery?.length ?? 0) > 0)
     .filter((key) => key !== "testimonials")
+    .filter((key) => key !== "proof")
     .map((key) => ({ label: NAV_LABELS[key], href: `#${key}` }));
 
   return (
@@ -92,7 +106,7 @@ export function BrandPage({
         <Navbar brandName={brand.name} accentHsl={brand.accentHsl} theme={t} links={navLinks} />
         <main>
           <BrandHero brand={brand} />
-          {brand.sectionOrder.map((key) => sections[key])}
+          {order.map((key) => sections[key])}
         </main>
         <CtaFooter brand={brand} />
       </div>

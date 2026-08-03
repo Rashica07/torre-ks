@@ -1,12 +1,11 @@
 "use client";
 import type { Brand } from "@/lib/brands";
-import { ContactIntake } from "./ContactIntake";
+import { ContactBlock } from "./ContactBlock";
 
 const FOOTER_LINKS = [
   { label: "Politika e Privatësisë", href: "/politika-e-privatesise" },
   { label: "Kushtet e Shërbimit", href: "/kushtet-e-sherbimit" },
   { label: "Qasshmëria", href: "/deklarata-e-qasshmerise" },
-  { label: "Kontakt", href: "#contact" },
 ];
 
 export function CtaFooter({ brand }: { brand: Brand }) {
@@ -16,51 +15,23 @@ export function CtaFooter({ brand }: { brand: Brand }) {
     <footer id="contact" style={{ background: t.bg }}>
       <div className="mx-auto px-[var(--gutter)] pt-20 md:pt-32 pb-8" style={{ maxWidth: "var(--max)" }}>
         <div
-          className="rounded-xl p-10 md:p-16 flex flex-col items-center text-center relative overflow-hidden"
+          className="rounded-xl p-10 md:p-16 flex flex-col items-center text-center"
           style={{ background: t.surface, border: `1px solid ${t.border}` }}
         >
-          {/* Subtle background decoration */}
-          <div
-            className="absolute top-0 right-0 w-64 h-64 rounded-full blur-[100px] pointer-events-none opacity-50"
-            style={{ background: t.accent, transform: "translate(30%, -30%)" }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-[100px] pointer-events-none opacity-50"
-            style={{ background: t.accent, transform: "translate(-30%, 30%)" }}
-          />
-
-          <span
-            className="block text-[11px] tracking-[0.18em] uppercase mb-6 relative z-10"
-            style={{ color: t.accent }}
-          >
-            Faza Tjetër
-          </span>
           <h2
-            className="mb-6 relative z-10"
-            style={{ fontSize: "clamp(32px, 5vw, 64px)", color: t.fg, maxWidth: "15ch" }}
+            className="mb-4"
+            style={{ fontSize: "clamp(28px, 4vw, 48px)", color: t.fg, maxWidth: "18ch" }}
           >
-            Gati Për Të Filluar?
+            Na Kontaktoni.
           </h2>
           <p
-            className="text-base leading-relaxed mb-10 relative z-10"
+            className="text-base leading-relaxed mb-10"
             style={{ color: t.muted, maxWidth: "40ch" }}
           >
-            Kontaktoni ekipin e {brand.name} për të diskutuar vizionin tuaj. Ne jemi këtu për t'ju ndihmuar.
+            {brand.name} — telefononi, shkruani në WhatsApp, ose lini një mesazh.
           </p>
 
-          <div className="w-full relative z-10">
-            <ContactIntake brand={brand} />
-            <p className="text-xs mt-5" style={{ color: t.muted }}>
-              Ose telefononi direkt:{" "}
-              <a
-                href={`tel:${brand.phone.replace(/\s/g, "")}`}
-                className="no-underline"
-                style={{ color: t.accent }}
-              >
-                {brand.phone}
-              </a>
-            </p>
-          </div>
+          <ContactBlock brand={brand} />
         </div>
 
         <div

@@ -32,9 +32,10 @@ export default async function PreviewPage({
     <>
       <VariantSwitcher activeVariant={variant} activeBrand={brand.id} />
       {/* This comparison tool is the living backup of every variant's full
-          treatment (ledger/TOC/banded/offset, etc.) — production pages
-          default to the simplified layout, this route opts out. */}
-      <BrandPage brand={brand} variant={variant} simplified={false} />
+          treatment (ledger/TOC/banded/offset, services/pourquoi/process/
+          testimonials, etc.) — production pages default to the short
+          hero->proof->gallery->contact skeleton, this route opts out of both. */}
+      <BrandPage brand={brand} variant={variant} simplified={false} sectionOrder={brand.previewSectionOrder} />
     </>
   );
 }

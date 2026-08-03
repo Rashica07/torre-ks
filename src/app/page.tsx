@@ -62,9 +62,8 @@ export default function CompanySelector() {
               className="text-step-0"
               style={{ color: "hsl(var(--muted))", maxWidth: "52ch", lineHeight: 1.7 }}
             >
-              Katër breza mjeshtërie ndërtimi — nga Stubëlli i Vitisë te tregu
-              zviceran — sot të organizuar në katër kompani të pavarura,
-              secila me specializimin e vet.
+              Nisëm si ndërtues shtëpish në Stubëll të Vitisë, në 1950. Sot
+              jemi katër kompani, secila me specializimin e vet.
             </p>
           </div>
 

@@ -67,8 +67,7 @@ export function Faq({ brand, index }: { brand: Brand; index: number }) {
         <div className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeader
               eyebrow="Pyetje të Shpeshta"
-              title="Pyetje me Përgjigje."
-              lead="Nuk gjeni përgjigjen? Kontaktoni ekipin tonë direkt."
+              title={brand.faqIntro}
               theme={t}
               index={index}
             />
