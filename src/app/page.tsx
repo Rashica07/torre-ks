@@ -13,12 +13,11 @@ function transparentVariant(hex: string): string {
   return `rgba(${r}, ${g}, ${b}, 0)`;
 }
 
-// Company history, condensed from the group's own record.
+// Company history — honest and short. Only the founding year is asserted;
+// no invented sub-milestone dates, no generations, no decades.
 const HISTORIKU = [
-  { year: "1950", text: "Fillimet në Stubëll të Vitisë — tri breza mjeshtërie ndërtimi." },
-  { year: "Zvicër", text: "Vite pune në tregun zviceran — etika që na udhëheq edhe sot." },
-  { year: "2010", text: "Themelohet kompania “Torre” në fushën e ndërtimtarisë." },
-  { year: "2020", text: "Investim në ndërtim të lartë: Torre Home 1 & 2 në Ferizaj." },
+  { year: "2015", text: "Fillojmë si ndërtues shtëpish private, në Kosovë." },
+  { year: "Sot", text: "Katër kompani, secila me specializimin e vet: shtëpi, dritare e fasada, zhvillim rezidencial dhe apartamente." },
 ];
 
 export default function CompanySelector() {
@@ -43,7 +42,7 @@ export default function CompanySelector() {
               className="block font-mono text-[11px] tracking-[0.2em] uppercase"
               style={{ color: "hsl(var(--muted))", marginBottom: "var(--space-5)" }}
             >
-              Torre Group — Themeluar 1950, Stubëll e Vitisë
+              Torre Group — Ndërtim në Kosovë që nga 2015
             </span>
             <h1 className="text-step-5" style={{ lineHeight: 0.98, marginBottom: "var(--space-5)" }}>
               <span style={{ fontWeight: 700 }}>Katër kompani.</span>{" "}
@@ -62,8 +61,8 @@ export default function CompanySelector() {
               className="text-step-0"
               style={{ color: "hsl(var(--muted))", maxWidth: "52ch", lineHeight: 1.7 }}
             >
-              Nisëm si ndërtues shtëpish në Stubëll të Vitisë, në 1950. Sot
-              jemi katër kompani, secila me specializimin e vet.
+              Nisëm në 2015 si ndërtues shtëpish private. Sot jemi katër
+              kompani, secila me specializimin e vet.
             </p>
           </div>
 
