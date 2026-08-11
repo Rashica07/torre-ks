@@ -12,10 +12,12 @@ export default function LLMsPage() {
       {BRANDS.map((brand) => (
         <article key={brand.id} style={{ marginTop: "60px", borderTop: "2px solid #ccc", paddingTop: "40px" }}>
           <h2>Brand: {brand.name}</h2>
+          {brand.legalName && <p><strong>Legal name:</strong> {brand.legalName}</p>}
           <p><strong>Tagline:</strong> {brand.tagline}</p>
           <p><strong>Category:</strong> {brand.category}</p>
           <p><strong>Description:</strong> {brand.description}</p>
           <p><strong>URL:</strong> <a href={brand.externalUrl}>{brand.externalUrl}</a></p>
+          {brand.address && <p><strong>Address:</strong> {brand.address}</p>}
 
           <section style={{ marginTop: "20px" }}>
             <h3>Services & Pricing</h3>

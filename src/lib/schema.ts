@@ -1,10 +1,10 @@
 import type { Brand } from "./brands";
 
 /**
- * JSON-LD builders. No physical street address is included anywhere here —
- * none has been provided yet, and a business's registered address is not
- * something to guess at. Add `address` to both builders once a real one
- * exists; until then this is deliberately incomplete rather than wrong.
+ * JSON-LD builders. Physical street address is only included per-brand where
+ * one has actually been provided (currently just SwissTech's factory) —
+ * a business's registered address is not something to guess at, so brands
+ * without a confirmed address simply omit the field rather than fake one.
  */
 
 export function organizationSchema() {
@@ -35,10 +35,14 @@ export function brandSchema(brand: Brand) {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     name: brand.name,
+    legalName: brand.legalName,
     description: brand.description,
     url: brand.externalUrl,
     telephone: brand.phone,
     email: brand.email,
+    address: brand.address
+      ? { "@type": "PostalAddress", streetAddress: brand.address, addressCountry: "XK" }
+      : undefined,
     image: brand.heroImage ? `${brand.externalUrl}${brand.heroImage}` : undefined,
     areaServed: "Kosovo",
     parentOrganization: {
