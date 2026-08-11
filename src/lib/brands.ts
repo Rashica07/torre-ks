@@ -14,7 +14,7 @@ export type BrandTheme = {
 import type { DesignVariantId, MotionLevel } from "./design-variants";
 
 /** Page sections a brand can arrange. Gallery renders nothing without images. */
-export const SECTION_KEYS = ["proof", "services", "pourquoi", "process", "gallery", "testimonials", "faq"] as const;
+export const SECTION_KEYS = ["proof", "services", "pourquoi", "process", "gallery", "team", "testimonials", "faq"] as const;
 export type SectionKey = (typeof SECTION_KEYS)[number];
 
 export const BRAND_IDS = ["magfa", "swisstech", "torre-umbria", "torrehome"] as const;
@@ -63,6 +63,8 @@ export type Brand = {
   faqIntro: string;
   faqs: Faq[];
   gallery?: GalleryImage[];
+  /** Real team members, when a brand has confirmed names/roles to publish. No stock photos. */
+  team?: TeamMember[];
   theme: BrandTheme;
 };
 
@@ -71,6 +73,7 @@ export type Stat = { value: string; label: string };
 export type Testimonial = { quote: string; name: string; role: string; rating: number };
 export type Faq = { q: string; a: string };
 export type GalleryImage = { src: string; alt: string; caption: string };
+export type TeamMember = { name: string; role: string };
 
 export const BRANDS: Brand[] = [
   {
@@ -156,8 +159,8 @@ export const BRANDS: Brand[] = [
     address: "Rr. Engjëll Zefi, Bibaj, 70000 Ferizaj",
     motion: "subtle",
     vibe: "architectural",
-    sectionOrder: ["proof", "services", "faq"],
-    previewSectionOrder: ["services", "process", "pourquoi", "faq"],
+    sectionOrder: ["proof", "services", "team", "faq"],
+    previewSectionOrder: ["services", "process", "pourquoi", "team", "faq"],
     accentHsl: "180 100% 30%",
     category: "Dritare & Fasada",
     heroHeadline: "Dritaret e Cilësisë Evropiane.",
@@ -193,6 +196,12 @@ export const BRANDS: Brand[] = [
       { quote: "Prodhimi lokal me standard gjerman — kombinim perfekt. Oferta u dërgua brenda 24 orësh.", name: "Donika Rexhepi", role: "Arkitekte, Studio DR", rating: 5 },
       { quote: "Kemi punuar me SWISSTECH-un për disa projekte. Cilësia është konstante dhe montimi gjithmonë preciz.", name: "Agron Berisha", role: "Kontraktor, AB Ndërtim", rating: 5 },
       { quote: "Fasada e ndërtesës sonë u realizua nga SWISSTECH — rezultati është impresionues dhe klientët na pyesin çdo ditë.", name: "Nita Bajrami", role: "Pronare, Qendra Tregtare Nano", rating: 5 },
+    ],
+    team: [
+      { name: "Gjergj Gashi", role: "Kryetar Ekzekutiv (CEO)" },
+      { name: "Gazmend Gjergji", role: "Bashk-investitor" },
+      { name: "Gentian Hoxha", role: "Teknik" },
+      { name: "Elira Gashi", role: "Financiare" },
     ],
     faqIntro: "Pyetje teknike? Ja përgjigjet.",
     faqs: [
