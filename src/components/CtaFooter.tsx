@@ -1,4 +1,5 @@
 "use client";
+import { MapPin } from "lucide-react";
 import type { Brand } from "@/lib/brands";
 import { ContactBlock } from "./ContactBlock";
 
@@ -32,6 +33,15 @@ export function CtaFooter({ brand }: { brand: Brand }) {
           </p>
 
           <ContactBlock brand={brand} />
+
+          {brand.address && (
+            <p
+              className="mt-8 flex items-center gap-2 text-sm"
+              style={{ color: t.muted }}
+            >
+              <MapPin size={14} /> {brand.address}
+            </p>
+          )}
         </div>
 
         <div

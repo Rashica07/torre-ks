@@ -33,6 +33,10 @@ export type Brand = {
   path: string;
   phone: string;
   email: string;
+  /** Registered legal entity name, when it differs from the public brand name. */
+  legalName?: string;
+  /** Physical street address, when the brand has one to publish. */
+  address?: string;
   /** Animation intensity for this brand's page. */
   motion: MotionLevel;
   /** Design direction this brand's production page renders with. */
@@ -72,6 +76,7 @@ export const BRANDS: Brand[] = [
   {
     id: "magfa",
     name: "MAGFA GROUP",
+    legalName: "MAGFA SH.P.K.",
     tagline: "Ndërtim Shtëpish me Cilësi",
     description: "Ndërtim shtëpish private dhe rezidenciale në Kosovë. Nga themeli deri te çelësi.",
     subdomain: "magfa.torre-ks.com",
@@ -100,7 +105,7 @@ export const BRANDS: Brand[] = [
     services: [
       { title: "Ndërtim Shtëpish Private", description: "Ndërtim shtëpish individuale nga themeli deri te përfundimi. Çdo detaj i planifikuar dhe realizuar me kujdes.", price: "Kërkoni ofertë", icon: "Home" },
       { title: "Dizajn Arkitekturor", description: "Projektim arkitekturor i personalizuar sipas nevojave dhe dëshirave tuaja. Plani ideal për shtëpinë tuaj.", price: "Kërkoni ofertë", icon: "Building2" },
-      { title: "Renovim & Rinovim", description: "Renovim i plotë ose i pjesshëm i shtëpive ekzistuese. Transformojmë hapësirën tuaj me cilësi dhe stil.", price: "Kërkoni ofertë", icon: "Wrench" },
+      { title: "Renovim & Rinovim", description: "Renovim i plotë ose i pjesshëm i shtëpive ekzistuese, përfshirë pikturim të brendshëm dhe të jashtëm. Transformojmë hapësirën tuaj me cilësi dhe stil.", price: "Kërkoni ofertë", icon: "Wrench" },
       { title: "Dizajn Interiori", description: "Dizajn i brendshëm profesional — nga zgjedhja e ngjyrave deri te vendosja e mobiljeve dhe ndriçimit.", price: "Kërkoni ofertë", icon: "Sparkles" },
       { title: "Mbikëqyrje e Ndërtimit", description: "Mbikëqyrje profesionale e çdo faze të ndërtimit. Sigurohemi që gjithçka realizohet sipas standardeve.", price: "Kërkoni ofertë", icon: "HardHat" },
       { title: "Konsultim Fillestar", description: "Diskutojmë projektin tuaj, buxhetin dhe afatet kohore, pa detyrim.", price: "Falas", icon: "Star" },
@@ -148,6 +153,7 @@ export const BRANDS: Brand[] = [
     path: "/",
     phone: "+383 49 599 405",
     email: "info@swisstech.torre-ks.com",
+    address: "Rr. Engjëll Zefi, Bibaj, 70000 Ferizaj",
     motion: "subtle",
     vibe: "architectural",
     sectionOrder: ["proof", "services", "faq"],
@@ -170,7 +176,7 @@ export const BRANDS: Brand[] = [
       { title: "Dritare PVC", description: "Dritare PVC me profil gjerman — izolim termik dhe akustik i shkëlqyer. Të disponueshme në të gjitha madhësitë dhe ngjyrat.", price: "Nga €85/m²", icon: "Square" },
       { title: "Dritare Alumini", description: "Dritare dhe fasada alumini me ndërprerje termike për ndërtesa residenciale dhe komerciale. Dizajn modern dhe i qëndrueshëm.", price: "Nga €120/m²", icon: "Layers" },
       { title: "Dyer PVC & Alumini", description: "Dyer hyrëse, ballkonesh dhe garazhesh me siguri të lartë dhe izolim të plotë. Sistemet tona plotësojnë standardet evropiane.", price: "Nga €350/copë", icon: "Building" },
-      { title: "Montim Professional", description: "Ekipet tona të certifikuara montojnë çdo sistem me precizion. Montim i saktë = performancë maksimale dhe garanci e plotë.", price: "Nga €15/m²", icon: "HardHat" },
+      { title: "Montim Professional", description: "Ekipet tona të certifikuara montojnë çdo sistem me precizion. Konsultim dhe matje fillestare falas, para çdo oferte.", price: "Nga €15/m²", icon: "HardHat" },
       { title: "Fasada & Xham Struktural", description: "Sisteme fasadash me xham për ndërtesa komerciale dhe rezidenciale. Dizajn arkitekturor me performancë energjetike superiore.", price: "Me kërkesë", icon: "Building2" },
       { title: "Servisim & Riparim", description: "Servisim periodik, rregullim dhe riparim i dritareve dhe dyerve ekzistuese. Zëvendësim xhami dhe guarnicionesh.", price: "Nga €30", icon: "Wrench" },
     ],
@@ -190,7 +196,7 @@ export const BRANDS: Brand[] = [
     ],
     faqIntro: "Pyetje teknike? Ja përgjigjet.",
     faqs: [
-      { q: "Sa kohë duhet nga porosia deri te montimi?", a: "Prodhimi standard zgjat 10–15 ditë pune. Për porosi urgjente, ofrojmë shërbim të përshpejtuar brenda 7 ditësh (me tarifë shtesë)." },
+      { q: "Sa kohë duhet nga porosia deri te montimi?", a: "Prodhimi standard zgjat 10–15 ditë pune. Vetë montimi në vend zgjat 1–3 ditë, varësisht madhësisë së projektit. Për porosi urgjente, ofrojmë shërbim të përshpejtuar brenda 7 ditësh (me tarifë shtesë)." },
       { q: "Çfarë garancish ofroni?", a: "Ofrojmë garanci 10-vjeçare për profilet PVC dhe alumini, 5-vjeçare për mekanizmat dhe aksesorët, dhe 2-vjeçare për montimin. Xhami garanton nga prodhuesi (6–8 vjet)." },
       { q: "A mund të vizitojmë fabrikën tuaj?", a: "Po. Fabrika jonë është e hapur për vizita me takim paraprak. Mund të shihni procesin e prodhimit dhe kampionët e materialeve direkt." },
     ],
