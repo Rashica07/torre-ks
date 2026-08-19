@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "TORRE DI UMBRIA — Zhvillim Rezidencial",
   description: "Ndërtim dhe zhvillim i ndërtesave rezidenciale moderne në Kosovë.",
   alternates: { canonical: "https://torre-umbria.torre-ks.com" },
-  icons: { icon: "/icons/torre-umbria.svg", shortcut: "/icons/torre-umbria.svg", apple: "/icons/torre-umbria.svg" },
+  icons: { icon: "/icons/torre-umbria.ico", shortcut: "/icons/torre-umbria.ico", apple: "/icons/torre-umbria-apple.png" },
   openGraph: {
     title: "TORRE DI UMBRIA — Zhvillim Rezidencial",
     description: "Ndërtim dhe zhvillim i ndërtesave rezidenciale moderne në Kosovë.",

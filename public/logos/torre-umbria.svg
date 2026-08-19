@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="104" fill="#14171a"/>
+  
+    <rect x="140" y="410" width="232" height="10" rx="5" fill="#5f9169" opacity="0.6"/>
+    <rect x="150" y="260" width="64" height="150" rx="8" fill="#5f9169"/>
+    <rect x="164" y="278" width="12" height="12" rx="2" fill="#14171a"/><rect x="186" y="278" width="12" height="12" rx="2" fill="#14171a"/><rect x="164" y="300" width="12" height="12" rx="2" fill="#14171a"/><rect x="186" y="300" width="12" height="12" rx="2" fill="#14171a"/><rect x="164" y="322" width="12" height="12" rx="2" fill="#14171a"/><rect x="186" y="322" width="12" height="12" rx="2" fill="#14171a"/><rect x="164" y="344" width="12" height="12" rx="2" fill="#14171a"/><rect x="186" y="344" width="12" height="12" rx="2" fill="#14171a"/>
+    <rect x="224" y="180" width="64" height="230" rx="8" fill="#5f9169"/>
+    <rect x="238" y="198" width="12" height="12" rx="2" fill="#14171a"/><rect x="260" y="198" width="12" height="12" rx="2" fill="#14171a"/><rect x="238" y="220" width="12" height="12" rx="2" fill="#14171a"/><rect x="260" y="220" width="12" height="12" rx="2" fill="#14171a"/><rect x="238" y="242" width="12" height="12" rx="2" fill="#14171a"/><rect x="260" y="242" width="12" height="12" rx="2" fill="#14171a"/><rect x="238" y="264" width="12" height="12" rx="2" fill="#14171a"/><rect x="260" y="264" width="12" height="12" rx="2" fill="#14171a"/><rect x="238" y="286" width="12" height="12" rx="2" fill="#14171a"/><rect x="260" y="286" width="12" height="12" rx="2" fill="#14171a"/><rect x="238" y="308" width="12" height="12" rx="2" fill="#14171a"/><rect x="260" y="308" width="12" height="12" rx="2" fill="#14171a"/>
+    <rect x="298" y="220" width="64" height="190" rx="8" fill="#5f9169"/>
+    <rect x="312" y="238" width="12" height="12" rx="2" fill="#14171a"/><rect x="334" y="238" width="12" height="12" rx="2" fill="#14171a"/><rect x="312" y="260" width="12" height="12" rx="2" fill="#14171a"/><rect x="334" y="260" width="12" height="12" rx="2" fill="#14171a"/><rect x="312" y="282" width="12" height="12" rx="2" fill="#14171a"/><rect x="334" y="282" width="12" height="12" rx="2" fill="#14171a"/><rect x="312" y="304" width="12" height="12" rx="2" fill="#14171a"/><rect x="334" y="304" width="12" height="12" rx="2" fill="#14171a"/><rect x="312" y="326" width="12" height="12" rx="2" fill="#14171a"/><rect x="334" y="326" width="12" height="12" rx="2" fill="#14171a"/>
+  
+</svg>

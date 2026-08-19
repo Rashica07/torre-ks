@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   // middleware.ts's subdomain logic and resolves against the wrong segment.
   // See src/app/api/og/route.tsx for the same issue with OG images.
   icons: {
-    icon: "/icons/torre.svg",
-    shortcut: "/icons/torre.svg",
-    apple: "/icons/torre.svg",
+    icon: "/icons/torre.ico",
+    shortcut: "/icons/torre.ico",
+    apple: "/icons/torre-apple.png",
   },
   manifest: "/manifest.webmanifest",
   openGraph: {

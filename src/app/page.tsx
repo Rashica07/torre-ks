@@ -16,7 +16,7 @@ function transparentVariant(hex: string): string {
 // Company history — honest and short. Only the founding year is asserted;
 // no invented sub-milestone dates, no generations, no decades.
 const HISTORIKU = [
-  { year: "2015", text: "Fillojmë si ndërtues shtëpish private, në Kosovë." },
+  { year: "1999", text: "Fillojmë si vëllezër të rinj, ndërtues shtëpish." },
   { year: "Sot", text: "Katër kompani, secila me specializimin e vet: shtëpi, dritare e fasada, zhvillim rezidencial dhe apartamente." },
 ];
 
@@ -42,7 +42,7 @@ export default function CompanySelector() {
               className="block font-mono text-[11px] tracking-[0.2em] uppercase"
               style={{ color: "hsl(var(--muted))", marginBottom: "var(--space-5)" }}
             >
-              Torre Group — Ndërtim në Kosovë që nga 2015
+              Torre Group — Ndërtim në Kosovë që nga 1999
             </span>
             <h1 className="text-step-5" style={{ lineHeight: 0.98, marginBottom: "var(--space-5)" }}>
               <span style={{ fontWeight: 700 }}>Katër kompani.</span>{" "}
@@ -61,8 +61,8 @@ export default function CompanySelector() {
               className="text-step-0"
               style={{ color: "hsl(var(--muted))", maxWidth: "52ch", lineHeight: 1.7 }}
             >
-              Nisëm në 2015 si ndërtues shtëpish private. Sot jemi katër
-              kompani, secila me specializimin e vet.
+              Nisëm në 1999, si vëllezër të rinj që donim të ndërtonim
+              shtëpi. Sot jemi katër kompani, secila me specializimin e vet.
             </p>
           </div>
 

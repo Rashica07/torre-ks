@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "TORRE HOME — Apartamente në Kosovë",
   description: "Blini apartamentin tuaj ideal në ndërtesat moderne të TORRE GROUP në Kosovë.",
   alternates: { canonical: "https://torrehome.torre-ks.com" },
-  icons: { icon: "/icons/torrehome.svg", shortcut: "/icons/torrehome.svg", apple: "/icons/torrehome.svg" },
+  icons: { icon: "/icons/torrehome.ico", shortcut: "/icons/torrehome.ico", apple: "/icons/torrehome-apple.png" },
   openGraph: {
     title: "TORRE HOME — Apartamente në Kosovë",
     description: "Blini apartamentin tuaj ideal në ndërtesat moderne të TORRE GROUP në Kosovë.",

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "MAGFA GROUP — Ndërtim Rezidencial",
   description: "Ndërtim shtëpish private dhe rezidenciale me materiale premium. Nga themeli deri te çelësi.",
   alternates: { canonical: "https://magfa.torre-ks.com" },
-  icons: { icon: "/icons/magfa.svg", shortcut: "/icons/magfa.svg", apple: "/icons/magfa.svg" },
+  icons: { icon: "/icons/magfa.ico", shortcut: "/icons/magfa.ico", apple: "/icons/magfa-apple.png" },
   openGraph: {
     title: "MAGFA GROUP — Ndërtim Rezidencial",
     description: "Ndërtim shtëpish private dhe rezidenciale me materiale premium. Nga themeli deri te çelësi.",
