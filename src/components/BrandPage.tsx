@@ -107,7 +107,7 @@ export function BrandPage({
           minHeight: "100vh",
         } as React.CSSProperties}
       >
-        <Navbar brandName={brand.name} accentHsl={brand.accentHsl} theme={t} links={navLinks} />
+        <Navbar brandId={brand.id} brandName={brand.name} accentHsl={brand.accentHsl} theme={t} links={navLinks} />
         <main>
           <BrandHero brand={brand} />
           {order.map((key) => sections[key])}

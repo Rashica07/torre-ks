@@ -2,9 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import type { BrandTheme } from "@/lib/brands";
+import type { BrandId, BrandTheme } from "@/lib/brands";
+import { BrandMark } from "./BrandMark";
 
 type NavbarProps = {
+  brandId: BrandId;
   brandName: string;
   accentHsl: string;
   theme?: BrandTheme;
@@ -19,6 +21,7 @@ const DEFAULT_LINKS = [
 ];
 
 export function Navbar({
+  brandId,
   brandName,
   accentHsl,
   theme,
@@ -85,9 +88,10 @@ export function Navbar({
         >
           <Link
             href="/"
-            className="text-xs font-semibold tracking-[0.12em] uppercase no-underline transition-colors duration-200"
+            className="flex items-center gap-2 text-xs font-semibold tracking-[0.12em] uppercase no-underline transition-colors duration-200"
             style={{ color: accent }}
           >
+            <BrandMark id={brandId} color={accent} size={19} />
             {brandName.split(" ")[0]}
           </Link>
 
