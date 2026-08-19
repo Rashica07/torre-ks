@@ -8,7 +8,6 @@ import { Proof } from "./Proof";
 import { ServicesBento } from "./ServicesBento";
 import { Gallery } from "./Gallery";
 import { Testimonials } from "./Testimonials";
-import { Team } from "./Team";
 import { Faq } from "./Faq";
 import { CtaFooter } from "./CtaFooter";
 import { Pourquoi } from "./Pourquoi";
@@ -20,7 +19,6 @@ const NAV_LABELS: Record<SectionKey, string> = {
   pourquoi: "Pse Ne",
   process: "Procesi",
   gallery: "Galeria",
-  team: "Ekipi",
   testimonials: "Dëshmitë",
   faq: "Pyetje",
 };
@@ -70,15 +68,13 @@ export function BrandPage({
     pourquoi: <Pourquoi key="pourquoi" brand={brand} index={sectionIndex("pourquoi")} />,
     process: <Process key="process" brand={brand} index={sectionIndex("process")} simplified={resolvedSimplified} />,
     gallery: <Gallery key="gallery" brand={brand} index={sectionIndex("gallery")} />,
-    team: <Team key="team" brand={brand} index={sectionIndex("team")} />,
     testimonials: <Testimonials key="testimonials" brand={brand} index={sectionIndex("testimonials")} />,
     faq: <Faq key="faq" brand={brand} index={sectionIndex("faq")} />,
   };
 
-  // Nav mirrors the page's actual placement; gallery/team links only when there's content.
+  // Nav mirrors the page's actual placement; gallery link only when there's content.
   const navLinks = order
     .filter((key) => key !== "gallery" || (brand.gallery?.length ?? 0) > 0)
-    .filter((key) => key !== "team" || (brand.team?.length ?? 0) > 0)
     .filter((key) => key !== "testimonials")
     .filter((key) => key !== "proof")
     .map((key) => ({ label: NAV_LABELS[key], href: `#${key}` }));
@@ -107,7 +103,7 @@ export function BrandPage({
           minHeight: "100vh",
         } as React.CSSProperties}
       >
-        <Navbar brandName={brand.name} accentHsl={brand.accentHsl} theme={t} links={navLinks} />
+        <Navbar brandId={brand.id} brandName={brand.name} accentHsl={brand.accentHsl} theme={t} links={navLinks} />
         <main>
           <BrandHero brand={brand} />
           {order.map((key) => sections[key])}
