@@ -98,7 +98,7 @@ export const BRANDS: Brand[] = [
     proofEyebrow: "Pse MAGFA",
     proofTitle: "Ndërtues, jo agjenci marketingu.",
     proofFacts: [
-      "Pjesë e TORRE GROUP, aktiv në ndërtim që nga 2015.",
+      "Pjesë e TORRE GROUP, aktiv në ndërtim që nga 1999.",
       "Ndërtojmë në Prishtinë, Ferizaj, Prizren, Gjakovë, Pejë dhe Mitrovicë.",
       "Konsultimi fillestar është falas, pa asnjë detyrim.",
     ],
@@ -111,7 +111,7 @@ export const BRANDS: Brand[] = [
       { title: "Konsultim Fillestar", description: "Diskutojmë projektin tuaj, buxhetin dhe afatet kohore, pa detyrim.", price: "Falas", icon: "Star" },
     ],
     stats: [
-      { value: "2015", label: "Themeluar" },
+      { value: "1999", label: "Themeluar" },
       { value: "4", label: "Kompani nën TORRE GROUP" },
       { value: "6", label: "Qytete ku Ndërtojmë" },
       { value: "0€", label: "Konsultimi Fillestar" },
@@ -239,7 +239,7 @@ export const BRANDS: Brand[] = [
     proofEyebrow: "Pse TORRE DI UMBRIA",
     proofTitle: "Zhvillues, jo ndërtues i rastësishëm.",
     proofFacts: [
-      "Themeluar në 2015 nën TORRE GROUP, në Kosovë.",
+      "Themeluar në 1999 nën TORRE GROUP, në Kosovë.",
       "Menaxhojmë çdo leje, urbanistike, ndërtimore dhe mjedisore.",
       "Garanci 10-vjeçare për strukturën dhe fondamentin.",
     ],
@@ -252,7 +252,7 @@ export const BRANDS: Brand[] = [
       { title: "Certifikim & Dokumentacion", description: "Trajtim i të gjitha lejeve, certifikatave dhe dokumenteve ligjore të nevojshme për legalizim dhe regjistrim.", price: "Me kërkesë", icon: "ShieldCheck" },
     ],
     stats: [
-      { value: "2015", label: "Themeluar" },
+      { value: "1999", label: "Themeluar" },
       { value: "10", label: "Vjet Garanci Strukture" },
       { value: "100%", label: "Projekte të Legalizuara" },
       { value: "1", label: "Pikë Kontakti, Nga Fillimi te Fundi" },
@@ -324,7 +324,7 @@ export const BRANDS: Brand[] = [
     proofEyebrow: "Pse TORRE HOME",
     proofTitle: "Dy ndërtesa reale, jo një koncept.",
     proofFacts: [
-      "Krijuar nga TORRE GROUP, aktiv në Kosovë që nga 2015.",
+      "Krijuar nga TORRE GROUP, aktiv në Kosovë që nga 1999.",
       "Dy ndërtesa reale në rrugën Emin Duraku, Ferizaj.",
       "0% paradhënie me kredi, sipas bankave partnere.",
     ],
@@ -338,7 +338,7 @@ export const BRANDS: Brand[] = [
     ],
     stats: [
       { value: "2", label: "Ndërtesa Reale" },
-      { value: "2015", label: "Themeluar" },
+      { value: "1999", label: "Themeluar" },
       { value: "0%", label: "Paradhënie me Kredi" },
       { value: "A+", label: "Klasa Energjetike" },
     ],

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "SWISSTECH — Dritare & Fasada",
   description: "Prodhim dhe montim i dritareve dhe dyerve PVC e alumini me cilësi evropiane.",
   alternates: { canonical: "https://swisstech.torre-ks.com" },
-  icons: { icon: "/icons/swisstech.svg", shortcut: "/icons/swisstech.svg", apple: "/icons/swisstech.svg" },
+  icons: { icon: "/icons/swisstech.ico", shortcut: "/icons/swisstech.ico", apple: "/icons/swisstech-apple.png" },
   openGraph: {
     title: "SWISSTECH — Dritare & Fasada",
     description: "Prodhim dhe montim i dritareve dhe dyerve PVC e alumini me cilësi evropiane.",

@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import type { BrandId, BrandTheme } from "@/lib/brands";
-import { BrandMark } from "./BrandMark";
 
 type NavbarProps = {
   brandId: BrandId;
@@ -91,7 +90,8 @@ export function Navbar({
             className="flex items-center gap-2 text-xs font-semibold tracking-[0.12em] uppercase no-underline transition-colors duration-200"
             style={{ color: accent }}
           >
-            <BrandMark id={brandId} color={accent} size={19} />
+            {/* eslint-disable-next-line @next/next/no-img-element -- fixed-size decorative logo, next/image's optimization pipeline buys nothing for a small local SVG */}
+            <img src={`/logos/${brandId}.svg`} alt="" width={26} height={26} className="rounded-[7px]" />
             {brandName.split(" ")[0]}
           </Link>
 

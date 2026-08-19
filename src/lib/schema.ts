@@ -13,6 +13,8 @@ export function organizationSchema() {
     "@type": "Organization",
     name: "Torre Group",
     url: "https://torre-ks.com",
+    logo: "https://torre-ks.com/logos/torre.svg",
+    foundingDate: "1999",
     description:
       "Grup familjar kompanish ndërtimi dhe zhvillimi në Kosovë, operuar nën katër marka.",
     subOrganization: BRAND_NAMES_URLS.map(({ name, url }) => ({
@@ -43,6 +45,7 @@ export function brandSchema(brand: Brand) {
     address: brand.address
       ? { "@type": "PostalAddress", streetAddress: brand.address, addressCountry: "XK" }
       : undefined,
+    logo: `${brand.externalUrl}/logos/${brand.id}.svg`,
     image: brand.heroImage ? `${brand.externalUrl}${brand.heroImage}` : undefined,
     areaServed: "Kosovo",
     parentOrganization: {
