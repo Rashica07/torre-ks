@@ -14,7 +14,6 @@ const SECTION_LABELS: Record<SectionKey, string> = {
   pourquoi: "Pse Ne",
   process: "Procesi",
   gallery: "Galeria",
-  team: "Ekipi",
   testimonials: "Dëshmitë",
   faq: "Pyetje",
 };
