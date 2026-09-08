@@ -1,9 +1,12 @@
 "use client";
 import { ShieldCheck, Clock, Leaf, Award } from "lucide-react";
-import type { Brand } from "@/lib/brands";
+import type { Brand, BrandId } from "@/lib/brands";
+import { useDesign } from "@/lib/design-context";
+import { useReveal } from "@/lib/useReveal";
+import { Section, SectionHeader } from "./SectionHeader";
 
 const PILLARS_BY_BRAND: Record<
-  string,
+  BrandId,
   { icon: React.ElementType; title: string; body: string }[]
 > = {
   magfa: [
@@ -24,7 +27,7 @@ const PILLARS_BY_BRAND: Record<
     { icon: Leaf, title: "Arkitekturë Moderne", body: "Dizajni ynë bashkëkohor kombinon funksionalitetin me estetikën — ndërtesa që qëndrojnë me kohën." },
     { icon: Award, title: "Lejet në Rregull", body: "Të gjitha projektet tona legalizohen plotësisht. Certifikata e pronësisë brenda 30 ditësh pas dorëzimit." },
   ],
-  "torre-home": [
+  torrehome: [
     { icon: ShieldCheck, title: "Kontratë me Çmim Fiks", body: "Pa kosto të fshehura. Çmimi i kontratës është çmimi final. Nëse nënvlerësohet, ne absorbojmë diferencën." },
     { icon: Clock, title: "Gatishmëri e Menjëhershme", body: "Apartamentet janë gati për t'u banuar. Nuk prisni — hyni direkt." },
     { icon: Leaf, title: "Klasa Energjetike A+", body: "Izolim i plotë, dritare me xham të dyfishtë dhe sisteme ngrohje efikase — kurseni në energji." },
@@ -32,51 +35,123 @@ const PILLARS_BY_BRAND: Record<
   ],
 };
 
-export function Pourquoi({ brand }: { brand: Brand }) {
-  const pillars = PILLARS_BY_BRAND[brand.id] || PILLARS_BY_BRAND.magfa;
+export function Pourquoi({ brand, index }: { brand: Brand; index: number }) {
+  const pillars = PILLARS_BY_BRAND[brand.id];
   const t = brand.theme;
+  const d = useDesign();
+  const style = d.sectionStyle.pourquoi;
+  const banded = style === "banded";
+  const dossier = style === "dossier";
 
   return (
-    <section id="pourquoi" className="py-20 md:py-32" style={{ background: t.bgAlt }}>
-      <div className="mx-auto px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-14 lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <span className="block text-[11px] tracking-[0.18em] uppercase mb-6" style={{ color: t.accent }}>
-              Pse Ne
-            </span>
-            <h2 className="mb-5" style={{ fontSize: "clamp(26px, 3.2vw, 44px)", color: t.fg }}>
-              Besimi Ndërtohet Para Gurit të Parë.
-            </h2>
-            <p className="text-sm leading-relaxed" style={{ color: t.muted }}>
-              Katër standarde të palëvizshme në çdo projekt të {brand.name}.
-            </p>
-          </div>
+    <Section id="pourquoi" background={d.id === "minimal" ? t.bgAlt : t.bg}>
+      <div
+        className={
+          banded || dossier ? "" : "grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-14 lg:gap-20"
+        }
+      >
+        <div className={banded || dossier ? "" : "lg:sticky lg:top-28 lg:self-start"}>
+          <SectionHeader
+            eyebrow="Pse Ne"
+            title="Besimi Ndërtohet Para Gurit të Parë."
+            lead={`Katër standarde të palëvizshme në çdo projekt të ${brand.name}.`}
+            theme={t}
+            index={index}
+          />
+        </div>
 
+        {dossier ? (
+          <ClauseList pillars={pillars} t={t} />
+        ) : (
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-px rounded-xl overflow-hidden"
-            style={{ border: `1px solid ${t.border}` }}
+            className={`grid grid-cols-1 sm:grid-cols-2 ${banded ? "lg:grid-cols-4" : ""} gap-5`}
+            style={{ marginTop: banded ? "var(--space-8)" : undefined }}
           >
-            {pillars.map(({ icon: Icon, title, body }) => (
-              <div
-                key={title}
-                className="p-7 flex flex-col gap-5"
-                style={{ background: t.surface }}
-              >
+            {pillars.map(({ icon: Icon, title, body }, i) => (
+              <Pillar key={title} delay={i * 70}>
                 <div
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `${t.accent}12` }}
+                  className="h-full flex flex-col gap-4 transition-transform duration-base ease-out hover:-translate-y-1"
+                  style={
+                    d.cardStyle === "ruled"
+                      ? { borderTop: `1px solid ${t.border}`, paddingTop: "var(--space-5)" }
+                      : {
+                          background: t.surface,
+                          border: `1px solid ${t.border}`,
+                          borderRadius: d.radius,
+                          padding: "var(--space-6)",
+                        }
+                  }
                 >
-                  <Icon style={{ width: "16px", height: "16px", color: t.accent }} />
+                  <div
+                    className="w-10 h-10 flex items-center justify-center shrink-0"
+                    style={{
+                      background: d.cardStyle === "ruled" ? "transparent" : `${t.accent}14`,
+                      borderRadius: d.radius === "0px" ? "0px" : "var(--radius-sm)",
+                      marginLeft: d.cardStyle === "ruled" ? "-2px" : undefined,
+                    }}
+                  >
+                    <Icon size={18} style={{ color: t.accent }} />
+                  </div>
+                  <div>
+                    <h3 className="text-step-1 mb-2" style={{ color: t.fg, fontWeight: 600 }}>
+                      {title}
+                    </h3>
+                    <p className="text-step--1" style={{ color: t.muted, lineHeight: 1.7 }}>
+                      {body}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-base mb-2" style={{ color: t.fg }}>{title}</h3>
-                  <p className="text-[13px] leading-relaxed" style={{ color: t.muted }}>{body}</p>
-                </div>
-              </div>
+              </Pillar>
             ))}
           </div>
-        </div>
+        )}
       </div>
-    </section>
+    </Section>
+  );
+}
+
+/* ── Dossier: numbered clauses, hanging indent, read like articles in an agreement ── */
+function ClauseList({
+  pillars,
+  t,
+}: {
+  pillars: { icon: React.ElementType; title: string; body: string }[];
+  t: import("@/lib/brands").BrandTheme;
+}) {
+  return (
+    <div style={{ marginTop: "var(--space-8)", borderTop: `1px solid ${t.border}` }}>
+      {pillars.map(({ icon: Icon, title, body }, i) => (
+        <Pillar key={title} delay={i * 70}>
+          <div
+            className="grid grid-cols-[auto_1fr] gap-5 items-start"
+            style={{ padding: "var(--space-6) 0", borderBottom: `1px solid ${t.border}` }}
+          >
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-step--1" style={{ color: t.accent }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <Icon size={17} style={{ color: t.muted }} />
+            </div>
+            <div>
+              <h3 className="text-step-1 mb-1.5" style={{ color: t.fg, fontWeight: 500 }}>
+                {title}
+              </h3>
+              <p className="text-step--1" style={{ color: t.muted, lineHeight: 1.7, maxWidth: "64ch" }}>
+                {body}
+              </p>
+            </div>
+          </div>
+        </Pillar>
+      ))}
+    </div>
+  );
+}
+
+function Pillar({ children, delay }: { children: React.ReactNode; delay: number }) {
+  const ref = useReveal<HTMLDivElement>();
+  return (
+    <div ref={ref} className="reveal h-full" style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}>
+      {children}
+    </div>
   );
 }

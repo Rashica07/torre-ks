@@ -1,10 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import type { BrandTheme } from "@/lib/brands";
+import type { BrandId, BrandTheme } from "@/lib/brands";
 
 type NavbarProps = {
+  brandId: BrandId;
   brandName: string;
   accentHsl: string;
   theme?: BrandTheme;
@@ -19,6 +20,7 @@ const DEFAULT_LINKS = [
 ];
 
 export function Navbar({
+  brandId,
   brandName,
   accentHsl,
   theme,
@@ -26,6 +28,15 @@ export function Navbar({
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // React 18 (this project's version) has no built-in `inert` prop — that
+  // landed in React 19. Setting the DOM property directly is the correct
+  // pattern pre-19; passing inert="" through JSX is silently dropped.
+  useEffect(() => {
+    if (menuRef.current) menuRef.current.inert = !menuOpen;
+  }, [menuOpen]);
 
   const bg = theme?.bg || "hsl(var(--bg))";
   const fg = theme?.fg || "hsl(var(--fg))";
@@ -39,6 +50,21 @@ export function Navbar({
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  function closeMenu() {
+    setMenuOpen(false);
+    toggleRef.current?.focus();
+  }
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMenu();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuOpen]);
 
   return (
     <>
@@ -61,9 +87,11 @@ export function Navbar({
         >
           <Link
             href="/"
-            className="text-xs font-semibold tracking-[0.12em] uppercase no-underline transition-colors duration-200"
+            className="flex items-center gap-2 text-xs font-semibold tracking-[0.12em] uppercase no-underline transition-colors duration-200"
             style={{ color: accent }}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element -- fixed-size decorative logo, next/image's optimization pipeline buys nothing for a small local SVG */}
+            <img src={`/logos/${brandId}.svg`} alt="" width={26} height={26} className="rounded-[7px]" />
             {brandName.split(" ")[0]}
           </Link>
 
@@ -89,10 +117,13 @@ export function Navbar({
               Kontakt
             </a>
             <button
+              ref={toggleRef}
               className="md:hidden p-2"
               style={{ color: fg }}
               onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Hap menunë"
+              aria-label={menuOpen ? "Mbyll menunë" : "Hap menunë"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
             >
               {menuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -100,8 +131,13 @@ export function Navbar({
         </div>
       </nav>
 
-      {/* mobile menu — pure CSS transition, no framer-motion */}
+      {/* mobile menu — pure CSS transition, no framer-motion.
+          inert (set imperatively above) removes the whole subtree from tab
+          order and the accessibility tree when closed; opacity/pointer-events
+          alone left it focusable while invisible. */}
       <div
+        ref={menuRef}
+        id="mobile-menu"
         className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 transition-all duration-300"
         style={{
           background: bg,
@@ -112,7 +148,8 @@ export function Navbar({
         <button
           className="absolute top-5 right-6"
           style={{ color: muted }}
-          onClick={() => setMenuOpen(false)}
+          onClick={closeMenu}
+          aria-label="Mbyll menunë"
         >
           <X size={20} />
         </button>

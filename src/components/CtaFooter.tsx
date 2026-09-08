@@ -1,11 +1,12 @@
 "use client";
-import { ArrowRight } from "lucide-react";
+import { MapPin } from "lucide-react";
 import type { Brand } from "@/lib/brands";
+import { ContactBlock } from "./ContactBlock";
 
 const FOOTER_LINKS = [
-  { label: "Politika e Privatësisë", href: "#" },
-  { label: "Kushtet e Shërbimit", href: "#" },
-  { label: "Kontakt", href: "#" },
+  { label: "Politika e Privatësisë", href: "/politika-e-privatesise" },
+  { label: "Kushtet e Shërbimit", href: "/kushtet-e-sherbimit" },
+  { label: "Qasshmëria", href: "/deklarata-e-qasshmerise" },
 ];
 
 export function CtaFooter({ brand }: { brand: Brand }) {
@@ -15,54 +16,32 @@ export function CtaFooter({ brand }: { brand: Brand }) {
     <footer id="contact" style={{ background: t.bg }}>
       <div className="mx-auto px-[var(--gutter)] pt-20 md:pt-32 pb-8" style={{ maxWidth: "var(--max)" }}>
         <div
-          className="rounded-xl p-10 md:p-16 flex flex-col items-center text-center relative overflow-hidden"
+          className="rounded-xl p-10 md:p-16 flex flex-col items-center text-center"
           style={{ background: t.surface, border: `1px solid ${t.border}` }}
         >
-          {/* Subtle background decoration */}
-          <div
-            className="absolute top-0 right-0 w-64 h-64 rounded-full blur-[100px] pointer-events-none opacity-50"
-            style={{ background: t.accent, transform: "translate(30%, -30%)" }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-[100px] pointer-events-none opacity-50"
-            style={{ background: t.accent, transform: "translate(-30%, 30%)" }}
-          />
-
-          <span
-            className="block text-[11px] tracking-[0.18em] uppercase mb-6 relative z-10"
-            style={{ color: t.accent }}
-          >
-            Faza Tjetër
-          </span>
           <h2
-            className="mb-6 relative z-10"
-            style={{ fontSize: "clamp(32px, 5vw, 64px)", color: t.fg, maxWidth: "15ch" }}
+            className="mb-4"
+            style={{ fontSize: "clamp(28px, 4vw, 48px)", color: t.fg, maxWidth: "18ch" }}
           >
-            Gati Për Të Filluar?
+            Na Kontaktoni.
           </h2>
           <p
-            className="text-base leading-relaxed mb-10 relative z-10"
+            className="text-base leading-relaxed mb-10"
             style={{ color: t.muted, maxWidth: "40ch" }}
           >
-            Kontaktoni ekipin e {brand.name} për të diskutuar vizionin tuaj. Ne jemi këtu për t'ju ndihmuar.
+            {brand.name} — telefononi, shkruani në WhatsApp, ose lini një mesazh.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto relative z-10">
-            <a
-              href="mailto:contact@torre-ks.com"
-              className="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-full text-sm font-medium no-underline px-8 py-3 transition-opacity duration-200 hover:opacity-85"
-              style={{ background: t.accent, color: t.accentFg }}
+          <ContactBlock brand={brand} />
+
+          {brand.address && (
+            <p
+              className="mt-8 flex items-center gap-2 text-sm"
+              style={{ color: t.muted }}
             >
-              Na Shkruani <ArrowRight size={14} />
-            </a>
-            <a
-              href="tel:+38344123456"
-              className="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-full text-sm no-underline px-8 py-3 transition-opacity duration-200 hover:opacity-75"
-              style={{ border: `1px solid ${t.border}`, color: t.muted }}
-            >
-              +383 44 123 456
-            </a>
-          </div>
+              <MapPin size={14} /> {brand.address}
+            </p>
+          )}
         </div>
 
         <div

@@ -1,27 +1,47 @@
 "use client";
 import { useState } from "react";
-import { Plus, Minus } from "lucide-react";
+import { Plus } from "lucide-react";
 import type { Brand } from "@/lib/brands";
+import { Section, SectionHeader } from "./SectionHeader";
 
-function Item({ item, accent, fg, muted, border }: {
-  item: { q: string; a: string }; accent: string; fg: string; muted: string; border: string;
+function Item({ item, index, accent, fg, muted, border, bgAlt }: {
+  item: { q: string; a: string }; index: number;
+  accent: string; fg: string; muted: string; border: string; bgAlt: string;
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ borderBottom: `1px solid ${border}` }}>
+    <div
+      className="relative pl-6 transition-colors duration-200"
+      style={{
+        borderBottom: `1px solid ${border}`,
+        borderLeft: `2px solid ${open ? accent : "transparent"}`,
+        background: open ? bgAlt : "transparent",
+      }}
+    >
       <button
-        className="w-full flex items-start justify-between py-5 text-left gap-6"
+        className="w-full flex items-start justify-between py-6 text-left gap-6 pr-6"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
+        <div className="flex items-start gap-4">
+          <span
+            className="text-[11px] font-mono tabular-nums mt-1 shrink-0"
+            style={{ color: open ? accent : muted, opacity: 0.7 }}
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span
+            className="text-[15px] font-medium"
+            style={{ color: open ? accent : fg, transition: "color 0.2s", lineHeight: 1.4 }}
+          >
+            {item.q}
+          </span>
+        </div>
         <span
-          className="text-[15px]"
-          style={{ color: open ? accent : fg, transition: "color 0.2s", lineHeight: 1.4 }}
+          className="shrink-0 mt-1 flex items-center justify-center transition-transform duration-300"
+          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
         >
-          {item.q}
-        </span>
-        <span className="shrink-0 mt-0.5">
-          {open ? <Minus size={14} style={{ color: accent }} /> : <Plus size={14} style={{ color: muted }} />}
+          <Plus size={16} style={{ color: open ? accent : muted }} />
         </span>
       </button>
       <div
@@ -29,7 +49,7 @@ function Item({ item, accent, fg, muted, border }: {
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >
         <div className="overflow-hidden">
-          <p className="pb-5 text-sm leading-relaxed" style={{ color: muted, maxWidth: "56ch" }}>
+          <p className="pb-6 pl-8 text-sm leading-relaxed" style={{ color: muted, maxWidth: "56ch" }}>
             {item.a}
           </p>
         </div>
@@ -38,38 +58,48 @@ function Item({ item, accent, fg, muted, border }: {
   );
 }
 
-export function Faq({ brand }: { brand: Brand }) {
+export function Faq({ brand, index }: { brand: Brand; index: number }) {
   const t = brand.theme;
 
   return (
-    <section id="faq" className="py-20 md:py-32" style={{ background: t.bgAlt }}>
-      <div className="mx-auto px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-14 lg:gap-24">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <span className="block text-[11px] tracking-[0.18em] uppercase mb-6" style={{ color: t.accent }}>
-              Pyetje të Shpeshta
-            </span>
-            <h2 className="mb-5" style={{ fontSize: "clamp(24px, 3vw, 42px)", color: t.fg }}>
-              Pyetje me Përgjigje.
-            </h2>
-            <p className="text-sm leading-relaxed mb-8" style={{ color: t.muted }}>
-              Nuk gjeni përgjigjen? Kontaktoni ekipin tonë direkt.
-            </p>
-            <a
-              href="#contact"
-              className="text-[13px] font-medium no-underline"
-              style={{ color: t.accent, borderBottom: `1px solid ${t.accent}40`, paddingBottom: "2px" }}
-            >
-              Na kontaktoni →
-            </a>
-          </div>
-          <div>
-            {brand.faqs.map((item, i) => (
-              <Item key={i} item={item} accent={t.accent} fg={t.fg} muted={t.muted} border={t.border} />
-            ))}
-          </div>
+    <Section id="faq" background={t.bg}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-14 lg:gap-24">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+            <SectionHeader
+              eyebrow="Pyetje të Shpeshta"
+              title={brand.faqIntro}
+              theme={t}
+              index={index}
+            />
+          <a
+            href="#contact"
+            className="text-[13px] font-medium no-underline"
+            style={{
+              color: t.accent,
+              borderBottom: `1px solid ${t.accent}40`,
+              paddingBottom: "2px",
+              marginTop: "var(--space-6)",
+              display: "inline-block",
+            }}
+          >
+            Na kontaktoni →
+          </a>
+        </div>
+        <div style={{ borderTop: `1px solid ${t.border}` }}>
+          {brand.faqs.map((item, i) => (
+            <Item
+              key={i}
+              item={item}
+              index={i}
+              accent={t.accent}
+              fg={t.fg}
+              muted={t.muted}
+              border={t.border}
+              bgAlt={t.bgAlt}
+            />
+          ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

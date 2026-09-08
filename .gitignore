@@ -21,6 +21,12 @@ dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-agents/
+.agents/
 attached_assets/
 .replit
+
+# Local Claude tooling
+.claude/
+
+# TypeScript incremental build info
+*.tsbuildinfo
