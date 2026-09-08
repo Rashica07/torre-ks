@@ -13,6 +13,7 @@
     "check:contrast": "node scripts/check-contrast.mjs src/lib/brands.ts"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^1.1.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.400.0",
