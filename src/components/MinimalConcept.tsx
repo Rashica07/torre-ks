@@ -1,30 +1,33 @@
 import Image from "next/image";
-import { BRANDS } from "@/lib/brands";
-import type { Metadata } from "next";
+import type { Brand } from "@/lib/brands";
 
-// Comparison surface only — keep it out of search results, same as
-// /preview/[variant]/[brand]. Not wired into DesignProvider/BrandPage at
-// all: this concept is structurally different (one hero screen, no
-// section-per-topic architecture), so forcing it through the variant
-// system would fight the brief it's built from rather than honor it.
-export const metadata: Metadata = {
-  robots: { index: false, follow: false },
+export type MinimalConceptConfig = {
+  headline: string;
+  subcopy: string;
+  photoSrc: string;
+  photoAlt: string;
+  photoWidth: number;
+  photoHeight: number;
+  facts: { label: string; value: string }[];
+  closingHeadline: string;
 };
 
-const brand = BRANDS.find((b) => b.id === "torrehome")!;
-
-export default function MinimalTorreHome() {
+/**
+ * Shared renderer for the "pure minimalism, short-page professional" brief:
+ * one hero screen, one real photo (the brief's stated exception to "no hero
+ * image"), one section of real plain-text proof points, one CTA repeated
+ * (never a second competing button), one typeface, a two/three-color
+ * palette pulled straight from the brand's own theme. No cards, no borders,
+ * no decorative icons — vertical rhythm from spacing alone.
+ *
+ * Content differs per brand (see the per-brand config in
+ * app/preview/minimal/[brand]/page.tsx); this component only owns layout.
+ */
+export function MinimalConcept({ brand, config }: { brand: Brand; config: MinimalConceptConfig }) {
   const t = brand.theme;
   const phoneDigits = brand.phone.replace(/\D/g, "");
   const whatsappHref = `https://wa.me/${phoneDigits}`;
   const telHref = `tel:${brand.phone.replace(/\s/g, "")}`;
-
-  const facts = [
-    { label: "Ndërtesa", value: "2 reale, Rr. Emin Duraku, Ferizaj" },
-    { label: "Çmimi", value: "Nga €55,000" },
-    { label: "Financimi", value: "0% paradhënie me kredi" },
-    { label: "Grupi", value: "Pjesë e TORRE GROUP, që nga 1999" },
-  ];
 
   const CTA = (
     <a
@@ -70,9 +73,8 @@ export default function MinimalTorreHome() {
       `}</style>
 
       {/* HERO — the entire first screen, text only. One headline, one
-          sentence, one CTA. The one real photo the brief allows as an
-          exception lives in its own section right after, so it can't push
-          the hero past 100vh. */}
+          sentence, one CTA. The one real photo lives in its own section
+          right after, so it can't push the hero past 100vh. */}
       <section
         className="mh-fade mh-shell"
         style={{
@@ -84,7 +86,7 @@ export default function MinimalTorreHome() {
         }}
       >
         <img
-          src="/logos/torrehome.svg"
+          src={`/logos/${brand.id}.svg`}
           alt=""
           width={40}
           height={40}
@@ -98,10 +100,10 @@ export default function MinimalTorreHome() {
             lineHeight: 1.05,
             letterSpacing: "-0.02em",
             marginBottom: "24px",
-            maxWidth: "16ch",
+            maxWidth: "18ch",
           }}
         >
-          Apartamente Reale në Ferizaj.
+          {config.headline}
         </h1>
 
         <p
@@ -113,8 +115,7 @@ export default function MinimalTorreHome() {
             marginBottom: "40px",
           }}
         >
-          Dy ndërtesa në Rr. Emin Duraku. Çmimet nisin nga €55,000, me 0%
-          paradhënie.
+          {config.subcopy}
         </p>
 
         {CTA}
@@ -133,11 +134,11 @@ export default function MinimalTorreHome() {
       {/* The one allowed exception: a real photo, not a decorative render. */}
       <div className="mh-shell" style={{ paddingBottom: "6vh" }}>
         <Image
-          src="/images/torrehome/hero-day.jpg"
-          alt="Fasada e Ndërtesës TORRE HOME, pamje dite"
-          width={720}
-          height={480}
-          style={{ width: "100%", height: "auto", borderRadius: "12px", display: "block" }}
+          src={config.photoSrc}
+          alt={config.photoAlt}
+          width={config.photoWidth}
+          height={config.photoHeight}
+          style={{ maxWidth: "100%", width: "auto", height: "auto", borderRadius: "12px", display: "block" }}
         />
       </div>
 
@@ -146,7 +147,7 @@ export default function MinimalTorreHome() {
           four items sit as a clean block instead of wrapping 3-then-1. */}
       <section className="mh-shell" style={{ padding: "8vh 0" }}>
         <div className="grid grid-cols-2 gap-x-10 gap-y-12">
-          {facts.map((f) => (
+          {config.facts.map((f) => (
             <div key={f.label}>
               <span
                 style={{
@@ -176,14 +177,14 @@ export default function MinimalTorreHome() {
             marginBottom: "28px",
           }}
         >
-          Gati të shihni apartamentin?
+          {config.closingHeadline}
         </h2>
         {CTA}
       </section>
 
       {/* FOOTER — one line. Name, one contact method, copyright. */}
       <footer className="mh-shell" style={{ paddingBlock: "5vh", fontSize: "0.8125rem", color: t.muted }}>
-        TORRE HOME — {brand.email} — &copy; {new Date().getFullYear()} Torre Group
+        {brand.name} — {brand.email} — &copy; {new Date().getFullYear()} Torre Group
       </footer>
     </main>
   );
