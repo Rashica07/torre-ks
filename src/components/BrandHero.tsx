@@ -11,33 +11,21 @@ export function BrandHero({ brand }: Props) {
   const d = useDesign();
   // Cinematic brands get a slow parallax drift on the hero image.
   const cinematic = brand.motion === "cinematic";
+  const hasPhoto = Boolean(brand.heroImage);
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex flex-col overflow-hidden"
-      style={{ background: t.heroBg }}
-    >
-      {brand.heroImage && (
-        <>
-          <Image
-            src={brand.heroImage}
-            alt={brand.heroImageAlt || brand.name}
-            fill
-            priority
-            sizes="100vw"
-            className={`object-cover ${cinematic ? "animate-kenburns" : ""}`}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(180deg, ${t.heroBg}f2 0%, ${t.heroBg}cc 35%, ${t.heroBg}f2 100%)`,
-            }}
-          />
-        </>
-      )}
-      <div className="relative flex-1 flex items-center mx-auto w-full px-[var(--gutter)]" style={{ maxWidth: "var(--max)" }}>
-        <div className="w-full max-w-2xl pt-32 pb-20">
+    <section id="hero" className="relative flex flex-col md:flex-row min-h-screen overflow-hidden" style={{ background: t.bg }}>
+      {/* Text panel — solid background, no photo behind it. Previously the
+          headline sat on top of the full-bleed photo under a near-opaque
+          gradient wash (heroBg at up to 95% alpha), which made light-themed
+          brands' photos read as a barely-visible ghost. Splitting text and
+          photo into their own panels means the photo needs zero wash to
+          keep the text legible — it can run at full clarity. */}
+      <div
+        className="relative flex flex-col justify-center px-[var(--gutter)]"
+        style={{ width: hasPhoto ? undefined : "100%", flex: hasPhoto ? "0 0 46%" : "1 1 auto" }}
+      >
+        <div className="w-full max-w-xl mx-auto md:mx-0 pt-28 pb-16 md:pt-0 md:pb-0">
           <div className="flex flex-col justify-center animate-[fadeUp_0.7s_ease_both]">
             <span
               className="block text-[11px] tracking-[0.18em] uppercase mb-8"
@@ -81,7 +69,35 @@ export function BrandHero({ brand }: Props) {
           </div>
         </div>
       </div>
-      <div className="h-px" style={{ background: t.border }} />
+
+      {/* Photo panel — full strength, no overlay. */}
+      {hasPhoto && (
+        <div className="relative flex-1 min-h-[45vh] md:min-h-screen">
+          <Image
+            src={brand.heroImage!}
+            alt={brand.heroImageAlt || brand.name}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 54vw"
+            className={`object-cover ${cinematic ? "animate-kenburns" : ""}`}
+          />
+        </div>
+      )}
+
+      {/* Nav-height scrim only, not a full photo wash. The navbar is a
+          transparent fixed overlay until scrolled; once the hero photo runs
+          at full strength, plain-text nav links crossing the panel boundary
+          (or bright photo content) lose contrast. This band is just tall
+          enough to cover the navbar and fades out well before the photo's
+          midpoint. */}
+      {hasPhoto && (
+        <div
+          className="absolute top-0 left-0 right-0 h-[140px] pointer-events-none"
+          style={{ background: `linear-gradient(180deg, ${t.bg}e6 0%, ${t.bg}00 100%)` }}
+        />
+      )}
+
+      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: t.border }} />
     </section>
   );
 }
