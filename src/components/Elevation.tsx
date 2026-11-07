@@ -1,6 +1,6 @@
 /**
  * Status elevation: two TORRE HOME buildings drawn from the client-supplied status (2026-11-07) —
- * Building 1 solid (completed), Building 2 solid with a hatched top (nearing completion). No percentages.
+ * Complex 1 solid (completed), Complex 2 solid with a hatched top (nearing completion). No percentages.
  */
 export function Elevation({ alt, b1, b2 }: { alt: string; b1: string; b2: string }) {
   return (
@@ -16,9 +16,9 @@ export function Elevation({ alt, b1, b2 }: { alt: string; b1: string; b2: string
         </pattern>
       </defs>
       <line x1="0" y1="420" x2="640" y2="420" stroke="var(--fg)" strokeWidth="1.5" />
-      {/* Building 1: completed */}
+      {/* Complex 1: completed */}
       <rect x="20" y="70" width="250" height="350" fill="url(#win)" stroke="var(--fg)" strokeWidth="1.5" />
-      {/* Building 2: top hatched, rest built */}
+      {/* Complex 2: top hatched, rest built */}
       <rect x="330" y="30" width="250" height="390" fill="none" stroke="var(--fg)" strokeWidth="1.5" />
       <rect x="330" y="30" width="250" height="120" fill="url(#hatch)" />
       <rect x="330" y="150" width="250" height="270" fill="url(#win)" stroke="var(--fg)" strokeWidth="1.5" />

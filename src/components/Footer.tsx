@@ -2,7 +2,7 @@ import Link from "next/link";
 import { DIVISION_IDS, getRoute, hasLang, pathFor } from "@/lib/i18n/routes";
 import { ui } from "@/lib/i18n/dictionary";
 import type { Lang } from "@/lib/i18n";
-import { PHONE_HREF, WHATSAPP_HREF, company } from "@/content/company";
+import { WHATSAPP_HREF, company } from "@/content/company";
 import { getDivision } from "@/content/divisions";
 import { publish } from "@/content/types";
 
@@ -35,8 +35,7 @@ export function Footer({ lang }: { lang: Lang }) {
           <dt className="cap">{ui.footerContact[lang]}</dt>
           <dd>
             <ul>
-              <li><a href={PHONE_HREF}>{company.phone.value}</a></li>
-              <li><a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer">{ui.whatsapp[lang]}<span className="sr-only"> ({lang === "sq" ? "hapet në dritare të re" : "opens in a new tab"})</span></a></li>
+              <li><a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer">{ui.whatsapp[lang]} {company.phone.value}<span className="sr-only"> ({lang === "sq" ? "hapet në dritare të re" : "opens in a new tab"})</span></a></li>
               <li><Link href={pathFor("contact", lang)}>{getRoute("contact").label[lang]}</Link></li>
             </ul>
           </dd>

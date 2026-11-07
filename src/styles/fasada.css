@@ -263,7 +263,7 @@
 
 /* TORRE HOME: sticky split + plan viewer */
 .split { display: grid; }
-@media (min-width: 1024px) { .split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } .split__sticky { position: sticky; top: 0; max-height: 100svh; overflow: auto; } }
+@media (min-width: 1024px) { .split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } .split__sticky { position: sticky; top: 0; } .split__sticky .elev { max-height: 32svh; } }
 .split__sticky { padding: clamp(110px, 12vw, 150px) var(--margin) 32px; }
 .split__plates .plate { min-height: max(520px, 80svh); }
 .planview { margin: clamp(24px, 4vw, 48px) 0 0; }

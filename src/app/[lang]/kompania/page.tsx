@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return buildMetadata("about", isLang(lang) ? lang : "sq");
 }
 
-/** Kompania — "1999 → sot": only client-confirmed history (founding year, the family story, the four companies). */
+/** Kompania — "1981 → sot": only client-confirmed history (founding year, the family story, the four companies). */
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { DIVISION_IDS, getRoute, pathFor } from "@/lib/i18n/routes";
 import type { Lang } from "@/lib/i18n";
-import { PHONE_HREF, WHATSAPP_HREF, company } from "@/content/company";
+import { WHATSAPP_HREF, company } from "@/content/company";
 import { pages } from "@/content/pages";
 import { ui } from "@/lib/i18n/dictionary";
 import { IconClose } from "./Icons";
@@ -75,14 +75,12 @@ export function MenuControl({ lang, factory }: { lang: Lang; factory?: string })
               </ul>
             </nav>
             <div className="menu__side">
-              <a href={PHONE_HREF} className="menu__tel">
-                <span className="sr-only">{ui.callUs[lang]} </span>
+              <a href={WHATSAPP_HREF} className="menu__tel" target="_blank" rel="noopener noreferrer">
+                <span className="sr-only">{ui.whatsapp[lang]} </span>
                 {company.phone.value}
-              </a>
-              <a href={WHATSAPP_HREF} className="link" target="_blank" rel="noopener noreferrer">
-                {ui.whatsapp[lang]}
                 <span className="sr-only"> ({pages.common.newTab[lang]})</span>
               </a>
+              <p className="cap muted" style={{ margin: 0 }}>{ui.whatsapp[lang]}</p>
               {factory ? <p className="muted small" style={{ margin: 0 }}>{ui.factoryHeading[lang]} SWISSTECH — {factory}</p> : null}
               <Link href={pathFor("companies", lang)} onClick={close} className="link">
                 {getRoute("companies").label[lang]}

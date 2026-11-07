@@ -4,7 +4,7 @@ import type { L } from "@/lib/i18n";
 /** Group-level facts. Every entry carries its provenance (docs/content.md §1, §1b). */
 export const company = {
   name: "TORRE Group",
-  founded: fact("1999", "client", "Client-supplied: commit 39daa78 (honest 1999 founding story). No independent trace; use only as the family's history."),
+  founded: fact("1981", "client", "Owner statement, 2026-11-07: \"since 1981 (fact)\" — corrects the earlier 1999 (commit 39daa78 / old site). No independent trace; use only as the family's history."),
   phone: fact(
     "+383 49 599 405",
     "corroborated",
@@ -12,7 +12,7 @@ export const company = {
   ),
   whatsappDigits: fact("38349599405", "corroborated", "Same number as the phone; WhatsApp availability confirmed by the existing wa.me link."),
   tagline: fact<L>(
-    { sq: "Ndërtojmë në Kosovë që nga 1999.", en: "Building in Kosovo since 1999." },
+    { sq: "Ndërtojmë në Kosovë që nga 1981.", en: "Building in Kosovo since 1981." },
     "client",
     "Derived from the client-confirmed founding year."
   ),
@@ -26,8 +26,8 @@ export const company = {
   ),
   story: fact<L>(
     {
-      sq: "Nisëm në 1999, si vëllezër të rinj që donim të ndërtonim shtëpi. Sot jemi katër kompani, secila me specializimin e vet.",
-      en: "We started in 1999 as young brothers who wanted to build houses. Today we are four companies, each with its own specialism.",
+      sq: "Nisëm në 1981, si vëllezër të rinj që donim të ndërtonim shtëpi. Sot jemi katër kompani, secila me specializimin e vet.",
+      en: "We started in 1981 as young brothers who wanted to build houses. Today we are four companies, each with its own specialism.",
     },
     "client",
     "Live hub copy; commits 39daa78, 84aeec8."

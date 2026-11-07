@@ -92,8 +92,8 @@ export default function TermsOfServicePage() {
 
       <LegalSection heading="9. Na kontaktoni">
         <p>
-          Për çdo pyetje, na telefononi ose na shkruani në WhatsApp:{" "}
-          <a href="tel:+38349599405">+383 49 599 405</a>.
+          Për çdo pyetje, na shkruani në WhatsApp:{" "}
+          <a href="https://wa.me/38349599405">+383 49 599 405</a>.
         </p>
       </LegalSection>
     </LegalPage>

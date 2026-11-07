@@ -24,7 +24,7 @@ export function Rail({ lang }: { lang: Lang }) {
           </li>
         ))}
       </ol>
-      <span className="rail__vt rot" aria-hidden="true">1999</span>
+      <span className="rail__vt rot" aria-hidden="true">1981</span>
     </nav>
   );
 }

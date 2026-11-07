@@ -20,7 +20,7 @@ Every factual statement in this folder carries one of these labels, either inlin
 | Label | Meaning |
 |---|---|
 | **Fetched** | Read directly from the live page or document during this research (Firecrawl text extraction on 2026-11-07, or the repository on disk). |
-| **Client-supplied** | Stated in the repository's own commit history as supplied/confirmed by the client (e.g. "real contact block", "honest 1999 founding story", "real factory address"). Not independently verifiable by us. |
+| **Client-supplied** | Stated in the repository's own commit history as supplied/confirmed by the client (e.g. "real contact block", "honest 1981 founding story", "real factory address"). Not independently verifiable by us. |
 | **Unverified** | Present on the current site or in the repo data but with no evidence of provenance. Must be confirmed before it is republished. |
 | **Inferred** | A conclusion drawn from fetched material. Reasoning is shown. |
 

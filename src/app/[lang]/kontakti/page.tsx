@@ -4,7 +4,7 @@ import { isLang } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { pages } from "@/content/pages";
 import { getDivision } from "@/content/divisions";
-import { company, PHONE_HREF, WHATSAPP_HREF } from "@/content/company";
+import { company, WHATSAPP_HREF } from "@/content/company";
 import { publish } from "@/content/types";
 import { ui } from "@/lib/i18n/dictionary";
 import { Button } from "@/components/Button";
@@ -37,13 +37,13 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
       <section data-surface="bronze" className="contact section" aria-labelledby="phone-title">
         <div className="wrap">
           <h2 id="phone-title" className="cap" style={{ fontFamily: "var(--font-text)", fontSize: "var(--text-cap)", lineHeight: 1.3, letterSpacing: "0.14em" }}>{c.phone[lang]}</h2>
-          <a href={PHONE_HREF} className="contact__tel">
-            <span className="sr-only">{ui.callUs[lang]} </span>
+          <a href={WHATSAPP_HREF} className="contact__tel" target="_blank" rel="noopener noreferrer">
+            <span className="sr-only">{ui.whatsapp[lang]} </span>
             {company.phone.value}
+            <span className="sr-only"> ({pages.common.newTab[lang]})</span>
           </a>
           <div className="btn-row" style={{ marginTop: 32 }}>
-            <Button href={PHONE_HREF}>{ui.callUs[lang]}</Button>
-            <Button href={WHATSAPP_HREF} external variant="line" srExtra={pages.common.newTab[lang]}>{ui.whatsapp[lang]}</Button>
+            <Button href={WHATSAPP_HREF} external srExtra={pages.common.newTab[lang]}>{ui.whatsapp[lang]}</Button>
           </div>
         </div>
       </section>

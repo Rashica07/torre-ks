@@ -1,7 +1,7 @@
 # Page-by-page design plan
 
 > **Status: PROPOSED — awaiting the owner's approval.** Companion to [`design.md`](./design.md) ("Fasada"). Every page has its own purpose, composition and hierarchy; **none reuses an M1 pattern** (`research/m1-audit.md` §2). English mirrors every page under `/en` (gated until the translation is approved, D-020).
-> Facts used are only those in `content.md` §1, including the client's update of 2026-11-07: **TORRE HOME Building 1 is completed; Building 2 is nearly complete.**
+> Facts used are only those in `content.md` §1, including the client's update of 2026-11-07: **TORRE HOME Complex 1 is completed; Complex 2 is nearly complete.**
 > Last updated: 2026-11-07.
 
 ## 0. Distinctness matrix
@@ -34,13 +34,13 @@ Wireframes: `design/wireframes/home-desktop.svg`, `home-mobile.svg`. Hi-fi: `des
 
 | # | Section | Composition | Content (verified) |
 |---|---|---|---|
-| 00 | Wordmark window | SVG TORRE filled with the TORRE HOME photograph, on ink; one line + one sentence at left; title block under it | *Ndërtojmë në Kosovë që nga 1999.* · four-company sentence · latest project TORRE HOME · 1999 · 4 · floors · sheet 01/07 |
-| 01 | Plate | Full-bleed night image, 36 px frame, angled caption tab | TORRE HOME, Ferizaj, rr. Emin Duraku · *Ndërtesa 1 e përfunduar. Ndërtesa 2 në përfundim.* · *Vizualizim* |
+| 00 | Wordmark window | SVG TORRE filled with the TORRE HOME photograph, on ink; one line + one sentence at left; title block under it | *Ndërtojmë në Kosovë që nga 1981.* · four-company sentence · latest project TORRE HOME · 1981 · 4 · floors · sheet 01/07 |
+| 01 | Plate | Full-bleed night image, 36 px frame, angled caption tab | TORRE HOME, Ferizaj, rr. Emin Duraku · *Kompleksi 1 e përfunduar. Kompleksi 2 në përfundim.* · *Vizualizim* |
 | 02 | Statement | Large sentence; second half grey; inline image in the sentence; three small columns | The founding story; Ferizaj facts; MAGFA's six cities |
 | 03 | Four Towers | Skyline of four company planes, each one link | Name, category, one verified line each |
-| 04 | Project status | Sticky title + SVG elevation of the two buildings + data list | Building 1 complete, Building 2 nearly; place; developer |
+| 04 | Project status | Sticky title + SVG elevation of the two buildings + data list | Complex 1 complete, Complex 2 nearly; place; developer |
 | 05 | Image row | Native scroll, staggered images | The 8 supplied TORRE HOME assets, captioned |
-| 06 | Monoliths | Four numerals on unequal columns | 1999 · 4 · 6 · 2 |
+| 06 | Monoliths | Four numerals on unequal columns | 1981 · 4 · 6 · 2 |
 | 07 | Contact plane | The one bronze plane; phone as the headline | Phone, WhatsApp |
 | 08 | Footer | Title block | Contact, factory address, legal |
 
@@ -66,10 +66,10 @@ Hero: a dark **elevation of window types** drawn as a grid (W1–W6) mapped to t
 Hero: a **vertical stack of six slabs**, each a scope item, ordered as a building section from foundations up — *infrastrukturë dhe rrjete* at the base, *zhvillim ndërtesash* at the top (*hapësira të përbashkëta · leje dhe dokumentacion · arkitekturë dhe inxhinieri · menaxhim projekti* between). Slabs slide in on scroll. The order is a metaphor for the scope list, **not a process or timeline claim**. Beside it, two short paragraphs and the contact action. *Needs:* a photograph of a completed building by the developer; registration details; what it has developed (projects).
 
 ### 4.4 TORRE HOME — "Dy ndërtesa" (paper + navy)
-Editorial **sticky split**: left column holds the status elevation and the facts (Building 1 completed, Building 2 nearly complete, Rruga Emin Duraku, Ferizaj); right column scrolls full-height plates (exteriors, duplex and penthouse renders, parking), each with the angled caption tab and *Vizualizim*. Then a **plan viewer** for the supplied floor plan (type A2, 132.39 m² as printed on the asset). Close with the enquiry action ("Pyesni për banesat në shitje"). **Availability, prices, bank terms are not published.** *Needs:* construction/completion photographs, availability policy, building names/numbers confirmation.
+Editorial **sticky split**: left column holds the status elevation and the facts (Complex 1 completed, Complex 2 nearly complete, Rruga Emin Duraku, Ferizaj); right column scrolls full-height plates (exteriors, duplex and penthouse renders, parking), each with the angled caption tab and *Vizualizim*. Then a **plan viewer** for the supplied floor plan (type A2, 132.39 m² as printed on the asset). Close with the enquiry action ("Pyesni për banesat në shitje"). **Availability, prices, bank terms are not published.** *Needs:* construction/completion photographs, availability policy, building names/numbers confirmation.
 
-## 5. About — Kompania ("1999 → sot")
-A **vertical tower timeline** (levels = milestones) on the left; on the right, small text blocks and images scattered on the grid at different sizes (Cormack's About). The story in the client's words (*Nisëm si vëllezër që ndërtonin shtëpi…*), how the four companies relate, the companies as small plaques, and **team** when supplied. **Honest constraint:** only 1999 and "today" are verified; the page ships with extra levels only as the client supplies milestones/people — it does not pad the timeline. *Needs:* milestones with years, founders/team (with consent), photographs, relationship between the companies.
+## 5. About — Kompania ("1981 → sot")
+A **vertical tower timeline** (levels = milestones) on the left; on the right, small text blocks and images scattered on the grid at different sizes (Cormack's About). The story in the client's words (*Nisëm si vëllezër që ndërtonin shtëpi…*), how the four companies relate, the companies as small plaques, and **team** when supplied. **Honest constraint:** only 1981 and "today" are verified; the page ships with extra levels only as the client supplies milestones/people — it does not pad the timeline. *Needs:* milestones with years, founders/team (with consent), photographs, relationship between the companies.
 
 ## 6. Projects and project template
 **Index:** a wall of plates at deliberately different sizes and offsets (Nikken staggered row, as a grid), each with an angled caption tab (*name · place · status*); company filter chips appear only when ≥ 3 projects exist; TORRE HOME first.

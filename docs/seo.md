@@ -34,8 +34,8 @@ Targets: title ≤ ~60 characters, description ≤ ~155 (Google truncates by pix
 
 | Route | Title (chars) | Description (chars) |
 |---|---|---|
-| `/` | TORRE Group — Ndërtim, dritare dhe banesa në Kosovë (51) | Grup familjar ndërtimi në Kosovë që nga 1999: shtëpi (MAGFA), dritare e fasada (SWISSTECH), zhvillim rezidencial (TORRE DI UMBRIA) dhe banesa (TORRE HOME). (155) |
-| `/kompania` | Kompania — TORRE Group, ndërtues në Kosovë që nga 1999 (54) | Historia e TORRE Group: nga ndërtimi i shtëpive në 1999 te katër kompani me specializime të ndara — ndërtim, dritare, zhvillim dhe banesa. (138) |
+| `/` | TORRE Group — Ndërtim, dritare dhe banesa në Kosovë (51) | Grup familjar ndërtimi në Kosovë që nga 1981: shtëpi (MAGFA), dritare e fasada (SWISSTECH), zhvillim rezidencial (TORRE DI UMBRIA) dhe banesa (TORRE HOME). (155) |
+| `/kompania` | Kompania — TORRE Group, ndërtues në Kosovë që nga 1981 (54) | Historia e TORRE Group: nga ndërtimi i shtëpive në 1981 te katër kompani me specializime të ndara — ndërtim, dritare, zhvillim dhe banesa. (138) |
 | `/magfa` | MAGFA GROUP — Ndërtim shtëpish në Kosovë \| TORRE (48) | MAGFA GROUP ndërton shtëpi private dhe rezidenciale në Prishtinë, Ferizaj, Prizren, Gjakovë, Pejë dhe Mitrovicë. Kërkoni ofertë ose konsultim. (142) |
 | `/swisstech` | SWISSTECH — Dritare dhe fasada PVC e alumini, Ferizaj (53) | SWISSTECH prodhon dhe monton dritare e dyer PVC dhe alumini në Ferizaj, Kosovë. Fabrikë e hapur për vizitë me takim paraprak. (125) |
 | `/torre-umbria` | TORRE DI UMBRIA — Zhvillim ndërtesash rezidenciale (50) | TORRE DI UMBRIA zhvillon ndërtesa rezidenciale në Kosovë, nga koncepti dhe lejet deri te dorëzimi. Pjesë e TORRE Group. (119) |
@@ -60,7 +60,7 @@ Rendered server-side, in the HTML, matching visible text (Google: "structured da
 | Page | Types | Properties (all sourced from `content.md` §1) |
 |---|---|---|
 | Every page | `WebSite` (+ `Organization` reference via `@id`) | `name`, `url`, `inLanguage: "sq"`; **no `SearchAction`** (no site search) |
-| Home, About | `Organization` (id `https://torre-ks.com/#org`) | `name: "TORRE Group"`, `url`, `logo` (only when an official logo exists), `foundingDate: "1999"`, `description`, `telephone: "+383 49 599 405"`, `areaServed` (`Country` Kosovo), `subOrganization` → the four division `@id`s |
+| Home, About | `Organization` (id `https://torre-ks.com/#org`) | `name: "TORRE Group"`, `url`, `logo` (only when an official logo exists), `foundingDate: "1981"`, `description`, `telephone: "+383 49 599 405"`, `areaServed` (`Country` Kosovo), `subOrganization` → the four division `@id`s |
 | `/magfa` | `Organization` (+ `GeneralContractor` only if a physical business address is confirmed) | `legalName: "MAGFA SH.P.K."`, `parentOrganization`, `areaServed` = six `City` entries, `makesOffer`→`Service` (names only, no price) |
 | `/swisstech` | `LocalBusiness` (has a confirmed address) — manufacturer; `address` = Rr. Engjëll Zefi, Bibaj, 70000 Ferizaj, XK | `parentOrganization`, `telephone`; **no hours** (not provided) |
 | `/torre-umbria` | `Organization` | `parentOrganization`, `Service` names |

@@ -129,10 +129,9 @@ test.describe("no placeholder content or dead ends", () => {
     }
   });
 
-  test("tel and WhatsApp links use the corroborated number", async ({ page }) => {
+  test("WhatsApp links use the corroborated number", async ({ page }) => {
     await page.goto("/kontakti");
-    const hrefs = await page.locator("a[href^='tel:'], a[href*='wa.me']").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
-    expect(hrefs).toContain("tel:+38349599405");
+    const hrefs = await page.locator("a[href*='wa.me']").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
     expect(hrefs).toContain("https://wa.me/38349599405");
   });
 });

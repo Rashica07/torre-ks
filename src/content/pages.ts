@@ -18,8 +18,8 @@ export const pages = {
     whatsapp: { sq: "WhatsApp", en: "WhatsApp" },
   },
   home: {
-    h1: { sq: "TORRE Group — ndërtojmë në Kosovë që nga 1999", en: "TORRE Group — building in Kosovo since 1999" },
-    lead: { sq: "Ndërtojmë në Kosovë që nga 1999.", en: "Building in Kosovo since 1999." },
+    h1: { sq: "TORRE Group — ndërtojmë në Kosovë që nga 1981", en: "TORRE Group — building in Kosovo since 1981" },
+    lead: { sq: "Ndërtojmë në Kosovë që nga 1981.", en: "Building in Kosovo since 1981." },
     tb: {
       latest: { sq: "Projekti i fundit", en: "Latest project" },
       latestValue: { sq: "TORRE HOME, Ferizaj", en: "TORRE HOME, Ferizaj" },
@@ -40,7 +40,7 @@ export const pages = {
     ],
     towersTitle: { sq: "Katër kate. Një themel.", en: "Four floors. One foundation." },
     towersHint: { sq: "Zgjidhni katin", en: "Choose a floor" },
-    statusTitle: { sq: "Dy ndërtesa. Ferizaj.", en: "Two buildings. Ferizaj." },
+    statusTitle: { sq: "Dy komplekse. Ferizaj.", en: "Two complexes. Ferizaj." },
     statusLabel: { sq: "Projekti", en: "Project" },
     dl: {
       place: { sq: "Vendi", en: "Place" },
@@ -49,24 +49,24 @@ export const pages = {
       view: { sq: "Shiko projektin", en: "See the project" },
     },
     elevAlt: {
-      sq: "Skemë e dy ndërtesave të TORRE HOME: Ndërtesa 1 e përfunduar, Ndërtesa 2 në përfundim.",
-      en: "Diagram of the two TORRE HOME buildings: Building 1 completed, Building 2 nearing completion.",
+      sq: "Skemë e dy komplekseve të TORRE HOME: Kompleksi 1 i përfunduar, Kompleksi 2 në përfundim.",
+      en: "Diagram of the two TORRE HOME complexes: Complex 1 completed, Complex 2 nearing completion.",
     },
-    b1: { sq: "Ndërtesa 1 — e përfunduar", en: "Building 1 — completed" },
-    b2: { sq: "Ndërtesa 2 — në përfundim", en: "Building 2 — nearing completion" },
+    b1: { sq: "Kompleksi 1 — i përfunduar", en: "Complex 1 — completed" },
+    b2: { sq: "Kompleksi 2 — në përfundim", en: "Complex 2 — nearing completion" },
     rowTitle: { sq: "Vizualizime · TORRE HOME", en: "Renders · TORRE HOME" },
     rowRegion: { sq: "Vizualizime të TORRE HOME — lëvizni horizontalisht", en: "TORRE HOME renders — scroll horizontally" },
     rowPrev: { sq: "Para", en: "Previous" },
     rowNext: { sq: "Pas", en: "Next" },
     factsTitle: { sq: "Në fakte", en: "In facts" },
     facts: [
-      { cap: { sq: "Themeluar", en: "Founded" }, n: "1999", p: { sq: "Nisëm si vëllezër që ndërtonin shtëpi.", en: "We started as brothers building houses." } },
+      { cap: { sq: "Themeluar", en: "Founded" }, n: "1981", p: { sq: "Nisëm si vëllezër që ndërtonin shtëpi.", en: "We started as brothers building houses." } },
       { cap: { sq: "Kompani", en: "Companies" }, n: "4", p: { sq: "Ndërtim, dritare, zhvillim dhe banesa.", en: "Building, windows, development and apartments." } },
       { cap: { sq: "Qytete", en: "Cities" }, n: "6", p: { sq: "Ku ndërton MAGFA GROUP.", en: "Where MAGFA GROUP builds." } },
-      { cap: { sq: "Ndërtesa", en: "Buildings" }, n: "2", p: { sq: "TORRE HOME, rruga Emin Duraku, Ferizaj.", en: "TORRE HOME, Emin Duraku street, Ferizaj." } },
+      { cap: { sq: "Komplekse", en: "Complexes" }, n: "2", p: { sq: "TORRE HOME, rruga Emin Duraku, Ferizaj.", en: "TORRE HOME, Emin Duraku street, Ferizaj." } },
     ],
     contactTitle: { sq: "Na tregoni projektin.", en: "Tell us about your project." },
-    contactBody: { sq: "Telefononi ose shkruani në WhatsApp dhe ju përgjigjemi.", en: "Call or write on WhatsApp and we will answer." },
+    contactBody: { sq: "Shkruani në WhatsApp dhe ju përgjigjemi.", en: "Write to us on WhatsApp and we will answer." },
   },
   companies: {
     h1: { sq: "Katër kompani. Një grup.", en: "Four companies. One group." },
@@ -130,14 +130,14 @@ export const pages = {
     h1: { sq: "Nga një shtëpi te katër kompani.", en: "From one house to four companies." },
     rail: { sq: "Kompania", en: "The company" },
     story: {
-      sq: "Nisëm në 1999, si vëllezër të rinj që donim të ndërtonim shtëpi. Sot jemi katër kompani, secila me specializimin e vet.",
-      en: "We started in 1999 as young brothers who wanted to build houses. Today we are four companies, each with its own specialism.",
+      sq: "Nisëm në 1981, si vëllezër të rinj që donim të ndërtonim shtëpi. Sot jemi katër kompani, secila me specializimin e vet.",
+      en: "We started in 1981 as young brothers who wanted to build houses. Today we are four companies, each with its own specialism.",
     },
-    tlStart: { sq: "1999", en: "1999" },
+    tlStart: { sq: "1981", en: "1981" },
     tlStartText: { sq: "Fillimi: vëllezër të rinj që ndërtonin shtëpi.", en: "The beginning: young brothers building houses." },
     tlNow: { sq: "Sot", en: "Today" },
     tlNowText: { sq: "Katër kompani, secila me specializimin e vet.", en: "Four companies, each with its own specialism." },
-    tlAlt: { sq: "Skemë e një kulle: kati i parë është 1999, katër kate sipër janë katër kompanitë e sotme.", en: "Diagram of a tower: the ground level is 1999, the four floors above are today's four companies." },
+    tlAlt: { sq: "Skemë e një kulle: kati i parë është 1981, katër kate sipër janë katër kompanitë e sotme.", en: "Diagram of a tower: the ground level is 1981, the four floors above are today's four companies." },
     blocksTitle: { sq: "Katër pjesë të ndërtimit", en: "Four parts of building" },
     blocks: {
       magfa: { sq: "Ndërton shtëpi private dhe rezidenciale.", en: "Builds private and residential homes." },
@@ -150,13 +150,13 @@ export const pages = {
   contact: {
     h1: { sq: "Kontakti", en: "Contact" },
     lead: { sq: "Na tregoni çfarë keni në mendje: një shtëpi, dritare, një ndërtesë apo një banesë.", en: "Tell us what you have in mind: a house, windows, a building or an apartment." },
-    phone: { sq: "Telefon dhe WhatsApp", en: "Phone and WhatsApp" },
+    phone: { sq: "WhatsApp", en: "WhatsApp" },
     factory: { sq: "Fabrika SWISSTECH", en: "SWISSTECH factory" },
     form: {
       title: { sq: "Fleta e kërkesës", en: "Request sheet" },
       intro: {
-        sq: "Plotësoni dy fusha dhe kërkesa hapet si mesazh në WhatsApp, gati për ta dërguar. Asgjë nuk ruhet në këtë faqe.",
-        en: "Fill in two fields and the request opens as a WhatsApp message, ready to send. Nothing is stored on this page.",
+        sq: "Plotësoni dy fusha dhe kërkesa hapet si mesazh në WhatsApp, gati për ta dërguar. Asgjë nuk ruhet në këtë faqe. Kontakti bëhet vetëm përmes WhatsApp.",
+        en: "Fill in two fields and the request opens as a WhatsApp message, ready to send. Nothing is stored on this page. We are reached on WhatsApp only.",
       },
       company: { sq: "Për cilën kompani?", en: "Which company?" },
       any: { sq: "Nuk jam i sigurt", en: "Not sure yet" },
@@ -175,7 +175,7 @@ export const pages = {
   },
   nf: {
     h1: { sq: "Ky kat nuk ekziston.", en: "This floor does not exist." },
-    body: { sq: "Adresa që kërkuat nuk ekziston ose është zhvendosur. Zgjidhni një nga katet ose na telefononi.", en: "The address you asked for does not exist or has moved. Pick one of the floors or call us." },
+    body: { sq: "Adresa që kërkuat nuk ekziston ose është zhvendosur. Zgjidhni një nga katet ose na shkruani në WhatsApp.", en: "The address you asked for does not exist or has moved. Pick one of the floors or write to us on WhatsApp." },
   },
 } satisfies Record<string, unknown>;
 
