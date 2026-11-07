@@ -177,3 +177,22 @@ Milestones are reviewed before moving on; consequential decisions go through `de
 **Deviations:** the Cormack-style pinned track was not built (D-008 stays native scroll); scroll-driven plate-open and slab-in are CSS-only progressive enhancements (slabs move but never fade, because faded text fails contrast while animating); the footer ghost wordmark is an SVG so it is not text.
 
 **Not done:** contact form and `/api/contact` (no verified mailbox/provider); projects index/template; English not approved; no Lighthouse or real-device run (needs a deployed preview); no photography beyond TORRE HOME renders.
+
+
+## Delivery log — M4/M5/M6 (2026-11-07)
+
+**M4 (done in part):** contact request sheet (WhatsApp-composed, D-006 interim); legal pages restyled with unverified mailboxes removed; 404 and OG images done earlier. **Deferred:** projects index/template (needs client-approved material beyond the single TORRE HOME page, which already carries the project), server-side form (needs a mailbox + provider), final legal text (counsel).
+
+**M5 (done):** generated sitemap (8 Albanian URLs, English gated), canonicals, hreflang gate, Organization/WebSite + per-company Organization/Breadcrumb JSON-LD, simplified `robots.txt` (the stale `/preview` rules removed), `llms.txt`, 308 redirects from the old subdomains, security headers, Vercel Speed Insights. **Not done:** Search Console/DNS cutover and apex/`www` direction (platform access), `llms-full.txt`, English indexing (D-020).
+
+**M6 (done in part):** unit 29 ✅, e2e 121 ✅ (axe 0 violations at 390/1440 on every page, keyboard, dialog focus, no-JS, reduced motion, 320 px reflow, redirects, SEO, contact form, wordmark luminance), contrast 174 role checks ✅, lint/typecheck/build ✅.
+Lighthouse (local production build, mobile emulation, simulated slow 4G, 2026-11-07):
+
+| Page | Perf | A11y | Best practices | SEO | LCP | CLS |
+|---|---|---|---|---|---|---|
+| `/` | 93–94 | 100 | 96 | 100 | 3.2 s | 0 |
+| `/magfa` | 96 | 100 | 96 | 100 | 2.6 s | 0 |
+| `/torrehome` | 94 | 100 | 96 | 100 | 3.1 s | 0 |
+| `/kontakti` | 97 | 100 | 96 | 100 | 2.6 s | 0.02 |
+
+Fixes made from the first run: fonts are self-hosted from `/fonts` and preloaded (removed the layout shift on MAGFA, 0.11 → 0), the wordmark image is preloaded with `fetchpriority=high` and the mobile hero uses a 700 px variant. **Open:** Home LCP (3.2 s lab) is the wordmark photograph painted through an SVG pattern — good is < 2.5 s; field data (Speed Insights) must confirm whether this matters on real devices. The 96 best-practices score is a console 404 for the Vercel Speed Insights script, which exists only on Vercel. **Not tested:** Firefox/WebKit (only Chromium is installed here), real devices, screen readers (NVDA/VoiceOver), a deployed preview.

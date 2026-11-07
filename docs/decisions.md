@@ -12,7 +12,7 @@ Legend: **OPEN** = needs the client/owner · **ASSUMED** = proceeding on this un
 | D-003 | Redesign order: hub + system first, then divisions | ASSUMED | — |
 | D-004 | Identity: shared system, accent colour, per-brand colours | **DECIDED** — keep per-company colours (2026-11-07) | — |
 | D-005 | Wordmark / official logo files — *Fasada proposes the typographic TORRE wordmark as the primary mark* | **OPEN** (approval + content request) | Gate 0 |
-| D-006 | Contact handling: provider, recipients, spam control | **OPEN** | M4 |
+| D-006 | Contact handling: provider, recipients, spam control | **INTERIM DECISION (2026-11-07):** no backend; the request sheet composes a WhatsApp message to the verified number. Revisit if the owner names a mailbox + provider | M4 |
 | D-007 | Policy for unverified claims | **DECIDED (interpreted)** — keep client-confirmed claims, verified by web research; withhold the rest | M2 |
 | D-008 | Horizontal browsing approach | ASSUMED | M3 |
 | D-009 | Novus Pulse CMS: keep dormant or build on it | **OPEN** (low urgency) | — |
@@ -194,3 +194,8 @@ CSS scroll-driven effects (`animation-timeline: view()`) as progressive enhancem
 
 The direction is photograph-led (Massive Forms, Meyerton, Nikken), but the repository holds only TORRE HOME **renders** and three stock photographs that are not TORRE's work. Until real photography exists: TORRE HOME renders (captioned *Vizualizim*) carry the hero and plates; MAGFA / SWISSTECH / TORRE DI UMBRIA pages use drawing graphics; no stock is shown as TORRE's work. Requested: the shot list in `content.md` §5.
 
+
+
+## D-006 update — interim contact handling (2026-11-07)
+
+No mailbox or email provider has been supplied and none of the old per-brand addresses is verified, so a server-side form would have nowhere trustworthy to deliver. The contact page therefore has a request sheet (company, name, optional city, message) that validates client-side, announces errors, and opens a WhatsApp message to +383 49 599 405 with the text pre-written; the phone number is always shown beside it. Nothing is stored or transmitted by the site, so there is no spam surface and no data-retention duty beyond WhatsApp itself. To replace it with an email form the owner must provide: a recipient mailbox, a sending domain/provider (e.g. Resend), and a retention policy.
