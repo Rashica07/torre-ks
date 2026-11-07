@@ -12,14 +12,14 @@
 
 ## 2. Existing website assessment (summary — full in `research/existing-site-audit.md`)
 
-- **Is:** a Kosovo family group (1999) of four companies; Albanian-only; five one-page sites on one Next.js deployment; legal pages are placeholders; contact ends in `mailto:`.
+- **Is:** a Kosovo family group (1999, per the client) of four companies; Albanian-only today; five one-page sites on one Next.js deployment; legal pages are placeholders; contact ends in `mailto:`.
 - **Works:** honest hub copy, token system, reveal hook idea, security headers, Vercel + Next stack.
 - **Weak:** no real pages; hub has no nav/contact/imagery/projects; four unrelated identities; stock-photo heroes; placeholder icon logos; unverified prices/warranties/tax statements/testimonials in code and on `/llms`; content hidden until JS runs; four font families; every route dynamic; apex/www mismatch.
 - **Baseline:** `tsc` clean, `next build` clean (Next 16.2.12, React 18.3.1). No Lighthouse baseline (network-blocked).
 
 ## 3. Proposed architecture (summary — full in `architecture.md`, `sitemap.md`)
 
-One domain `torre-ks.com` (D-001 option B): `/`, `/kompania`, `/kompanite`, `/magfa`, `/swisstech`, `/torre-umbria`, `/torrehome`, `/projektet[/slug]`, `/kontakti`, legal. SSG everywhere; typed content with a verification-tier guard; hand-rolled validated contact endpoint; 301s from the old subdomains.
+One domain `torre-ks.com` (D-001, decided), Albanian + English (D-002), each company with its own design inside one shared system (D-004, D-019): `/`, `/kompania`, `/kompanite`, `/magfa`, `/swisstech`, `/torre-umbria`, `/torrehome`, `/projektet[/slug]`, `/kontakti`, legal. SSG everywhere; typed content with a verification-tier guard; hand-rolled validated contact endpoint; 301s from the old subdomains.
 
 ## 4. Page-by-page scope
 
@@ -44,10 +44,11 @@ Not built (no content): news, careers, partners, certifications, industries, tea
 Every milestone ends with a **review gate**: a draft PR, a preview deployment (when possible), updated docs (status lines flipped from PROPOSED to IMPLEMENTED for what shipped), and a written list of what was tested and what was not. The next milestone does not start until the owner says so.
 
 ### M0 — Research and documentation ✅ (this PR)
-Deliverables: `docs/*`, `docs/research/*`, README. **Accepted when:** the owner has answered the *Open* decisions that block M1 (D-001, D-002, D-004) and approved this plan.
+Deliverables: `docs/*`, `docs/research/*`, README. **Accepted when:** the owner approves this plan. D-001, D-002, D-004 and D-007 were answered on 2026-11-07 and are folded in.
 
 ### M1 — Foundation (effort M)
-- Close D-001/2/4/5/11; **glyph test** for Geist (ë ç) → font decision final.
+- Close D-005/D-011; **glyph test** for Geist (ë ç, and English) → font decision final.
+- Routing for `[lang]` (`sq` default, `en` gated), per-division `data-division` theming (D-019).
 - Tokens (`styles/tokens.css`), Tailwind mapping, type scale, layout primitives, motion tokens, global reduced-motion rules.
 - Header, footer, skip link, mobile nav; interim wordmark.
 - Remove `/preview/**`, variants system, testimonials, `framer-motion`, `ContactIntake` (replaced in M4); rename `middleware.ts` → `proxy.ts`; investigate and fix all-routes-dynamic; fix the `.reveal` no-JS defect; raise `engines.node`.
@@ -75,7 +76,7 @@ Deliverables: `docs/*`, `docs/research/*`, README. **Accepted when:** the owner 
 **Acceptance:** form tested end to end on a preview (success, validation errors, honeypot hit, rate-limit hit, provider failure); no stack traces or secrets in any response; email arrives at the approved mailbox; privacy text approved; Playwright + axe pass on the form including error summary focus.
 
 ### M5 — SEO, AEO, GEO, redirects, measurement (effort M)
-- Metadata for every route; JSON-LD builders + validation; `sitemap.ts`; `robots.txt`; `llms.txt` + generated `llms-full.txt`; redirect map; analytics; hreflang only if D-002 says so.
+- Metadata for every route; JSON-LD builders + validation; `sitemap.ts`; `robots.txt`; `llms.txt` + generated `llms-full.txt`; redirect map; analytics; hreflang for `sq`/`en` (active once the English text is approved, D-020).
 - Cutover checklist (`architecture.md` §11).
 
 **Acceptance:** titles/descriptions unique (script); canonical absolute and self-referencing; sitemap equals route registry (test) and parses as valid XML; robots rules verified against sample URLs; JSON-LD passes Rich Results Test and Schema.org validator with zero errors and contains none of the forbidden properties; redirects return 301 to the right targets on a preview with host overrides; 404 returns 404.
@@ -122,7 +123,9 @@ Defects found are fixed, then the test is re-run — not merely listed.
 
 | Item | Blocks |
 |---|---|
-| D-001 architecture · D-002 languages · D-004 identity/accent | M1 |
+| ~~D-001, D-002, D-004, D-007~~ answered 2026-11-07 · D-005 logos · D-011 glyph test | M1 (D-005 interim wordmark exists) |
+| Human review/approval of the English translation (D-020) | Enabling `/en` (M5) |
+| Answers to `content.md` §4.14 (SWISSTECH phone, registrations, TORRE HOME status) | M2 copy |
 | Official logos (D-005) | M2 polish (interim wordmark exists) |
 | Photography; portfolio; building status (`content.md` §4) | Quality of M2–M4 (not their completion) |
 | Claim re-approvals (`content.md` §2) | Any claim reappearing |
@@ -138,7 +141,7 @@ Defects found are fixed, then the test is re-run — not merely listed.
 | Stock imagery or renders mistaken for TORRE work | Medium | High | Label renders; never present stock as work; request real photography |
 | Subdomain consolidation harms current search presence | Medium | Medium | 301s, keep subdomain DNS, monitor Search Console, option A remains available |
 | Albanian copy quality | Medium | High | Native review gate per release |
-| Geist lacks a needed glyph | Low | Low | Glyph test in M1; Inter fallback |
+| Geist lacks a needed glyph (Albanian or English) | Low | Low | Glyph test in M1; Inter fallback |
 | Pinned-rail interaction degrades UX/performance | Medium | Low | Native rail is default; pinned variant optional and gated |
 | Legal pages unreviewed at launch | Medium | Medium | Ship minimal accurate text; keep `noindex` until counsel signs off |
 | Unverified claims creep back via content edits | Medium | High | Typed `Tier` + build guard; claims register |

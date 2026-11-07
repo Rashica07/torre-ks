@@ -53,7 +53,7 @@
 - Codes: ISO 639-1 language, optional ISO 3166-1 Alpha-2 region.
 - Sitemap method: one `<loc>` per URL with `<xhtml:link>` children listing every variant including itself.
 - *The page does not discuss canonical interplay* — standard practice (self-referencing canonicals per language version) is documented in `seo.md` as our policy, not as a Google quote.
-- Applies only if D-002 approves a second language.
+- Applies: D-002 approved Albanian + English (English gated on approved text, D-020).
 
 ## 5. GSAP and ScrollTrigger
 

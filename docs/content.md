@@ -1,7 +1,7 @@
 # Content register
 
 > **Status: PROPOSED — requirements and registers, not final copy.**
-> Last updated: 2026-11-07. Evidence tiers: **Verified** (checked against an independent source) · **Client-supplied** (stated in repo history as confirmed by the client; we cannot independently verify) · **Unverified** (no provenance) — see `research/README.md`.
+> Last updated: 2026-11-07. Evidence tiers: **Corroborated** (client-supplied *and* matched by an independent public source — added after D-007) · **Verified** (checked against a primary document) · **Client-supplied** (stated in repo history as confirmed by the client; not independently checked) · **Unverified** (no provenance) — see `research/README.md`.
 
 Rule (non-negotiable): nothing is published at **Unverified** tier. Every Albanian text drafted by us needs a native-speaker review before launch.
 
@@ -21,6 +21,27 @@ Rule (non-negotiable): nothing is published at **Unverified** tier. Every Albani
 | WhatsApp on the same number | Client-supplied (link exists) | `ContactBlock.tsx` | Contact |
 | Emails `info@magfa.torre-ks.com` etc. | **Unverified deliverability** | `brands.ts` | Do not publish until D-006 confirms mailboxes |
 
+## 1b. Independent corroboration — web research, 2026-11-07 (D-007)
+
+Method: web search plus the Kosovo business registry as mirrored by **ARBK Open** (`arbk.org`, a third-party mirror of the public ARBK register; its pages are `noindex`). **The official ARBK portal was not queried; confirm any legal data against it before publishing.** Social-media and classified-ad results are *leads*, not proof. Personal names of owners/directors appear in the registry; they are deliberately **not** reproduced in this repository and must not go on the site without the person's consent.
+
+| Finding | Source | Effect |
+|---|---|---|
+| **Torre Home SH.P.K.** exists: NUI 812247220, registered **11 Feb 2025**, status "Regjistruar", activity "construction of residential and non-residential buildings", 4 employees, address "Bibaj, Ferizaj", phone **+383 49 599 405** | ARBK Open | **Corroborates** the phone number and the existence of the company. Note the phone is the *TORRE HOME* company's number — the "group" number used on all four brands |
+| **Swisstech KS SH.P.K.** exists: NUI 810058116, registered **21 Sep 2017**, activity NACE 2223 "manufacture of plastic builders' ware", 3 employees, address "Bibaj, Ferizaj", registry phone **044-717-985**; two owners listed | ARBK Open | **Corroborates** a plastics-for-construction manufacturer in Bibaj, Ferizaj (consistent with the factory address). **Phone differs** from the site's +383 49 599 405 |
+| A "Swisstech KS Sh.p.k, Ferizaj" Facebook page lists a **third** phone (+383 49 461 600), PVC + aluminium doors/windows and mentions the aluminium-systems brand *Alumil* (a Greek manufacturer) | Facebook search excerpt | **Lead only.** Suggests different phone numbers in circulation and that the aluminium system may not be German. Do **not** say "German profile" or "CE" without the supplier's documents |
+| TORRE HOME apartments are **advertised for sale by third parties**: "Objekti Torre Home, Rruga Emin Duraku", examples on floors 4, 6 and 7 (areas 134.5, 98.3, 104.5 m²), one listing "Investitori: TORRE HOME"; one listing says the building is "në përfundim" (nearing completion) — **undated** | Facebook group, TikTok, Instagram, MerrJep excerpts | **Corroborates** the project, address and that units are being sold; building has ≥ 7 floors. **Building status stays unconfirmed** (listings are undated) — ask the client |
+| **MAGFA SH.P.K.**, **TORRE DI UMBRIA** and any **TORRE GROUP** entity: **no registry or independent hit found** in these searches | ARBK Open search; web search | Not evidence they don't exist — the search tools are weak. Ask the client for registration documents/NUI. Do not publish MAGFA's legal name beyond what the client confirms |
+| The **1999** group history has **no independent trace**; the two registered entities found date from **2017** and **2025** | ARBK Open | Not a contradiction (a family business can predate its current legal entities) but it means "active since 1999" must be worded as the **family's** history and **never** attributed to each company. TORRE HOME as a company dates from 2025 |
+| Kosovo tax authority (ATK) material lists VAT categories of **8 % and 18 %**; nothing found supports or refutes the site's "0 % VAT first home / 8 % second purchase" | atk-ks.org excerpt | The claim is **unconfirmed and probably oversimplified** — withheld; tax statements need a notary/accountant |
+| No independent source found for: prices, warranties (10/5/2 yr), payment schedules, bank financing terms, energy class, "100 % legalised", turnaround times | web search | **Withheld** unless the client supplies documents |
+
+**What this changes**
+
+- **Publishable (Corroborated):** TORRE HOME apartments on Emin Duraku, Ferizaj; the group phone +383 49 599 405 (registered to Torre Home SH.P.K.); SWISSTECH as a Ferizaj-area PVC/construction-plastics manufacturer at Bibaj; SWISSTECH's registered name *Swisstech KS SH.P.K.* (to be shown as the legal name once the client confirms).
+- **Needs a client answer before publishing:** SWISSTECH's correct public phone; whether the group number should keep appearing as the single contact line; the street address wording ("Rr. Engjëll Zefi, Bibaj" vs registry "Bibaj"); MAGFA's and TORRE DI UMBRIA's legal details; TORRE HOME building status.
+- **JSON-LD:** `legalName` and `identifier` (NUI) only for entities the client confirms; never from our guess.
+
 ## 2. Claims register — everything else currently on the site
 
 Handling under D-007 (strict). "Re-approve" means the client can send written confirmation + who maintains it.
@@ -38,7 +59,7 @@ Handling under D-007 (strict). "Re-approve" means the client can send written co
 | 9 | "Konsultimi fillestar është falas" (MAGFA initial consultation free) | `magfa` | Presented as proof fact; no provenance | Keep **only** on client confirmation (cheap to confirm). |
 | 10 | 24 named testimonials (6 per brand) | `brands.ts`, `/preview/**` | Unverified — appear fabricated | **Delete from the repo.** Never publish without named, consenting, real clients. |
 | 11 | "Materiale premium", "Dorëzim në kohën e caktuar" (MAGFA hero) | `magfa` | Unverified marketing claim | Rephrase to describable facts or remove. |
-| 12 | "Pjesë e TORRE GROUP, aktiv në ndërtim që nga 1999" repeated on each brand | all | Client-supplied | Keep; note that "active since 1999" is the *group*, not necessarily each company (confirm each company's start date). |
+| 12 | "Pjesë e TORRE GROUP, aktiv në ndërtim që nga 1999" repeated on each brand | all | Client-supplied; registry shows entities from **2017** (SWISSTECH) and **2025** (TORRE HOME) | Keep only as the **family/group** history. Never imply each company is 26 years old. Rephrase on division pages (e.g. "pjesë e TORRE Group"). |
 | 13 | "Dy ndërtesa reale, jo një koncept" (TORRE HOME) | `torrehome` | Images are **3D renders**; building status (under construction / completed / delivered) not stated | Replace with a status statement once the client confirms the stage of each building. |
 
 ## 3. Page content requirements
@@ -78,7 +99,9 @@ Pages we will **not** create now (no content, would be empty): News, Careers, Pa
 **Legal / technical**
 11. [ ] Legal review of privacy policy, terms, cookie approach (Kosovo Law 06/L-082; GDPR relevance).
 12. [ ] Google Search Console and Bing Webmaster access (indexed pages, queries) and the domain registrar/DNS access for apex/www and subdomain redirects.
-13. [ ] Decisions D-001, D-002, D-004, D-006 (see `decisions.md`).
+13. [ ] Decision D-006 (contact handling). D-001, D-002, D-004, D-007 were answered on 2026-11-07 (see `decisions.md`).
+14. [ ] **From the web research (§1b):** which phone number should each company publish (SWISSTECH's registry number is different)? Registration documents / NUI for MAGFA, TORRE DI UMBRIA and any TORRE GROUP entity. Current status of TORRE HOME Building 1 and Building 2. Who supplies SWISSTECH's PVC and aluminium profiles (brand, certificates).
+15. [ ] Someone fluent in English to review the English translation (D-020).
 
 ## 5. Image requirements
 
@@ -112,7 +135,7 @@ Pages we will **not** create now (no content, would be empty): News, Careers, Pa
 
 ## 7. Translation requirements
 
-Albanian (`sq`) is the source language. English (if D-002 approves) must be a human translation approved by the client before it ships: nav, metadata, headings, body, alt text, form labels/errors, legal pages. Slugs: Albanian for `sq`; English slugs under `/en/`. No machine-translated placeholders at any point.
+Albanian (`sq`) is the source language. **English is approved as a launch language (D-002), but** it must be a human-reviewed translation approved by the client before it ships (D-020): nav, metadata, headings, body, alt text, form labels/errors, legal pages. Slugs: Albanian for `sq`; English slugs under `/en/`. No machine-translated placeholders at any point.
 
 ## 8. Voice
 

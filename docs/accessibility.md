@@ -24,7 +24,7 @@
 | **2.4.11 Focus not obscured (min)** *(2.2)* | Focused element not hidden by sticky header | Sticky header | `scroll-padding-top: var(--header-h)` + `scroll-margin-top` on anchors/targets |
 | **2.5.7 Dragging movements** *(2.2)* | Any drag action has a single-pointer alternative | Project rail | Prev/next buttons and native scroll; no drag-only control |
 | **2.5.8 Target size (min)** *(2.2)* | ≥ 24 × 24 CSS px | Buttons, links in lists | We use ≥ 44 × 44 px for controls; inline text links exempt |
-| 3.1.1 / 3.1.2 Language | `lang` on `<html>`; `lang` on foreign passages | Site | `lang="sq"`; `lang="en"` on English snippets; per-route `lang` if `/en` ships |
+| 3.1.1 / 3.1.2 Language | `lang` on `<html>`; `lang` on foreign passages | Site | `lang="sq"` on Albanian routes, `lang="en"` on `/en/**`; language-switcher links carry `hreflang` and `lang`; company names are proper nouns and unchanged |
 | **3.2.6 Consistent help** *(2.2)* | Help/contact in the same place | Header/footer | Phone and "Na kontaktoni" in the same header and footer position on every page |
 | 3.3.1 / 3.3.3 Error identification & suggestion | Describe errors in text with suggestions | Form | "Gabim: shkruani një numër telefoni, p.sh. +383 49 000 000" |
 | 3.3.2 Labels or instructions | Visible labels | Form | Labels above fields; required stated in text |

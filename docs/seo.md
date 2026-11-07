@@ -1,6 +1,6 @@
 # SEO, AEO and GEO strategy
 
-> **Status: PROPOSED. No SEO work below is implemented yet.** Evidence: `research/resources.md` (Google documentation, verified 2026-11-07) and `research/existing-site-audit.md` §6. Assumes D-001 option B and Albanian-only launch (D-002); deltas in §9.
+> **Status: PROPOSED. No SEO work below is implemented yet.** Evidence: `research/resources.md` (Google documentation, verified 2026-11-07) and `research/existing-site-audit.md` §6. Reflects the owner's decisions of 2026-11-07: one domain (D-001) and Albanian + English (D-002, English gated on human-approved text — D-020). §9 is therefore active.
 > Last updated: 2026-11-07
 
 ## 0. Honest constraints
@@ -24,7 +24,7 @@ Do: unique descriptive titles; unique, accurate meta descriptions; descriptive a
 | TORRE HOME | Transactional: buy an apartment | `banesa në shitje Ferizaj`, `apartamente Ferizaj`, `banesa rruga Emin Duraku` |
 | Kompania | Trust/informational | `TORRE Group histori`, `kush është TORRE Group` |
 | Kontakti | Navigational/transactional | `TORRE Group kontakt`, `TORRE Group telefon` |
-| English (if approved) | Diaspora/foreign | `construction company Kosovo`, `PVC windows Kosovo`, `apartments for sale Ferizaj` |
+| English (D-002) | Diaspora/foreign | `construction company Kosovo`, `PVC windows Kosovo`, `apartments for sale Ferizaj` |
 
 Use these as *vocabulary for natural, specific copy* — never as repeated strings (the Cormack site's suburb-list repetition is the pattern we reject).
 
@@ -125,9 +125,9 @@ Sitemap: https://torre-ks.com/sitemap.xml
 
 **GEO — be easy to discover, interpret and cite.** Consistent entity naming everywhere (`TORRE Group`, `MAGFA GROUP`, `SWISSTECH`, `TORRE DI UMBRIA`, `TORRE HOME` — same spelling, same capitalisation, same address and phone in the header, footer, contact page, JSON-LD, `llms.txt` and any directory listings); one factual definition sentence per entity reused verbatim; static, crawlable HTML; project pages with specifics (place, year when known, what was built); strong internal topical links; accurate, unique metadata. **Off-site (client actions, not ours to fabricate):** a verified Google Business Profile for the SWISSTECH factory and any other premises; consistent business listings; real press or partner mentions if they exist. We will not create reviews, testimonials, directory spam or backlinks.
 
-## 9. Multilingual (conditional on D-002)
+## 9. Multilingual (D-002: Albanian + English — decided)
 
-Albanian only → no hreflang. If English is approved: `/en/…` mirror, `hreflang` `sq`, `en`, `x-default` (Albanian) on every page and in the sitemap, self-referencing canonicals, each page lists itself **and** all variants and links reciprocally (Google: non-reciprocal annotations are ignored), human-translated metadata and JSON-LD `inLanguage`, no automatic language redirects (a visible switcher instead). Language codes ISO 639-1 (`sq`, `en`), regions only if needed.
+Albanian is the default; English lives under `/en/…` (route table in `sitemap.md` §6) and is switched on only after the owner approves the human-reviewed translation (D-020) — until then `/en/**` is `noindex` and absent from the sitemap and hreflang. When enabled: `/en/…` mirror, `hreflang` `sq`, `en`, `x-default` (Albanian) on every page and in the sitemap, self-referencing canonicals, each page lists itself **and** all variants and links reciprocally (Google: non-reciprocal annotations are ignored), human-translated metadata and JSON-LD `inLanguage`, no automatic language redirects (a visible switcher instead). Language codes ISO 639-1 (`sq`, `en`), regions only if needed.
 
 ## 10. Measurement and validation
 

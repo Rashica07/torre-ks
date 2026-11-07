@@ -1,6 +1,6 @@
 # TORRE — Design system
 
-> **Status: PROPOSED. Nothing in this document is implemented yet.** It becomes authoritative for implementers once the open items in `decisions.md` that it depends on (D-001, D-004, D-005, D-011) are closed. Every number below that is a contrast ratio was computed (WCAG 2.x relative-luminance formula); typography and spacing values are design proposals, not measurements.
+> **Status: PROPOSED. Nothing in this document is implemented yet.** D-001 (one domain), D-002 (Albanian + English), D-004 (per-company colours) and D-019 (per-company design within one system) were decided on 2026-11-07 and are reflected here; D-005 (logos) and D-011 (typeface gate) are still open and it becomes authoritative for implementers when they close. Every number below that is a contrast ratio was computed (WCAG 2.x relative-luminance formula); typography and spacing values are design proposals, not measurements.
 > Last updated: 2026-11-07 · Evidence for the references: `docs/research/references.md`
 
 ## 1. Brand direction
@@ -11,7 +11,7 @@
 |---|---|
 | **Say what we do** | The first screen states, in plain Albanian, what TORRE is and does. No slogan that could belong to any company. |
 | **Monumental, then quiet** | Type scale and empty space do the impressing (ref. C). Few elements per screen. |
-| **One system** | One grid, one type system, one palette, one component set for the group and the four divisions (ref. E consistency). |
+| **One system, four characters** | One grid, one type system, one set of neutrals and one component set for the group and the four companies (ref. E consistency) — while each company keeps its own accent colour, base surface and page composition (D-004, D-019). |
 | **Honest imagery** | Real work only. Renders are labelled as renders. Stock photography is never presented as TORRE's work. |
 | **Facts, not claims** | Only verified facts appear as numbers, warranties, prices (see `content.md`). |
 | **Contact is always one step away** | Persistent header CTA, `tel:`/WhatsApp everywhere, a dedicated contact page, a closing contact section on every page. |
@@ -24,7 +24,8 @@ Sources of influence: **Flintco** for communication order and discipline (A) · 
 
 - The brief's candidate palette is a good base but **fails WCAG AA in three places** (computed): `#777A79` muted text on `#F4F3EF` = **3.90 : 1** (needs 4.5); on `#E9E8E3` = **3.53 : 1**; accent `#A34D3C` on charcoal `#202326` = **2.77 : 1**.
 - The brief's border `#D8D7D1` on `#F4F3EF` = 1.30 : 1 — fine for **decorative** hairlines, **not** for form-control boundaries (WCAG 1.4.11 needs 3 : 1).
-- The current group mark is gold `#c4954a` on charcoal `#14171a`. Gold on warm white = 2.44 : 1 (unusable for text on light). Accent choice is **D-004 (open)**; tokens below assume **Option 1 (red)**; Option 2 (gold) swaps only the `accent-*` tokens.
+- The current group mark is gold `#c4954a` on charcoal `#14171a`. Gold on warm white = 2.44 : 1 (unusable for text on light), 5.82 : 1 on `#202326`.
+- **D-004 decided: keep per-company colours.** The brief's single red accent is therefore retired as a *site-wide* accent; §2.2's `--color-accent` is now a **per-division token** (§2.7). The group level is neutral. The original company accents also fail AA in places — see §2.7 for the corrected values.
 
 ### 2.2 Semantic tokens (light theme — default)
 
@@ -38,9 +39,9 @@ Sources of influence: **Flintco** for communication order and discipline (A) · 
 | `--color-text-disabled` | `#8E918F` | Disabled labels (exempt from AA; paired with `aria-disabled` + a visual cue other than colour) | on surface 2.59 |
 | `--color-border` | `#D8D7D1` | Decorative hairlines and dividers only | 1.30 (decorative) |
 | `--color-border-strong` | `#7A7D7B` | Input/control boundaries | on bg **3.75**, on surface **3.39** (≥ 3) |
-| `--color-accent` | `#A34D3C` | Links, primary action, focus accents, numerals | on bg **5.13**, surface 4.65, raised 5.46 |
-| `--color-accent-hover` | `#8C3F30` | Hover/pressed accent | on bg **6.59** |
-| `--color-on-accent` | `#FFFFFF` | Text on accent fills | on accent **5.70**, on hover 7.32 |
+| `--color-accent` | **group level:** `#202326` (charcoal) · **division level:** see §2.7 | Links, primary action, numerals | group: 14.22 on bg · divisions: §2.7 |
+| `--color-accent-hover` | group `#0F1113` (17.04 on bg) · divisions §2.7 | Hover/pressed accent | — |
+| `--color-on-accent` | group `#F4F3EF` (on `#202326` 14.22) · divisions `#FFFFFF` | Text on accent fills | §2.7 |
 | `--color-focus` | `#202326` | Focus ring on light surfaces (2 px, 3 px offset) | on bg 14.22 |
 
 ### 2.3 Dark sections (hero-adjacent bands, contact, footer)
@@ -53,8 +54,8 @@ Sources of influence: **Flintco** for communication order and discipline (A) · 
 | `--color-dark-muted` | `#A3A6A4` | on dark-bg **6.43**, on dark-surface 5.57 |
 | `--color-dark-border` | `#4A4E51` | Decorative hairlines (1.88; decorative) |
 | `--color-dark-border-strong` | `#8A8D8B` | Input borders on dark: on dark-bg **4.71**, on dark-surface **4.08** |
-| `--color-accent-on-dark` | `#D2806E` | Accent as **text** on dark: **5.30** on dark-bg, 4.60 on dark-surface. (The light-theme accent is 2.77 on dark — never use it for text there.) |
-| `--color-accent-on-dark-hover` | `#E09A8A` | 6.89 on dark-bg |
+| `--color-accent-on-dark` | group: gold `#C4954A` (**5.82** on dark-bg, 5.05 on dark-surface) · divisions §2.7 | Accent as **text** on dark. Never reuse the light-theme accent on dark. |
+| `--color-accent-on-dark-hover` | group `#D8AC66` (7.53 on dark-bg) · divisions §2.7 | — |
 | `--color-focus-on-dark` | `#F4F3EF` | Focus ring on dark (14.22) |
 
 ### 2.4 State rules
@@ -67,7 +68,7 @@ Sources of influence: **Flintco** for communication order and discipline (A) · 
 
 ### 2.5 Restraint rules
 
-One accent only. No gradients, except the single scrim used behind text-over-image (see §5.9). No per-section colours. Dark sections invert the same palette. Division identity = number + name, never colour (D-004 option 1).
+**One accent per page**, set by the company the page belongs to (group pages: none). No gradients, except the single scrim used behind text-over-image (see §5.9). No per-section colours *within* a page. Dark sections invert the same palette. A company's colour appears only on its own pages and in its logo lockup; the group pages never mix company colours (a company colour appears on the group home only as a small marker inside that company's row).
 
 ### 2.6 Token implementation (proposed CSS)
 
@@ -76,11 +77,11 @@ One accent only. No gradients, except the single scrim used behind text-over-ima
   --color-bg:#F4F3EF; --color-surface:#E9E8E3; --color-raised:#FBFAF7;
   --color-text:#202326; --color-text-muted:#5E6160; --color-text-disabled:#8E918F;
   --color-border:#D8D7D1; --color-border-strong:#7A7D7B;
-  --color-accent:#A34D3C; --color-accent-hover:#8C3F30; --color-on-accent:#fff;
+  --color-accent:#202326; --color-accent-hover:#0F1113; --color-on-accent:#F4F3EF; /* group level; divisions override (§2.7) */
   --color-focus:#202326;
   --color-dark-bg:#202326; --color-dark-surface:#2A2E31; --color-dark-text:#F4F3EF;
   --color-dark-muted:#A3A6A4; --color-dark-border:#4A4E51; --color-dark-border-strong:#8A8D8B;
-  --color-accent-on-dark:#D2806E; --color-accent-on-dark-hover:#E09A8A; --color-focus-on-dark:#F4F3EF;
+  --color-accent-on-dark:#C4954A; --color-accent-on-dark-hover:#D8AC66; --color-focus-on-dark:#F4F3EF;
 }
 [data-surface="dark"] { /* remap semantic tokens once; components never branch on theme */
   --color-bg:var(--color-dark-bg); --color-surface:var(--color-dark-surface);
@@ -92,6 +93,27 @@ One accent only. No gradients, except the single scrim used behind text-over-ima
 ```
 
 (The existing tokens are HSL triplets consumed as `hsl(var(--bg))`. Migration to hex-valued semantic tokens is a Milestone-1 task; Tailwind's config maps them.)
+
+### 2.7 Per-company theme tokens (D-004 option 3, D-019)
+
+Each company page wrapper carries `data-division="magfa|swisstech|torre-umbria|torrehome"`, which remaps **only** the accent tokens and the base surface. Original brand accents were kept as far as AA allows; where they fail as *text* the nearest passing shade is used (computed; "bg" = `#F4F3EF`, "surf" = `#E9E8E3`, "dark" = `#202326`, "dark-surf" = `#2A2E31`).
+
+| Company | Base surface (as today) | Original accent | `--color-accent` (light text/fills) | `--color-accent-hover` | `--color-on-accent` | `--color-accent-on-dark` (text on dark) | Notes |
+|---|---|---|---|---|---|---|---|
+| **MAGFA GROUP** | Light | `#0072A7` (4.77 on bg, **4.32 on surf — fails**) | `#006A9E` — bg **5.32**, surf **4.81**; fill+white **5.91** | `#005A85` — bg 6.75, surf 6.11 | `#FFFFFF` | `#5BB0DC` — dark **6.53**, dark-surf 5.67 | Original blue on charcoal is 2.98 : 1 |
+| **SWISSTECH** | Dark | `#00A0A2` (**2.89 on bg — fails**) | `#006F71` — bg **5.38**, surf **4.87**; fill+white **5.98** | `#005B5D` — bg 7.12 | `#FFFFFF` | `#00A0A2` (original) — dark **4.93**, dark-surf **4.27 — use on dark-bg only** | Dark-ink on teal fill 4.93 |
+| **TORRE DI UMBRIA** | Dark | `#5F9169` (**3.29 on bg — fails**; 4.32 on dark — fails body) | `#3A6845` — bg **5.83**, surf **5.27**; fill+white **6.47** | `#2B5035` — bg 8.22 | `#FFFFFF` | `#6FA67A` — dark **5.57**, dark-surf **4.83** | |
+| **TORRE HOME** | Light | `#27496D` (8.37 on bg; **1.70 on dark — fails**) | `#27496D` — bg **8.37**, surf 7.57; fill+white 9.29 | `#1C3652` — bg 11.13 | `#FFFFFF` | `#8FB0D6` — dark **7.03**, dark-surf 6.10 | |
+| **Group (home, Kompania, Kontakti, footer)** | Light + dark sections | gold mark `#C4954A` | `#202326` (charcoal) | `#0F1113` | `#F4F3EF` | gold `#C4954A` — dark **5.82**, dark-surf 5.05 | No hue accent; gold appears only on dark |
+
+Rules: the page's base surface is the company's own (SWISSTECH and TORRE DI UMBRIA keep their dark identity; MAGFA and TORRE HOME their light one), but every inverted section still follows §2.3. Focus rings stay charcoal/warm-white regardless of company (14.22 : 1) so keyboard users get one consistent indicator. The old per-company greys/tints (`brands.ts` themes: `#faf8f6`, `#0f1419`, `#14171a`, `#f0f3f7` …) are replaced by the shared neutrals; the *hue* identity is what carries over. Pairs to avoid: company accent as text on the *other* surface (e.g. SWISSTECH teal `#00A0A2` on light).
+
+```css
+[data-division="magfa"]  { --color-accent:#006A9E; --color-accent-hover:#005A85; --color-on-accent:#fff; --color-accent-on-dark:#5BB0DC; }
+[data-division="swisstech"] { --color-accent:#006F71; --color-accent-hover:#005B5D; --color-on-accent:#fff; --color-accent-on-dark:#00A0A2; }
+[data-division="torre-umbria"] { --color-accent:#3A6845; --color-accent-hover:#2B5035; --color-on-accent:#fff; --color-accent-on-dark:#6FA67A; }
+[data-division="torrehome"] { --color-accent:#27496D; --color-accent-hover:#1C3652; --color-on-accent:#fff; --color-accent-on-dark:#8FB0D6; }
+```
 
 ## 3. Typography
 
@@ -105,7 +127,7 @@ One accent only. No gradients, except the single scrim used behind text-over-ima
 | IBM Plex Sans | Strong engineering character, but wide metrics hurt large Albanian headlines; Plex Mono is the mono fallback. |
 | Neue Montreal | Commercial licence (not procured). Rejected. |
 
-Replaces the four families currently loaded on every page (Inter, Outfit, Instrument Serif, JetBrains Mono) → two files of one superfamily.
+Albanian + English both need `latin`/`latin-ext`. Replaces the four families currently loaded on every page (Inter, Outfit, Instrument Serif, JetBrains Mono) → two files of one superfamily.
 
 ### Scale (fluid; desktop value is at ≥1440 px, mobile at 390 px)
 

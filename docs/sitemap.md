@@ -1,6 +1,6 @@
 # Sitemap — human-readable website architecture
 
-> **Status: PROPOSED.** Assumes **D-001 option B (one domain, four divisions)** and **D-002 Albanian-only at launch**. §6 lists what changes under the alternatives. Existing routes are marked *(exists)*; everything else is *(new)*.
+> **Status: PROPOSED.** Reflects the owner's decisions of 2026-11-07: **D-001 one domain, four company sections** (each with its own design — D-019) and **D-002 Albanian + English** (English enabled only after human-approved translation — D-020). §6 lists the alternatives that were not chosen. Existing routes are marked *(exists)*; everything else is *(new)*.
 > Last updated: 2026-11-07
 
 ## 1. Route tree (option B)
@@ -77,8 +77,20 @@ Subdomain DNS stays pointed at the project so the redirects keep working indefin
 
 ## 6. Alternatives
 
-- **Option A (keep subdomains):** the tree above is built **per host** (each division gets its own `/`, `/kompania`-style subpages as needed); the hub keeps `/`, `/kompania`, `/kompanite`, `/projektet`, `/kontakti`; each host has its own sitemap and canonical; cross-host links are plain links; the legal pages exist once (hub) with the other hosts linking to them.
-- **Language variations (if D-002 approves English):** mirror the whole tree under `/en/` (e.g. `/en/about`, `/en/companies`, `/en/contact`), Albanian remains un-prefixed; every URL declares `hreflang` `sq`, `en` and `x-default` (→ Albanian) in `<link>` tags and in the sitemap; self-referencing canonicals; language switcher is real links. No `/en` URL exists until its content is human-translated and approved.
+- **Option A (keep subdomains) — NOT chosen (D-001):** the tree above is built **per host** (each division gets its own `/`, `/kompania`-style subpages as needed); the hub keeps `/`, `/kompania`, `/kompanite`, `/projektet`, `/kontakti`; each host has its own sitemap and canonical; cross-host links are plain links; the legal pages exist once (hub) with the other hosts linking to them.
+- **Language variations (D-002: Albanian + English — decided):** the whole tree is mirrored under `/en/`; Albanian stays un-prefixed.
+
+  | Albanian (default) | English |
+  |---|---|
+  | `/` | `/en` |
+  | `/kompania` | `/en/about` |
+  | `/kompanite` | `/en/companies` |
+  | `/magfa`, `/swisstech`, `/torre-umbria`, `/torrehome` | `/en/magfa`, `/en/swisstech`, `/en/torre-umbria`, `/en/torrehome` (proper names unchanged) |
+  | `/projektet`, `/projektet/torre-home-ferizaj` | `/en/projects`, `/en/projects/torre-home-ferizaj` |
+  | `/kontakti` | `/en/contact` |
+  | `/politika-e-privatesise`, `/kushtet-e-sherbimit`, `/deklarata-e-qasshmerise` | `/en/privacy-policy`, `/en/terms`, `/en/accessibility` |
+
+  Every page declares `hreflang` `sq`, `en` and `x-default` (→ Albanian) in `<link>` tags and in the sitemap; self-referencing canonicals; a header language switcher made of real links to the equivalent page. **Gate (D-020):** until the English text is human-reviewed and approved, `/en/**` is built but `noindex`, absent from the sitemap/hreflang/nav, so nothing half-translated is exposed.
 
 ## 7. Routes removed
 

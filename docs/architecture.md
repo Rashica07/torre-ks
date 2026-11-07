@@ -1,6 +1,6 @@
 # Architecture
 
-> **Status: PROPOSED target architecture.** §1 records the **current** state (Fetched from the repository at commit `f0e42a3`); everything from §2 on is the plan and is **not implemented**. Assumes D-001 option B, D-002 Albanian-only at launch.
+> **Status: PROPOSED target architecture.** §1 records the **current** state (Fetched from the repository at commit `f0e42a3`); everything from §2 on is the plan and is **not implemented**. Reflects the owner's decisions of 2026-11-07: one domain (D-001), Albanian + English (D-002), per-company design within one system (D-004, D-019).
 > Last updated: 2026-11-07
 
 ## 1. Current state (as built today)
@@ -76,16 +76,16 @@ torre-ks/
 | Host redirects (subdomains, www) | `vercel.json` `redirects` with `has: [{ type: "host", value: … }]` (preferred, platform-level, no function invocation) or `proxy.ts` | Per `sitemap.md` §5 |
 | 404 | `not-found.tsx`, HTTP 404, `noindex` | Existing, restyled |
 
-Language: Albanian is default and un-prefixed. If D-002 approves English the structure becomes `src/app/[lang]/…` with `generateStaticParams` over `["sq","en"]` and `sq` served at un-prefixed paths via rewrites; designed now, built only when approved. No `/en` route exists until then.
+Language (D-002 decided): the structure is `src/app/[lang]/…` with `generateStaticParams` over `["sq","en"]`; Albanian is served at un-prefixed paths via rewrites and English under `/en/` with English slugs (`sitemap.md` §6). A typed `dictionary` per language holds UI strings; page content is localised in `content/` (each `Fact`/text has `sq` and `en` fields). `/en/**` is built from M1 but stays `noindex` and out of sitemap/hreflang until the owner approves the translation (D-020). `<html lang>` is set per route.
 
 ## 5. Content and data structures
 
 ```ts
 // content/types.ts  (sketch — proposed)
-export type Tier = "verified" | "client" | "unverified";
+export type Tier = "verified" | "corroborated" | "client" | "unverified";   // corroborated = client-supplied + independent public source (D-007)
 
 export interface Fact<T = string> {
-  value: T;
+  value: T;                // localised fields use { sq: T; en?: T }
   tier: Tier;
   source: string;          // e.g. "commit 39daa78", "client email 2026-11-10", "document: …"
   updated: string;         // ISO date; also drives sitemap lastmod and llms-full.txt

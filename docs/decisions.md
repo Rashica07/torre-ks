@@ -7,13 +7,13 @@ Legend: **OPEN** = needs the client/owner · **ASSUMED** = proceeding on this un
 
 | ID | Decision | Status | Blocks |
 |---|---|---|---|
-| D-001 | Site architecture: one domain vs. five hosts | **OPEN** | M1 |
-| D-002 | Languages | **OPEN** | M1 (routing), M5 |
+| D-001 | Site architecture: one domain vs. five hosts | **DECIDED** — one domain (2026-11-07) | — |
+| D-002 | Languages | **DECIDED** — Albanian + English (2026-11-07); English text needs approval before publish | M1 (routing), M5 |
 | D-003 | Redesign order: hub + system first, then divisions | ASSUMED | — |
-| D-004 | Identity: shared system, accent colour, per-brand colours | **OPEN** | M1 |
+| D-004 | Identity: shared system, accent colour, per-brand colours | **DECIDED** — keep per-company colours (2026-11-07) | — |
 | D-005 | Wordmark / official logo files | **OPEN** (content request) | M2 |
 | D-006 | Contact handling: provider, recipients, spam control | **OPEN** | M4 |
-| D-007 | Policy for unverified claims | ASSUMED (strict) | M2 |
+| D-007 | Policy for unverified claims | **DECIDED (interpreted)** — keep client-confirmed claims, verified by web research; withhold the rest | M2 |
 | D-008 | Horizontal browsing approach | ASSUMED | M3 |
 | D-009 | Novus Pulse CMS: keep dormant or build on it | **OPEN** (low urgency) | — |
 | D-010 | Allow reference/CDN hosts for a pixel-level reference pass | **OPEN** (optional) | — |
@@ -24,11 +24,18 @@ Legend: **OPEN** = needs the client/owner · **ASSUMED** = proceeding on this un
 | D-015 | Remove `/preview/**`, variants system and testimonial data from production | ASSUMED | M1 |
 | D-016 | Analytics | ASSUMED | M5 |
 | D-017 | Docs describe *proposed* state until implemented | DECIDED | — |
+| D-019 | Division design freedom: one codebase, shared system, per-company theme | DECIDED (follows D-001 + D-004) | M1 |
+| D-020 | English content process | ASSUMED | M3 |
 | D-018 | Keep the existing `robots.txt` blocks on SEO-tool crawlers (Ahrefs, Semrush, MJ12, DotBot, Rogerbot, MegaIndex, BLEXBot) | ASSUMED (keep) | M5 |
 
 ---
 
-## D-001 — Site architecture (OPEN, blocks M1)
+## D-001 — Site architecture (DECIDED 2026-11-07)
+
+> **Owner answer:** *"i would want each to be their own and they do get their own design but i wouldn't want you to rewrite 5 different pages so we could do one domain??"*
+> **Recorded as:** option B — one domain, **one codebase**, four company sections at `/magfa`, `/swisstech`, `/torre-umbria`, `/torrehome`; each company keeps its **own design** within a shared component system (D-019). Old subdomains 301 to the new paths. Apex vs `www` direction still to confirm at cutover (all metadata already uses apex).
+
+*Original analysis follows.*
 
 **Context.** Today: five hostnames (`torre-ks.com` hub + four brand subdomains), each a one-screen page, tied together by `middleware.ts`. The brief calls for About / Services / Projects / Contact pages and strong SEO. The client's earlier work deliberately gave each brand its own subdomain ("rebuild site family per client spec", commit `486daed`), so this is a **brand-identity** decision, not a purely technical one.
 
@@ -42,7 +49,11 @@ Legend: **OPEN** = needs the client/owner · **ASSUMED** = proceeding on this un
 
 **Needs from owner:** pick A or B; confirm whether the apex or `www` host is preferred (today apex → www, but all metadata says apex).
 
-## D-002 — Languages (OPEN)
+## D-002 — Languages (DECIDED 2026-11-07: Albanian + English)
+
+> **Owner answer:** Albanian + English. **Recorded as:** `sq` default (un-prefixed), `en` under `/en/`. The brief forbids machine-translated placeholders, so **no `/en` URL goes live until the English text is human-reviewed and approved by the owner** (D-020). Routing, hreflang, metadata and JSON-LD are built for both languages from M1.
+
+*Original analysis follows.*
 
 Current: Albanian only. Kosovo audiences also use English (diaspora, suppliers, investors) and Serbian.
 
@@ -53,7 +64,11 @@ Current: Albanian only. Kosovo audiences also use English (diaspora, suppliers, 
 
 M1 foundation → M2 hub + shared system → M3 divisions → M4 projects/contact/legal → M5 SEO/AEO/GEO → M6 QA. Reversible.
 
-## D-004 — Identity: system, accent, per-brand colour (OPEN, blocks M1)
+## D-004 — Identity: system, accent, per-brand colour (DECIDED 2026-11-07: keep per-company colours)
+
+> **Owner answer:** keep per-company colours (option 3). **Recorded as:** shared grid, type, components and neutrals; each company keeps its accent hue and its own page design (D-019). The group level (home, About, Contact, footer) uses neutrals with the gold of the existing `T` mark on dark only — no group hue accent. **Accessible per-company tokens were computed** — the original accents fail AA as text on one surface or the other (teal 2.89 : 1 and green 3.29 : 1 on warm white; blue 2.98 : 1 and navy 1.70 : 1 on charcoal); see `design.md` §2.7. The earlier red-accent recommendation is retired.
+
+*Original analysis follows.*
 
 **Findings.** The only group-level identity element is the `T` mark: gold `#c4954a` on charcoal `#14171a`. The four divisions use blue `#0072a7`, teal `#00a0a2`, green `#5f9169`, navy `#27496d`. The brief proposes charcoal + warm white + industrial red `#A34D3C` and says to investigate existing identity first.
 
@@ -77,7 +92,11 @@ Today nothing is submitted (`mailto:`). Proposed: `POST /api/contact` (Next.js r
 
 **Needs from owner:** which mailbox(es) receive enquiries (the per-brand `info@…` addresses are unverified); preferred sender service (assumption: Resend, which needs a verified sending domain and an API key set as an environment variable, never in the repo); whether leads should be stored (default: **no** — email only, minimum data); whether to add Cloudflare Turnstile (third-party script, needs CSP change) or rely on honeypot + rate limit (default).
 
-## D-007 — Unverified claims (ASSUMED: strict)
+## D-007 — Unverified claims (DECIDED 2026-11-07, interpreted)
+
+> **Owner answer:** *"both and researched from web".* **Interpreted as:** keep what the client confirms **and** check it against independent web sources before publishing (this combines both options offered). A new evidence tier **Corroborated** (independent public source, e.g. the Kosovo business registry) is added. Web research was done on 2026-11-07 — results in `content.md` §1b. Anything neither client-confirmed-and-corroborated nor otherwise verified stays withheld, and tax/VAT/finance statements and testimonials stay out regardless. *If this interpretation is wrong, tell me and I'll adjust.*
+
+*Original (strict) policy text follows.*
 
 Default: **only publish what is Verified or Client-supplied.** Remove or replace: published prices (→ "Kërkoni ofertë"), warranty terms, payment schedules, tax/VAT/notary statements, "A+ energy class", "100 % legalised", turnaround promises, all testimonials. The client can re-approve any item via the checklist in `content.md` §4; approved items must also state who maintains them. Rationale: the client has already corrected fabricated history twice; prices/warranties/tax statements are claims a visitor will rely on.
 
@@ -124,3 +143,11 @@ The current `robots.txt` blocks several third-party SEO-tool crawlers "to save b
 ## D-017 — Documentation status (DECIDED)
 
 Every document in `docs/` starts with a status line. Until a feature exists the document says **PROPOSED**; as each milestone lands, its documents are updated to **IMPLEMENTED** with the commit reference. No document may describe an unimplemented feature as present.
+
+## D-019 — Division design freedom (DECIDED, follows D-001 + D-004)
+
+One Next.js codebase. Shared: grid, type, spacing, buttons, forms, header/footer, motion, accessibility rules. Per company: accent tokens, base surface (light or dark), hero composition and imagery, section order and layout (`design.md` §7). Implemented as a `data-division="magfa|swisstech|torre-umbria|torrehome"` attribute on the page wrapper that remaps a small token set (`design.md` §2.7) — never by copying components. This is how "each has its own design" and "don't rewrite five sites" are both satisfied.
+
+## D-020 — English content process (ASSUMED)
+
+English is drafted from the **approved** Albanian copy, then reviewed by a fluent human (the owner or a translator) before `/en` pages are enabled. Until approved, the `/en` routes are built but excluded from the sitemap, hreflang and navigation (and `noindex`), so a half-translated site never ships. Slugs: English slugs under `/en/` (`/en/about`, `/en/companies`, `/en/projects`, `/en/contact`).

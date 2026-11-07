@@ -21,6 +21,8 @@ Group-level facts (Fetched from `torre-ks.com`):
 - Phone `+383 49 599 405` appears on every brand. Emails are `info@<brand>.torre-ks.com`. **Client-supplied** (commit `486daed` "real contact block"); mailbox existence/deliverability is **unverified**.
 - Language: Albanian only (`<html lang="sq">`, `og:locale=sq_AL`).
 
+**Independent corroboration (web research, 2026-11-07 — details in `docs/content.md` §1b):** the Kosovo business registry (via the ARBK Open mirror) lists *Torre Home SH.P.K.* (registered 11 Feb 2025, phone +383 49 599 405 — the number used on all four brands) and *Swisstech KS SH.P.K.* (registered 21 Sep 2017, Bibaj, **a different registered phone**). No registry hit was found for MAGFA, TORRE DI UMBRIA or a TORRE GROUP entity. Third-party listings confirm TORRE HOME apartments on Emin Duraku street. The 1999 history has no independent trace.
+
 **Previously removed by the client's own corrections:** a 1950 founding date, a "four generations" story. Anything of that kind that re-appears is a regression.
 
 ## 2. Property map (Fetched)
