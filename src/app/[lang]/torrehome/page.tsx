@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isLang } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, divisionJsonLd } from "@/lib/seo/jsonld";
+import { JsonLd } from "@/components/JsonLd";
 import { getDivision } from "@/content/divisions";
 import { pages } from "@/content/pages";
 import { publish } from "@/content/types";
@@ -25,6 +27,9 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   // exteriors first, then interiors/parking; the small corner crop is used on the home page only
   const plates = t.plates.filter((p) => !p.src.includes("terrace-corner"));
   return (
+    <>
+    <JsonLd data={divisionJsonLd("torrehome", lang)} />
+    <JsonLd data={breadcrumbJsonLd("torrehome", lang)} />
     <main id="main" data-division="torrehome">
       <section className="split" data-surface="paper">
         <div className="split__side">
@@ -60,5 +65,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
       <ContactPlane lang={lang} title={t.ctaTitle[lang]} />
     </main>
+    </>
   );
 }

@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isLang } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, divisionJsonLd } from "@/lib/seo/jsonld";
+import { JsonLd } from "@/components/JsonLd";
 import { getDivision } from "@/content/divisions";
 import { pages } from "@/content/pages";
 import { publish } from "@/content/types";
@@ -26,6 +28,9 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const rows = order.map((idx, i) => ({ type: `W${i + 1}`, what: s[idx], kind: kinds[i][lang] }));
   const factory = d.address ? publish(d.address) : null;
   return (
+    <>
+    <JsonLd data={divisionJsonLd("swisstech", lang)} />
+    <JsonLd data={breadcrumbJsonLd("swisstech", lang)} />
     <main id="main" data-division="swisstech" data-surface="ink">
       <section className="dhero" aria-labelledby="t">
         <div className="wrap">
@@ -60,5 +65,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
       <ContactPlane lang={lang} title={t.ctaTitle[lang]} />
     </main>
+    </>
   );
 }

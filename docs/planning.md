@@ -1,6 +1,6 @@
 # Implementation plan
 
-> **Status: RE-PLANNED after the owner's "Independent Redesign" directive (2026-11-07).** M0 (research/docs) ✅. M1's *engineering* (routing, i18n, provenance guard, SEO helpers, tests, CI) ✅ is kept, but **M1's visual layer is superseded and will be deleted** (`research/m1-audit.md`). **Gate 0 — approval of the new creative direction — comes before any rebuild.** M2–M6 below are PROPOSED. The owner said "go on" after the M0 review, which is taken as approval to start M1. Dates are intentionally absent (capacity unknown); effort is given as S / M / L.
+> **Status (2026-11-07): Gate 0 PASSED — the owner approved "Fasada", Anton + Instrument Sans, the palette and the typographic wordmark.** M0 ✅, M1 engineering ✅, **M2 (shell + Home) ✅ and M3 (Companies, four company pages, About) ✅ IMPLEMENTED and merged (PR #9)**; OG images and per-company JSON-LD from M4/M5 are also done. Still open: the contact request form (M4, needs a delivery mailbox — D-006), projects index, English review/approval (D-020), Lighthouse/real-device pass (M6). Dates are intentionally absent; effort is given as S / M / L.
 > Last updated: 2026-11-07
 
 ## 1. Objectives
@@ -166,3 +166,14 @@ Defects found are fixed, then the test is re-run — not merely listed.
 ## 11. Working agreements
 
 Milestones are reviewed before moving on; consequential decisions go through `decisions.md`; minor ones are stated as assumptions and proceed; docs are updated in the same PR as the code they describe; nothing is declared complete before it is tested.
+
+
+## Delivery log — M2/M3 (2026-11-07)
+
+**Shipped:** new tokens and surfaces; self-hosted Anton + Instrument Sans; SVG wordmark window; floor rail; native-`<dialog>` MENU; Home; Companies (towers + schedule table); MAGFA (house in section, legend, city skyline); SWISSTECH (window types W1–W6 + schedule); TORRE DI UMBRIA (scope slabs, stated as illustration, not timeline); TORRE HOME (sticky status elevation, plates, floor-plan viewer); About (`/kompania`, 1999 → sot); Contact (phone, WhatsApp, factory address); 404 (`global-not-found`); restyled legal pages (per-brand mailboxes removed — unverified); redesigned OG images; Organization + BreadcrumbList JSON-LD per company.
+
+**Verified:** 29 unit tests, 118 browser tests (axe 0 violations at 390/1440 on every page, keyboard + dialog focus, no-JS, reduced motion, 320 px reflow, redirects, SEO, wordmark luminance), 174 contrast role checks, build, lint, typecheck.
+
+**Deviations:** the Cormack-style pinned track was not built (D-008 stays native scroll); scroll-driven plate-open and slab-in are CSS-only progressive enhancements (slabs move but never fade, because faded text fails contrast while animating); the footer ghost wordmark is an SVG so it is not text.
+
+**Not done:** contact form and `/api/contact` (no verified mailbox/provider); projects index/template; English not approved; no Lighthouse or real-device run (needs a deployed preview); no photography beyond TORRE HOME renders.

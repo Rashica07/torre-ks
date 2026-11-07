@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isLang } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, divisionJsonLd } from "@/lib/seo/jsonld";
+import { JsonLd } from "@/components/JsonLd";
 import { getDivision } from "@/content/divisions";
 import { pages } from "@/content/pages";
 import { publish } from "@/content/types";
@@ -25,6 +27,9 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const s = d.services.map((x) => publish(x)[lang]);
   const topDown = [0, 1, 2, 5, 4, 3]; // visual top → base
   return (
+    <>
+    <JsonLd data={divisionJsonLd("torre-umbria", lang)} />
+    <JsonLd data={breadcrumbJsonLd("torre-umbria", lang)} />
     <main id="main" data-division="torre-umbria" data-surface="ink">
       <section className="dhero" aria-labelledby="t">
         <div className="wrap">
@@ -52,5 +57,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
       <ContactPlane lang={lang} title={t.ctaTitle[lang]} />
     </main>
+    </>
   );
 }

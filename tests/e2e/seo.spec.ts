@@ -66,3 +66,19 @@ test("robots.txt, llms.txt and manifest are served", async ({ request }) => {
   expect(m.status()).toBe(200);
   expect((await m.json()).name).toBeTruthy();
 });
+
+test("company pages emit a verified Organization node and a breadcrumb", async ({ page }) => {
+  for (const [path, name] of [["/magfa", "MAGFA GROUP"], ["/swisstech", "SWISSTECH"], ["/torre-umbria", "TORRE DI UMBRIA"], ["/torrehome", "TORRE HOME"]]) {
+    await page.goto(path);
+    const blocks = await page.locator('script[type="application/ld+json"]').evaluateAll((s) => s.map((x) => JSON.parse(x.textContent || "")));
+    const org = blocks.find((b) => b["@type"] === "Organization");
+    expect(org.name, path).toBe(name);
+    expect(org.parentOrganization["@id"]).toBe("https://torre-ks.com/#org");
+    expect(blocks.find((b) => b["@type"] === "BreadcrumbList").itemListElement).toHaveLength(2);
+    const raw = JSON.stringify(blocks).toLowerCase();
+    for (const forbidden of ["aggregaterating", "review", "offers", "openinghours", "price", "telephone"]) expect(raw, `${path} ${forbidden}`).not.toContain(forbidden);
+  }
+  await page.goto("/magfa");
+  const magfa = JSON.parse((await page.locator('script[type="application/ld+json"]').first().textContent()) || "{}");
+  expect(magfa.areaServed).toHaveLength(6);
+});
