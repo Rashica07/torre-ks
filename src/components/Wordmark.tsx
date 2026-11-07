@@ -5,11 +5,13 @@
  * font-size 530 with the spacing distributed to a 1312-unit width. Mobile: two rows (TOR / RE).
  */
 const IMG = "/images/torrehome/wordmark-fill.webp";
+const IMG_M = "/images/torrehome/wordmark-fill-m.webp";
 
 export function Wordmark() {
   return (
     <>
-      <link rel="preload" as="image" href={IMG} type="image/webp" />
+      <link rel="preload" as="image" href={IMG} type="image/webp" media="(min-width: 701px)" fetchPriority="high" />
+      <link rel="preload" as="image" href={IMG_M} type="image/webp" media="(max-width: 700px)" fetchPriority="high" />
       <svg className="hero__wm" viewBox="0 0 1312 470" aria-hidden="true" focusable="false">
         <defs>
           <pattern id="wm-d" patternUnits="userSpaceOnUse" width="1312" height="470">
@@ -25,7 +27,7 @@ export function Wordmark() {
         <defs>
           <pattern id="wm-m" patternUnits="userSpaceOnUse" width="354" height="440">
             <rect width="354" height="440" fill="#9aa3ad" />
-            <image href={IMG} x="-30" y="-60" width="440" height="600" preserveAspectRatio="xMidYMid slice" />
+            <image href={IMG_M} x="-30" y="-60" width="440" height="600" preserveAspectRatio="xMidYMid slice" />
           </pattern>
         </defs>
         <text x="0" y="206" fontFamily="Anton, Impact, sans-serif" fontSize="240" textLength="354" lengthAdjust="spacing" fill="url(#wm-m)">

@@ -6,8 +6,6 @@ import { SkipLink } from "@/components/SkipLink";
 import { Rail } from "@/components/Rail";
 import { TopBar } from "@/components/TopBar";
 import { Footer } from "@/components/Footer";
-import "@fontsource/anton/latin-400.css";
-import "@fontsource-variable/instrument-sans/wght.css";
 import "@/styles/tokens.css";
 import "@/styles/base.css";
 import "@/styles/fasada.css";
@@ -25,6 +23,10 @@ export default async function RootLayout({ children, params }: { children: React
   if (!isLang(lang)) notFound();
   return (
     <html lang={lang}>
+      <head>
+        <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-latin-400.woff2" crossOrigin="anonymous" />
+        <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-sans-latin-wght.woff2" crossOrigin="anonymous" />
+      </head>
       <body>
         <SkipLink lang={lang} />
         <Rail lang={lang} />

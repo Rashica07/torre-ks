@@ -8,6 +8,8 @@ import { company, PHONE_HREF, WHATSAPP_HREF } from "@/content/company";
 import { publish } from "@/content/types";
 import { ui } from "@/lib/i18n/dictionary";
 import { Button } from "@/components/Button";
+import { RequestForm } from "@/components/RequestForm";
+import { divisions } from "@/content/divisions";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -27,6 +29,11 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
         <h1 style={{ margin: "14px 0 24px" }}>{c.h1[lang]}</h1>
         <p className="lead" style={{ maxWidth: "40ch" }}>{c.lead[lang]}</p>
       </div>
+      <section className="section" style={{ paddingTop: 0 }} data-surface="paper">
+        <div className="wrap">
+          <RequestForm lang={lang} companies={divisions.map((d) => ({ id: d.id, name: d.name }))} />
+        </div>
+      </section>
       <section data-surface="bronze" className="contact section" aria-labelledby="phone-title">
         <div className="wrap">
           <h2 id="phone-title" className="cap" style={{ fontFamily: "var(--font-text)", fontSize: "var(--text-cap)", lineHeight: 1.3, letterSpacing: "0.14em" }}>{c.phone[lang]}</h2>
