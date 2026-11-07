@@ -1,25 +1,25 @@
 # Architecture
 
-> **Status: PROPOSED target architecture.** §1 records the **current** state (Fetched from the repository at commit `f0e42a3`); everything from §2 on is the plan and is **not implemented**. Reflects the owner's decisions of 2026-11-07: one domain (D-001), Albanian + English (D-002), per-company design within one system (D-004, D-019).
+> **Status: PARTIALLY IMPLEMENTED (Milestone 1).** §1 records the state **as built after M1** and what is still missing; §2 onward is the target — each section says what exists. The previous (pre-redesign) state is documented in `research/existing-site-audit.md`. Reflects the owner's decisions of 2026-11-07: one domain (D-001), Albanian + English (D-002), per-company design within one system (D-004, D-019).
 > Last updated: 2026-11-07
 
-## 1. Current state (as built today)
+## 1. State after Milestone 1 (as built)
 
 | Aspect | Today |
 |---|---|
-| Framework | Next.js **16.2.12** (App Router, Turbopack), React **18.3.1**, TypeScript, Tailwind **3.4**, PostCSS |
+| Framework | Next.js **16.2.12** (App Router, Turbopack), React **18.3.1**, TypeScript, Tailwind **3.4**, PostCSS. Engines `>=20.9.0` |
 | Hosting | Vercel (`vercel.json`: framework nextjs); five hostnames served by one deployment |
-| Routing | `src/middleware.ts` (deprecated convention in Next 16 → `proxy`) rewrites `/` on `magfa.`, `swisstech.`, `torre-umbria.`, `torrehome.`, `llms.` subdomains to `/magfa`… and **redirects** `/magfa`… on the apex to the subdomains |
-| Content | Hard-coded in `src/lib/brands.ts` (one `Brand` object per company: copy, services, stats, FAQs, **testimonials**, theme) |
-| Styling | CSS custom properties in `globals.css` (HSL triplets, fluid type scale, spacing scale, motion tokens) + per-brand inline `--t-*` theme variables + `design-variants.ts` (4 layout "variants") |
-| Fonts | `next/font/google`: Inter, Outfit, Instrument Serif, JetBrains Mono (all loaded in the root layout) |
-| Components | `src/components/*` (Navbar, BrandHero, Proof, ServicesBento, Gallery, Faq, Testimonials, CtaFooter, ContactBlock, ContactIntake, …) |
-| SEO | Per-brand `metadata` + `alternates.canonical`; `sitemap.ts`; static `robots.txt`; static `llms.txt` + HTML `/llms`; JSON-LD in `src/lib/schema.ts`; dynamic OG images (`/api/og*`, edge runtime) |
-| Forms | Client-only; end in `mailto:` (nothing is sent or stored) |
-| Third parties | Vercel Speed Insights; Novus Pulse CMS code present but unused by any page |
-| Security | CSP, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` set in `next.config.js` |
-| Rendering | `next build` lists every route as dynamic (ƒ); reason unidentified |
-| Tests | None. Only `tsc --noEmit` (`npm run typecheck`) and `scripts/check-contrast.mjs` (`npm run check:contrast`) |
+| Routing | `src/proxy.ts` (renamed from `middleware.ts`): Albanian un-prefixed → internal `/sq/*`; English slugs under `/en` rewritten to the Albanian-named folders; internal paths redirected (308) to the public URL. Old brand subdomains: permanent redirects in `next.config.js` (`has: host`). 404: experimental `globalNotFound` (`src/app/global-not-found.tsx`) |
+| Content | Typed, with provenance: `src/content/{types,company,divisions,pages,claims}.ts`. Facts carry a `Tier`; `publish()` throws on `unverified`; withheld claims live in `claims.ts` and are imported by nothing but the test |
+| Styling | `src/styles/{tokens,tailwind,motion}.css`: semantic hex tokens, fluid type scale, motion tokens, dark-surface remap, per-company `data-division` tokens; Tailwind maps the tokens (no raw hex in components) |
+| Fonts | `next/font/google`: **Geist + Geist Mono** only (variable, `latin` + `latin-ext`; glyph test passed) |
+| Components | `src/components/` (SkipLink, Wordmark [interim], Header, MobileNav [native `<dialog>`], CompaniesMenu, LanguageSwitcher [hidden until English approved], Footer, Reveal, JsonLd, LegalPage, Icons) and `src/sections/` (DivisionIndex, DivisionPage [skeleton], ContactBand, ContactPanel, NotFoundContent) |
+| SEO | `buildMetadata()` per route (unique titles/descriptions, absolute self-canonical, hreflang only when English is live, `noindex` for gated English and legal placeholders); generated `sitemap.xml` from the route registry; Organization + WebSite JSON-LD on the home page; OG images (`/api/og`, `/api/og/[brand]`, edge). `robots.txt` and `llms.txt` are **still the old files** (M5); the HTML `/llms` page is removed |
+| Forms | **None yet.** Contact is `tel:` + WhatsApp links; the validated endpoint ships in M4 |
+| Third parties | Vercel Speed Insights; Novus Pulse CMS code (`pulse.ts`, `PulseSyncProvider.tsx`, `/api/revalidate`, `socket.io-client`) kept untouched and unused (D-009 open) |
+| Security | Unchanged: CSP, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` in `next.config.js` |
+| Rendering | **All content routes SSG (●); the 404 and sitemap/manifest static (○)**; only `/api/*` are dynamic. The earlier all-dynamic output is resolved |
+| Tests | `npm run typecheck`, `npm run lint` (ESLint + jsx-a11y as errors), `npm run check:contrast` (135 checks over the real tokens), `npm test` (Vitest, 29 tests), `npm run test:e2e` (Playwright + axe, 104 tests, run against the production build), CI workflow in `.github/workflows/ci.yml` |
 
 ## 2. Principles
 
@@ -64,7 +64,7 @@ torre-ks/
 **Removed:** `src/app/preview/**`, `src/lib/design-variants.ts`, `src/lib/minimal-concepts.ts`, `src/lib/design-context.tsx`, `src/components/{VariantSwitcher,MinimalConcept,Testimonials,OdometerDigits,ContactIntake,Pourquoi,Process,ServicesBento,Proof,BrandHero,BrandPage}.tsx` (replaced by `sections/`), testimonials data, `app/llms/page.tsx`, per-brand theme objects, `framer-motion`, `socket.io-client`/`PulseSyncProvider` (pending D-009).
 **Preserved:** `next.config.js` security headers (CSP updated), `api/og` routes, `api/revalidate`, `manifest.ts`, `useReveal` pattern (fixed), `scripts/check-contrast.mjs` (extended), Speed Insights, `vercel.json`, `.agents/` (ignored by git).
 
-## 4. Routing and rendering
+## 4. Routing and rendering *(implemented in M1 except where noted)*
 
 | Route group | Rendering | Notes |
 |---|---|---|
@@ -73,8 +73,8 @@ torre-ks/
 | `/api/contact` | Dynamic, **Node runtime** (email SDK) | POST only |
 | `/api/og/*` | Dynamic, edge | Existing |
 | `/api/revalidate` | Dynamic | Existing; secret in env |
-| Host redirects (subdomains, www) | `vercel.json` `redirects` with `has: [{ type: "host", value: … }]` (preferred, platform-level, no function invocation) or `proxy.ts` | Per `sitemap.md` §5 |
-| 404 | `not-found.tsx`, HTTP 404, `noindex` | Existing, restyled |
+| Host redirects (old subdomains) | **Implemented in `next.config.js` `redirects()` with `has: host`** (testable locally with a `Host` header; permanent = HTTP **308**). `www` ↔ apex remains a Vercel domain setting (D-001 follow-up) | Per `sitemap.md` §5 |
+| 404 | **`src/app/global-not-found.tsx`** (Next 16 `experimental.globalNotFound`), HTTP 404, `noindex`, full site shell. A nested `not-found.tsx` under the `[lang]` root layout rendered an empty server shell (verified), hence the experimental route. Unknown URLs pass through the proxy untouched. Albanian only for now | |
 
 Language (D-002 decided): the structure is `src/app/[lang]/…` with `generateStaticParams` over `["sq","en"]`; Albanian is served at un-prefixed paths via rewrites and English under `/en/` with English slugs (`sitemap.md` §6). A typed `dictionary` per language holds UI strings; page content is localised in `content/` (each `Fact`/text has `sq` and `en` fields). `/en/**` is built from M1 but stays `noindex` and out of sitemap/hreflang until the owner approves the translation (D-020). `<html lang>` is set per route.
 

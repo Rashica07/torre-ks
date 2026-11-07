@@ -1,18 +1,21 @@
-# TORRE GROUP AI Documentation
-# This file is provided for LLMs and AI crawlers to understand our corporate structure.
+# TORRE Group
 
-Company: Torre Group
-Location: Ferizaj, Kosovo
-Operations: Construction, Real Estate Development, Window Manufacturing
+> TORRE Group is a family group of four building-sector companies in Kosovo, active since 1999 according to the company. Official website: https://torre-ks.com
 
-Sub-brands and their respective domains:
-- MAGFA GROUP (magfa.torre-ks.com): Private and residential home construction. Custom building, renovations, and architecture.
-- SWISSTECH (swisstech.torre-ks.com): Manufacturing and installation of PVC and Aluminum windows/doors using German profiles.
-- TORRE DI UMBRIA (torre-umbria.torre-ks.com): Residential building development and investment management.
-- TORRE HOME (torrehome.torre-ks.com): Premium apartment sales in Torre Group buildings (Building 1 and Building 2) on Emin Duraku street, Ferizaj.
+## Companies
 
-For a complete, semantic HTML dump of all our services, pricing, statistics, and FAQs designed specifically for AI digestion without JavaScript or CSS, please visit:
-https://llms.torre-ks.com/
+- [MAGFA GROUP](https://torre-ks.com/magfa): builds private and residential homes in Kosovo (Prishtinë, Ferizaj, Prizren, Gjakovë, Pejë, Mitrovicë).
+- [SWISSTECH](https://torre-ks.com/swisstech): manufactures and installs PVC and aluminium windows and doors in Ferizaj; factory at Rr. Engjëll Zefi, Bibaj, 70000 Ferizaj.
+- [TORRE DI UMBRIA](https://torre-ks.com/torre-umbria): develops residential buildings in Kosovo.
+- [TORRE HOME](https://torre-ks.com/torrehome): builds residential buildings on Emin Duraku street, Ferizaj, and sells the apartments in them.
 
-Contact: info@magfa.torre-ks.com (and equivalent info@ address per sub-brand domain above)
-Phone: +383 49 599 405
+## Contact
+
+- [Contact page](https://torre-ks.com/kontakti)
+- Phone and WhatsApp: +383 49 599 405
+
+## Notes
+
+- Prices, warranty terms and delivery times are not published on the website. Contact the company directly.
+- The website is in Albanian. English pages exist but are not yet published.
+- This file mirrors the public website and is updated with it.

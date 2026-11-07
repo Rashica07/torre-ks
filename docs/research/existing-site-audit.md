@@ -1,7 +1,7 @@
 # Existing website audit — torre-ks.com
 
 > **Status: COMPLETE (Milestone 0).** Evidence labels are defined in [`README.md`](./README.md).
-> Audited: 2026-11-07. Repository commit: `f0e42a3`.
+> Audited: 2026-11-07. Repository commit: `f0e42a3`. **This describes the site *before* the redesign.** Milestone 1 has since replaced the routing, styling, fonts and content model and removed the preview system; see `docs/planning.md` §5 (M1 result).
 
 ## 1. What TORRE actually is
 

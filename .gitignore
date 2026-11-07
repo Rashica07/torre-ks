@@ -30,3 +30,7 @@ attached_assets/
 
 # TypeScript incremental build info
 *.tsbuildinfo
+
+# Test output
+test-results/
+playwright-report/

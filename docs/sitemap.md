@@ -1,6 +1,6 @@
 # Sitemap — human-readable website architecture
 
-> **Status: PROPOSED.** Reflects the owner's decisions of 2026-11-07: **D-001 one domain, four company sections** (each with its own design — D-019) and **D-002 Albanian + English** (English enabled only after human-approved translation — D-020). §6 lists the alternatives that were not chosen. Existing routes are marked *(exists)*; everything else is *(new)*.
+> **Status: PARTIALLY IMPLEMENTED (Milestone 1).** Built and live in the app: `/`, `/kompanite`, `/magfa`, `/swisstech`, `/torre-umbria`, `/torrehome`, `/kontakti`, the three legal pages (Albanian only), the 404, and the `/en/*` mirror of the first seven (gated, `noindex`). **Not built yet:** `/kompania` (M3), `/projektet` and the project page (M4). Redirects for the old subdomains are implemented (HTTP 308). Reflects the owner's decisions of 2026-11-07: **D-001 one domain, four company sections** (each with its own design — D-019) and **D-002 Albanian + English** (English enabled only after human-approved translation — D-020). §6 lists the alternatives that were not chosen. Existing routes are marked *(exists)*; everything else is *(new)*.
 > Last updated: 2026-11-07
 
 ## 1. Route tree (option B)
@@ -61,17 +61,17 @@ URL slugs stay Albanian and ASCII (existing legal slugs set the precedent). The 
 | 404 | `noindex` + HTTP 404 | — | no |
 | Redirects | — | — | no |
 
-## 5. Redirects (301, permanent)
+## 5. Redirects (permanent — implemented as HTTP 308, which Google treats like 301)
 
 | From | To |
 |---|---|
 | `https://www.torre-ks.com/*` | `https://torre-ks.com/*` *(host direction is D-001; today it is the opposite)* |
-| `https://magfa.torre-ks.com/` (+ paths) | `https://torre-ks.com/magfa` |
+| `https://magfa.torre-ks.com/` | `https://torre-ks.com/magfa` (any other path on the old host → same path on `torre-ks.com`) |
 | `https://swisstech.torre-ks.com/` | `https://torre-ks.com/swisstech` |
 | `https://torre-umbria.torre-ks.com/` | `https://torre-ks.com/torre-umbria` |
 | `https://torrehome.torre-ks.com/` | `https://torre-ks.com/torrehome` |
 | `https://llms.torre-ks.com/`, `/llms` | `https://torre-ks.com/llms-full.txt` |
-| `/preview/**` | 404 (410 if the platform allows) — routes removed (D-015) |
+| `/preview/**` | 404 — routes removed in M1 (D-015) |
 
 Subdomain DNS stays pointed at the project so the redirects keep working indefinitely.
 

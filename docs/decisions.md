@@ -17,15 +17,17 @@ Legend: **OPEN** = needs the client/owner · **ASSUMED** = proceeding on this un
 | D-008 | Horizontal browsing approach | ASSUMED | M3 |
 | D-009 | Novus Pulse CMS: keep dormant or build on it | **OPEN** (low urgency) | — |
 | D-010 | Allow reference/CDN hosts for a pixel-level reference pass | **OPEN** (optional) | — |
-| D-011 | Typeface | ASSUMED (gated) | M1 |
-| D-012 | Preserve stack (Next.js 16, Tailwind 3, Vercel) | ASSUMED | — |
-| D-013 | Animation libraries | ASSUMED | M1 |
+| D-011 | Typeface | **DECIDED** — Geist + Geist Mono; glyph gate passed 2026-11-07 | — |
+| D-012 | Preserve stack (Next.js 16, Tailwind 3, Vercel) | DONE in M1 (`middleware.ts` → `proxy.ts`; engines `>=20.9.0`) | — |
+| D-013 | Animation libraries | `framer-motion` removed (M1); GSAP not installed (conditional, M3) | M3 |
 | D-014 | Generated vs. static `sitemap.xml`, `robots.txt`, `llms*.txt` | ASSUMED | M5 |
-| D-015 | Remove `/preview/**`, variants system and testimonial data from production | ASSUMED | M1 |
+| D-015 | Remove `/preview/**`, variants system and testimonial data from production | DONE in M1 (testimonials survive only as `unverified` entries in `claims.ts`, imported by nothing but a test) | — |
 | D-016 | Analytics | ASSUMED | M5 |
 | D-017 | Docs describe *proposed* state until implemented | DECIDED | — |
 | D-019 | Division design freedom: one codebase, shared system, per-company theme | DECIDED (follows D-001 + D-004) | M1 |
 | D-020 | English content process | ASSUMED | M3 |
+| D-021 | 404 via Next 16 experimental `globalNotFound` | DECIDED (M1; see below) | — |
+| D-022 | Permanent redirects are HTTP 308 | DECIDED (M1) | — |
 | D-018 | Keep the existing `robots.txt` blocks on SEO-tool crawlers (Ahrefs, Semrush, MJ12, DotBot, Rogerbot, MegaIndex, BLEXBot) | ASSUMED (keep) | M5 |
 
 ---
@@ -151,3 +153,12 @@ One Next.js codebase. Shared: grid, type, spacing, buttons, forms, header/footer
 ## D-020 — English content process (ASSUMED)
 
 English is drafted from the **approved** Albanian copy, then reviewed by a fluent human (the owner or a translator) before `/en` pages are enabled. Until approved, the `/en` routes are built but excluded from the sitemap, hreflang and navigation (and `noindex`), so a half-translated site never ships. Slugs: English slugs under `/en/` (`/en/about`, `/en/companies`, `/en/projects`, `/en/contact`).
+
+## D-021 — 404 via `experimental.globalNotFound` (DECIDED, M1)
+
+The root layout lives under `src/app/[lang]` (the `<html lang>` must follow the language). With that layout, `notFound()` from a catch-all page plus a nested `not-found.tsx` produced a server response with an **empty body** (`<html id="__next_error__">`, content only after client-side recovery) — verified in dev and in production. Next 16's `experimental.globalNotFound` with `src/app/global-not-found.tsx` renders a complete document server-side (real 404 status, header, footer, skip link, `h1`) and is covered by Playwright tests. Trade-offs: the flag is experimental (re-check on Next upgrades — a test fails if the 404 stops rendering the shell), and the 404 is Albanian-only for now.
+
+## D-022 — Redirect status 308 (DECIDED, M1)
+
+`permanent: true` in Next.js emits HTTP **308**. Google treats 301 and 308 as permanent redirects; no ranking difference is documented. Documents that said "301" now say "permanent (308)".
+

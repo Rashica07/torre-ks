@@ -1,6 +1,6 @@
 # TORRE — Design system
 
-> **Status: PROPOSED. Nothing in this document is implemented yet.** D-001 (one domain), D-002 (Albanian + English), D-004 (per-company colours) and D-019 (per-company design within one system) were decided on 2026-11-07 and are reflected here; D-005 (logos) and D-011 (typeface gate) are still open and it becomes authoritative for implementers when they close. Every number below that is a contrast ratio was computed (WCAG 2.x relative-luminance formula); typography and spacing values are design proposals, not measurements.
+> **Status: PARTIALLY IMPLEMENTED (Milestone 1).** Implemented and tested: colour tokens (§2, incl. per-company themes §2.7 — 135 contrast checks pass), Geist type system (§3), layout tokens/grid, header + mobile nav + companies disclosure, buttons/links, skip link, footer, division index, contact band, 404. Not yet built: homepage imagery and hero animation, facts row, project rail/tiles/pages, forms, per-company distinct compositions (§7), image treatment/`Figure`. Where a section below says "proposed" it is still a plan. D-001 (one domain), D-002 (Albanian + English), D-004 (per-company colours) and D-019 (per-company design within one system) were decided on 2026-11-07 and are reflected here; D-011 (typeface gate) **passed on 2026-11-07**; D-005 (official logos) is still open — an interim text wordmark is in use. Every number below that is a contrast ratio was computed (WCAG 2.x relative-luminance formula); typography and spacing values are design proposals, not measurements.
 > Last updated: 2026-11-07 · Evidence for the references: `docs/research/references.md`
 
 ## 1. Brand direction
@@ -106,6 +106,8 @@ Each company page wrapper carries `data-division="magfa|swisstech|torre-umbria|t
 | **TORRE HOME** | Light | `#27496D` (8.37 on bg; **1.70 on dark — fails**) | `#27496D` — bg **8.37**, surf 7.57; fill+white 9.29 | `#1C3652` — bg 11.13 | `#FFFFFF` | `#8FB0D6` — dark **7.03**, dark-surf 6.10 | |
 | **Group (home, Kompania, Kontakti, footer)** | Light + dark sections | gold mark `#C4954A` | `#202326` (charcoal) | `#0F1113` | `#F4F3EF` | gold `#C4954A` — dark **5.82**, dark-surf 5.05 | No hue accent; gold appears only on dark |
 
+**Added during implementation:** hover/on-dark-hover shades for the company accents were not in the first table; they are `#7cc2e6` (MAGFA), `#2ab8ba` (SWISSTECH), `#8bbb95` (TORRE DI UMBRIA), `#acc6e3` (TORRE HOME) — verified ≥ 4.5 : 1 on the dark background by `npm run check:contrast`.
+
 Rules: the page's base surface is the company's own (SWISSTECH and TORRE DI UMBRIA keep their dark identity; MAGFA and TORRE HOME their light one), but every inverted section still follows §2.3. Focus rings stay charcoal/warm-white regardless of company (14.22 : 1) so keyboard users get one consistent indicator. The old per-company greys/tints (`brands.ts` themes: `#faf8f6`, `#0f1419`, `#14171a`, `#f0f3f7` …) are replaced by the shared neutrals; the *hue* identity is what carries over. Pairs to avoid: company accent as text on the *other* surface (e.g. SWISSTECH teal `#00A0A2` on light).
 
 ```css
@@ -117,7 +119,7 @@ Rules: the page's base surface is the company's own (SWISSTECH and TORRE DI UMBR
 
 ## 3. Typography
 
-**Typeface (D-011, assumed, gated):** **Geist** (sans, variable) for everything; **Geist Mono** only for small labels and numerals. Self-hosted via `next/font`, `display: swap`, subsets `latin` + `latin-ext` (Albanian needs `ë ç`). *Gate:* M1 renders Ë ë Ç ç at 400/500/600 and fails over to **Inter + IBM Plex Mono** if any glyph falls back.
+**Typeface (D-011, assumed, gated):** **Geist** (sans, variable) for everything; **Geist Mono** only for small labels and numerals. Self-hosted via `next/font`, `display: swap`, subsets `latin` + `latin-ext` (Albanian needs `ë ç`). *Gate — PASSED (2026-11-07):* inspecting the built files with fontTools shows ë Ë ç Ç and all 92 required Albanian/English characters in both Geist and Geist Mono (variable fonts); only the arrow glyphs → ← are absent, so arrows are SVG icons. No fallback to Inter was needed.
 
 | Evaluated | Verdict |
 |---|---|

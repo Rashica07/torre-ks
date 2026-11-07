@@ -1,6 +1,6 @@
 # Accessibility
 
-> **Status: PROPOSED — requirements and test plan. No accessibility audit of an implementation has been run because nothing is implemented yet.** The *existing* site's `/deklarata-e-qasshmerise` statement is templated placeholder text (noindexed) and must not be treated as evidence of conformance.
+> **Status: requirements and test plan; Milestone 1 shell tested.** After M1: axe (WCAG 2.0/2.1/2.2 A+AA rule set) reports **0 violations on all 17 pages plus the 404 at 390 px and 1440 px**; scripted keyboard tests, 320 px reflow, no-JS and reduced-motion tests pass; ESLint jsx-a11y runs as errors. Automated tools catch only a minority of issues — **manual screen-reader (VoiceOver/NVDA), real-device and 200/400 % zoom passes have NOT been done** (M6). Axe found two real defects during M1 (WCAG 2.5.3 Label in Name), both fixed. The `/deklarata-e-qasshmerise` statement is still templated placeholder text (noindexed) and is not evidence of conformance.
 > Target: **WCAG 2.2 Level AA.** Last updated: 2026-11-07.
 
 ## 1. Requirements by success criterion (the ones this design actually stresses)

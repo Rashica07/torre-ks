@@ -1,0 +1,128 @@
+/*
+ * Design tokens — authority: docs/design.md §2 (colour), §3 (type), §4 (layout), docs/animation.md §3 (motion).
+ * Contrast ratios are verified by `npm run check:contrast` (scripts/check-contrast.mjs) and tests/unit/contrast.test.ts.
+ */
+:root {
+  /* ── Colour: light surface (default) ── */
+  --color-bg: #f4f3ef;
+  --color-surface: #e9e8e3;
+  --color-raised: #fbfaf7;
+  --color-text: #202326;
+  --color-text-muted: #5e6160;
+  --color-text-disabled: #8e918f;
+  --color-border: #d8d7d1;          /* decorative hairlines only */
+  --color-border-strong: #7a7d7b;   /* control boundaries (>= 3:1) */
+  --color-accent: #202326;          /* group level: no hue accent */
+  --color-accent-hover: #0f1113;
+  --color-on-accent: #f4f3ef;
+  --color-focus: #202326;
+
+  /* ── Colour: dark surface values (applied by [data-surface="dark"], see below) ── */
+  --color-dark-bg: #202326;
+  --color-dark-surface: #2a2e31;
+  --color-dark-text: #f4f3ef;
+  --color-dark-muted: #a3a6a4;
+  --color-dark-border: #4a4e51;
+  --color-dark-border-strong: #8a8d8b;
+  --color-accent-on-dark: #c4954a; /* group level: gold of the existing mark, dark only */
+  --color-accent-on-dark-hover: #d8ac66;
+  --color-focus-on-dark: #f4f3ef;
+
+  /* ── Typography (docs/design.md §3) ── */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --text-display: clamp(3rem, 1.5rem + 7.5vw, 10rem);
+  --text-h1: clamp(2.5rem, 1.2rem + 5vw, 6rem);
+  --text-h2: clamp(1.875rem, 1.1rem + 3vw, 3.75rem);
+  --text-h3: clamp(1.375rem, 1rem + 1.2vw, 2rem);
+  --text-h4: 1.25rem;
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-body: clamp(1rem, 0.95rem + 0.15vw, 1.0625rem);
+  --text-small: 0.875rem;
+  --text-label: 0.75rem;
+
+  /* ── Layout (docs/design.md §4) ── */
+  --content-max: 1320px;
+  --page-margin: clamp(20px, 4vw, 64px);
+  --grid-gutter: 16px;
+  --header-h: 60px;
+  --section-space: clamp(80px, 10vw, 160px);
+  --measure: 66ch;
+
+  /* ── Motion (docs/animation.md §3) ── */
+  --dur-instant: 80ms;
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 560ms;
+  --dur-hero: 900ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --stagger: 60ms;
+  --reveal-distance: 12px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --grid-gutter: 24px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 72px;
+  }
+}
+
+/* Dark surface: remap the semantic tokens once; components never branch on theme. */
+[data-surface="dark"] {
+  --color-bg: var(--color-dark-bg);
+  --color-surface: var(--color-dark-surface);
+  --color-raised: var(--color-dark-surface);
+  --color-text: var(--color-dark-text);
+  --color-text-muted: var(--color-dark-muted);
+  --color-border: var(--color-dark-border);
+  --color-border-strong: var(--color-dark-border-strong);
+  --color-accent: var(--color-accent-on-dark);
+  --color-accent-hover: var(--color-accent-on-dark-hover);
+  --color-on-accent: #202326;
+  --color-focus: var(--color-focus-on-dark);
+}
+
+/* Per-company themes (D-004 option 3, D-019): accent tokens only — docs/design.md §2.7 */
+[data-division="magfa"] {
+  --color-accent: #006a9e;
+  --color-accent-hover: #005a85;
+  --color-on-accent: #ffffff;
+  --color-accent-on-dark: #5bb0dc;
+  --color-accent-on-dark-hover: #7cc2e6;
+}
+[data-division="swisstech"] {
+  --color-accent: #006f71;
+  --color-accent-hover: #005b5d;
+  --color-on-accent: #ffffff;
+  --color-accent-on-dark: #00a0a2;
+  --color-accent-on-dark-hover: #2ab8ba;
+}
+[data-division="torre-umbria"] {
+  --color-accent: #3a6845;
+  --color-accent-hover: #2b5035;
+  --color-on-accent: #ffffff;
+  --color-accent-on-dark: #6fa67a;
+  --color-accent-on-dark-hover: #8bbb95;
+}
+[data-division="torrehome"] {
+  --color-accent: #27496d;
+  --color-accent-hover: #1c3652;
+  --color-on-accent: #ffffff;
+  --color-accent-on-dark: #8fb0d6;
+  --color-accent-on-dark-hover: #acc6e3;
+}
+/* Order matters: a dark-surface company must re-apply its on-dark accent after the surface remap. */
+[data-division="swisstech"][data-surface="dark"],
+[data-division="torre-umbria"][data-surface="dark"],
+[data-division="magfa"][data-surface="dark"],
+[data-division="torrehome"][data-surface="dark"] {
+  --color-accent: var(--color-accent-on-dark);
+  --color-accent-hover: var(--color-accent-on-dark-hover);
+  --color-on-accent: #202326;
+  --color-focus: var(--color-focus-on-dark);
+}

@@ -1,6 +1,6 @@
 # SEO, AEO and GEO strategy
 
-> **Status: PROPOSED. No SEO work below is implemented yet.** Evidence: `research/resources.md` (Google documentation, verified 2026-11-07) and `research/existing-site-audit.md` §6. Reflects the owner's decisions of 2026-11-07: one domain (D-001) and Albanian + English (D-002, English gated on human-approved text — D-020). §9 is therefore active.
+> **Status: PARTIALLY IMPLEMENTED (Milestone 1).** Implemented: per-route unique titles/descriptions (lengths unit-tested), absolute self-canonicals, `noindex` for gated English and legal placeholders, generated `sitemap.xml` (no `priority`/`changefreq`/fake `lastmod`; English excluded), Organization + WebSite JSON-LD on the home page (Playwright checks there are no ratings/reviews/offers/prices/hours), OG/Twitter tags with per-company images, real 404 status, one `h1` per page, skip link and landmarks. **Not implemented yet:** the new `robots.txt`, `llms.txt`/`llms-full.txt`, per-company/project JSON-LD, hreflang for live English, analytics and the Search Console steps (M5). Evidence: `research/resources.md` (Google documentation, verified 2026-11-07) and `research/existing-site-audit.md` §6. Reflects the owner's decisions of 2026-11-07: one domain (D-001) and Albanian + English (D-002, English gated on human-approved text — D-020). §9 is therefore active.
 > Last updated: 2026-11-07
 
 ## 0. Honest constraints

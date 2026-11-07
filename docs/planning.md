@@ -1,6 +1,6 @@
 # Implementation plan
 
-> **Status: PROPOSED — awaiting approval. Milestone 0 (research and documentation) is complete; no website code has been changed.** Dates are intentionally absent (capacity unknown); effort is given as S / M / L.
+> **Status: Milestone 0 (research/docs) ✅ and Milestone 1 (foundation) ✅ are done and implemented on this branch; M2–M6 are PROPOSED.** The owner said "go on" after the M0 review, which is taken as approval to start M1. Dates are intentionally absent (capacity unknown); effort is given as S / M / L.
 > Last updated: 2026-11-07
 
 ## 1. Objectives
@@ -44,9 +44,9 @@ Not built (no content): news, careers, partners, certifications, industries, tea
 Every milestone ends with a **review gate**: a draft PR, a preview deployment (when possible), updated docs (status lines flipped from PROPOSED to IMPLEMENTED for what shipped), and a written list of what was tested and what was not. The next milestone does not start until the owner says so.
 
 ### M0 — Research and documentation ✅ (this PR)
-Deliverables: `docs/*`, `docs/research/*`, README. **Accepted when:** the owner approves this plan. D-001, D-002, D-004 and D-007 were answered on 2026-11-07 and are folded in.
+Deliverables: `docs/*`, `docs/research/*`, README. **Accepted:** the owner replied "go on" after the review and answered D-001/002/004/007. D-001, D-002, D-004 and D-007 were answered on 2026-11-07 and are folded in.
 
-### M1 — Foundation (effort M)
+### M1 — Foundation (effort M) ✅ IMPLEMENTED — see the result block at the end of this section
 - Close D-005/D-011; **glyph test** for Geist (ë ç, and English) → font decision final.
 - Routing for `[lang]` (`sq` default, `en` gated), per-division `data-division` theming (D-019).
 - Tokens (`styles/tokens.css`), Tailwind mapping, type scale, layout primitives, motion tokens, global reduced-motion rules.
@@ -55,6 +55,27 @@ Deliverables: `docs/*`, `docs/research/*`, README. **Accepted when:** the owner 
 - Set up tests (Vitest, Playwright, axe, ESLint jsx-a11y) and CI.
 
 **Acceptance:** `npm run typecheck`, `lint`, `build` clean; shell pages render statically (route table shows ○/● not ƒ); axe: 0 serious/critical on the shell at 390 and 1440; keyboard-complete header/nav; Albanian glyph test passes; no horizontal scroll at 320 px; content visible with JS disabled.
+
+**M1 result (2026-11-07, measured, not assumed):**
+
+| Acceptance criterion | Result |
+|---|---|
+| `typecheck`, `lint`, `build` clean | ✅ all three clean (Next 16.2.12) |
+| Shell pages render statically (○/● not ƒ) | ✅ every content route is SSG (●) and the 404 is static (○). The old all-dynamic output is gone — cause was the old root `not-found.tsx` calling `headers()`; removed with the old structure |
+| axe: 0 serious/critical on the shell at 390 and 1440 | ✅ **0 violations of any severity** on all 17 pages + the 404, at both widths (36 runs, WCAG 2.0/2.1/2.2 A+AA rule set). Two real findings were fixed first (WCAG 2.5.3 Label-in-Name on the logo link and the division rows) |
+| Keyboard-complete header/nav | ✅ scripted tests: skip link is the first Tab stop; companies disclosure opens/closes with Enter/Esc and returns focus; mobile menu is a modal `<dialog>` — focus never reaches the page behind it, Esc closes and restores focus |
+| Albanian glyph test | ✅ **passed** — fontTools inspection of the built Geist and Geist Mono files: ë Ë ç Ç and all 92 required Albanian/English characters present (only the arrow glyphs → ← are absent; arrows are SVG icons) |
+| No horizontal scroll at 320 px | ✅ 17/17 pages |
+| Content visible with JS disabled | ✅ tested with JavaScript off; `.reveal` content is visible (the old defect is fixed) |
+| Reduced motion | ✅ nothing hidden or transformed |
+| Unit tests | ✅ 29 passing (contrast of every token pair in 14 scopes — 135 checks; provenance guard; route-registry ↔ app-directory parity; metadata uniqueness/length/canonical; proxy routing; sitemap) |
+| End-to-end tests | ✅ 104 passing against the production build (~50 s) |
+
+Delivered beyond the original list: per-company theming (`data-division`), `[lang]` routing with gated English, typed content with the provenance guard, generated sitemap, per-route metadata and Organization/WebSite JSON-LD, permanent redirects for the four old subdomains, CI workflow.
+
+**Deviations from the plan (all recorded in `decisions.md`):** the redirects are **308**, not 301 (Next's `permanent: true`; Google treats both as permanent); 404s use Next 16's **experimental `globalNotFound`** because the root layout lives under `[lang]` (a plain `not-found.tsx` rendered an empty server shell — verified and replaced); `Kompania` and `Projektet` are not in the navigation yet because their pages arrive in M3/M4 (no dead links); the Pulse CMS code was left untouched pending D-009; the old privacy/terms/accessibility text is carried over unchanged (still placeholder, still `noindex`).
+
+**Not done in M1 / known gaps:** no Lighthouse or real-device test (needs a deployed preview); the apex/`www` direction is unchanged (platform setting); the home hero has no image yet (M2); company pages are skeletons with the right accent and surface but not yet their distinct compositions (M3); contact is phone + WhatsApp only until the form ships (M4); English is built but gated and unreviewed.
 
 ### M2 — Home and shared sections (effort L)
 - All nine home sections; `DivisionIndex`, `FeaturedProject`, `FactsRow`, `ContactBand` (form is a stub only if D-006 is not closed — **no dead buttons**: the button either works or is replaced by `tel:`/WhatsApp until M4).

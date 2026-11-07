@@ -1,47 +1,18 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { pathFor } from "@/lib/i18n/routes";
+import { IconArrow } from "./Icons";
 
-/** Shared chrome for standalone legal pages — not tied to any one brand theme. */
-export function LegalPage({
-  title,
-  updated,
-  children,
-}: {
-  title: string;
-  updated: string;
-  children: React.ReactNode;
-}) {
+/** Shared chrome for the legal pages. Text is still the templated placeholder (noindex) pending counsel review. */
+export function LegalPage({ title, updated, children }: { title: string; updated: string; children: React.ReactNode }) {
   return (
-    <main style={{ background: "hsl(var(--bg))", minHeight: "100vh" }}>
-      <div
-        className="mx-auto px-[var(--gutter)]"
-        style={{ maxWidth: "72ch", paddingBlock: "var(--space-9)" }}
-      >
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-step--1 no-underline mb-10 transition-opacity hover:opacity-70"
-          style={{ color: "hsl(var(--muted))" }}
-        >
-          <ArrowLeft size={13} /> Torre Group
+    <main id="main" className="container-page pt-16 md:pt-24 pb-[var(--section-space)]">
+      <div className="max-w-[72ch]">
+        <Link href={pathFor("home", "sq")} className="text-link small mb-10 inline-flex min-h-[44px] items-center">
+          <IconArrow className="mr-2 rotate-180" /> TORRE Group
         </Link>
-
-        <span
-          className="block text-[11px] tracking-[0.18em] uppercase"
-          style={{ color: "hsl(var(--muted))", marginBottom: "var(--space-4)" }}
-        >
-          Përditësuar: {updated}
-        </span>
-
-        <h1 style={{ fontSize: "var(--step-4)", color: "hsl(var(--fg))", marginBottom: "var(--space-7)" }}>
-          {title}
-        </h1>
-
-        <div
-          className="flex flex-col text-step-0"
-          style={{ color: "hsl(var(--fg))", lineHeight: 1.75, gap: "var(--space-6)" }}
-        >
-          {children}
-        </div>
+        <p className="label mb-4">Përditësuar: {updated}</p>
+        <h1 className="mb-12" style={{ fontSize: "var(--text-h2)" }}>{title}</h1>
+        <div className="flex flex-col gap-8 leading-[1.75]">{children}</div>
       </div>
     </main>
   );
@@ -50,19 +21,8 @@ export function LegalPage({
 export function LegalSection({ heading, children }: { heading: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2
-        style={{
-          fontSize: "var(--step-1)",
-          color: "hsl(var(--fg))",
-          fontWeight: 600,
-          marginBottom: "var(--space-3)",
-        }}
-      >
-        {heading}
-      </h2>
-      <div className="flex flex-col text-step--1" style={{ color: "hsl(var(--muted))", lineHeight: 1.75, gap: "var(--space-3)" }}>
-        {children}
-      </div>
+      <h2 className="mb-3" style={{ fontSize: "var(--text-h4)", fontWeight: 600, letterSpacing: "-0.01em" }}>{heading}</h2>
+      <div className="small muted flex flex-col gap-3 leading-[1.75]" style={{ color: "var(--color-text-muted)" }}>{children}</div>
     </section>
   );
 }

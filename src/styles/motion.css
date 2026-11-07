@@ -1,0 +1,75 @@
+/*
+ * Motion — authority: docs/animation.md.
+ * Principles: never delay content (hidden states exist only when scripting is on AND motion is allowed),
+ * transform/opacity/clip-path only, everything off under prefers-reduced-motion.
+ */
+
+/* Reveal: progressive enhancement (fixes the old `.reveal { opacity: 0 }` that hid content without JS). */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+    transition:
+      opacity var(--dur-slow) var(--ease-out),
+      transform var(--dur-slow) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Division index row: invert on hover/focus (docs/design.md §5.4) */
+.division-row {
+  position: relative;
+  isolation: isolate;
+  color: var(--color-text);
+  transition: color var(--dur-base) var(--ease-in-out);
+}
+.division-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-dark-bg);
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path var(--dur-base) var(--ease-in-out);
+}
+.division-row:hover,
+.division-row:focus-visible {
+  color: var(--color-dark-text);
+}
+.division-row:hover::before,
+.division-row:focus-visible::before {
+  clip-path: inset(0 0 0 0);
+}
+.division-row:hover .row-muted,
+.division-row:focus-visible .row-muted {
+  color: var(--color-dark-muted);
+}
+.division-row:focus-visible {
+  outline-color: var(--color-focus);
+}
+
+/* Header border after scroll (set by an IntersectionObserver sentinel, no scroll listener) */
+.site-header { border-bottom: 1px solid transparent; transition: border-color var(--dur-fast) var(--ease-out); }
+.site-header[data-scrolled="true"] { border-bottom-color: var(--color-border); }
+
+/* Mobile nav sheet */
+.nav-sheet::backdrop { background: rgb(32 35 38 / 0.5); }
+.nav-sheet[open] { animation: sheet-in var(--dur-base) var(--ease-out) both; }
+@keyframes sheet-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}

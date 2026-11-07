@@ -1,6 +1,6 @@
 # Animation system
 
-> **Status: PROPOSED. Nothing here is implemented.** Describes the target; the current state is summarised in §9.
+> **Status: PARTIALLY IMPLEMENTED (Milestone 1).** Implemented: motion tokens, the fixed progressive-enhancement reveal (§5.1) with safety timeout, division-row hover/focus invert, header border sentinel, mobile nav sheet, global reduced-motion rules — all covered by Playwright tests (reduced motion, JS disabled). **Not implemented:** hero word-mask, image clip-path reveals, `animation-timeline` enhancement, project rail and the GSAP prototype. `framer-motion` has been removed; GSAP is not installed.
 > Last updated: 2026-11-07 · Evidence: `research/resources.md` §5, `research/references.md` §A–B
 
 ## 1. Decision: CSS-first; GSAP only if the rail prototype earns it
@@ -112,4 +112,4 @@ Also: no animation lasts > 5 s without a pause control (WCAG 2.2.2); nothing fla
 
 ## 9. Current state (for comparison)
 
-`useReveal` + `.reveal` (CSS-hidden until JS), `fadeUp` / `messageIn` / `typingDot` / `kenburns` keyframes, `framer-motion` in `Navbar` and `OdometerDigits`, per-brand `--motion-scale`, `prefers-reduced-motion` handled in CSS. No GSAP installed.
+**Before M1:** `useReveal` + `.reveal` (CSS-hidden until JS), `fadeUp` / `messageIn` / `typingDot` / `kenburns` keyframes, `framer-motion` in `Navbar` and `OdometerDigits`, per-brand `--motion-scale`. **After M1:** `Reveal` component + `motion.css` as described in §5.1; the listed old animations and `framer-motion` are gone; no GSAP.
