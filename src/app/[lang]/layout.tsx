@@ -1,6 +1,7 @@
 import type { Viewport } from "next";
 import { notFound } from "next/navigation";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import { LANGS, isLang } from "@/lib/i18n";
 import { SkipLink } from "@/components/SkipLink";
 import { Rail } from "@/components/Rail";
@@ -37,6 +38,7 @@ export default async function RootLayout({ children, params }: { children: React
         <div className="page">{children}</div>
         <Footer lang={lang} />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
