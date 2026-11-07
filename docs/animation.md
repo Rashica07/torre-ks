@@ -1,7 +1,23 @@
 # Animation system
 
-> **Status: PARTIALLY IMPLEMENTED (Milestone 1).** Implemented: motion tokens, the fixed progressive-enhancement reveal (§5.1) with safety timeout, division-row hover/focus invert, header border sentinel, mobile nav sheet, global reduced-motion rules — all covered by Playwright tests (reduced motion, JS disabled). **Not implemented:** hero word-mask, image clip-path reveals, `animation-timeline` enhancement, project rail and the GSAP prototype. `framer-motion` has been removed; GSAP is not installed.
+> **Status: PARTIALLY SUPERSEDED by the "Fasada" direction (2026-11-07) — see §0 below, which wins wherever it conflicts with §1–§9.** What exists in code today is the M1 motion (reveal fix, row invert, nav sheet, reduced-motion rules); the M1 visual layer it animates is being replaced. Nothing in §0 is implemented yet.
 > Last updated: 2026-11-07 · Evidence: `research/resources.md` §5, `research/references.md` §A–B
+
+## 0. Motion for "Fasada" (authority: `design.md` §7; supersedes §1–§5 where they differ)
+
+**Dropped:** the pinned vertical-to-horizontal GSAP "rail" prototype (the staggered image row is native scroll), count-up numerals (none exist), the M1 fade-up-on-everything reveal, the division-row invert. **GSAP is not installed.** Cormack's technique (Lenis smooth scroll + a pinned page-wide 14,616 px track — verified from its DOM, `research/references-visual.md`) is explicitly rejected: it replaces native scroll.
+
+| # | Interaction | Tech | Trigger | Timing | Fallback / reduced motion |
+|---|---|---|---|---|---|
+| 1 | Photograph drifts inside the TORRE letters | CSS scroll-driven `animation-timeline: scroll()` on the SVG `<image>` (`translateY`) | Page scroll over the hero | Linear with scroll, ≤ 60 px travel | Static image position |
+| 2 | Plate expands from the letter-windows to full-bleed | CSS scroll-driven `clip-path: inset()` with `animation-timeline: view()` | Plate enters the viewport | Tied to scroll over ~60 % of its entry | Plate is simply full-bleed and visible |
+| 3 | Tower widens | CSS `flex-grow` transition | `:hover`, `:focus-within` (≥ 1024 px, pointer: fine) | 280 ms `--ease-in-out` | No change in size; all text already visible |
+| 4 | Floor-rail marker follows the section in view | IntersectionObserver sets `aria-current`; CSS colour transition | Section crosses 50 % | 160 ms | Instant |
+| 5 | Menu overlay | Native `<dialog>` + CSS slide/fade | Button | 280 ms `--ease-out` | Instant |
+| 6 | Company-page hero drawings (MAGFA house, SWISSTECH windows, UMBRIA slabs) | CSS stroke-draw / slab slide-in via `view()` timelines | Enter viewport | 560–900 ms | Drawn/final state, no motion |
+| 7 | Button arrow cell nudge | CSS transform | `:hover`/`:focus-visible` | 160 ms | None |
+
+**Rules (unchanged and still binding):** transform / opacity / clip-path only; never hide content behind JS (hidden states only inside `@media (scripting: enabled) and (prefers-reduced-motion: no-preference)`); no scroll hijack; reduced-motion removes all of the above; **scroll-driven CSS is progressive enhancement** — browsers without `animation-timeline` (feature-checked with `@supports`; support must be re-verified at build time) get the static state, and a Playwright test asserts the static fallback is complete.
 
 ## 1. Decision: CSS-first; GSAP only if the rail prototype earns it
 

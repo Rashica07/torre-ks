@@ -1,6 +1,6 @@
 # Reference analysis — A to E
 
-> **Status: COMPLETE for the evidence available (Milestone 0). Read the evidence caveats before relying on any row.**
+> **Status: SUPERSEDED for visual claims by [`references-visual.md`](./references-visual.md) (2026-11-07).** This file was written from page text only, before the reference artwork could be viewed; several of its "hypothesis" rows were wrong (corrections in `references-visual.md` §1). Kept for the structural notes (page order, content patterns).
 > Last updated: 2026-11-07. Evidence labels: see [`README.md`](./README.md).
 
 ## Evidence summary — what was actually seen

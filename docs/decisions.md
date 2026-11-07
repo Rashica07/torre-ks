@@ -11,13 +11,13 @@ Legend: **OPEN** = needs the client/owner · **ASSUMED** = proceeding on this un
 | D-002 | Languages | **DECIDED** — Albanian + English (2026-11-07); English text needs approval before publish | M1 (routing), M5 |
 | D-003 | Redesign order: hub + system first, then divisions | ASSUMED | — |
 | D-004 | Identity: shared system, accent colour, per-brand colours | **DECIDED** — keep per-company colours (2026-11-07) | — |
-| D-005 | Wordmark / official logo files | **OPEN** (content request) | M2 |
+| D-005 | Wordmark / official logo files — *Fasada proposes the typographic TORRE wordmark as the primary mark* | **OPEN** (approval + content request) | Gate 0 |
 | D-006 | Contact handling: provider, recipients, spam control | **OPEN** | M4 |
 | D-007 | Policy for unverified claims | **DECIDED (interpreted)** — keep client-confirmed claims, verified by web research; withhold the rest | M2 |
 | D-008 | Horizontal browsing approach | ASSUMED | M3 |
 | D-009 | Novus Pulse CMS: keep dormant or build on it | **OPEN** (low urgency) | — |
-| D-010 | Allow reference/CDN hosts for a pixel-level reference pass | **OPEN** (optional) | — |
-| D-011 | Typeface | **DECIDED** — Geist + Geist Mono; glyph gate passed 2026-11-07 | — |
+| D-010 | Allow reference/CDN hosts for a pixel-level reference pass | **DONE** (owner approved; environment `torre-ks-design-research`) | — |
+| D-011 | Typeface | **SUPERSEDED by D-025** (Geist dropped) | — |
 | D-012 | Preserve stack (Next.js 16, Tailwind 3, Vercel) | DONE in M1 (`middleware.ts` → `proxy.ts`; engines `>=20.9.0`) | — |
 | D-013 | Animation libraries | `framer-motion` removed (M1); GSAP not installed (conditional, M3) | M3 |
 | D-014 | Generated vs. static `sitemap.xml`, `robots.txt`, `llms*.txt` | ASSUMED | M5 |
@@ -28,6 +28,12 @@ Legend: **OPEN** = needs the client/owner · **ASSUMED** = proceeding on this un
 | D-020 | English content process | ASSUMED | M3 |
 | D-021 | 404 via Next 16 experimental `globalNotFound` | DECIDED (M1; see below) | — |
 | D-022 | Permanent redirects are HTTP 308 | DECIDED (M1) | — |
+| D-023 | Independent redesign: the old and M1 frontend design is disposable | **DECIDED** (owner directive) | — |
+| D-024 | Creative direction "Fasada" (`design.md`) | **OPEN** — awaiting approval (Gate 0) | M2 |
+| D-025 | Typefaces: Anton (display) + Instrument Sans (text), self-hosted | **OPEN** — part of Gate 0 | M2 |
+| D-026 | Palette: ink / paper / concrete / bronze + four company planes | **OPEN** — part of Gate 0 | M2 |
+| D-027 | Motion: CSS scroll-driven; no Lenis, no pinned page-wide track | ASSUMED | M2 |
+| D-028 | Photography is a client deliverable; renders captioned *Vizualizim* until then | **OPEN** (commitment needed) | M2 |
 | D-018 | Keep the existing `robots.txt` blocks on SEO-tool crawlers (Ahrefs, Semrush, MJ12, DotBot, Rogerbot, MegaIndex, BLEXBot) | ASSUMED (keep) | M5 |
 
 ---
@@ -161,4 +167,30 @@ The root layout lives under `src/app/[lang]` (the `<html lang>` must follow the 
 ## D-022 — Redirect status 308 (DECIDED, M1)
 
 `permanent: true` in Next.js emits HTTP **308**. Google treats 301 and 308 as permanent redirects; no ranking difference is documented. Documents that said "301" now say "permanent (308)".
+
+## D-023 — Independent redesign (DECIDED, owner directive 2026-11-07)
+
+> *"Treat the existing website's frontend design as disposable… I am not asking you to modernize the old pages… I want an entirely new creative direction… Do not let sunk development effort dictate the design."*
+
+M1's visual layer re-skinned the old structure (`research/m1-audit.md` lists 12 reused patterns). It is superseded: new tokens, fonts, components, page compositions. Technical code is reused only where it serves the new design (`design.md` §12). **No rebuild begins before Gate 0.**
+
+## D-024 — Creative direction "Fasada" (OPEN, Gate 0)
+
+The site is built like a facade: the TORRE wordmark is a window onto the real building; photographs are the page; planes not cards; drawing conventions (title blocks, floors, schedules) as the only ornament; the four companies are four floors; one bronze signal. Full spec: `design.md`; pages: `page-designs.md`; structure: `design/wireframes/`; look: `design/concept/`.
+
+## D-025 — Type system (OPEN, Gate 0; supersedes D-011)
+
+**Anton** (display, uppercase, ≥ 24 px) + **Instrument Sans** (variable 400–700), self-hosted via `@fontsource/anton` and `@fontsource-variable/instrument-sans`. Glyph gate passed (computed): ë Ë ç Ç é É and all required Albanian/English characters present in both. Alternatives considered: Big Shoulders Display (also covers the glyphs; Chicago-industrial feel, less tall), Barlow Condensed (Flintco-adjacent), Geist (M1; neutral, no monumental character).
+
+## D-026 — Palette (OPEN, Gate 0)
+
+`ink #15171A`, `ink-2 #202326`, `paper #EFECE6`, `concrete #CFCAC1`, `bronze #C4954A` (the existing group mark's gold, used as the one signal), plus the AA-corrected company planes (`#006A9E`, `#006F71`, `#3A6845`, `#27496D`). All pairs computed in `design.md` §2. Two hard rules from the computation: **paper on bronze is 2.30:1 (forbidden — ink only)** and **muted text on concrete must be `#4B4F52`** (M1's `#5E6160` is 3.84:1).
+
+## D-027 — Motion (ASSUMED)
+
+CSS scroll-driven effects (`animation-timeline: view()`) as progressive enhancement with a static fallback; towers widen on focus/hover; no Lenis, no pinned page-wide horizontal track (Cormack's technique — it replaces native scroll, which the brief forbids), no count-up numbers. The earlier pinned-rail GSAP prototype (D-008) is dropped: the staggered row is native-scroll. GSAP is not installed unless a later need is demonstrated.
+
+## D-028 — Photography (OPEN, needs the owner)
+
+The direction is photograph-led (Massive Forms, Meyerton, Nikken), but the repository holds only TORRE HOME **renders** and three stock photographs that are not TORRE's work. Until real photography exists: TORRE HOME renders (captioned *Vizualizim*) carry the hero and plates; MAGFA / SWISSTECH / TORRE DI UMBRIA pages use drawing graphics; no stock is shown as TORRE's work. Requested: the shot list in `content.md` §5.
 

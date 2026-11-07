@@ -1,281 +1,151 @@
-# TORRE — Design system
+# TORRE — Design system: "Fasada"
 
-> **Status: PARTIALLY IMPLEMENTED (Milestone 1).** Implemented and tested: colour tokens (§2, incl. per-company themes §2.7 — 135 contrast checks pass), Geist type system (§3), layout tokens/grid, header + mobile nav + companies disclosure, buttons/links, skip link, footer, division index, contact band, 404. Not yet built: homepage imagery and hero animation, facts row, project rail/tiles/pages, forms, per-company distinct compositions (§7), image treatment/`Figure`. Where a section below says "proposed" it is still a plan. D-001 (one domain), D-002 (Albanian + English), D-004 (per-company colours) and D-019 (per-company design within one system) were decided on 2026-11-07 and are reflected here; D-011 (typeface gate) **passed on 2026-11-07**; D-005 (official logos) is still open — an interim text wordmark is in use. Every number below that is a contrast ratio was computed (WCAG 2.x relative-luminance formula); typography and spacing values are design proposals, not measurements.
-> Last updated: 2026-11-07 · Evidence for the references: `docs/research/references.md`
+> **Status: PROPOSED — awaiting the owner's approval. Nothing here is implemented.** This **replaces the Milestone 1 visual layer completely** (see `research/m1-audit.md`): no M1 layout, component, spacing system or hierarchy is carried over. What *is* built and stays is engineering (routing, i18n, provenance guard, SEO helpers, tests) — see §12.
+> Companion documents: [`page-designs.md`](./page-designs.md) (every page) · [`research/references-visual.md`](./research/references-visual.md) (what the references actually do) · [`design/wireframes/`](./design/wireframes) · [`design/concept/`](./design/concept) (hi-fi static board: open `index.html`; previews in `previews/`).
+> Numbers marked *computed* were calculated (WCAG 2.x luminance formula, or Anton's real font metrics); everything else is a design proposal. Last updated: 2026-11-07.
 
-## 1. Brand direction
+## 1. The idea
 
-**TORRE is a Kosovo family group of four building-sector companies, active since 1999.** The site must read as an *established industrial and architectural group* — confident, exact, quiet — and **communicate the company first, impress second, make contact effortless.**
+**TORRE means tower.** The group builds things made of facades, windows, concrete and glass, and it owns one real, finished building. The site should therefore be **built like a facade**, not decorated like a brochure:
 
-| Principle | Meaning in practice |
-|---|---|
-| **Say what we do** | The first screen states, in plain Albanian, what TORRE is and does. No slogan that could belong to any company. |
-| **Monumental, then quiet** | Type scale and empty space do the impressing (ref. C). Few elements per screen. |
-| **One system, four characters** | One grid, one type system, one set of neutrals and one component set for the group and the four companies (ref. E consistency) — while each company keeps its own accent colour, base surface and page composition (D-004, D-019). |
-| **Honest imagery** | Real work only. Renders are labelled as renders. Stock photography is never presented as TORRE's work. |
-| **Facts, not claims** | Only verified facts appear as numbers, warranties, prices (see `content.md`). |
-| **Contact is always one step away** | Persistent header CTA, `tel:`/WhatsApp everywhere, a dedicated contact page, a closing contact section on every page. |
+1. **The wordmark is a window.** The hero is the word TORRE at architectural scale, each letter an opening onto the real TORRE HOME building (Meyerton's full-width wordmark + Massive Forms' photograph-as-canvas, translated).
+2. **The photograph is the page.** Plates run full-bleed; text sits *in* them on two strict vertical axes; framed like a printed sheet (Nikken).
+3. **Planes, not cards.** Rhythm comes from flat planes of colour and material — ink, paper, concrete, one bronze plane, four company planes (Flintco) — separated by hard edges, never boxes with rounded corners.
+4. **Drawing conventions as the only ornament.** Title blocks, sheet numbers (*Fleta 01/07*), floor numerals, schedules, elevations — things a construction company actually makes. Hairlines exist only inside these, not as a universal container.
+5. **Floors.** The group is a building; the four companies are floors (G, 1–4). A vertical elevator-style rail is the signature navigation.
+6. **One signal colour, once.** Anodised bronze (the group mark's gold — also the colour of aluminium window profiles) appears as one plane or marker per page (Meyerton's single yellow).
+7. **Honest imagery.** Renders are captioned *Vizualizim*; stock is never shown as TORRE's work; facts come only from `content.md` §1.
 
-Sources of influence: **Flintco** for communication order and discipline (A) · **Massive Forms** for scale/grid/negative space (C) · **MEYERTON** for industrial rigour (D) · **NIKKEN** for editorial consistency (E) · **Cormack** for curated project browsing (B). Original contribution: the **four numbered divisions as a system**.
+Why this is not a re-skin: the old site (and M1) was a pale list of numbered rows under a mono eyebrow. Fasada shares **no layout, section order, component or hierarchy** with it.
 
-## 2. Colour
+### How each reference is translated (and what is not copied)
 
-### 2.1 Findings that shaped the palette
-
-- The brief's candidate palette is a good base but **fails WCAG AA in three places** (computed): `#777A79` muted text on `#F4F3EF` = **3.90 : 1** (needs 4.5); on `#E9E8E3` = **3.53 : 1**; accent `#A34D3C` on charcoal `#202326` = **2.77 : 1**.
-- The brief's border `#D8D7D1` on `#F4F3EF` = 1.30 : 1 — fine for **decorative** hairlines, **not** for form-control boundaries (WCAG 1.4.11 needs 3 : 1).
-- The current group mark is gold `#c4954a` on charcoal `#14171a`. Gold on warm white = 2.44 : 1 (unusable for text on light), 5.82 : 1 on `#202326`.
-- **D-004 decided: keep per-company colours.** The brief's single red accent is therefore retired as a *site-wide* accent; §2.2's `--color-accent` is now a **per-division token** (§2.7). The group level is neutral. The original company accents also fail AA in places — see §2.7 for the corrected values.
-
-### 2.2 Semantic tokens (light theme — default)
-
-| Token | Hex | Purpose | Contrast / notes |
-|---|---|---|---|
-| `--color-bg` | `#F4F3EF` | Page background (warm architectural white) | — |
-| `--color-surface` | `#E9E8E3` | Secondary neutral bands | text on it 12.87 : 1 |
-| `--color-raised` | `#FBFAF7` | Form fields, popovers | text on it 15.13 : 1 |
-| `--color-text` | `#202326` | Primary text, charcoal | on bg **14.22 : 1** |
-| `--color-text-muted` | `#5E6160` | Secondary text (**changed from `#777A79`**) | on bg **5.64**, surface **5.10**, raised 6.00 |
-| `--color-text-disabled` | `#8E918F` | Disabled labels (exempt from AA; paired with `aria-disabled` + a visual cue other than colour) | on surface 2.59 |
-| `--color-border` | `#D8D7D1` | Decorative hairlines and dividers only | 1.30 (decorative) |
-| `--color-border-strong` | `#7A7D7B` | Input/control boundaries | on bg **3.75**, on surface **3.39** (≥ 3) |
-| `--color-accent` | **group level:** `#202326` (charcoal) · **division level:** see §2.7 | Links, primary action, numerals | group: 14.22 on bg · divisions: §2.7 |
-| `--color-accent-hover` | group `#0F1113` (17.04 on bg) · divisions §2.7 | Hover/pressed accent | — |
-| `--color-on-accent` | group `#F4F3EF` (on `#202326` 14.22) · divisions `#FFFFFF` | Text on accent fills | §2.7 |
-| `--color-focus` | `#202326` | Focus ring on light surfaces (2 px, 3 px offset) | on bg 14.22 |
-
-### 2.3 Dark sections (hero-adjacent bands, contact, footer)
-
-| Token | Hex | Notes |
+| Reference | Translated into | Deliberately not copied |
 |---|---|---|
-| `--color-dark-bg` | `#202326` | Same as `--color-text`; sections invert, not a separate theme |
-| `--color-dark-surface` | `#2A2E31` | Raised panels on dark |
-| `--color-dark-text` | `#F4F3EF` | on dark-bg **14.22**, on dark-surface 12.33 |
-| `--color-dark-muted` | `#A3A6A4` | on dark-bg **6.43**, on dark-surface 5.57 |
-| `--color-dark-border` | `#4A4E51` | Decorative hairlines (1.88; decorative) |
-| `--color-dark-border-strong` | `#8A8D8B` | Input borders on dark: on dark-bg **4.71**, on dark-surface **4.08** |
-| `--color-accent-on-dark` | group: gold `#C4954A` (**5.82** on dark-bg, 5.05 on dark-surface) · divisions §2.7 | Accent as **text** on dark. Never reuse the light-theme accent on dark. |
-| `--color-accent-on-dark-hover` | group `#D8AC66` (7.53 on dark-bg) · divisions §2.7 | — |
-| `--color-focus-on-dark` | `#F4F3EF` | Focus ring on dark (14.22) |
+| **Meyerton** — full-width condensed wordmark with the photo in the letters; one yellow; stepped tags | SVG wordmark hero filled with the TORRE HOME photograph; bronze as the one signal | Yellow; steelwork imagery; the stepped tag (ours is angled) |
+| **Massive Forms** — photograph as canvas, two axes, huge numerals, tiny labels, a human for scale | Full-bleed plates, text on two axes, monolith numerals for verified facts, tiny tracked captions | The all-black cold palette; brutalist content; the Helvetica clone |
+| **Nikken** — aperture, plate frame, image-in-type, staggered image row | A rectilinear *window* aperture (not a circle), 36 px plate frame, an inline image inside the statement sentence, staggered native-scroll row | The circle; insights/news modules; the wide light type |
+| **Flintco** — colour planes, rotated margin labels, angled caption plate | Planes as section rhythm, rotated labels, an angled caption tab, stat-block logic | Red; serif/uppercase-tracked headings; podcast/news |
+| **Cormack** — panels of different kinds, caption plaques, scattered editorial placement, separately-designed mobile | Photo / type / colour panels, an overlapping caption tab, editorial About layout, mobile restacked not shrunk | **Lenis smooth scroll and a pinned page-wide track** (replaces native scroll — rejected), olive, slanted logo |
 
-### 2.4 State rules
+## 2. Colour (all *computed*)
 
-- **Hover:** links darken to `accent-hover` and the underline thickens (1 → 2 px); primary buttons use `accent-hover`; ruled rows invert (see §5.4). Hover never conveys information alone.
-- **Focus:** `:focus-visible` 2 px solid ring, 3 px offset, `--color-focus`/`--color-focus-on-dark`; never removed; never clipped by `overflow: hidden` (use padding on the container). Sticky header must not cover a focused element (WCAG 2.4.11) → `scroll-padding-top: var(--header-h)`.
-- **Disabled:** `aria-disabled="true"` + `--color-surface` fill + `--color-text-disabled` + `cursor: not-allowed` + no hover transform.
-- **Error:** no extra colour is introduced. Error text uses `--color-accent-hover` (6.59 : 1 on bg), **plus** an icon, the word "Gabim:" before the message and a 2 px left rule on the field, so meaning never rests on colour alone. (On dark sections the same tokens remap to `--color-accent-on-dark-hover`.)
-- **Selection:** `::selection` charcoal bg, warm-white text.
+The M1 neutrals (`#F4F3EF` / `#202326`) are retired. New surfaces:
 
-### 2.5 Restraint rules
+| Token | Hex | Role |
+|---|---|---|
+| `--ink` | `#15171A` | Hero, footer, dark planes |
+| `--ink-2` | `#202326` | Raised dark panels |
+| `--paper` | `#EFECE6` | Light plane |
+| `--concrete` | `#CFCAC1` | Mid plane (towers section, schedules) |
+| `--bronze` | `#C4954A` | The signal: one plane or marker per page; the group mark's colour |
+| `--plane-magfa` | `#006A9E` | MAGFA plane |
+| `--plane-swisstech` | `#006F71` | SWISSTECH plane |
+| `--plane-umbria` | `#3A6845` | TORRE DI UMBRIA plane |
+| `--plane-home` | `#27496D` | TORRE HOME plane |
+| `--on-dark-magfa` / `-swisstech` / `-umbria` / `-home` | `#5BB0DC` / `#00A0A2` / `#6FA67A` / `#8FB0D6` | Company colour as text/lines on ink |
 
-**One accent per page**, set by the company the page belongs to (group pages: none). No gradients, except the single scrim used behind text-over-image (see §5.9). No per-section colours *within* a page. Dark sections invert the same palette. A company's colour appears only on its own pages and in its logo lockup; the group pages never mix company colours (a company colour appears on the group home only as a small marker inside that company's row).
+Company colours stay (D-004); each company *plane* uses the AA-corrected shade, and its on-dark shade is for text on ink.
 
-### 2.6 Token implementation (proposed CSS)
+**Contrast (computed):**
 
-```css
-:root {
-  --color-bg:#F4F3EF; --color-surface:#E9E8E3; --color-raised:#FBFAF7;
-  --color-text:#202326; --color-text-muted:#5E6160; --color-text-disabled:#8E918F;
-  --color-border:#D8D7D1; --color-border-strong:#7A7D7B;
-  --color-accent:#202326; --color-accent-hover:#0F1113; --color-on-accent:#F4F3EF; /* group level; divisions override (§2.7) */
-  --color-focus:#202326;
-  --color-dark-bg:#202326; --color-dark-surface:#2A2E31; --color-dark-text:#F4F3EF;
-  --color-dark-muted:#A3A6A4; --color-dark-border:#4A4E51; --color-dark-border-strong:#8A8D8B;
-  --color-accent-on-dark:#C4954A; --color-accent-on-dark-hover:#D8AC66; --color-focus-on-dark:#F4F3EF;
-}
-[data-surface="dark"] { /* remap semantic tokens once; components never branch on theme */
-  --color-bg:var(--color-dark-bg); --color-surface:var(--color-dark-surface);
-  --color-text:var(--color-dark-text); --color-text-muted:var(--color-dark-muted);
-  --color-border:var(--color-dark-border); --color-border-strong:var(--color-dark-border-strong);
-  --color-accent:var(--color-accent-on-dark); --color-accent-hover:var(--color-accent-on-dark-hover);
-  --color-on-accent:#202326; --color-focus:var(--color-focus-on-dark);
-}
-```
+| Pair | Ratio | Use |
+|---|---|---|
+| ink on paper / on concrete | **15.23 / 11.01** | Body, headings |
+| `#4B4F52` (muted) on paper / concrete | **7.01 / 5.07** | Captions, secondary text. *(M1's `#5E6160` is 3.84 on concrete — it fails; replaced)* |
+| paper on ink / on ink-2 | **15.23 / 13.39** | Dark-plane text |
+| `#A3A6A4` (muted-dark) on ink / ink-2 | **7.31 / 6.43** | Dark-plane secondary text |
+| bronze on ink / ink-2 | **6.62 / 5.82** | Signal text/markers on dark |
+| **ink on bronze** | **6.62** | Text on the bronze plane — **paper on bronze is 2.30 and is forbidden** |
+| white on magfa / swisstech / umbria / home plane | **5.91 / 5.98 / 6.47 / 9.29** | Text on company planes |
+| border-strong `#6C6F6D` on paper / concrete | **4.31 / 3.11** | Form and control boundaries (≥ 3) |
+| border-strong-dark `#8A8D8B` on ink | **5.36** | Same, on dark |
+| focus: ink on paper / bronze on ink / ink on bronze / white on company plane | **15.23 / 6.62 / 6.62 / 5.91+** | Focus ring (2 px, 3 px offset) per surface |
 
-(The existing tokens are HSL triplets consumed as `hsl(var(--bg))`. Migration to hex-valued semantic tokens is a Milestone-1 task; Tailwind's config maps them.)
+Decorative only (exempt): hairlines (`paper @ 28 %` on ink ≈ 2.1), ghost footer wordmark (`#23262A` on ink ≈ 1.2).
 
-### 2.7 Per-company theme tokens (D-004 option 3, D-019)
-
-Each company page wrapper carries `data-division="magfa|swisstech|torre-umbria|torrehome"`, which remaps **only** the accent tokens and the base surface. Original brand accents were kept as far as AA allows; where they fail as *text* the nearest passing shade is used (computed; "bg" = `#F4F3EF`, "surf" = `#E9E8E3`, "dark" = `#202326`, "dark-surf" = `#2A2E31`).
-
-| Company | Base surface (as today) | Original accent | `--color-accent` (light text/fills) | `--color-accent-hover` | `--color-on-accent` | `--color-accent-on-dark` (text on dark) | Notes |
-|---|---|---|---|---|---|---|---|
-| **MAGFA GROUP** | Light | `#0072A7` (4.77 on bg, **4.32 on surf — fails**) | `#006A9E` — bg **5.32**, surf **4.81**; fill+white **5.91** | `#005A85` — bg 6.75, surf 6.11 | `#FFFFFF` | `#5BB0DC` — dark **6.53**, dark-surf 5.67 | Original blue on charcoal is 2.98 : 1 |
-| **SWISSTECH** | Dark | `#00A0A2` (**2.89 on bg — fails**) | `#006F71` — bg **5.38**, surf **4.87**; fill+white **5.98** | `#005B5D` — bg 7.12 | `#FFFFFF` | `#00A0A2` (original) — dark **4.93**, dark-surf **4.27 — use on dark-bg only** | Dark-ink on teal fill 4.93 |
-| **TORRE DI UMBRIA** | Dark | `#5F9169` (**3.29 on bg — fails**; 4.32 on dark — fails body) | `#3A6845` — bg **5.83**, surf **5.27**; fill+white **6.47** | `#2B5035` — bg 8.22 | `#FFFFFF` | `#6FA67A` — dark **5.57**, dark-surf **4.83** | |
-| **TORRE HOME** | Light | `#27496D` (8.37 on bg; **1.70 on dark — fails**) | `#27496D` — bg **8.37**, surf 7.57; fill+white 9.29 | `#1C3652` — bg 11.13 | `#FFFFFF` | `#8FB0D6` — dark **7.03**, dark-surf 6.10 | |
-| **Group (home, Kompania, Kontakti, footer)** | Light + dark sections | gold mark `#C4954A` | `#202326` (charcoal) | `#0F1113` | `#F4F3EF` | gold `#C4954A` — dark **5.82**, dark-surf 5.05 | No hue accent; gold appears only on dark |
-
-**Added during implementation:** hover/on-dark-hover shades for the company accents were not in the first table; they are `#7cc2e6` (MAGFA), `#2ab8ba` (SWISSTECH), `#8bbb95` (TORRE DI UMBRIA), `#acc6e3` (TORRE HOME) — verified ≥ 4.5 : 1 on the dark background by `npm run check:contrast`.
-
-Rules: the page's base surface is the company's own (SWISSTECH and TORRE DI UMBRIA keep their dark identity; MAGFA and TORRE HOME their light one), but every inverted section still follows §2.3. Focus rings stay charcoal/warm-white regardless of company (14.22 : 1) so keyboard users get one consistent indicator. The old per-company greys/tints (`brands.ts` themes: `#faf8f6`, `#0f1419`, `#14171a`, `#f0f3f7` …) are replaced by the shared neutrals; the *hue* identity is what carries over. Pairs to avoid: company accent as text on the *other* surface (e.g. SWISSTECH teal `#00A0A2` on light).
-
-```css
-[data-division="magfa"]  { --color-accent:#006A9E; --color-accent-hover:#005A85; --color-on-accent:#fff; --color-accent-on-dark:#5BB0DC; }
-[data-division="swisstech"] { --color-accent:#006F71; --color-accent-hover:#005B5D; --color-on-accent:#fff; --color-accent-on-dark:#00A0A2; }
-[data-division="torre-umbria"] { --color-accent:#3A6845; --color-accent-hover:#2B5035; --color-on-accent:#fff; --color-accent-on-dark:#6FA67A; }
-[data-division="torrehome"] { --color-accent:#27496D; --color-accent-hover:#1C3652; --color-on-accent:#fff; --color-accent-on-dark:#8FB0D6; }
-```
+**Rules:** a page uses at most its own company-plane family (the Four Towers and the menu are the exceptions); the bronze plane appears at most once per page; no gradients except the single 0→55 % ink scrim under plate captions; no shadows; radius 0 (the MENU pill is the only rounded element).
 
 ## 3. Typography
 
-**Typeface (D-011, assumed, gated):** **Geist** (sans, variable) for everything; **Geist Mono** only for small labels and numerals. Self-hosted via `next/font`, `display: swap`, subsets `latin` + `latin-ext` (Albanian needs `ë ç`). *Gate — PASSED (2026-11-07):* inspecting the built files with fontTools shows ë Ë ç Ç and all 92 required Albanian/English characters in both Geist and Geist Mono (variable fonts); only the arrow glyphs → ← are absent, so arrows are SVG icons. No fallback to Inter was needed.
+**Anton** (display) + **Instrument Sans** (text, variable 400–700). Both are self-hosted from npm (`@fontsource/anton`, `@fontsource-variable/instrument-sans`) — no runtime Google request. **Glyph gate passed (computed with fontTools):** ë Ë ç Ç é É and all required Albanian/English characters are present in both families. Replaces Geist (M1).
 
-| Evaluated | Verdict |
-|---|---|
-| **Geist** | Tight, neutral grotesk that holds up at very large sizes (monumental headings) and small sizes; variable; OFL. **Chosen.** |
-| Inter | Excellent and safe; **fallback.** Slightly softer/more generic at display size. |
-| Manrope | Rounded terminals soften the "exact, cold, honest" tone (ref. C). Rejected. |
-| IBM Plex Sans | Strong engineering character, but wide metrics hurt large Albanian headlines; Plex Mono is the mono fallback. |
-| Neue Montreal | Commercial licence (not procured). Rejected. |
+| Role | Face | Spec |
+|---|---|---|
+| **Wordmark** | Anton | SVG text, uppercase, fitted by measurement (below), never live CSS text |
+| H1 / H2 (display) | Anton, uppercase | H1 `clamp(3.5rem, 2rem + 8vw, 9.5rem)`, leading .9, tracking −.005 em; H2 `clamp(2.5rem, 1.5rem + 5vw, 6.5rem)`, leading .92 |
+| Numerals (floors, monoliths, phone) | Anton | Sized from real metrics: `1999` is 1.813 em wide, the phone number is 6.494 em wide |
+| Statement | Instrument Sans 500 | `clamp(2rem, 1rem + 5vw, 5.25rem)`, leading 1.02, tracking −.03 em |
+| H3 / item titles | Instrument Sans 600 | 1.5–2 rem, leading 1.15 |
+| Lead | Instrument Sans 400 | `clamp(1.125rem, 1rem + .6vw, 1.5rem)`, leading 1.35 |
+| Body | Instrument Sans 400 | 1.0625 rem (17 px) / 1.55, measure ≤ 66 ch |
+| Caption / label | Instrument Sans 600 | 12 px, tracking .14 em, uppercase |
 
-Albanian + English both need `latin`/`latin-ext`. Replaces the four families currently loaded on every page (Inter, Outfit, Instrument Serif, JetBrains Mono) → two files of one superfamily.
+**Anton metrics (computed):** cap height 0.859 em; `TORRE` 2.247 em wide; `TOR` 1.358 em; `RE` 0.888 em. Wordmark fit: *font-size = (container width − 4 × gap) ÷ 2.247* with gap 24–30 px, applied through SVG `textLength`; on mobile it restacks to `TOR / RE` (font-size ≈ 240 px at 354 px width).
+Rules: Anton is never used below 24 px or for body text; uppercase only; no italics; Albanian hyphenation off; rotated text (`writing-mode`) is decorative or duplicated in accessible text, never the only carrier of meaning.
 
-### Scale (fluid; desktop value is at ≥1440 px, mobile at 390 px)
-
-| Role | Tag | Size (clamp) | ≈ Desktop / Mobile | Weight | Line-height | Tracking |
-|---|---|---|---|---|---|---|
-| Display (home hero only) | `h1` | `clamp(3rem, 1.5rem + 7.5vw, 10rem)` | ~132 px / ~53 px | 600 | 0.92 | −0.035em |
-| Page title | `h1` | `clamp(2.5rem, 1.2rem + 5vw, 6rem)` | ~91 px / ~39 px | 600 | 0.98 | −0.03em |
-| Section heading | `h2` | `clamp(1.875rem, 1.1rem + 3vw, 3.75rem)` | ~60 px / ~30 px | 600 | 1.02 | −0.025em |
-| Sub-heading | `h3` | `clamp(1.375rem, 1rem + 1.2vw, 2rem)` | ~32 px / ~22 px | 500 | 1.15 | −0.015em |
-| Item title | `h4` | `1.25rem` | 20 px | 500 | 1.3 | −0.01em |
-| Lead | `p.lead` | `clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)` | ~22 / 18 px | 400 | 1.45 | 0 |
-| Body | `p` | `clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)` | ~17 / 16 px | 400 | 1.6 | 0 |
-| Small | `.small` | `0.875rem` | 14 px | 400 | 1.5 | 0.005em |
-| Label | `.label` | `0.75rem` mono, uppercase | 12 px | 500 | 1.3 | +0.12em |
-
-Rules: max measure **66 ch** for body, **22 ch** for display headings (they break by design; use `text-wrap: balance`); minimum text size 12 px (labels only, never body); sentence case for headings; uppercase only for labels; numerals tabular in mono; Albanian hyphenation off (`hyphens: manual`) for headings; never fake bold/italic; no italics-serif pairing (the current hub's Instrument Serif italic is dropped for system consistency).
-
-Heading hierarchy: exactly one `h1` per page; `h2` for sections; `h3` for items; no skipped levels (a11y, not SEO — see `research/resources.md` §1).
-
-## 4. Layout system
+## 4. Grid and layout
 
 | Token | Value |
 |---|---|
-| Content max width | `1320px` (centred) inside page margin; full-bleed images may exceed |
-| Page margin | `clamp(20px, 4vw, 64px)` |
-| Grid | **12 columns ≥ 1024 px · 8 columns 768–1023 px · 4 columns < 768 px**; gutter 24 px (≥ 768) / 16 px |
-| Breakpoints | `480` · `768` · `1024` · `1280` · `1600` |
-| Spacing scale (4 px base) | 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 160 |
-| Section spacing | `clamp(80px, 10vw, 160px)` top/bottom; related blocks inside a section 48–64 px |
-| Header height | 72 px desktop / 60 px mobile (`--header-h`) |
-| Radius | **0** for buttons, inputs, images, panels (architectural). One exception token `--radius-focus: 2px` for focus ring corners. |
-| Image ratios | Hero 16:9 desktop / 4:5 mobile · Project 3:2 and 4:5 · Division 4:5 · Plan/figure: natural ratio, never cropped · Avatar n/a |
-| Alignment | Text left-aligned. Section labels and numerals hang in columns 1–2; content starts at column 3 (≥ 1024 px). No centred body copy. |
-| Vertical rhythm | Section label → 24 px → heading → 32 px → body; hairline (`--color-border`) between repeated rows; rows 24–40 px padding. |
+| Rail | 56 px fixed on the left (≥ 1280 px); content margin 36 px; mobile margin 18 px |
+| Grid | 12 columns ≥ 1024 (the facade *bays*), 8 at 768, 4 below; gutter 24 / 16 px |
+| Plate | full-bleed, min-height `max(640px, 100svh)`, inset frame 36 px (18 px on mobile) |
+| Section spacing | `clamp(72px, 9vw, 150px)` |
+| Image ratios | Plate 16:10 desktop / 4:5 mobile; row images 4:5, 3:2, 21:9; plans natural |
+| Alignment | Two axes: copy column at bays 1–4, display at bays 5–12 (Massive Forms); display type may bleed to the page edge |
+| Section transitions | **Hard plane change** (ink → plate → paper → concrete → ink → paper → ink → bronze → ink); no fades, no borders |
 
-Not everything is a container: sections are separated by space and hairlines. **No rounded cards.** Panels (form, featured project meta) may use `--color-surface` bands, square-cornered.
+**No cards.** Nothing is a rounded or boxed container. Tables and title blocks use 1 px hairlines because that is how drawings are drawn.
 
-## 5. Components (proposed set)
+## 5. Signature components
 
-### 5.1 Header & navigation
-- Left: interim wordmark "TORRE" (D-005). Right (≥ 1024): `Kompania · Kompanitë ▾ · Projektet · Kontakti`, phone link (≥ 1280), primary button **"Na kontaktoni"**.
-- "Kompanitë" opens a menu listing the four divisions (a real `<ul>` of links; also works with JS off — it is a link to `/kompanite`, with the menu as enhancement).
-- Sticky, solid `--color-bg`, 1 px bottom border appears after 8 px scroll. **No hide-on-scroll** (keeps the contact CTA reachable; avoids motion).
-- Mobile: hamburger (44 × 44 target) → full-screen sheet; `aria-expanded`, focus trap, `Esc` closes, `inert` background, 48 px link rows, large phone + WhatsApp buttons at the bottom of the sheet.
-- Skip link first in DOM; `<nav aria-label="Kryesore">`; current page `aria-current="page"`.
+Each exists in the hi-fi board (`design/concept/index.html`) and the wireframes (`design/wireframes/`).
 
-### 5.2 Buttons & links
-| Variant | Spec |
-|---|---|
-| Primary | `--color-accent` fill, `--color-on-accent` text, min-height 48 px, padding 0 28 px, 15–16 px weight 500, square, trailing arrow glyph |
-| Secondary | 1 px `--color-text` border, transparent fill, same size |
-| Text link | accent colour, 1 px underline offset 4 px → 2 px on hover; arrow `→` aligned to baseline |
-| Icon button | 44 × 44 px minimum target, visible focus, accessible name |
+1. **Wordmark window (hero).** `<h1>` is visually-hidden text ("TORRE Group — ndërtojmë në Kosovë që nga 1999"); the visible wordmark is an `aria-hidden` SVG with `<text fill="url(#pattern)">` over a pattern `<image>` (solid `#9AA3AD` fallback). **Requirement:** the image crop behind the letters must be high-key so letters read at ≥ 3:1 against ink (large display text) — verified per image by a build-time luminance test. Desktop one row; mobile two rows. Four hairline "bay" lines sit behind. A **title block** (5 cells) sits under it: latest project · founded · companies · floors · sheet.
+2. **Floor rail.** `<nav aria-label="Katet">` with an `<ol>`: **G** (home), **1 MAGFA**, **2 SWISSTECH**, **3 TORRE DI UMBRIA**, **4 TORRE HOME**; the active stop is bronze; rotated "TORRE GROUP" and "1999" are decorative. Visible ≥ 1280 px; below that the same list lives in the menu. Accessible names contain the visible numeral (WCAG 2.5.3).
+3. **Menu overlay.** Native `<dialog>` full-screen in ink: huge Anton links (the four floors with giant numerals, Projektet, Kompania, Kontakti), the phone at display size, WhatsApp, the factory address, the language switch when English is live. The top bar is only: small place line · phone · MENU pill.
+4. **Plate.** Full-bleed photograph, 36 px inset frame, **angled caption tab** (clip-path) with category and name, optional status line. Expands from the letter-windows on scroll (CSS scroll-driven `clip-path`; static full-bleed fallback).
+5. **Four Towers.** Four flat colour planes, bottom-aligned at different heights (72 / 84 / 78 / 94 %) — a skyline. Each is one link: Anton floor numeral, square arrow cell, rotated company name, category + one line of verified text. At ≥ 1024 px the focused/hovered tower widens (flex 1 → 1.6, 280 ms); on touch and mobile there is no expansion — four full-width slabs. *Replaces the old numbered list entirely.*
+6. **Status elevation.** An SVG drawing of the two TORRE HOME buildings: Building 1 solid (complete), Building 2 solid with a hatched top (near completion) — **status supplied by the client (2026-11-07); no invented percentages**. `role="img"` with a text alternative.
+7. **Staggered row.** Native `overflow-x: auto` + `scroll-snap`, images at different heights/offsets, tiny numbered captions; a labelled region with arrow-key scrolling and 44 px prev/next buttons; no pinned scroll.
+8. **Monoliths.** Verified numbers at display scale on unequal columns (1.8 / 1 / 1 / 1.2 fr); static (no count-up).
+9. **Bronze contact plane.** Heading and the **phone number as the headline** (Anton, tappable), ink on bronze; buttons ink fill / ink outline.
+10. **Title-block footer.** A five-cell drawing title block (company, companies, contact, factory, legal) plus a ghost wordmark.
+11. **Schedule table** (SWISSTECH, Companies page): a real `<table>` with caption, styled like a door/window schedule.
+12. **Buttons.** Rectangular, 56 px, label + a **square arrow cell** (1 px divider). Primary = bronze on ink surfaces / ink on paper; secondary = outline. No radius.
+13. **Enquiry sheet (Contact).** Form fields as title-block cells; labels above; errors in text + icon + rule.
 
-All buttons are real `<a>`/`<button>`; target size ≥ 44 px (above WCAG 2.2's 24 px minimum). One primary per view.
+## 6. Photography direction
 
-### 5.3 Section label
-`01 — Kush jemi`: mono 12 px, uppercase, `--color-text-muted`, numeral in accent. Numbering restarts per page and matches DOM order.
+Because the page *is* the photograph, imagery is the main deliverable the client must supply (`content.md` §5). Direction: **tall verticals and strong lines**; low angles on facades; **blue-hour/dusk** with lit windows; sunlit **high-key** crops for the wordmark; concrete and aluminium **details**; **people at work for scale** (Massive Forms' figure, Meyerton's welder) — SWISSTECH factory, MAGFA sites; one consistent grade (cool shadows, warm windows). Masters ≥ 3600 px wide, 3:2 plus 4:5 and 21:9 crops, delivered as AVIF/WebP with responsive sizes. Until real photography exists the TORRE HOME renders (captioned *Vizualizim*) carry the hero and plates; MAGFA, TORRE DI UMBRIA and SWISSTECH use **drawing graphics** (`page-designs.md`) — never stock photographs presented as their work.
 
-### 5.4 Division index (home, `/kompanite`)
-Four full-width ruled rows: numeral (mono) · name (h2 size) · one-line description · "Shiko →". Desktop hover: row fills `--color-dark-bg` (CSS `clip-path`/background-size transition, 280 ms), text swaps to `--color-dark-text`, an image preview appears at the right (images lazy-loaded). Touch/keyboard: same invert on `:focus-visible`; image shown inline below the row on < 1024 px. Each row is one link (single tab stop) with an accessible name "MAGFA GROUP — ndërtim shtëpish".
+## 7. Motion (authority: `animation.md`)
 
-### 5.5 Project rail & tiles
-Native `overflow-x: auto` + `scroll-snap-type: x proximity`; tile 3:2 or 4:5 image + name + place + year + category; prev/next buttons (44 px) control scroll position; the track is a labelled region reachable by keyboard (`tabindex="0"`, arrow keys scroll); "N / M" counter. If < 4 verified projects exist, render a **featured block** instead of a rail (never a rail of one).
+CSS only: the letters' photograph drifts slowly (scroll-driven `translateY` inside the SVG pattern); the plate expands from the letter-windows; towers widen on focus/hover; the rail marker follows the section (IntersectionObserver); the menu overlay slides. **No Lenis, no pinned page-wide track, no scroll hijack, no count-up numbers.** Everything is off under `prefers-reduced-motion`; hidden-until-JS states are forbidden. Scroll-driven CSS is a progressive enhancement (static fallback verified in Playwright).
 
-### 5.6 Facts row
-Up to four items, each a large figure/word + one-line label, hairline-separated. **Only §1 facts of `content.md`:** `1999 — themelimi`, `4 — kompani`, `6 — qytete ku ndërton MAGFA`, factory in Ferizaj (SWISSTECH). Counters do not animate (they would hide the value from non-JS crawlers; Flintco's counters start at `0` in the served HTML).
+## 8. Accessibility constraints specific to this direction
 
-### 5.7 Forms
-Labels above fields (never placeholder-as-label); 48 px height; 1 px `--color-border-strong`; focus = 2 px ring; required marked with text "(e detyrueshme)", not just `*`; field-level errors beneath, linked with `aria-describedby`, plus a summary at the top (`role="alert"`, focus moved to it) listing links to invalid fields; success replaces the form with a confirmation (`role="status"`) and preserves what was typed on error. Honeypot field removed from the accessibility tree. Privacy line: "Duke dërguar pranoni politikën e privatësisë" linking to the real policy. Autocomplete tokens (`name`, `tel`, `email`).
+- **Image-filled wordmark:** real `<h1>` text for AT; SVG `aria-hidden`; luminance test for the crop; solid-fill fallback.
+- **Rotated text:** never carries unique information; the same content exists in the DOM as normal text.
+- **Rail and menu:** real `<nav>` + `<ol>`/links, keyboard-complete, focus visible on ink (bronze) and paper (ink); 44 px targets.
+- **Towers:** each plane is one link with an accessible name equal to its visible text; expansion also on `:focus-within`; no hover-only content.
+- **Bronze plane:** ink text only (paper on bronze = 2.30:1 fails).
+- **Staggered row:** keyboard-scrollable region, plus buttons for non-drag operation (WCAG 2.5.7).
+- Target remains WCAG 2.2 AA (`accessibility.md`); axe is re-run on every rebuilt page.
 
-### 5.8 Footer
-Dark section. Wordmark; one-sentence description; navigation; four divisions; contact block (phone, WhatsApp, verified email, SWISSTECH factory address); legal links (privacy, terms, accessibility, cookies if applicable); © year generated at build, not `new Date()` in a client component; social links only if they exist (none known today).
+## 9. Responsive
 
-### 5.9 Image treatment
-Full-strength colour, no wash/overlay (the old hero bug washed photos to ghosts — commit `f0e42a3`). Text over image only with a **single scoped linear scrim** limited to the text zone and verified at 4.5 : 1. Renders carry a visible caption "Vizualizim" (render). Hairline 1 px `--color-border` frames only for plans/figures. Reveal: clip-path inset mask (see `animation.md`). Always `next/image` with `sizes`, AVIF/WebP, explicit dimensions (CLS = 0), `priority` only on the LCP image. Alt text states what is shown, not "image of".
+Mobile is **designed** (wireframe `home-mobile.svg`): the wordmark restacks `TOR / RE`; the rail becomes the menu; towers become four 230 px slabs; status and monoliths reflow 2-up; the phone number splits over two lines at display size; the plate becomes 4:5. Test widths: 320 / 390 / 768 / 1024 / 1440 / 1920.
 
-### 5.10 Other
-- **Breadcrumbs** on depth ≥ 2 (also emitted as JSON-LD).
-- **Pull-quote** only for real client-approved quotes (none exist; component built only when content arrives).
-- **Cookie notice** only if a non-essential cookie is introduced (none planned — D-016).
+## 10. Anti-patterns
 
-## 6. Homepage art direction (proposed)
+Rounded cards · numbered ruled lists as the main body (the M1/old-hub pattern) · mono eyebrow + big heading + lead as every page's opening · fade-up on everything · gradients · shadows · stock photography as TORRE's work · invented numbers or counters · pinned/smooth-scroll hijack · text over unscrimmed images · paper-on-bronze · more than one bronze plane per page · Anton below 24 px or for body text.
 
-| # | Section | Composition |
-|---|---|---|
-| 01 | Header | §5.1. |
-| 02 | **Hero** | Light. Display headline spans ~10 of 12 columns: **"Ndërtojmë në Kosovë që nga 1999."** (specific, true, client-supplied). Beneath, in columns 3–8, a lead: *TORRE Group është grup familjar me katër kompani: ndërtim shtëpish, dritare dhe fasada, zhvillim rezidencial dhe banesa.* Two CTAs: **"Na kontaktoni"** (primary), **"Shiko kompanitë"** (secondary). One full-width image band below (TORRE HOME render, captioned, until real photography arrives — see `content.md`). A hairline grid and numerals "01–04" echo the system. |
-| 03 | Introduction | Section label `01 — Kush jemi` hangs in cols 1–2; 2 short paragraphs in cols 3–8 (founding story, how the four relate — **needs client answers, `content.md` §4.2–3**); text link to `/kompania`. |
-| 04 | **Companies / capabilities** | The division index (§5.4). This replaces a generic "services" grid: each company *is* a service line. Each row lists 3–4 verified service names inline (e.g. MAGFA: *ndërtim shtëpish · dizajn arkitekturor · renovim · mbikëqyrje*). |
-| 05 | Projects | One **featured project** (TORRE HOME, Ferizaj): large image, meta strip (place, category, status [needs client], companies involved), link to the project page. A compact grid/rail appears only when ≥ 3/≥ 4 verified projects exist. |
-| 06 | Experience & credibility | Facts row (§5.6) + "Ku ndërtojmë" (six cities, from MAGFA). Certifications block is **omitted** until documents exist (no empty placeholders). |
-| 07 | Why TORRE | Three differentiators drawn only from verified structure: *katër specializime në një familje* · *fabrikë e vet në Ferizaj (SWISSTECH)* · *një numër për katër kompanitë* (one phone/WhatsApp line). Longer claims wait for client answers. |
-| 08 | Contact | Dark band. Left: heading **"Na tregoni projektin."** + form. Right: phone, WhatsApp, verified email, factory address with "Hap në hartë" link (no map embed). |
-| 09 | Footer | §5.8. |
+## 11. What each page must not look like
 
-**Mobile:** hero headline stacks in 3–4 lines at ~53 px; the image band becomes 4:5; division rows keep numerals on the left; facts row becomes a 2 × 2 grid; the form stacks; header CTA collapses into the sheet but a persistent bottom "Telefono" bar is **not** used (it would cover content and focus targets) — the phone button sits in the header at all widths.
+No page may be built from the patterns audited in `research/m1-audit.md` §2. Each page has its own composition and one signature device (`page-designs.md`).
 
-## 7. Page-level diversity
+## 12. Technical layer retained from M1
 
-Consistent system, different character per page type (no repeated "hero + three cards").
-
-| Page | Hero | Body character |
-|---|---|---|
-| Home | Typographic, monumental + image band | Numbered division rows, featured project, facts row, contact band |
-| Kompania | Short statement + long-form two-column text | Editorial timeline (1999 → sot, extended with client facts), principles list, photo pairs when available |
-| MAGFA | Image-led full-bleed (finished-house photography when supplied) | Services as numbered list; cities as a typographic list; contact CTA |
-| SWISSTECH | Spec-sheet typographic hero (product lines as a ruled table, **no prices**) | Process of ordering/measuring/installation *only if verified*; factory address & visit-by-appointment block |
-| TORRE DI UMBRIA | Typographic with building geometry | Scope-of-work ledger (project management, architecture, infrastructure, common areas, permits) — presented as scope, **not** as durations/warranties |
-| TORRE HOME | Gallery-led (renders, plans, parking) | Building 1 / Building 2 columns; floor-plan viewer; enquiry CTA |
-| Projects index | Ruled list with thumbnails (rail when ≥ 4) | Filter by company when there are enough projects |
-| Project page | Large image + meta strip | Narrative, captioned gallery, plans, related company, CTA |
-| Contact | Split: direct info left, form right (dark) | Address(es), hours (if given), privacy notice |
-| Legal | Plain, 72 ch column | Sticky table of contents |
-| 404 | Typographic | Links to the four companies and contact |
-
-## 8. Motion (summary — authority is `animation.md`)
-
-CSS for hover, reveals, header and nav; GSAP only for the hero line-mask and the optional pinned rail. Durations 160 / 280 / 560 / 900 ms; `cubic-bezier(0.22, 1, 0.36, 1)` out, `cubic-bezier(0.65, 0, 0.35, 1)` in-out. Nothing delays content; everything off under `prefers-reduced-motion`; no scroll hijack by default.
-
-## 9. Responsive rules
-
-- Design **mobile first**, then enhance at 768 / 1024 (not shrink-to-fit).
-- Hero image crops are authored (4:5 mobile, 16:9 desktop), not left to `object-fit` luck; art direction via `<picture>`/`sizes`.
-- Tap targets ≥ 44 px; spacing between adjacent targets ≥ 8 px.
-- No horizontal page scroll at 320 px; horizontal scrolling lives only inside the labelled project rail.
-- Forms: single column < 768 px; keyboard type per field (`inputmode`, `type=tel/email`).
-- Tables become stacked key/value lists < 768 px.
-- Test widths: 320, 390, 768, 1024, 1440, 1920.
-
-## 10. Accessibility rules (summary — authority is `accessibility.md`)
-
-WCAG 2.2 AA. Contrast per §2 (computed). Keyboard-complete. Visible focus. One `h1`. Landmarks `header/nav/main/footer`. Reduced motion honoured. Forms announce errors. No information by colour alone. No drag-only interaction (2.5.7). Targets ≥ 44 px (2.5.8 asks 24 px).
-
-## 11. Anti-patterns (do not build)
-
-Rounded-card grids · "icon in a circle + title + sentence" feature rows · three equal cards as a default section · gradient fills or blue-gradient "corporate" looks · glassmorphism · per-section accent colours · centred body copy · autoplay audio/video · infinite marquees · parallax on text · animated counters over unverified numbers · full-bleed text on unscrimmed photos · stock photos or AI imagery presented as TORRE work · testimonials without a real, consenting source · prices/warranties/tax statements without client sign-off · placeholder lorem or dead buttons · modal pop-ups · cookie banners when no non-essential cookies exist · keyword-stuffed headings · slogans that fit any company · hijacking scroll · `outline: none` · icon-only buttons without names.
-
-## 12. Reference-to-decision map
-
-| Decision | Because |
-|---|---|
-| Hero states the business + two CTAs | Flintco (A) |
-| Display type as the main graphic | Massive Forms (C) |
-| Rigorous 12-col grid, numerals, hairlines | Meyerton (D), Massive Forms (C) |
-| One system across pages, consistent image ratios | Nikken (E) |
-| Curated project rail, question-led FAQ | Cormack (B) |
-| Square corners, one accent | Flintco (A), Massive Forms (C) |
-| No slogans, no invented stats, no stock-as-own, no keyword stuffing | Brief + what A/B do that we reject |
+`src/proxy.ts`, `src/lib/i18n/*`, `src/content/*` (provenance guard), `src/lib/seo/*`, `sitemap.ts`, redirects and headers in `next.config.js`, `global-not-found` mechanics, the dialog and reveal *behaviours*, and Vitest + Playwright/axe + the contrast script + CI. Tokens, fonts, components and every page's markup are rebuilt.

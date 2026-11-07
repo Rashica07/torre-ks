@@ -2,7 +2,7 @@
 
 Source for **torre-ks.com**: the public website of TORRE Group, a Kosovo family group of four companies — **MAGFA GROUP** (home building), **SWISSTECH** (windows, doors, facades), **TORRE DI UMBRIA** (residential development) and **TORRE HOME** (apartments in Ferizaj).
 
-> **Status: redesign in progress — Milestone 1 (foundation) is implemented on this branch.** The site is now one Next.js app on one domain with a shared design system, per-company theming and gated English. The home page, company pages and contact page are **skeletons** built on verified facts only; their full designs, the project pages, the enquiry form and the SEO/AEO layer follow in milestones M2–M6 (see [`docs/planning.md`](./docs/planning.md)). This README describes only what exists today.
+> **Status: the visual design is being redone from scratch.** Milestone 1 (routing, i18n, content guard, SEO helpers, tests, CI) is implemented on this branch, but its page design reused the old site's structure and has been **rejected by the owner**; a new creative direction ("Fasada") is proposed in [`docs/design.md`](./docs/design.md), [`docs/page-designs.md`](./docs/page-designs.md), [`docs/design/wireframes/`](./docs/design/wireframes) and [`docs/design/concept/`](./docs/design/concept) and awaits approval before the frontend is rebuilt. The code in `src/components`, `src/sections`, `src/styles` and the page markup is therefore **temporary**. This README describes only what exists today.
 
 ## What's here today (after Milestone 1)
 

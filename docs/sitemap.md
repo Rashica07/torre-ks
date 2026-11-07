@@ -46,6 +46,8 @@ URL slugs stay Albanian and ASCII (existing legal slugs set the precedent). The 
 
 ## 3. Navigation hierarchy
 
+> **Superseded in presentation by the "Fasada" direction (`design.md` §5, `page-designs.md` §1):** primary navigation is the **floor rail** (G · 1 MAGFA · 2 SWISSTECH · 3 TORRE DI UMBRIA · 4 TORRE HOME, ≥ 1280 px) plus a **full-screen menu** (Kompanitë, Projektet, Kompania, Kontakti); the top bar carries only the place line, the phone and MENU. The route structure and link set below are unchanged.
+
 **Header (primary):** Kompania · Kompanitë (disclosure: MAGFA GROUP, SWISSTECH, TORRE DI UMBRIA, TORRE HOME, "Të gjitha") · Projektet · Kontakti · [phone ≥ 1280 px] · **Na kontaktoni** (button → `/kontakti`).
 **Footer:** Group description · Navigation (as above) · The four companies · Contact block (phone, WhatsApp, verified email, SWISSTECH factory address) · Legal (Privacy, Terms, Accessibility, Cookies if applicable).
 **Breadcrumbs:** on `/kompanite/*` equivalents and project pages — `Kryefaqja › Kompanitë › MAGFA GROUP`; mirrored in JSON-LD `BreadcrumbList`. (The four division URLs are top-level paths but breadcrumb through `Kompanitë`.)

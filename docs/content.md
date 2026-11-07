@@ -17,6 +17,7 @@ Rule (non-negotiable): nothing is published at **Unverified** tier. Every Albani
 | SWISSTECH 10-year profile warranty | Client-supplied (stated "real" in commit message) — **confirm exact scope and wording** | commit message | `/swisstech` only if re-confirmed |
 | TORRE DI UMBRIA — residential building development, project management, architecture & engineering, infrastructure, common areas, permits | Client-supplied (as service scope) | `brands.ts` | `/torre-umbria` |
 | TORRE HOME — two buildings, Emin Duraku street, Ferizaj, near the new city park | Client-supplied | live site; image set | `/torrehome`, project page |
+| **TORRE HOME status: Building 1 is completed; Building 2 is nearly complete** | **Client-supplied (2026-11-07, direct statement)** — consistent with undated third-party listings ("objekti në përfundim") | owner message | Home plate/status, TORRE HOME page, project page, JSON-LD project description |
 | Phone `+383 49 599 405` | Client-supplied | commit `486daed` | Header CTA, contact, footer, JSON-LD |
 | WhatsApp on the same number | Client-supplied (link exists) | `ContactBlock.tsx` | Contact |
 | Emails `info@magfa.torre-ks.com` etc. | **Unverified deliverability** | `brands.ts` | Do not publish until D-006 confirms mailboxes |
@@ -60,7 +61,7 @@ Handling under D-007 (strict). "Re-approve" means the client can send written co
 | 10 | 24 named testimonials (6 per brand) | `brands.ts`, `/preview/**` | Unverified — appear fabricated | **Delete from the repo.** Never publish without named, consenting, real clients. |
 | 11 | "Materiale premium", "Dorëzim në kohën e caktuar" (MAGFA hero) | `magfa` | Unverified marketing claim | Rephrase to describable facts or remove. |
 | 12 | "Pjesë e TORRE GROUP, aktiv në ndërtim që nga 1999" repeated on each brand | all | Client-supplied; registry shows entities from **2017** (SWISSTECH) and **2025** (TORRE HOME) | Keep only as the **family/group** history. Never imply each company is 26 years old. Rephrase on division pages (e.g. "pjesë e TORRE Group"). |
-| 13 | "Dy ndërtesa reale, jo një koncept" (TORRE HOME) | `torrehome` | Images are **3D renders**; building status (under construction / completed / delivered) not stated | Replace with a status statement once the client confirms the stage of each building. |
+| 13 | "Dy ndërtesa reale, jo një koncept" (TORRE HOME) | `torrehome` | Images are **3D renders**; status now supplied by the client: **Building 1 completed, Building 2 nearly complete** | Replace with the status statement; keep renders captioned *Vizualizim* until photographs of the finished building exist. **Ask for completion photographs of Building 1.** |
 
 ## 3. Page content requirements
 
@@ -90,7 +91,7 @@ Pages we will **not** create now (no content, would be empty): News, Careers, Pa
 
 **Work**
 7. [ ] Portfolio: for each project — name, location, year, category, role (built/developed/supplied), size, photos (own photography, with permission to publish), brief description. Completed work only, or clearly labelled "in progress".
-8. [ ] TORRE HOME: status of Building 1 and Building 2; which renders are final; availability/pricing policy (publish or enquire).
+8. [x] TORRE HOME status — **answered 2026-11-07: Building 1 completed, Building 2 nearly complete.** [ ] Still needed: photographs of the finished Building 1; which renders are final; availability/pricing policy (publish or enquire); building names/numbers; expected completion of Building 2 (only if the client wants it shown).
 9. [ ] Photography of: finished houses (MAGFA), the SWISSTECH factory and installations, completed buildings (TORRE DI UMBRIA), the team and sites. **Current heroes for MAGFA, SWISSTECH, TORRE DI UMBRIA are stock photos.**
 
 **Claims (tick to re-approve, with written source and an owner who keeps it current)**
@@ -100,7 +101,7 @@ Pages we will **not** create now (no content, would be empty): News, Careers, Pa
 11. [ ] Legal review of privacy policy, terms, cookie approach (Kosovo Law 06/L-082; GDPR relevance).
 12. [ ] Google Search Console and Bing Webmaster access (indexed pages, queries) and the domain registrar/DNS access for apex/www and subdomain redirects.
 13. [ ] Decision D-006 (contact handling). D-001, D-002, D-004, D-007 were answered on 2026-11-07 (see `decisions.md`).
-14. [ ] **From the web research (§1b):** which phone number should each company publish (SWISSTECH's registry number is different)? Registration documents / NUI for MAGFA, TORRE DI UMBRIA and any TORRE GROUP entity. Current status of TORRE HOME Building 1 and Building 2. Who supplies SWISSTECH's PVC and aluminium profiles (brand, certificates).
+14. [ ] **From the web research (§1b):** which phone number should each company publish (SWISSTECH's registry number is different)? Registration documents / NUI for MAGFA, TORRE DI UMBRIA and any TORRE GROUP entity. (TORRE HOME status answered — see item 8.) Who supplies SWISSTECH's PVC and aluminium profiles (brand, certificates).
 15. [ ] Someone fluent in English to review the English translation (D-020).
 
 ## 5. Image requirements
@@ -121,7 +122,9 @@ Pages we will **not** create now (no content, would be empty): News, Careers, Pa
 
 **Specification for new photography:** landscape 3:2 masters ≥ 3000 px wide (hero, project), plus portrait 4:5 crops; sRGB; no baked-in text; we deliver AVIF/WebP with responsive `srcset`; every image has meaningful alt text written by us from the caption the client gives.
 
-**Shot list (minimum):** MAGFA — 3 finished houses exterior + 1 interior each, 1 construction-stage; SWISSTECH — factory floor, profile cutting/welding, installed window in situ, showroom if any; TORRE DI UMBRIA — completed building exterior, site progress; TORRE HOME — construction progress photos of both buildings (to sit beside the renders); Group — founders/team portrait (optional).
+**Shot list for the Fasada direction (the design is photograph-led; this is the main deliverable it needs):** (a) **TORRE HOME Building 1, finished** — a sunlit high-key facade crop (used *inside the TORRE wordmark*), a blue-hour/dusk view with lit windows, details of balconies/cladding/entrance, a street-level view with a person for scale; Building 2 progress; (b) **SWISSTECH** — factory floor with people at work (Meyerton's welder as the reference), a profile/frame detail, windows installed in a facade, the exterior in Bibaj; (c) **MAGFA** — finished houses (exterior + one interior each), a site with people at work; (d) **TORRE DI UMBRIA** — a completed building exterior and a site; (e) **founders/team** (optional, with consent). All 3:2 masters ≥ 3600 px plus 4:5 and 21:9 crops.
+
+**Earlier minimum shot list (superseded by the above):** MAGFA — 3 finished houses exterior + 1 interior each, 1 construction-stage; SWISSTECH — factory floor, profile cutting/welding, installed window in situ, showroom if any; TORRE DI UMBRIA — completed building exterior, site progress; TORRE HOME — construction progress photos of both buildings (to sit beside the renders); Group — founders/team portrait (optional).
 
 ## 6. Content ownership
 

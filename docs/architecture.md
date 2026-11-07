@@ -1,6 +1,6 @@
 # Architecture
 
-> **Status: PARTIALLY IMPLEMENTED (Milestone 1).** §1 records the state **as built after M1** and what is still missing; §2 onward is the target — each section says what exists. The previous (pre-redesign) state is documented in `research/existing-site-audit.md`. Reflects the owner's decisions of 2026-11-07: one domain (D-001), Albanian + English (D-002), per-company design within one system (D-004, D-019).
+> **Status: PARTIALLY IMPLEMENTED (Milestone 1 — engineering).** §1 records the state as built after M1. **The M1 visual layer (components, styles, page markup) is superseded by the "Fasada" redesign and will be deleted in M2** (`research/m1-audit.md` §4, `design.md` §12); the routing, i18n, content/provenance, SEO helper, proxy, redirect, test and CI layers described here **stay**. §2 onward is the target architecture; each section says what exists. Fonts change from Geist to self-hosted Anton + Instrument Sans (D-025). The pre-redesign state is in `research/existing-site-audit.md`.
 > Last updated: 2026-11-07
 
 ## 1. State after Milestone 1 (as built)

@@ -65,3 +65,21 @@ Findings are fixed, not just reported; the QA report (`docs/qa-report.md`, creat
 ## 5. Accessibility statement
 
 The existing `/deklarata-e-qasshmerise` page will be rewritten after M6 to state the real target, the date tested, known gaps and a contact route. (Kosovo-specific legal requirements for the statement: confirm with counsel — `content.md` §4.11.)
+
+## 6. Patterns introduced by the "Fasada" direction (requirements; none built yet)
+
+| Pattern | Risk | Requirement | Test |
+|---|---|---|---|
+| **Image-filled wordmark** (SVG text with an image pattern) | Text-as-image; low contrast where the photograph is dark; no real text | Real visually-hidden `<h1>` text; SVG `aria-hidden`; solid-colour fallback; crop must be high-key so letters are ≥ 3:1 vs ink (large text) | Build-time luminance check of the crop; axe; screenshot diff |
+| **Rotated margin labels** (`writing-mode`) | Unreadable or lost to AT | Decorative or duplicated as normal text; never the only carrier of meaning | Manual + axe |
+| **Floor rail** | Fixed navigation covering content; unclear names | `<nav aria-label="Katet">` + `<ol>`; visible numeral ⊆ accessible name; `scroll-padding-left` for the rail; hidden < 1280 px (list lives in the menu) | Playwright tab-through; WCAG 2.4.11/2.5.3 checks |
+| **Menu overlay** | Focus loss, background interaction | Native `<dialog>`; focus returns to the opener; Esc closes (already tested pattern from M1) | Playwright |
+| **Four Towers** | Hover-only content; rotated name | One link per tower; name and category in DOM as normal text; expansion also on `:focus-within`; mobile slabs show all text | Playwright + axe |
+| **Bronze plane** | Paper-on-bronze = 2.30:1 | Ink text only; focus ring ink (6.62:1) | `check:contrast` pair list |
+| **Scroll-driven effects** | Content missing when unsupported; motion sickness | Static fallback verified; off under `prefers-reduced-motion` | Playwright with `reducedMotion` and with `animation-timeline` unsupported |
+| **Status elevation SVG** | Information only in a graphic | `role="img"` + text alternative stating the status; the status is also in text beside it | axe + manual |
+| **Staggered row** | Drag-only, keyboard trap | Labelled region, arrow-key scroll, prev/next buttons, no pinned scroll (WCAG 2.5.7) | Playwright |
+| **Anton display type** | Poor legibility small / in long text | Never < 24 px, never body, uppercase headings only, ≤ 3 lines | Visual review + lint rule for font-size |
+
+The axe suite, the contrast script (new token pairs) and the keyboard tests are rewritten for the new components in M2.
+

@@ -1,6 +1,6 @@
 # Implementation plan
 
-> **Status: Milestone 0 (research/docs) ✅ and Milestone 1 (foundation) ✅ are done and implemented on this branch; M2–M6 are PROPOSED.** The owner said "go on" after the M0 review, which is taken as approval to start M1. Dates are intentionally absent (capacity unknown); effort is given as S / M / L.
+> **Status: RE-PLANNED after the owner's "Independent Redesign" directive (2026-11-07).** M0 (research/docs) ✅. M1's *engineering* (routing, i18n, provenance guard, SEO helpers, tests, CI) ✅ is kept, but **M1's visual layer is superseded and will be deleted** (`research/m1-audit.md`). **Gate 0 — approval of the new creative direction — comes before any rebuild.** M2–M6 below are PROPOSED. The owner said "go on" after the M0 review, which is taken as approval to start M1. Dates are intentionally absent (capacity unknown); effort is given as S / M / L.
 > Last updated: 2026-11-07
 
 ## 1. Objectives
@@ -46,7 +46,7 @@ Every milestone ends with a **review gate**: a draft PR, a preview deployment (w
 ### M0 — Research and documentation ✅ (this PR)
 Deliverables: `docs/*`, `docs/research/*`, README. **Accepted:** the owner replied "go on" after the review and answered D-001/002/004/007. D-001, D-002, D-004 and D-007 were answered on 2026-11-07 and are folded in.
 
-### M1 — Foundation (effort M) ✅ IMPLEMENTED — see the result block at the end of this section
+### M1 — Foundation (effort M) ✅ engineering IMPLEMENTED; ⚠ visual layer SUPERSEDED (see Gate 0). The result block below is accurate for the engineering and for the old-pattern shell that is now to be replaced
 - Close D-005/D-011; **glyph test** for Geist (ë ç, and English) → font decision final.
 - Routing for `[lang]` (`sq` default, `en` gated), per-division `data-division` theming (D-019).
 - Tokens (`styles/tokens.css`), Tailwind mapping, type scale, layout primitives, motion tokens, global reduced-motion rules.
@@ -77,35 +77,28 @@ Delivered beyond the original list: per-company theming (`data-division`), `[lan
 
 **Not done in M1 / known gaps:** no Lighthouse or real-device test (needs a deployed preview); the apex/`www` direction is unchanged (platform setting); the home hero has no image yet (M2); company pages are skeletons with the right accent and surface but not yet their distinct compositions (M3); contact is phone + WhatsApp only until the form ships (M4); English is built but gated and unreviewed.
 
-### M2 — Home and shared sections (effort L)
-- All nine home sections; `DivisionIndex`, `FeaturedProject`, `FactsRow`, `ContactBand` (form is a stub only if D-006 is not closed — **no dead buttons**: the button either works or is replaced by `tel:`/WhatsApp until M4).
-- Hero word-mask animation (CSS), reveals, row hover.
+### Gate 0 — Approve the new direction (NOW — nothing is rebuilt until this passes)
 
-**Acceptance:** copy approved by client and native-reviewed; only §1 facts of `content.md` appear as facts; LCP image identified and `priority`; Lighthouse mobile on a preview: Performance ≥ 90, Accessibility ≥ 95, SEO ≥ 95 (targets — will be measured, not assumed); axe clean; reduced-motion and no-JS Playwright tests pass; visual check at 320/390/768/1024/1440/1920.
+Ready for review: `research/m1-audit.md` (what was wrong), `research/references-visual.md` (the five references, actually viewed), `design.md` ("Fasada"), `page-designs.md` (every page), `design/wireframes/` (desktop + mobile), `design/concept/` (hi-fi static board + previews).
+**Decisions requested from the owner:** (1) approve the concept; (2) approve **Anton + Instrument Sans** (D-025) and the **concrete / paper / ink / bronze** palette (D-026); (3) approve the **typographic TORRE wordmark** as the primary mark in place of the generic icon tile (D-005) — or supply official logos; (4) commit to supplying **photography** (`content.md` §5), since the design is photograph-led; (5) the standing content questions (`content.md` §4).
 
-### M3 — Companies, About, rail decision (effort L)
-- Four division pages with distinct compositions; `/kompanite`; `/kompania`.
-- Native project rail built; pinned GSAP variant prototyped behind a flag and compared (D-008).
+### M2 — Identity, shell and Home (effort L)
+- Delete the M1 visual layer (`m1-audit.md` §4). New tokens (`design.md` §2), self-hosted Anton + Instrument Sans, SVG wordmark window with the build-time luminance test, floor rail, menu overlay, plate, Four Towers, status elevation, staggered row, monoliths, bronze contact plane, title-block footer — and the **Home page** in Albanian and (gated) English.
+- Rewrite the e2e/axe assertions against the new components.
 
-**Acceptance:** each page has a distinct hero/layout (no repeated hero + three-card pattern); no unverified claim rendered (build guard green); internal links all resolve; rail passes keyboard and screen-reader checks; if pinned variant ships, CLS 0 and INP unaffected at 4× CPU throttle.
+**Acceptance:** owner reviews the built Home **side by side with the concept board and the references** and signs off the *look* before M3; axe 0 violations (390/1440); keyboard-complete rail + menu; scroll-driven effects have a verified static fallback; no hidden-until-JS content; reduced-motion and JS-off pass; 320 px reflow; wordmark letters ≥ 3:1 against ink; hero image weight within budget (target ≤ 250 KB AVIF at 1600 w, to be measured); Lighthouse on a preview if reachable.
 
-### M4 — Projects, contact, legal (effort M–L)
-- Project template and `torre-home-ferizaj`; `/projektet`.
-- `/api/contact` with validation, honeypot, rate limit, email delivery; accessible success/error states; privacy notice.
-- Legal pages rewritten (text from the client/counsel), 404 restyled.
+### M3 — Companies index, four company pages, About (effort L)
+Companies (elevation + schedule), MAGFA ("house in section"), SWISSTECH ("window schedule"), TORRE DI UMBRIA ("layers"), TORRE HOME ("two buildings"), About ("1999 → sot"). **Acceptance:** each page passes the distinctness matrix (`page-designs.md` §0) — no shared composition; no unverified claim (build guard); each page reviewed against its wireframe.
 
-**Acceptance:** form tested end to end on a preview (success, validation errors, honeypot hit, rate-limit hit, provider failure); no stack traces or secrets in any response; email arrives at the approved mailbox; privacy text approved; Playwright + axe pass on the form including error summary focus.
+### M4 — Projects, Contact (form), legal, 404, OG images (effort M–L)
+As `page-designs.md` §6–§10; contact endpoint per `architecture.md` §7 and D-006. **Acceptance:** form tested end to end (success, validation, honeypot, rate limit, provider failure); stamped success state accessible; legal pages `noindex` until counsel approves.
 
 ### M5 — SEO, AEO, GEO, redirects, measurement (effort M)
-- Metadata for every route; JSON-LD builders + validation; `sitemap.ts`; `robots.txt`; `llms.txt` + generated `llms-full.txt`; redirect map; analytics; hreflang for `sq`/`en` (active once the English text is approved, D-020).
-- Cutover checklist (`architecture.md` §11).
-
-**Acceptance:** titles/descriptions unique (script); canonical absolute and self-referencing; sitemap equals route registry (test) and parses as valid XML; robots rules verified against sample URLs; JSON-LD passes Rich Results Test and Schema.org validator with zero errors and contains none of the forbidden properties; redirects return 301 to the right targets on a preview with host overrides; 404 returns 404.
+Unchanged scope: metadata for every route, JSON-LD validation, generated sitemap/robots/llms, redirect checks, analytics, hreflang once English is approved. **Acceptance:** as before.
 
 ### M6 — Quality assurance and launch (effort M)
-- Full functional, SEO, performance, visual and accessibility test pass per §8; fix defects found; write `docs/qa-report.md` (what was tested, results, known gaps); final summary (changed, preserved, implemented, tested, remaining issues, missing information, deployment requirements).
-
-**Acceptance:** all gates in §6 met or the exceptions are written down and accepted by the owner; docs reflect the shipped code.
+Unchanged: functional, SEO, performance, visual, accessibility passes; `docs/qa-report.md`; final summary.
 
 ## 6. Global acceptance criteria
 
