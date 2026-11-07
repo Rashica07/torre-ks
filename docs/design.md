@@ -74,7 +74,7 @@ Decorative only (exempt): hairlines (`paper @ 28 %` on ink ≈ 2.1), ghost foote
 |---|---|---|
 | **Wordmark** | Anton | SVG text, uppercase, fitted by measurement (below), never live CSS text |
 | H1 / H2 (display) | Anton, uppercase | H1 `clamp(3.5rem, 2rem + 8vw, 9.5rem)`, leading .9, tracking −.005 em; H2 `clamp(2.5rem, 1.5rem + 5vw, 6.5rem)`, leading .92 |
-| Numerals (floors, monoliths, phone) | Anton | Sized from real metrics: `1999` is 1.813 em wide, the phone number is 6.494 em wide |
+| Numerals (floors, monoliths, phone) | Anton | Sized from real metrics: `1981` is 1.813 em wide, the phone number is 6.494 em wide |
 | Statement | Instrument Sans 500 | `clamp(2rem, 1rem + 5vw, 5.25rem)`, leading 1.02, tracking −.03 em |
 | H3 / item titles | Instrument Sans 600 | 1.5–2 rem, leading 1.15 |
 | Lead | Instrument Sans 400 | `clamp(1.125rem, 1rem + .6vw, 1.5rem)`, leading 1.35 |
@@ -102,12 +102,12 @@ Rules: Anton is never used below 24 px or for body text; uppercase only; no ital
 
 Each exists in the hi-fi board (`design/concept/index.html`) and the wireframes (`design/wireframes/`).
 
-1. **Wordmark window (hero).** `<h1>` is visually-hidden text ("TORRE Group — ndërtojmë në Kosovë që nga 1999"); the visible wordmark is an `aria-hidden` SVG with `<text fill="url(#pattern)">` over a pattern `<image>` (solid `#9AA3AD` fallback). **Requirement:** the image crop behind the letters must be high-key so letters read at ≥ 3:1 against ink (large display text) — verified per image by a build-time luminance test. Desktop one row; mobile two rows. Four hairline "bay" lines sit behind. A **title block** (5 cells) sits under it: latest project · founded · companies · floors · sheet.
-2. **Floor rail.** `<nav aria-label="Katet">` with an `<ol>`: **G** (home), **1 MAGFA**, **2 SWISSTECH**, **3 TORRE DI UMBRIA**, **4 TORRE HOME**; the active stop is bronze; rotated "TORRE GROUP" and "1999" are decorative. Visible ≥ 1280 px; below that the same list lives in the menu. Accessible names contain the visible numeral (WCAG 2.5.3).
+1. **Wordmark window (hero).** `<h1>` is visually-hidden text ("TORRE Group — ndërtojmë në Kosovë që nga 1981"); the visible wordmark is an `aria-hidden` SVG with `<text fill="url(#pattern)">` over a pattern `<image>` (solid `#9AA3AD` fallback). **Requirement:** the image crop behind the letters must be high-key so letters read at ≥ 3:1 against ink (large display text) — verified per image by a build-time luminance test. Desktop one row; mobile two rows. Four hairline "bay" lines sit behind. A **title block** (5 cells) sits under it: latest project · founded · companies · floors · sheet.
+2. **Floor rail.** `<nav aria-label="Katet">` with an `<ol>`: **G** (home), **1 MAGFA**, **2 SWISSTECH**, **3 TORRE DI UMBRIA**, **4 TORRE HOME**; the active stop is bronze; rotated "TORRE GROUP" and "1981" are decorative. Visible ≥ 1280 px; below that the same list lives in the menu. Accessible names contain the visible numeral (WCAG 2.5.3).
 3. **Menu overlay.** Native `<dialog>` full-screen in ink: huge Anton links (the four floors with giant numerals, Projektet, Kompania, Kontakti), the phone at display size, WhatsApp, the factory address, the language switch when English is live. The top bar is only: small place line · phone · MENU pill.
 4. **Plate.** Full-bleed photograph, 36 px inset frame, **angled caption tab** (clip-path) with category and name, optional status line. Expands from the letter-windows on scroll (CSS scroll-driven `clip-path`; static full-bleed fallback).
 5. **Four Towers.** Four flat colour planes, bottom-aligned at different heights (72 / 84 / 78 / 94 %) — a skyline. Each is one link: Anton floor numeral, square arrow cell, rotated company name, category + one line of verified text. At ≥ 1024 px the focused/hovered tower widens (flex 1 → 1.6, 280 ms); on touch and mobile there is no expansion — four full-width slabs. *Replaces the old numbered list entirely.*
-6. **Status elevation.** An SVG drawing of the two TORRE HOME buildings: Building 1 solid (complete), Building 2 solid with a hatched top (near completion) — **status supplied by the client (2026-11-07); no invented percentages**. `role="img"` with a text alternative.
+6. **Status elevation.** An SVG drawing of the two TORRE HOME buildings: Complex 1 solid (complete), Complex 2 solid with a hatched top (near completion) — **status supplied by the client (2026-11-07); no invented percentages**. `role="img"` with a text alternative.
 7. **Staggered row.** Native `overflow-x: auto` + `scroll-snap`, images at different heights/offsets, tiny numbered captions; a labelled region with arrow-key scrolling and 44 px prev/next buttons; no pinned scroll.
 8. **Monoliths.** Verified numbers at display scale on unequal columns (1.8 / 1 / 1 / 1.2 fr); static (no count-up).
 9. **Bronze contact plane.** Heading and the **phone number as the headline** (Anton, tappable), ink on bronze; buttons ink fill / ink outline.

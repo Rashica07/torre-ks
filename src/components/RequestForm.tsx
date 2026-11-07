@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import type { Lang } from "@/lib/i18n";
-import { PHONE_HREF, WHATSAPP_HREF, company } from "@/content/company";
+import { WHATSAPP_HREF } from "@/content/company";
 import { pages } from "@/content/pages";
 import { IconArrowUR } from "./Icons";
 
@@ -77,7 +77,7 @@ export function RequestForm({ lang, companies }: { lang: Lang; companies: { id: 
           <span className="btn__label">{f.send[lang]}<span className="sr-only"> ({pages.common.newTab[lang]})</span></span>
           <span className="btn__arrow"><IconArrowUR /></span>
         </button>
-        <p style={{ margin: 0 }}>{f.fallback[lang]} <a className="link" href={PHONE_HREF}>{company.phone.value}</a></p>
+        
       </div>
     </form>
   );

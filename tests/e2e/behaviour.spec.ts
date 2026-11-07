@@ -18,7 +18,7 @@ test.describe("works without JavaScript", () => {
     test(`content and links visible: ${path}`, async ({ page }) => {
       await page.goto(path);
       await expect(page.locator("h1")).toBeAttached();
-      await expect(page.locator("main a[href^='tel:'], main a[href^='/']").first()).toBeVisible();
+      await expect(page.locator("main a[href*='wa.me'], main a[href^='/']").first()).toBeVisible();
       // the footer carries the company links and contact when the MENU control (a client component) is inert
       for (const p of ["/magfa", "/swisstech", "/torre-umbria", "/torrehome", "/kontakti"]) {
         await expect(page.locator(`footer a[href="${p}"]`).first()).toBeVisible();

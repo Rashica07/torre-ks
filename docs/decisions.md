@@ -199,3 +199,9 @@ The direction is photograph-led (Massive Forms, Meyerton, Nikken), but the repos
 ## D-006 update — interim contact handling (2026-11-07)
 
 No mailbox or email provider has been supplied and none of the old per-brand addresses is verified, so a server-side form would have nowhere trustworthy to deliver. The contact page therefore has a request sheet (company, name, optional city, message) that validates client-side, announces errors, and opens a WhatsApp message to +383 49 599 405 with the text pre-written; the phone number is always shown beside it. Nothing is stored or transmitted by the site, so there is no spam surface and no data-retention duty beyond WhatsApp itself. To replace it with an email form the owner must provide: a recipient mailbox, a sending domain/provider (e.g. Resend), and a retention policy.
+
+## D-029 — Owner corrections of 2026-11-07
+- **Founding year is 1981** (owner: "since 1981 (fact)"), replacing 1999 everywhere on the site, in JSON-LD, `llms.txt` and the current docs. Tier stays `client` (no independent trace). The earlier 1999 came from the old site / commit 39daa78; `research/existing-site-audit.md` keeps recording what the old site said.
+- **TORRE HOME units are "Kompleksi 1 / Kompleksi 2"** (English "Complex 1 / Complex 2"), not "Ndërtesa/Building". Status: Complex 1 completed, Complex 2 nearing completion.
+- **WhatsApp is the only contact channel** (supersedes the phone-call buttons): no `tel:` or `mailto:` links anywhere; the number is displayed as the WhatsApp number.
+- **New favicon**: a chunky paper "T" on ink with a bronze ground line (SVG + ICO + apple-touch + manifest icons); the old per-brand icons and logos were removed.

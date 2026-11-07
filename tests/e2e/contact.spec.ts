@@ -35,8 +35,11 @@ test.describe("request sheet (WhatsApp-composed, no backend)", () => {
     expect(text).toContain("Dritare PVC");
   });
 
-  test("the phone number is always offered as the fallback", async ({ page }) => {
-    await page.goto("/kontakti");
-    await expect(page.locator("form a[href='tel:+38349599405']")).toBeVisible();
+  test("WhatsApp is the only contact channel: no tel: or mailto: links anywhere", async ({ page }) => {
+    for (const p of ["/", "/kontakti", "/magfa", "/swisstech", "/politika-e-privatesise"]) {
+      await page.goto(p);
+      await expect(page.locator("a[href^='tel:'], a[href^='mailto:']"), p).toHaveCount(0);
+      await expect(page.locator("a[href*='wa.me/38349599405']").first(), p).toBeAttached();
+    }
   });
 });

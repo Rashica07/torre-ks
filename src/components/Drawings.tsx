@@ -74,7 +74,7 @@ export function WindowTypes({ alt, active, onPick }: { alt: string; active: numb
   );
 }
 
-/** TORRE DI UMBRIA is drawn from HTML slabs (see UmbriaLayers); About uses this tower: ground = 1999, four floors = the companies. */
+/** TORRE DI UMBRIA is drawn from HTML slabs (see UmbriaLayers); About uses this tower: ground = 1981, four floors = the companies. */
 export function TowerTimeline({ alt }: { alt: string }) {
   return (
     <svg className="draw tower-tl" viewBox="0 0 360 620" role="img" aria-label={alt}>
@@ -89,7 +89,7 @@ export function TowerTimeline({ alt }: { alt: string }) {
         <path d="M80 540 H280" />
         <path d="M30 580 V520" />
       </g>
-      <text x="14" y="610" fontFamily="var(--font-display)" fontSize="26" fill="currentColor">1999</text>
+      <text x="14" y="610" fontFamily="var(--font-display)" fontSize="26" fill="currentColor">1981</text>
       <text x="300" y="70" fontFamily="var(--font-display)" fontSize="20" fill="currentColor">4</text>
     </svg>
   );

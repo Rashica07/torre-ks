@@ -24,6 +24,9 @@ export default async function RootLayout({ children, params }: { children: React
   return (
     <html lang={lang}>
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" sizes="48x48" />
+        <link rel="apple-touch-icon" href="/icons/torre-apple.png" />
         <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-latin-400.woff2" crossOrigin="anonymous" />
         <link rel="preload" as="font" type="font/woff2" href="/fonts/instrument-sans-latin-wght.woff2" crossOrigin="anonymous" />
       </head>

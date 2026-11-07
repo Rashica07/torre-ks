@@ -98,8 +98,8 @@ export const divisions: Division[] = [
     address: fact("Rruga Emin Duraku, Ferizaj", "corroborated", "Client-supplied; listings name \"Rruga Emin Duraku\" (2026-11-07)."),
     status: fact(
       {
-        sq: "Ndërtesa 1 e përfunduar. Ndërtesa 2 në përfundim.",
-        en: "Building 1 completed. Building 2 nearing completion.",
+        sq: "Kompleksi 1 i përfunduar. Kompleksi 2 në përfundim.",
+        en: "Complex 1 completed. Complex 2 nearing completion.",
       },
       "client",
       "Owner message, 2026-11-07 (consistent with undated third-party listings: building nearing completion)."

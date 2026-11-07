@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return buildMetadata("torrehome", isLang(lang) ? lang : "sq");
 }
 
-/** TORRE HOME — "Dy ndërtesa": sticky status elevation beside scrolling render plates, then the supplied floor plan. */
+/** TORRE HOME — "Dy komplekse": sticky status elevation beside scrolling render plates, then the supplied floor plan. */
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();

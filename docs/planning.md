@@ -12,7 +12,7 @@
 
 ## 2. Existing website assessment (summary — full in `research/existing-site-audit.md`)
 
-- **Is:** a Kosovo family group (1999, per the client) of four companies; Albanian-only today; five one-page sites on one Next.js deployment; legal pages are placeholders; contact ends in `mailto:`.
+- **Is:** a Kosovo family group (1981, per the client) of four companies; Albanian-only today; five one-page sites on one Next.js deployment; legal pages are placeholders; contact ends in `mailto:`.
 - **Works:** honest hub copy, token system, reveal hook idea, security headers, Vercel + Next stack.
 - **Weak:** no real pages; hub has no nav/contact/imagery/projects; four unrelated identities; stock-photo heroes; placeholder icon logos; unverified prices/warranties/tax statements/testimonials in code and on `/llms`; content hidden until JS runs; four font families; every route dynamic; apex/www mismatch.
 - **Baseline:** `tsc` clean, `next build` clean (Next 16.2.12, React 18.3.1). No Lighthouse baseline (network-blocked).
@@ -89,7 +89,7 @@ Ready for review: `research/m1-audit.md` (what was wrong), `research/references-
 **Acceptance:** owner reviews the built Home **side by side with the concept board and the references** and signs off the *look* before M3; axe 0 violations (390/1440); keyboard-complete rail + menu; scroll-driven effects have a verified static fallback; no hidden-until-JS content; reduced-motion and JS-off pass; 320 px reflow; wordmark letters ≥ 3:1 against ink; hero image weight within budget (target ≤ 250 KB AVIF at 1600 w, to be measured); Lighthouse on a preview if reachable.
 
 ### M3 — Companies index, four company pages, About (effort L)
-Companies (elevation + schedule), MAGFA ("house in section"), SWISSTECH ("window schedule"), TORRE DI UMBRIA ("layers"), TORRE HOME ("two buildings"), About ("1999 → sot"). **Acceptance:** each page passes the distinctness matrix (`page-designs.md` §0) — no shared composition; no unverified claim (build guard); each page reviewed against its wireframe.
+Companies (elevation + schedule), MAGFA ("house in section"), SWISSTECH ("window schedule"), TORRE DI UMBRIA ("layers"), TORRE HOME ("two buildings"), About ("1981 → sot"). **Acceptance:** each page passes the distinctness matrix (`page-designs.md` §0) — no shared composition; no unverified claim (build guard); each page reviewed against its wireframe.
 
 ### M4 — Projects, Contact (form), legal, 404, OG images (effort M–L)
 As `page-designs.md` §6–§10; contact endpoint per `architecture.md` §7 and D-006. **Acceptance:** form tested end to end (success, validation, honeypot, rate limit, provider failure); stamped success state accessible; legal pages `noindex` until counsel approves.
@@ -170,7 +170,7 @@ Milestones are reviewed before moving on; consequential decisions go through `de
 
 ## Delivery log — M2/M3 (2026-11-07)
 
-**Shipped:** new tokens and surfaces; self-hosted Anton + Instrument Sans; SVG wordmark window; floor rail; native-`<dialog>` MENU; Home; Companies (towers + schedule table); MAGFA (house in section, legend, city skyline); SWISSTECH (window types W1–W6 + schedule); TORRE DI UMBRIA (scope slabs, stated as illustration, not timeline); TORRE HOME (sticky status elevation, plates, floor-plan viewer); About (`/kompania`, 1999 → sot); Contact (phone, WhatsApp, factory address); 404 (`global-not-found`); restyled legal pages (per-brand mailboxes removed — unverified); redesigned OG images; Organization + BreadcrumbList JSON-LD per company.
+**Shipped:** new tokens and surfaces; self-hosted Anton + Instrument Sans; SVG wordmark window; floor rail; native-`<dialog>` MENU; Home; Companies (towers + schedule table); MAGFA (house in section, legend, city skyline); SWISSTECH (window types W1–W6 + schedule); TORRE DI UMBRIA (scope slabs, stated as illustration, not timeline); TORRE HOME (sticky status elevation, plates, floor-plan viewer); About (`/kompania`, 1981 → sot); Contact (phone, WhatsApp, factory address); 404 (`global-not-found`); restyled legal pages (per-brand mailboxes removed — unverified); redesigned OG images; Organization + BreadcrumbList JSON-LD per company.
 
 **Verified:** 29 unit tests, 118 browser tests (axe 0 violations at 390/1440 on every page, keyboard + dialog focus, no-JS, reduced motion, 320 px reflow, redirects, SEO, wordmark luminance), 174 contrast role checks, build, lint, typecheck.
 

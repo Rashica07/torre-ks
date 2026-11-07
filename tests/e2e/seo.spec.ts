@@ -21,7 +21,7 @@ test("home JSON-LD parses and contains only verified fields", async ({ page }) =
   const parsed = blocks.map((b) => JSON.parse(b));
   const org = parsed.find((p) => p["@type"] === "Organization");
   expect(org.telephone).toBe("+383 49 599 405");
-  expect(org.foundingDate).toBe("1999");
+  expect(org.foundingDate).toBe("1981");
   expect(org.subOrganization).toHaveLength(4);
   const raw = blocks.join(" ").toLowerCase();
   for (const forbidden of ["aggregaterating", "review", "offers", "openinghours", "price", "hascredential"]) expect(raw).not.toContain(forbidden);
