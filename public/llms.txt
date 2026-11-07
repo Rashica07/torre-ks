@@ -9,6 +9,11 @@
 - [TORRE DI UMBRIA](https://torre-ks.com/torre-umbria): develops residential buildings in Kosovo.
 - [TORRE HOME](https://torre-ks.com/torrehome): builds residential buildings on Emin Duraku street, Ferizaj, and sells the apartments in them.
 
+## Group
+
+- [About the company](https://torre-ks.com/kompania): the family story, from 1999 to the four companies today.
+- [All companies](https://torre-ks.com/kompanite): the four companies and where each works.
+
 ## Contact
 
 - [Contact page](https://torre-ks.com/kontakti)

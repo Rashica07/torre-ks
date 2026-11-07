@@ -2,18 +2,18 @@
 
 Source for **torre-ks.com**: the public website of TORRE Group, a Kosovo family group of four companies — **MAGFA GROUP** (home building), **SWISSTECH** (windows, doors, facades), **TORRE DI UMBRIA** (residential development) and **TORRE HOME** (apartments in Ferizaj).
 
-> **Status: the visual design is being redone from scratch.** Milestone 1 (routing, i18n, content guard, SEO helpers, tests, CI) is implemented on this branch, but its page design reused the old site's structure and has been **rejected by the owner**; a new creative direction ("Fasada") is proposed in [`docs/design.md`](./docs/design.md), [`docs/page-designs.md`](./docs/page-designs.md), [`docs/design/wireframes/`](./docs/design/wireframes) and [`docs/design/concept/`](./docs/design/concept) and awaits approval before the frontend is rebuilt. The code in `src/components`, `src/sections`, `src/styles` and the page markup is therefore **temporary**. This README describes only what exists today.
+> **Status: the "Fasada" redesign is implemented (Milestones 1–3) and merged.** Home, Companies, the four company pages, About, Contact (phone/WhatsApp), 404 and legal placeholders are built; English is built but gated; the contact form, projects index and final QA are still to do. Authority: [`docs/design.md`](./docs/design.md), [`docs/page-designs.md`](./docs/page-designs.md), [`docs/planning.md`](./docs/planning.md).
 
-## What's here today (after Milestone 1)
+## What's here today (after Milestone 3)
 
 - Next.js **16** (App Router, Turbopack), React 18, TypeScript, Tailwind CSS 3; deployed on Vercel.
-- **One domain, one codebase.** Pages: `/` (home), `/kompanite`, the four companies `/magfa`, `/swisstech`, `/torre-umbria`, `/torrehome`, `/kontakti`, and the three legal pages (placeholder text, `noindex`, Albanian only). Unknown URLs return a real, fully rendered 404.
+- **One domain, one codebase.** Pages: `/` (home), `/kompania` (about), `/kompanite`, the four companies `/magfa`, `/swisstech`, `/torre-umbria`, `/torrehome`, `/kontakti`, and the three legal pages (placeholder text, `noindex`, Albanian only). Unknown URLs return a real, fully rendered 404.
 - **Albanian is live** (un-prefixed). **English** exists under `/en/*` with English slugs (`/en/companies`, `/en/contact`, …) but is **gated**: `noindex`, not in the sitemap, no language switcher — until the owner approves the translation (`ENGLISH_APPROVED` in `src/lib/i18n/index.ts`).
-- Each company keeps its own accent colour and base surface (`data-division`), inside a shared system: tokens in `src/styles/tokens.css`, Geist + Geist Mono, 12-column grid.
+- Each company keeps its own accent colour and base surface (`data-division`), inside a shared system: tokens and surfaces in `src/styles/tokens.css`, self-hosted Anton + Instrument Sans, floor rail + MENU dialog, wordmark-window hero.
 - Content lives in `src/content/` as typed facts with a verification tier; `publish()` refuses unverified claims, so prices, warranties, statistics and testimonials cannot reach a page by accident (`src/content/claims.ts` documents what is withheld).
 - The old brand subdomains (`magfa.`, `swisstech.`, `torre-umbria.`, `torrehome.`, `llms.torre-ks.com`) permanently redirect (HTTP 308) to their sections on `torre-ks.com` (`next.config.js`).
-- Generated `sitemap.xml`, per-route metadata and canonicals, Organization/WebSite JSON-LD, dynamic OG images (`/api/og`, `/api/og/[brand]`).
-- **Not built yet:** About page, projects, the enquiry form (contact is `tel:` + WhatsApp), new `robots.txt`/`llms.txt`, analytics, official logos (an interim text wordmark is used).
+- Generated `sitemap.xml`, per-route metadata and canonicals, Organization/WebSite JSON-LD (plus per-company Organization and breadcrumbs), dynamic OG images in the Fasada style (`/api/og`, `/api/og/[brand]`).
+- **Not built yet:** projects index, the enquiry form (contact is `tel:` + WhatsApp until a delivery mailbox is chosen), analytics, official logos (a typographic wordmark is used).
 
 ## Requirements
 
@@ -31,7 +31,7 @@ npm run dev        # http://localhost:3005
 ```bash
 npm run typecheck        # tsc --noEmit
 npm run lint             # ESLint (Next + jsx-a11y as errors)
-npm run check:contrast   # WCAG contrast of every design-token pair (135 checks)
+npm run check:contrast   # WCAG contrast of every design-token pair (174 checks)
 npm test                 # Vitest unit tests
 npm run build
 npm run test:e2e         # Playwright + axe against the production build (starts `npm run start` on :5000)

@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isLang } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, divisionJsonLd } from "@/lib/seo/jsonld";
+import { JsonLd } from "@/components/JsonLd";
 import { getDivision } from "@/content/divisions";
 import { pages } from "@/content/pages";
 import { publish } from "@/content/types";
@@ -20,6 +22,9 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const d = getDivision("magfa");
   const t = pages.magfa;
   return (
+    <>
+    <JsonLd data={divisionJsonLd("magfa", lang)} />
+    <JsonLd data={breadcrumbJsonLd("magfa", lang)} />
     <main id="main" data-division="magfa">
       <section className="dhero" data-surface="plane" aria-labelledby="t">
         <div className="wrap">
@@ -57,5 +62,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
       <ContactPlane lang={lang} title={t.ctaTitle[lang]} />
     </main>
+    </>
   );
 }
