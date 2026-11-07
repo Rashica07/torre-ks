@@ -5,75 +5,71 @@ import type { Lang } from "@/lib/i18n";
 import { PHONE_HREF, WHATSAPP_HREF, company } from "@/content/company";
 import { getDivision } from "@/content/divisions";
 import { publish } from "@/content/types";
-import { Wordmark } from "./Wordmark";
 
 const LEGAL = ["privacy", "terms", "accessibility"] as const;
 
-/** Docs/design.md §5.8. Dark band; contact in the same place on every page (WCAG 3.2.6). */
+/** Drawing title block (docs/design.md §5.10). Contact sits in the same cell on every page (WCAG 3.2.6). */
 export function Footer({ lang }: { lang: Lang }) {
   const factory = getDivision("swisstech").address;
-  const year = new Date().getFullYear();
-  const heading = "label mb-4 block";
-  const link = "inline-flex min-h-[44px] items-center no-underline hover:underline underline-offset-4";
-
   return (
-    <footer data-surface="dark" className="bg-bg text-text">
-      <div className="container-page py-16 md:py-24">
-        <div className="grid-12 gap-y-12">
-          <div className="col-span-4 md:col-span-8 lg:col-span-4">
-            <Wordmark />
-            <p className="muted small mt-6">{publish(company.description)[lang]}</p>
-          </div>
-
-          <nav aria-label={ui.footerCompanies[lang]} className="col-span-2 md:col-span-4 lg:col-span-3 lg:col-start-6">
-            <h2 className={heading} style={{ fontSize: "var(--text-label)", letterSpacing: "0.12em" }}>{ui.footerCompanies[lang]}</h2>
-            <ul>
-              {DIVISION_IDS.map((id) => (
-                <li key={id}>
-                  <Link href={pathFor(id, lang)} className={link}>
-                    {getRoute(id).label[lang]}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="col-span-2 md:col-span-4 lg:col-span-4 lg:col-start-9">
-            <h2 className={heading} style={{ fontSize: "var(--text-label)", letterSpacing: "0.12em" }}>{ui.footerContact[lang]}</h2>
-            <ul>
-              <li>
-                <a href={PHONE_HREF} className={link}>{company.phone.value}</a>
-              </li>
-              <li>
-                <a href={WHATSAPP_HREF} className={link} target="_blank" rel="noopener noreferrer">{ui.whatsapp[lang]}</a>
-              </li>
-              {factory ? (
-                <li className="muted small mt-3">
-                  {ui.factoryHeading[lang]} SWISSTECH: {publish(factory)}
-                </li>
-              ) : null}
-            </ul>
-          </div>
+    <footer className="footer" data-surface="ink">
+      <dl className="footer__tb">
+        <div>
+          <dt className="cap">TORRE Group</dt>
+          <dd>{publish(company.description)[lang]}</dd>
         </div>
-
-        <div className="mt-16 flex flex-col gap-6 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="muted small">
-            © {year} TORRE Group. {ui.rights[lang]}
-          </p>
-          <nav aria-label={ui.footerLegal[lang]}>
-            <ul className="flex flex-wrap gap-x-6">
-              {LEGAL.map((id) => (
-                <li key={id}>
-                  <Link href={pathFor(id, "sq")} hrefLang="sq" className={`${link} small`}>
-                    {getRoute(id).label[lang]}
-                    {lang === "en" && !hasLang(id, "en") ? ` ${ui.legalSqOnly.en}` : ""}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <div>
+          <dt className="cap">{ui.footerCompanies[lang]}</dt>
+          <dd>
+            <nav aria-label={ui.footerCompanies[lang]}>
+              <ul>
+                {DIVISION_IDS.map((id) => (
+                  <li key={id}><Link href={pathFor(id, lang)}>{getRoute(id).label[lang]}</Link></li>
+                ))}
+                <li><Link href={pathFor("about", lang)}>{getRoute("about").label[lang]}</Link></li>
+              </ul>
+            </nav>
+          </dd>
         </div>
-      </div>
+        <div>
+          <dt className="cap">{ui.footerContact[lang]}</dt>
+          <dd>
+            <ul>
+              <li><a href={PHONE_HREF}>{company.phone.value}</a></li>
+              <li><a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer">{ui.whatsapp[lang]}<span className="sr-only"> ({lang === "sq" ? "hapet në dritare të re" : "opens in a new tab"})</span></a></li>
+              <li><Link href={pathFor("contact", lang)}>{getRoute("contact").label[lang]}</Link></li>
+            </ul>
+          </dd>
+        </div>
+        <div>
+          <dt className="cap">{ui.factoryHeading[lang]} SWISSTECH</dt>
+          <dd>{factory ? publish(factory) : null}</dd>
+        </div>
+        <div>
+          <dt className="cap">{ui.footerLegal[lang]}</dt>
+          <dd>
+            <nav aria-label={ui.footerLegal[lang]}>
+              <ul>
+                {LEGAL.map((id) => (
+                  <li key={id}>
+                    <Link href={pathFor(id, "sq")} hrefLang="sq">
+                      {getRoute(id).label[lang]}
+                      {lang === "en" && !hasLang(id, "en") ? ` ${ui.legalSqOnly.en}` : ""}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </dd>
+        </div>
+      </dl>
+      <svg className="footer__ghost" viewBox="0 0 1312 470" aria-hidden="true" focusable="false">
+        <text x="0" y="462" fontFamily="Anton, Impact, sans-serif" fontSize="530" textLength="1312" lengthAdjust="spacing" fill="#23262a">TORRE</text>
+      </svg>
+      <p className="footer__fine">
+        <span>© {new Date().getFullYear()} TORRE Group. {ui.rights[lang]}</span>
+        <span>Ferizaj, Kosovë</span>
+      </p>
     </footer>
   );
 }

@@ -8,6 +8,7 @@ import { DEFAULT_LANG, ENGLISH_APPROVED, LANGS, SITE_URL, type L, type Lang } fr
 export type RouteId =
   | "home"
   | "companies"
+  | "about"
   | "magfa"
   | "swisstech"
   | "torre-umbria"
@@ -30,6 +31,7 @@ export interface RouteDef {
 
 export const ROUTES: RouteDef[] = [
   { id: "home", folder: "", paths: { sq: "/", en: "/en" }, label: { sq: "Kryefaqja", en: "Home" }, indexable: true },
+  { id: "about", folder: "kompania", paths: { sq: "/kompania", en: "/en/about" }, label: { sq: "Kompania", en: "About" }, indexable: true },
   { id: "companies", folder: "kompanite", paths: { sq: "/kompanite", en: "/en/companies" }, label: { sq: "Kompanitë", en: "Companies" }, indexable: true },
   { id: "magfa", folder: "magfa", paths: { sq: "/magfa", en: "/en/magfa" }, label: { sq: "MAGFA GROUP", en: "MAGFA GROUP" }, indexable: true },
   { id: "swisstech", folder: "swisstech", paths: { sq: "/swisstech", en: "/en/swisstech" }, label: { sq: "SWISSTECH", en: "SWISSTECH" }, indexable: true },

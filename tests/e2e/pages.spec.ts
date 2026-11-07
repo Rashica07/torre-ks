@@ -65,7 +65,7 @@ test.describe("status codes and routing", () => {
     for (const p of ["/nuk-ekziston", "/en/nope", "/magfa/x"]) {
       const res = await page.goto(p);
       expect(res?.status(), p).toBe(404);
-      await expect(page.locator("h1")).toHaveText("Faqja nuk u gjet");
+      await expect(page.locator("h1")).toHaveText("Ky kat nuk ekziston.");
       await expect(page.locator("header")).toHaveCount(1);
       expect(await page.locator('meta[name="robots"]').first().getAttribute("content")).toContain("noindex");
     }
@@ -74,6 +74,8 @@ test.describe("status codes and routing", () => {
   test("internal paths redirect permanently to the public URL", async ({ request }) => {
     for (const [from, to] of [
       ["/sq/magfa", "/magfa"],
+      ["/sq/kompania", "/kompania"],
+      ["/en/kompania", "/en/about"],
       ["/en/kompanite", "/en/companies"],
       ["/en/politika-e-privatesise", "/politika-e-privatesise"],
     ]) {

@@ -7,7 +7,7 @@ test("sitemap.xml is valid, absolute, canonical and excludes gated pages", async
   const xml = await r.text();
   expect(xml).toContain("<urlset");
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-  expect(locs.length).toBe(7);
+  expect(locs.length).toBe(8);
   for (const l of locs) expect(l.startsWith("https://torre-ks.com")).toBe(true);
   expect(locs).toContain("https://torre-ks.com/magfa");
   expect(xml).not.toMatch(/<priority>|<changefreq>|<lastmod>/);

@@ -13,6 +13,13 @@ export const routeMeta: Partial<Record<RouteId, { title: L; description: L }>> =
       en: "A family building group in Kosovo since 1999: homes (MAGFA), windows and facades (SWISSTECH), residential development (TORRE DI UMBRIA) and apartments (TORRE HOME).",
     },
   },
+  about: {
+    title: { sq: "Kompania — TORRE Group, ndërtues në Kosovë që nga 1999", en: "About — TORRE Group, building in Kosovo since 1999" },
+    description: {
+      sq: "Historia e TORRE Group: nga ndërtimi i shtëpive në 1999 te katër kompani me specializime të ndara — ndërtim, dritare, zhvillim dhe banesa.",
+      en: "The story of TORRE Group: from building houses in 1999 to four companies with separate specialisms — building, windows, development and apartments.",
+    },
+  },
   companies: {
     title: { sq: "Kompanitë — katër kompani të TORRE Group", en: "Companies — the four companies of TORRE Group" },
     description: {

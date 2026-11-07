@@ -5,9 +5,9 @@ import { runChecks } from "../../scripts/check-contrast.mjs";
 describe("design tokens meet WCAG contrast (docs/design.md §2)", () => {
   const results = runChecks(readFileSync("src/styles/tokens.css", "utf8")) as { scope: string; label: string; ratio: number; min: number; ok: boolean }[];
 
-  it("checks every group and company scope on light and dark", () => {
+  it("checks every surface bare and under each company", () => {
     const scopes = new Set(results.map((r) => r.scope));
-    for (const s of ["group · light", "group · dark", "magfa · light", "swisstech · dark", "torre-umbria · dark", "torrehome · light"]) {
+    for (const s of ["paper", "concrete", "ink", "bronze", "ink · swisstech", "paper · magfa", "plane · torre-umbria", "plane · torrehome", "fixed"]) {
       expect(scopes.has(s), s).toBe(true);
     }
   });

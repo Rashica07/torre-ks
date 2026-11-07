@@ -52,4 +52,6 @@ export interface Division {
   services: LFact[];
   areas?: Fact<string[]>;
   address?: Fact<string>;
+  /** Construction status (TORRE HOME only). */
+  status?: LFact;
 }

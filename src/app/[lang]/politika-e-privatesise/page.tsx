@@ -35,8 +35,8 @@ export default function PrivacyPolicyPage() {
       </LegalSection>
 
       <LegalSection heading="2. Të dhënat që mbledhim">
-        <p>Kur plotësoni formularin e kontaktit ose asistentin tonë të bisedës, mbledhim:</p>
-        <ul className="list-disc pl-5 flex flex-col gap-1.5">
+        <p>Kur plotësoni telefonin, WhatsApp-in ose formularin e kontaktit, mbledhim:</p>
+        <ul>
           <li>Emrin tuaj</li>
           <li>Adresën e email-it dhe/ose numrin e telefonit</li>
           <li>Llojin e interesit tuaj dhe afatin kohor që na tregoni vullnetarisht</li>
@@ -90,36 +90,9 @@ export default function PrivacyPolicyPage() {
 
       <LegalSection heading="9. Na kontaktoni">
         <p>
-          TORRE GROUP nuk ka një adresë email të përbashkët — çdo markë ka të vetën. Për çdo
-          pyetje rreth privatësisë, na shkruani në adresën e markës me të cilën keni
-          komunikuar:
+          Për çdo pyetje, na telefononi ose na shkruani në WhatsApp:{" "}
+          <a href="tel:+38349599405">+383 49 599 405</a>.
         </p>
-        <ul className="list-disc pl-5 flex flex-col gap-1.5">
-          <li>
-            MAGFA GROUP —{" "}
-            <a href="mailto:info@magfa.torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
-              info@magfa.torre-ks.com
-            </a>
-          </li>
-          <li>
-            SWISSTECH —{" "}
-            <a href="mailto:info@swisstech.torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
-              info@swisstech.torre-ks.com
-            </a>
-          </li>
-          <li>
-            TORRE DI UMBRIA —{" "}
-            <a href="mailto:info@torre-umbria.torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
-              info@torre-umbria.torre-ks.com
-            </a>
-          </li>
-          <li>
-            TORRE HOME —{" "}
-            <a href="mailto:info@torrehome.torre-ks.com" style={{ color: "hsl(var(--fg))" }}>
-              info@torrehome.torre-ks.com
-            </a>
-          </li>
-        </ul>
       </LegalSection>
     </LegalPage>
   );

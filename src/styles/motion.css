@@ -1,75 +1,25 @@
 /*
- * Motion — authority: docs/animation.md.
- * Principles: never delay content (hidden states exist only when scripting is on AND motion is allowed),
- * transform/opacity/clip-path only, everything off under prefers-reduced-motion.
+ * Motion — authority: docs/animation.md §0. Scroll-driven CSS is progressive enhancement: unsupported browsers,
+ * and anyone with prefers-reduced-motion, get the final static state. Nothing is ever hidden until JS runs.
  */
-
-/* Reveal: progressive enhancement (fixes the old `.reveal { opacity: 0 }` that hid content without JS). */
-@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  .reveal {
-    opacity: 0;
-    transform: translateY(var(--reveal-distance));
-    transition:
-      opacity var(--dur-slow) var(--ease-out),
-      transform var(--dur-slow) var(--ease-out);
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-  .reveal[data-visible="true"] {
-    opacity: 1;
-    transform: none;
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* The plate opens like a window as it enters the viewport */
+    .plate__media { animation: plate-open linear both; animation-timeline: view(); animation-range: entry 0% entry 95%; }
+    @keyframes plate-open { from { clip-path: inset(14% 8% 14% 8%); } to { clip-path: inset(0); } }
   }
 }
-
-/* Division index row: invert on hover/focus (docs/design.md §5.4) */
-.division-row {
-  position: relative;
-  isolation: isolate;
-  color: var(--color-text);
-  transition: color var(--dur-base) var(--ease-in-out);
-}
-.division-row::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--color-dark-bg);
-  clip-path: inset(100% 0 0 0);
-  transition: clip-path var(--dur-base) var(--ease-in-out);
-}
-.division-row:hover,
-.division-row:focus-visible {
-  color: var(--color-dark-text);
-}
-.division-row:hover::before,
-.division-row:focus-visible::before {
-  clip-path: inset(0 0 0 0);
-}
-.division-row:hover .row-muted,
-.division-row:focus-visible .row-muted {
-  color: var(--color-dark-muted);
-}
-.division-row:focus-visible {
-  outline-color: var(--color-focus);
-}
-
-/* Header border after scroll (set by an IntersectionObserver sentinel, no scroll listener) */
-.site-header { border-bottom: 1px solid transparent; transition: border-color var(--dur-fast) var(--ease-out); }
-.site-header[data-scrolled="true"] { border-bottom-color: var(--color-border); }
-
-/* Mobile nav sheet */
-.nav-sheet::backdrop { background: rgb(32 35 38 / 0.5); }
-.nav-sheet[open] { animation: sheet-in var(--dur-base) var(--ease-out) both; }
-@keyframes sheet-in {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* MAGFA house section: lines draw in on load (pathLength=1 on every path) */
+  .house path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.6s var(--ease-out) forwards; }
+  .house path:nth-child(n + 4) { animation-delay: 0.25s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @supports (animation-timeline: view()) {
+    /* Umbria slabs slide in from the left as they enter */
+    .slab { animation: slab-in linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+    @keyframes slab-in { from { transform: translateX(-6%); } to { transform: none; } }
   }
-  .reveal { opacity: 1 !important; transform: none !important; }
 }

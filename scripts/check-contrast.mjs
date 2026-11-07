@@ -1,4 +1,4 @@
-// WCAG 2.x contrast checker for the design tokens in src/styles/tokens.css (docs/design.md §2).
+// WCAG 2.x contrast checker for the "Fasada" tokens in src/styles/tokens.css (docs/design.md §2).
 // Resolves var() chains per scope (light, dark surface, each company, company on dark) and checks the pairs
 // the components actually use. Exits 1 on any failure. Also imported by tests/unit/contrast.test.ts.
 import { readFileSync } from "node:fs";
@@ -36,63 +36,68 @@ function resolver(blocks, selectors) {
   const merged = {};
   // Apply, in file order, every block whose selector is in the active set.
   for (const b of blocks) {
-    const parts = b.selector.split(",").map((s) => s.trim());
+    const parts = b.selector.split(",").map((x) => x.trim());
     if (parts.some((p) => selectors.includes(p))) Object.assign(merged, b.vars);
   }
-  const get = (name, depth = 0) => {
-    let v = merged[name];
-    if (v === undefined) throw new Error(`Token ${name} not defined in scope ${selectors.join(" + ")}`);
-    const ref = v.match(/^var\((--[\w-]+)\)$/);
-    if (ref && depth < 8) return get(ref[1], depth + 1);
-    return v;
+  /** Resolve a value: var(--a), var(--a, fallback) (nested), or a literal. */
+  const value = (v, depth = 0) => {
+    v = v.trim();
+    const m = v.match(/^var\(\s*(--[\w-]+)\s*(?:,\s*([\s\S]+))?\)$/);
+    if (!m || depth > 10) return v;
+    if (merged[m[1]] !== undefined) return value(merged[m[1]], depth + 1);
+    if (m[2] !== undefined) return value(m[2], depth + 1);
+    throw new Error(`Token ${m[1]} not defined in scope ${selectors.join(" + ")}`);
   };
-  return get;
+  return (name) => {
+    if (merged[name] === undefined) throw new Error(`Token ${name} not defined in scope ${selectors.join(" + ")}`);
+    return value(merged[name]);
+  };
 }
 
 const DIVISIONS = ["magfa", "swisstech", "torre-umbria", "torrehome"];
+const SURFACES = ["paper", "concrete", "ink", "bronze", "plane"];
 
-/** [label, fg token, bg token, min ratio, enforce] */
-const TEXT = (min = 4.5) => [
-  ["text on bg", "--color-text", "--color-bg", min],
-  ["text on surface", "--color-text", "--color-surface", min],
-  ["text on raised", "--color-text", "--color-raised", min],
-  ["muted on bg", "--color-text-muted", "--color-bg", min],
-  ["muted on surface", "--color-text-muted", "--color-surface", min],
-  ["muted on raised", "--color-text-muted", "--color-raised", min],
-  ["accent on bg", "--color-accent", "--color-bg", min],
-  ["accent-hover on bg", "--color-accent-hover", "--color-bg", min],
-  ["on-accent on accent (buttons)", "--color-on-accent", "--color-accent", min],
-  ["on-accent on accent-hover (buttons)", "--color-on-accent", "--color-accent-hover", min],
-  ["border-strong on bg (controls, >=3)", "--color-border-strong", "--color-bg", 3],
-  ["focus ring on bg (>=3)", "--color-focus", "--color-bg", 3],
+/** [label, fg token, bg token, min ratio] — the role pairs components use on every surface. */
+const ROLE_CHECKS = [
+  ["text on bg", "--fg", "--bg", 4.5],
+  ["muted on bg", "--muted", "--bg", 4.5],
+  ["accent on bg", "--accent", "--bg", 4.5],
+  ["button label on button", "--btn-fg", "--btn-bg", 4.5],
+  ["button on bg (non-text, >=3)", "--btn-bg", "--bg", 3],
+  ["control border on bg (>=3)", "--ctl", "--bg", 3],
+  ["focus ring on bg (>=3)", "--focus", "--bg", 3],
 ];
 
 export function runChecks(css) {
   const blocks = parseTokens(css);
   const results = [];
-  const scopes = [
-    { name: "group · light", sel: [":root"], checks: [...TEXT(), ["border-strong on surface (>=3)", "--color-border-strong", "--color-surface", 3]] },
-    {
-      name: "group · dark",
-      sel: [":root", '[data-surface="dark"]'],
-      checks: [...TEXT(), ["accent on surface", "--color-accent", "--color-surface", 4.5], ["border-strong on surface (>=3)", "--color-border-strong", "--color-surface", 3]],
-    },
-  ];
-  for (const d of DIVISIONS) {
-    scopes.push({ name: `${d} · light`, sel: [":root", `[data-division="${d}"]`], checks: [...TEXT(), ["accent on surface", "--color-accent", "--color-surface", 4.5], ["accent-hover on surface", "--color-accent-hover", "--color-surface", 4.5]] });
-    scopes.push({
-      name: `${d} · dark`,
-      sel: [":root", `[data-division="${d}"]`, '[data-surface="dark"]', `[data-division="${d}"][data-surface="dark"]`],
-      // accent on the dark SURFACE (#2a2e31) is informational: components place company accents on the dark background only.
-      checks: [...TEXT(), ["accent on surface (informational)", "--color-accent", "--color-surface", 0]],
-    });
-  }
-  for (const s of scopes) {
-    const get = resolver(blocks, s.sel);
-    for (const [label, fg, bg, min] of s.checks) {
+  const run = (scope, sel, checks) => {
+    const get = resolver(blocks, sel);
+    for (const [label, fg, bg, min] of checks) {
       const r = ratio(get(fg), get(bg));
-      results.push({ scope: s.name, label, fg: get(fg), bg: get(bg), ratio: r, min, ok: r >= min });
+      results.push({ scope, label, fg: get(fg), bg: get(bg), ratio: r, min, ok: r >= min });
     }
+  };
+  for (const s of SURFACES) {
+    // "plane" only exists inside a company; every other surface is checked bare and under each company.
+    const divs = s === "plane" ? DIVISIONS : [null, ...DIVISIONS];
+    for (const d of divs) {
+      const sel = [":root", `[data-surface="${s}"]`, ...(d ? [`[data-division="${d}"]`] : [])];
+      run(`${s}${d ? " · " + d : ""}`, sel, ROLE_CHECKS);
+    }
+  }
+  // Fixed pairs used outside the role system
+  const root = resolver(blocks, [":root"]);
+  for (const [label, fg, bg, min] of [
+    ["chip label: paper on ink", "--paper", "--ink", 4.5],
+    ["rail numeral: ink on bronze (active)", "--ink", "--bronze", 4.5],
+    ["tab caption: muted-light on paper", "--muted-light", "--paper", 4.5],
+    ["muted-light on concrete", "--muted-light", "--concrete", 4.5],
+    ["muted-dark on ink", "--muted-dark", "--ink", 4.5],
+    ["bronze on ink", "--bronze", "--ink", 4.5],
+  ]) {
+    const r = ratio(root(fg), root(bg));
+    results.push({ scope: "fixed", label, fg: root(fg), bg: root(bg), ratio: r, min, ok: r >= min });
   }
   return results;
 }

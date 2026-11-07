@@ -4,54 +4,61 @@ import { isLang } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { pages } from "@/content/pages";
 import { getDivision } from "@/content/divisions";
+import { company, PHONE_HREF, WHATSAPP_HREF } from "@/content/company";
 import { publish } from "@/content/types";
 import { ui } from "@/lib/i18n/dictionary";
-import { ContactPanel } from "@/sections/ContactPanel";
+import { Button } from "@/components/Button";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   return buildMetadata("contact", isLang(lang) ? lang : "sq");
 }
 
+/** Contact: phone and WhatsApp are the live channels; the request form arrives in Milestone 4 (docs/planning.md). */
 export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();
+  const c = pages.contact;
   const factory = getDivision("swisstech").address;
   return (
-    <main id="main">
-      <div className="container-page pt-16 md:pt-24 pb-[var(--section-space)]">
-        <h1>{pages.contact.title[lang]}</h1>
-        <p className="lead mt-8 max-w-[40ch]">{pages.contact.lead[lang]}</p>
-
-        <div className="grid-12 mt-16 gap-y-12 border-t border-border pt-10">
-          <h2 className="label col-span-4 md:col-span-8 lg:col-span-3" style={{ fontSize: "var(--text-label)", letterSpacing: "0.12em" }}>
-            {pages.contact.phoneLabel[lang]}
-          </h2>
-          <div className="col-span-4 md:col-span-8 lg:col-span-8 lg:col-start-5">
-            <ContactPanel lang={lang} />
-          </div>
-
-          {factory ? (
-            <>
-              <h2 className="label col-span-4 md:col-span-8 lg:col-span-3" style={{ fontSize: "var(--text-label)", letterSpacing: "0.12em" }}>
-                {pages.contact.factoryLabel[lang]}
-              </h2>
-              <div className="col-span-4 md:col-span-8 lg:col-span-8 lg:col-start-5">
-                <address className="text-[clamp(1.125rem,1rem+0.6vw,1.5rem)] not-italic">{publish(factory)}</address>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(publish(factory))}`}
-                  className="text-link mt-3 inline-block"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {ui.openOnMap[lang]}
-                  <span className="sr-only-text"> ({lang === "sq" ? "hapet në dritare të re" : "opens in a new tab"})</span>
-                </a>
-              </div>
-            </>
-          ) : null}
-        </div>
+    <main id="main" data-surface="paper">
+      <div className="wrap opener">
+        <p className="cap muted">{ui.footerContact[lang]}</p>
+        <h1 style={{ margin: "14px 0 24px" }}>{c.h1[lang]}</h1>
+        <p className="lead" style={{ maxWidth: "40ch" }}>{c.lead[lang]}</p>
       </div>
+      <section data-surface="bronze" className="contact section" aria-labelledby="phone-title">
+        <div className="wrap">
+          <h2 id="phone-title" className="cap" style={{ fontFamily: "var(--font-text)", fontSize: "var(--text-cap)", lineHeight: 1.3, letterSpacing: "0.14em" }}>{c.phone[lang]}</h2>
+          <a href={PHONE_HREF} className="contact__tel">
+            <span className="sr-only">{ui.callUs[lang]} </span>
+            {company.phone.value}
+          </a>
+          <div className="btn-row" style={{ marginTop: 32 }}>
+            <Button href={PHONE_HREF}>{ui.callUs[lang]}</Button>
+            <Button href={WHATSAPP_HREF} external variant="line" srExtra={pages.common.newTab[lang]}>{ui.whatsapp[lang]}</Button>
+          </div>
+        </div>
+      </section>
+      {factory ? (
+        <section className="section" data-surface="paper" aria-labelledby="factory-title">
+          <div className="wrap">
+            <h2 id="factory-title" className="cap" style={{ fontFamily: "var(--font-text)", fontSize: "var(--text-cap)", lineHeight: 1.3, letterSpacing: "0.14em" }}>{c.factory[lang]}</h2>
+            <address className="lead" style={{ fontStyle: "normal", marginTop: 16 }}>{publish(factory)}</address>
+            <p style={{ marginTop: 16 }}>
+              <a
+                className="link"
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(publish(factory))}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {pages.common.mapOpen[lang]}
+                <span className="sr-only"> ({pages.common.newTab[lang]})</span>
+              </a>
+            </p>
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }

@@ -32,7 +32,7 @@ export default function AccessibilityStatementPage() {
       </LegalSection>
 
       <LegalSection heading="2. Çfarë kemi zbatuar">
-        <ul className="list-disc pl-5 flex flex-col gap-1.5">
+        <ul>
           <li>Kontrast ngjyrash i verifikuar programatikisht kundrejt pragut AA për çdo kombinim sfond/tekst në secilën markë.</li>
           <li>Tekst alternativ (alt) për çdo imazh të përmbajtjes dhe të galerisë.</li>
           <li>Strukturë semantike HTML — tituj (h1–h3), etiketa (label) të lidhura me fushat e formularit, dhe role ARIA aty ku nevojitet (p.sh. dialogu i galerisë, menyja mobile).</li>
