@@ -1,55 +1,21 @@
-import { BRANDS } from "@/lib/brands";
 import type { MetadataRoute } from "next";
+import { LANGS } from "@/lib/i18n";
+import { ROUTES, absoluteUrl, alternatesFor, hasLang, liveLangs, pathFor } from "@/lib/i18n/routes";
 
 /**
- * One sitemap for the whole deployment. Every brand subdomain resolves to
- * this same file (middleware.ts only rewrites the exact "/" path per
- * subdomain; a distinct path like /sitemap.xml passes through untouched and
- * is served by whichever route the app directory defines — there's only one),
- * so it lists absolute URLs across all subdomains rather than assuming a
- * single origin.
+ * Generated from the same route registry as the navigation (docs/seo.md §7): canonical, indexable, absolute
+ * URLs on one host; no priority/changefreq (Google ignores them) and no fabricated lastmod.
+ * English entries (with hreflang) appear only after the English text is approved (D-020).
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
-  const brandEntries: MetadataRoute.Sitemap = BRANDS.map((brand) => ({
-    url: brand.externalUrl,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.9,
-  }));
-
-  return [
-    {
-      url: "https://torre-ks.com",
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    ...brandEntries,
-    {
-      url: "https://torre-ks.com/politika-e-privatesise",
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: "https://torre-ks.com/kushtet-e-sherbimit",
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: "https://torre-ks.com/deklarata-e-qasshmerise",
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: "https://llms.torre-ks.com",
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.1,
-    },
-  ];
+  const live = liveLangs();
+  return ROUTES.filter((r) => r.indexable).flatMap((r) =>
+    LANGS.filter((l) => live.includes(l) && hasLang(r.id, l)).map((l) => {
+      const alternates = alternatesFor(r.id);
+      return {
+        url: absoluteUrl(pathFor(r.id, l)),
+        ...(Object.keys(alternates).length ? { alternates: { languages: alternates as Record<string, string> } } : {}),
+      };
+    })
+  );
 }

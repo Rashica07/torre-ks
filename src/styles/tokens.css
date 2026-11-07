@@ -1,0 +1,88 @@
+/*
+ * "Fasada" design tokens — authority: docs/design.md.
+ * Every colour role pair below is verified by `npm run check:contrast` (scripts/check-contrast.mjs).
+ */
+:root {
+  /* material palette */
+  --ink: #15171a;
+  --ink-2: #202326;
+  --paper: #efece6;
+  --concrete: #cfcac1;
+  --bronze: #c4954a;
+  /* company planes (AA-corrected) and their on-ink shades */
+  --plane-magfa: #006a9e;
+  --plane-swisstech: #006f71;
+  --plane-umbria: #3a6845;
+  --plane-home: #27496d;
+  --on-dark-magfa: #5bb0dc;
+  --on-dark-swisstech: #00a0a2;
+  --on-dark-umbria: #6fa67a;
+  --on-dark-home: #8fb0d6;
+  /* roles */
+  --muted-light: #4b4f52;
+  --muted-dark: #a3a6a4;
+  --ctl-light: #6c6f6d;
+  --ctl-dark: #8a8d8b;
+
+  /* type — Anton (display, uppercase) + Instrument Sans (text) */
+  --font-display: "Anton", "Arial Narrow", Impact, sans-serif;
+  --font-text: "Instrument Sans Variable", "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --text-h1: clamp(3.5rem, 2rem + 8vw, 9.5rem);
+  --text-h2: clamp(2.5rem, 1.5rem + 5vw, 6.5rem);
+  --text-statement: clamp(2rem, 1rem + 5vw, 5.25rem);
+  --text-lead: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  --text-body: 1.0625rem;
+  --text-cap: 0.75rem;
+
+  /* layout */
+  --rail-w: 56px;
+  --margin: clamp(18px, 2.6vw, 36px);
+  --gutter: 16px;
+  --content-max: 1560px;
+  --section-space: clamp(72px, 9vw, 150px);
+  --measure: 66ch;
+
+  /* motion */
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 560ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+@media (min-width: 768px) {
+  :root { --gutter: 24px; }
+}
+
+/* ── Company context: sets the plane colour; surfaces below decide how it is used ── */
+[data-division="magfa"] { --plane: var(--plane-magfa); --plane-on-dark: var(--on-dark-magfa); }
+[data-division="swisstech"] { --plane: var(--plane-swisstech); --plane-on-dark: var(--on-dark-swisstech); }
+[data-division="torre-umbria"] { --plane: var(--plane-umbria); --plane-on-dark: var(--on-dark-umbria); }
+[data-division="torrehome"] { --plane: var(--plane-home); --plane-on-dark: var(--on-dark-home); }
+
+/* ── Surfaces: each defines the full set of colour roles ── */
+[data-surface] { background: var(--bg); color: var(--fg); }
+[data-surface="paper"] {
+  --bg: var(--paper); --fg: var(--ink); --muted: var(--muted-light);
+  --accent: var(--plane, var(--ink)); --line: rgb(21 23 26 / 0.28); --ctl: var(--ctl-light);
+  --focus: var(--ink); --btn-bg: var(--ink); --btn-fg: var(--paper);
+}
+[data-surface="concrete"] {
+  --bg: var(--concrete); --fg: var(--ink); --muted: var(--muted-light);
+  --accent: var(--ink); --line: rgb(21 23 26 / 0.3); --ctl: var(--ctl-light);
+  --focus: var(--ink); --btn-bg: var(--ink); --btn-fg: var(--paper);
+}
+[data-surface="ink"] {
+  --bg: var(--ink); --fg: var(--paper); --muted: var(--muted-dark);
+  --accent: var(--plane-on-dark, var(--bronze)); --line: rgb(239 236 230 / 0.28); --ctl: var(--ctl-dark);
+  --focus: var(--bronze); --btn-bg: var(--plane-on-dark, var(--bronze)); --btn-fg: var(--ink);
+}
+[data-surface="bronze"] {
+  --bg: var(--bronze); --fg: var(--ink); --muted: var(--ink-2);
+  --accent: var(--ink); --line: rgb(21 23 26 / 0.4); --ctl: var(--ink);
+  --focus: var(--ink); --btn-bg: var(--ink); --btn-fg: var(--paper);
+}
+[data-surface="plane"] {
+  --bg: var(--plane); --fg: #ffffff; --muted: var(--paper);
+  --accent: #ffffff; --line: rgb(255 255 255 / 0.4); --ctl: #ffffff;
+  --focus: #ffffff; --btn-bg: var(--paper); --btn-fg: var(--ink);
+}

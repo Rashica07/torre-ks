@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TORRE — concept board (static; direction only, not the site)</title>
+<style>
+/* Direction board for docs/design.md. STATIC: shows the visual idea with TORRE's real renders and verified facts only. */
+@font-face{font-family:"Anton";src:url(fonts/anton-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap}
+@font-face{font-family:"Anton";src:url(fonts/anton-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap}
+@font-face{font-family:"Instrument Sans";font-weight:400 700;src:url(fonts/instrument-sans-latin-ext-wght-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap}
+@font-face{font-family:"Instrument Sans";font-weight:400 700;src:url(fonts/instrument-sans-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap}
+
+:root{
+  --ink:#15171a; --ink-2:#202326; --concrete:#cfcac1; --paper:#efece6; --bronze:#c4954a;
+  --line:rgba(239,236,230,.28); --line-dark:rgba(21,23,26,.28);
+  --magfa:#006a9e; --swisstech:#006f71; --umbria:#3a6845; --home:#27496d;
+  --rail:56px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--paper);font-family:"Instrument Sans",system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.display{font-family:"Anton","Arial Narrow",Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.86}
+.cap{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+a{color:inherit}
+
+/* floor rail (left): navigation device — five stops, G + 1..4 */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);border-right:1px solid var(--line);z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 0;mix-blend-mode:normal}
+.rail .vt{writing-mode:vertical-rl;transform:rotate(180deg);}
+.rail ol{list-style:none;display:flex;flex-direction:column;gap:10px;align-items:center}
+.rail li{font-family:"Anton";font-size:15px;width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--line)}
+.rail li.on{background:var(--bronze);color:var(--ink);border-color:var(--bronze)}
+section{position:relative;margin-left:var(--rail)}
+
+/* 00 — hero */
+.hero{height:900px;background:var(--ink);overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .top{position:absolute;inset:22px 36px auto 36px;display:flex;justify-content:space-between;align-items:flex-start}
+.hero .top .menu{display:flex;gap:28px;align-items:center}
+.pill{border:1px solid var(--paper);padding:10px 22px;border-radius:999px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.hero .intro{position:absolute;left:36px;top:120px;width:440px}
+.hero .intro p{color:#c9c6bf}
+.hero .intro .lead{font-size:23px;line-height:1.28;color:var(--paper);margin-bottom:22px}
+.hero .grid-lines{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),rgba(239,236,230,.09) calc(25% - 1px) 25%);pointer-events:none}
+.h1-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wm{position:absolute;left:36px;right:36px;bottom:92px;width:calc(100% - 72px - var(--rail)*0);height:auto;display:block}
+.wm-m{display:none}
+.hero .titleblock{position:absolute;left:36px;right:36px;bottom:0;height:78px;border-top:1px solid var(--line);display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1fr;font-size:12px}
+.hero .titleblock div{padding:14px 14px 0;border-right:1px solid var(--line)}
+.hero .titleblock div:last-child{border:0}
+.hero .titleblock b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9d9a93;font-weight:600;margin-bottom:3px}
+.hero .titleblock span{font-size:15px}
+
+/* 01 — plate */
+.plate{height:900px;background:url(img/exterior-night.jpg) center 40%/cover;border-bottom:1px solid var(--line)}
+.plate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,23,26,.0) 55%,rgba(21,23,26,.55))}
+.plate .frame{position:absolute;inset:36px;border:1px solid rgba(239,236,230,.55);z-index:2}
+.tab{position:absolute;left:36px;bottom:72px;background:var(--paper);color:var(--ink);padding:20px 70px 20px 28px;clip-path:polygon(0 0,100% 0,calc(100% - 44px) 100%,0 100%);z-index:3}
+.tab .cap{color:#5e6160}
+.tab h3{font-family:"Anton";font-weight:400;text-transform:uppercase;font-size:40px;line-height:1;letter-spacing:.005em;margin-top:6px}
+.plate .fig{position:absolute;right:72px;bottom:72px;z-index:3;text-align:right;font-size:13px;max-width:260px;color:#e8e5de}
+
+/* 02 — statement */
+.statement{background:var(--paper);color:var(--ink);padding:150px 72px 160px 120px;min-height:760px}
+.statement .rot{position:absolute;left:36px;top:150px;writing-mode:vertical-rl;transform:rotate(180deg)}
+.statement p.big{font-size:84px;line-height:1.02;letter-spacing:-.03em;font-weight:500;max-width:1180px}
+.statement p.big .img{display:inline-block;width:210px;height:74px;vertical-align:middle;background:url(img/exterior-alt.jpg) center/cover;margin:0 8px;transform:translateY(-6px)}
+.statement p.big em{font-style:normal;color:#8a8d8b}
+.statement .cols{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-top:90px;max-width:1180px}
+.statement .cols p{grid-column:span 4;font-size:17px;color:#3f4244}
+
+/* 03 — the four towers (skyline) */
+.skyline{background:var(--concrete);color:var(--ink);height:880px;padding:0;overflow:hidden}
+.skyline .head{position:absolute;left:36px;top:36px;right:36px;display:flex;justify-content:space-between;align-items:flex-end;z-index:2}
+.skyline .head h2{font-size:68px;max-width:520px}
+.skyline .bands{position:absolute;left:0;right:0;bottom:0;height:100%;display:flex;align-items:flex-end;gap:0;padding:0 36px}
+.band{flex:1;position:relative;color:#fff;text-decoration:none;padding:22px 22px 26px;display:flex;flex-direction:column;justify-content:space-between;border-left:1px solid rgba(255,255,255,.22)}
+.band .num{font-size:120px;line-height:.8;opacity:.95;margin-bottom:auto}
+.band .vname{writing-mode:vertical-rl;transform:rotate(180deg);font-size:50px;line-height:1;align-self:flex-start;white-space:nowrap;margin-bottom:22px}
+.band .txt{font-size:15px;max-width:240px;text-decoration:none}
+.band .txt b{display:block;margin-bottom:6px}
+.band.m{background:var(--magfa);height:72%}
+.band.s{background:var(--swisstech);height:84%}
+.band.u{background:var(--umbria);height:78%}
+.band.h{background:var(--home);height:94%}
+.band .arrow{position:absolute;right:20px;top:22px;width:44px;height:44px;border:1px solid rgba(255,255,255,.7);display:grid;place-items:center;font-size:20px}
+
+/* 04 — TORRE HOME status elevation */
+.status{background:var(--ink-2);padding:120px 72px 120px 120px;min-height:820px}
+.status .rot{position:absolute;left:36px;top:120px;writing-mode:vertical-rl;transform:rotate(180deg)}
+.status h2{font-size:150px;max-width:900px}
+.status .row{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:70px;align-items:end}
+.elev{display:flex;gap:26px;align-items:flex-end;height:400px;border-bottom:1px solid var(--paper);margin-bottom:40px}
+.elev .b{position:relative;border:1px solid var(--paper);width:210px}
+.elev .b1{height:360px;background:var(--paper)}
+.elev .b2{height:400px;background:repeating-linear-gradient(135deg,transparent 0 9px,rgba(239,236,230,.35) 9px 10px)}
+.elev .b2::before{content:"";position:absolute;left:0;right:0;bottom:0;height:78%;background:var(--paper)}
+.elev .b span{position:absolute;left:0;top:auto;bottom:-32px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;white-space:nowrap}
+.elev .b2 span{left:0}
+.elev .win{position:absolute;inset:14px;background:repeating-linear-gradient(0deg,var(--ink-2) 0 14px,transparent 14px 34px),repeating-linear-gradient(90deg,transparent 0 22px,var(--paper) 22px 30px);mix-blend-mode:multiply;opacity:.55}
+.status ul{list-style:none;font-size:20px}
+.status li{padding:16px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.status li span{color:#9d9a93}
+
+/* staggered image row */
+.row-imgs{background:var(--paper);color:var(--ink);padding:90px 0 110px 120px;overflow:hidden}
+.row-imgs .strip{display:flex;gap:26px;align-items:flex-start;margin-top:36px}
+.row-imgs .strip figure{flex:none}
+.row-imgs figcaption{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-top:10px;color:#5e6160}
+.img{background-size:cover;background-position:center}
+
+/* 05 — monoliths (verified facts) */
+.facts{background:var(--ink);padding:110px 72px 120px 120px;border-top:1px solid var(--line)}
+.facts .grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.2fr;border-top:1px solid var(--line)}
+.facts .f{padding:24px 24px 0 0;border-right:1px solid var(--line);min-height:430px;display:flex;flex-direction:column;justify-content:space-between;padding-bottom:26px}
+.facts .f:last-child{border:0}
+.facts .n{font-size:220px;line-height:.8}
+.facts .f p{font-size:15px;color:#c9c6bf;max-width:230px}
+.facts .f .cap{color:var(--bronze);margin-bottom:8px;display:block}
+
+/* 06 — contact: the one bronze plane */
+.contact{background:var(--bronze);color:var(--ink);padding:100px 72px 100px 120px;min-height:760px}
+.contact .rot{position:absolute;left:36px;top:100px;writing-mode:vertical-rl;transform:rotate(180deg)}
+.contact h2{font-size:110px}
+.contact .tel{display:block;font-size:min(12.4vw,190px);line-height:.9;margin-top:50px;text-decoration:none;white-space:nowrap;color:var(--ink)}
+.contact .row{display:flex;gap:16px;margin-top:56px;align-items:center}
+.btn-ink{background:var(--ink);color:var(--paper);padding:0 30px;height:56px;display:inline-flex;align-items:center;font-weight:600;gap:14px}
+.btn-line{border:1px solid var(--ink);padding:0 30px;height:56px;display:inline-flex;align-items:center;font-weight:600}
+footer{margin-left:var(--rail);background:var(--ink);padding:0 36px 36px}
+footer .tb{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1fr;border:1px solid var(--line);margin-top:60px}
+footer .tb div{padding:16px 16px 22px;border-right:1px solid var(--line)}
+footer .tb div:last-child{border:0}
+footer .tb b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9d9a93;font-weight:600;margin-bottom:6px}
+footer .mark{font-size:300px;line-height:.8;color:#23262a;padding-top:46px;overflow:hidden;white-space:nowrap}
+
+/* ---------- mobile artboard ---------- */
+.mobile-only{display:none}
+@media (max-width:700px){
+  :root{--rail:0px}
+  .rail{display:none}
+  .hero{height:820px}
+  .hero .top{inset:16px 18px auto 18px}
+  .hero .top .menu .cap{display:none}
+  .hero .intro{left:18px;right:18px;top:96px;width:auto}
+  .hero .intro .lead{font-size:20px}
+  .wm{display:none}
+  .wm-m{display:block;left:18px;right:18px;bottom:112px;width:calc(100% - 36px)}
+  .hero .titleblock{left:18px;right:18px;grid-template-columns:1fr 1fr;height:92px}
+  .hero .titleblock div:nth-child(n+3){display:none}
+  .plate{height:620px}
+  .plate .frame{inset:16px}
+  .tab{left:16px;bottom:40px;padding:14px 56px 14px 18px}
+  .tab h3{font-size:28px}
+  .plate .fig{display:none}
+  .statement{padding:80px 20px 90px 20px;min-height:0}
+  .statement .rot{display:none}
+  .statement p.big{font-size:38px}
+  .statement p.big .img{width:96px;height:36px}
+  .statement .cols{grid-template-columns:1fr;margin-top:40px}
+  .statement .cols p{grid-column:auto}
+  .skyline{height:auto;padding:70px 0 0}
+  .skyline .head{position:static;padding:0 18px 28px;display:block}
+  .skyline .head h2{font-size:54px}
+  .skyline .bands{position:static;display:block;padding:0;height:auto}
+  .band{height:auto!important;min-height:230px;flex-direction:row;border-left:0;border-top:1px solid rgba(255,255,255,.3);align-items:flex-end;gap:16px}
+  .band .num{font-size:92px;position:absolute;right:18px;top:18px}
+  .band .vname{writing-mode:horizontal-tb;transform:none;font-size:44px;align-self:flex-end}
+  .band .txt{display:none}
+  .band .arrow{display:none}
+  .status,.row-imgs,.facts,.contact{padding-left:20px;padding-right:20px}
+  .status .rot,.contact .rot{display:none}
+  .status h2{font-size:64px}
+  .status .row{grid-template-columns:1fr;gap:36px}
+  .elev{height:250px}.elev .b{width:96px}.elev .b1{height:220px}.elev .b2{height:250px}
+  .facts .grid{grid-template-columns:1fr 1fr}
+  .facts .n,.facts .f:nth-child(n) .n{font-size:130px!important}
+  .facts .f{min-height:220px}
+  .contact h2{font-size:56px}
+  .contact .tel{font-size:min(13.6vw,70px)}
+  footer{padding:0 18px 18px}
+  footer .tb{grid-template-columns:1fr 1fr}
+  footer .mark{font-size:120px}
+}
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="Katet">
+  <span class="cap vt">TORRE GROUP</span>
+  <ol><li class="on">G</li><li>1</li><li>2</li><li>3</li><li>4</li></ol>
+  <span class="cap vt">1999</span>
+</nav>
+
+<!-- 00 -->
+<section class="hero" aria-label="TORRE Group">
+  <div class="grid-lines"></div>
+  <div class="top">
+    <span class="cap">TORRE Group &nbsp;·&nbsp; Ferizaj, Kosovë</span>
+    <div class="menu"><span class="cap">+383 49 599 405</span><span class="pill">Menu</span></div>
+  </div>
+  <div class="intro">
+    <p class="lead">Ndërtojmë në Kosovë që nga 1999.</p>
+    <p>Grup familjar me katër kompani: ndërtim shtëpish, dritare e fasada, zhvillim rezidencial dhe banesa.</p>
+  </div>
+  <h1 class="h1-sr">TORRE Group — ndërtojmë në Kosovë që nga 1999</h1>
+  <svg class="wm" viewBox="0 0 1312 470" aria-hidden="true" focusable="false">
+    <defs><pattern id="ph" patternUnits="userSpaceOnUse" width="1312" height="470"><rect width="1312" height="470" fill="#9aa3ad"/><image href="img/hero-day.jpg" x="0" y="-300" width="1312" height="1250" preserveAspectRatio="xMidYMid slice"/></pattern></defs>
+    <text x="0" y="462" font-family="Anton, Impact, sans-serif" font-size="530" textLength="1312" lengthAdjust="spacing" fill="url(#ph)">TORRE</text>
+  </svg>
+  <svg class="wm wm-m" viewBox="0 0 354 440" aria-hidden="true" focusable="false">
+    <defs><pattern id="pm" patternUnits="userSpaceOnUse" width="354" height="440"><rect width="354" height="440" fill="#9aa3ad"/><image href="img/hero-day.jpg" x="-30" y="-60" width="440" height="600" preserveAspectRatio="xMidYMid slice"/></pattern></defs>
+    <text x="0" y="206" font-family="Anton, Impact, sans-serif" font-size="240" textLength="354" lengthAdjust="spacing" fill="url(#pm)">TOR</text>
+    <text x="0" y="432" font-family="Anton, Impact, sans-serif" font-size="240" textLength="228" lengthAdjust="spacing" fill="url(#pm)">RE</text>
+  </svg>
+  <div class="titleblock" aria-hidden="true">
+    <div><b>Projekti i fundit</b><span>TORRE HOME, Ferizaj</span></div>
+    <div><b>Themeluar</b><span>1999</span></div>
+    <div><b>Kompani</b><span>4</span></div>
+    <div><b>Kati</b><span>G / 1–4</span></div>
+    <div><b>Fleta</b><span>01 / 07</span></div>
+  </div>
+</section>
+
+<!-- 01 -->
+<section class="plate" aria-label="TORRE HOME">
+  <div class="frame"></div>
+  <div class="tab"><span class="cap">Projekti · Ferizaj, rr. Emin Duraku</span><h3>TORRE HOME</h3></div>
+  <p class="fig">Ndërtesa 1 e përfunduar. Ndërtesa 2 në përfundim.<br><span style="opacity:.8">Vizualizim.</span></p>
+</section>
+
+<!-- 02 -->
+<section class="statement" aria-label="Kush jemi">
+  <span class="cap rot">Kush jemi</span>
+  <p class="big">Nisëm si vëllezër që ndërtonin shtëpi. Sot jemi katër kompani <span class="img" role="img" aria-label=""></span> <em>që ndërtojnë, prodhojnë dritare, zhvillojnë ndërtesa dhe shesin banesa.</em></p>
+  <div class="cols">
+    <p>Një familje, katër specializime. Secila kompani punon në pjesën e vet të ndërtimit, nën të njëjtin emër.</p>
+    <p><span class="cap" style="display:block;margin-bottom:6px">Ferizaj</span>Fabrika e SWISSTECH është në Bibaj. TORRE HOME ndërton në rrugën Emin Duraku.</p>
+    <p><span class="cap" style="display:block;margin-bottom:6px">Në Kosovë</span>MAGFA ndërton në Prishtinë, Ferizaj, Prizren, Gjakovë, Pejë dhe Mitrovicë.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="skyline" aria-label="Katër kompani">
+  <div class="head"><h2 class="display">Katër kate.<br>Një themel.</h2></div>
+  <div class="bands">
+    <a class="band m" href="#"><span class="arrow">↗</span><span class="num display">1</span><span class="vname display">MAGFA GROUP</span><span class="txt"><b>Ndërtim shtëpish</b>Shtëpi private dhe rezidenciale në gjashtë qytete.</span></a>
+    <a class="band s" href="#"><span class="arrow">↗</span><span class="num display">2</span><span class="vname display">SWISSTECH</span><span class="txt"><b>Dritare dhe fasada</b>PVC dhe alumini, prodhim dhe montim në Ferizaj.</span></a>
+    <a class="band u" href="#"><span class="arrow">↗</span><span class="num display">3</span><span class="vname display">TORRE DI UMBRIA</span><span class="txt"><b>Zhvillim rezidencial</b>Zhvillim ndërtesash, menaxhim projekti, leje.</span></a>
+    <a class="band h" href="#"><span class="arrow">↗</span><span class="num display">4</span><span class="vname display">TORRE HOME</span><span class="txt"><b>Banesa në Ferizaj</b>Dy ndërtesa në rrugën Emin Duraku.</span></a>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="status" aria-label="TORRE HOME">
+  <span class="cap rot">Projekti</span>
+  <h2 class="display">Dy ndërtesa.<br>Ferizaj.</h2>
+  <div class="row">
+    <div class="elev" role="img" aria-label="Ndërtesa 1 e përfunduar; Ndërtesa 2 në përfundim">
+      <div class="b b1"><span>Ndërtesa 1 — e përfunduar</span><div class="win"></div></div>
+      <div class="b b2"><span>Ndërtesa 2 — në përfundim</span><div class="win"></div></div>
+    </div>
+    <ul>
+      <li>Rruga Emin Duraku, Ferizaj <span>Vendi</span></li>
+      <li>TORRE HOME <span>Zhvilluesi</span></li>
+      <li>Banesa në shitje <span>Statusi</span></li>
+      <li>Shiko projektin ↗ <span></span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="row-imgs" aria-label="Pamje">
+  <span class="cap">Vizualizime · TORRE HOME</span>
+  <div class="strip">
+    <figure><div class="img" style="width:520px;height:640px;background-image:url(img/hero-day.jpg)"></div><figcaption>01 — Fasada, ditë</figcaption></figure>
+    <figure style="margin-top:110px"><div class="img" style="width:640px;height:420px;background-image:url(img/exterior-alt.jpg)"></div><figcaption>02 — Pamje nga rruga</figcaption></figure>
+    <figure style="margin-top:40px"><div class="img" style="width:480px;height:600px;background-image:url(img/exterior-night.jpg);background-position:62% 50%"></div><figcaption>03 — Natën</figcaption></figure>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="facts" aria-label="Në fakte">
+  <div class="grid">
+    <div class="f"><span class="cap">Themeluar</span><span class="n display">1999</span><p>Nisëm si vëllezër që ndërtonin shtëpi.</p></div>
+    <div class="f"><span class="cap">Kompani</span><span class="n display">4</span><p>Ndërtim, dritare, zhvillim dhe banesa.</p></div>
+    <div class="f"><span class="cap">Qytete</span><span class="n display">6</span><p>Ku ndërton MAGFA GROUP.</p></div>
+    <div class="f"><span class="cap">Ferizaj</span><span class="n display">2</span><p>Ndërtesa të TORRE HOME në rrugën Emin Duraku.</p></div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="contact" aria-label="Kontakt">
+  <span class="cap rot">Kontakt</span>
+  <h2 class="display">Na tregoni projektin.</h2>
+  <a class="tel display" href="tel:+38349599405">+383 49 599 405</a>
+  <div class="row"><a class="btn-ink" href="#">Telefononi <span>↗</span></a><a class="btn-line" href="#">WhatsApp</a></div>
+</section>
+
+<footer>
+  <div class="tb">
+    <div><b>TORRE Group</b>Grup familjar ndërtimi, Kosovë</div>
+    <div><b>Kompanitë</b>MAGFA · SWISSTECH<br>TORRE DI UMBRIA · TORRE HOME</div>
+    <div><b>Kontakt</b>+383 49 599 405</div>
+    <div><b>Fabrika SWISSTECH</b>Bibaj, Ferizaj</div>
+    <div><b>Ligjore</b>Privatësia · Kushtet · Qasshmëria</div>
+  </div>
+  <div class="mark display" aria-hidden="true">TORRE</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,163 @@
+import type { L } from "@/lib/i18n";
+
+/**
+ * Page copy for the "Fasada" design. Albanian is the source; English is a DRAFT pending human review (D-020).
+ * Facts come from ./company and ./divisions (provenance-guarded). Nothing here asserts a price, warranty,
+ * timeline, statistic or testimonial.
+ */
+export const pages = {
+  common: {
+    place: { sq: "TORRE Group · Ferizaj, Kosovë", en: "TORRE Group · Ferizaj, Kosovo" },
+    render: { sq: "Vizualizim", en: "Render" },
+    illustration: { sq: "Ilustrim — jo punë e kompanisë", en: "Illustration — not the company's work" },
+    floor: { sq: "Kati", en: "Floor" },
+    mapOpen: { sq: "Hap në hartë", en: "Open in maps" },
+    newTab: { sq: "hapet në dritare të re", en: "opens in a new tab" },
+    contactCta: { sq: "Na kontaktoni", en: "Contact us" },
+    call: { sq: "Telefononi", en: "Call" },
+    whatsapp: { sq: "WhatsApp", en: "WhatsApp" },
+  },
+  home: {
+    h1: { sq: "TORRE Group — ndërtojmë në Kosovë që nga 1999", en: "TORRE Group — building in Kosovo since 1999" },
+    lead: { sq: "Ndërtojmë në Kosovë që nga 1999.", en: "Building in Kosovo since 1999." },
+    tb: {
+      latest: { sq: "Projekti i fundit", en: "Latest project" },
+      latestValue: { sq: "TORRE HOME, Ferizaj", en: "TORRE HOME, Ferizaj" },
+      founded: { sq: "Themeluar", en: "Founded" },
+      companies: { sq: "Kompani", en: "Companies" },
+      floors: { sq: "Kate", en: "Floors" },
+      sheet: { sq: "Fleta", en: "Sheet" },
+    },
+    plateCap: { sq: "Projekti · Ferizaj, rr. Emin Duraku", en: "Project · Ferizaj, Emin Duraku street" },
+    plateAlt: { sq: "Vizualizim i ndërtesës TORRE HOME natën, Ferizaj", en: "Render of the TORRE HOME building at night, Ferizaj" },
+    statementLabel: { sq: "Kush jemi", en: "Who we are" },
+    statementA: { sq: "Nisëm si vëllezër që ndërtonin shtëpi. Sot jemi katër kompani", en: "We started as brothers building houses. Today we are four companies" },
+    statementB: { sq: "që ndërtojnë, prodhojnë dritare, zhvillojnë ndërtesa dhe shesin banesa.", en: "that build, manufacture windows, develop buildings and sell apartments." },
+    cols: [
+      { h: { sq: "Një familje", en: "One family" }, p: { sq: "Katër specializime nën të njëjtin emër. Secila kompani punon në pjesën e vet të ndërtimit.", en: "Four specialisms under one name. Each company works on its own part of building." } },
+      { h: { sq: "Ferizaj", en: "Ferizaj" }, p: { sq: "Fabrika e SWISSTECH është në Bibaj. TORRE HOME ndërton në rrugën Emin Duraku.", en: "The SWISSTECH factory is in Bibaj. TORRE HOME builds on Emin Duraku street." } },
+      { h: { sq: "Në Kosovë", en: "Across Kosovo" }, p: { sq: "MAGFA ndërton në Prishtinë, Ferizaj, Prizren, Gjakovë, Pejë dhe Mitrovicë.", en: "MAGFA builds in Prishtina, Ferizaj, Prizren, Gjakova, Peja and Mitrovica." } },
+    ],
+    towersTitle: { sq: "Katër kate. Një themel.", en: "Four floors. One foundation." },
+    towersHint: { sq: "Zgjidhni katin", en: "Choose a floor" },
+    statusTitle: { sq: "Dy ndërtesa. Ferizaj.", en: "Two buildings. Ferizaj." },
+    statusLabel: { sq: "Projekti", en: "Project" },
+    dl: {
+      place: { sq: "Vendi", en: "Place" },
+      developer: { sq: "Zhvilluesi", en: "Developer" },
+      status: { sq: "Statusi", en: "Status" },
+      view: { sq: "Shiko projektin", en: "See the project" },
+    },
+    elevAlt: {
+      sq: "Skemë e dy ndërtesave të TORRE HOME: Ndërtesa 1 e përfunduar, Ndërtesa 2 në përfundim.",
+      en: "Diagram of the two TORRE HOME buildings: Building 1 completed, Building 2 nearing completion.",
+    },
+    b1: { sq: "Ndërtesa 1 — e përfunduar", en: "Building 1 — completed" },
+    b2: { sq: "Ndërtesa 2 — në përfundim", en: "Building 2 — nearing completion" },
+    rowTitle: { sq: "Vizualizime · TORRE HOME", en: "Renders · TORRE HOME" },
+    rowRegion: { sq: "Vizualizime të TORRE HOME — lëvizni horizontalisht", en: "TORRE HOME renders — scroll horizontally" },
+    rowPrev: { sq: "Para", en: "Previous" },
+    rowNext: { sq: "Pas", en: "Next" },
+    factsTitle: { sq: "Në fakte", en: "In facts" },
+    facts: [
+      { cap: { sq: "Themeluar", en: "Founded" }, n: "1999", p: { sq: "Nisëm si vëllezër që ndërtonin shtëpi.", en: "We started as brothers building houses." } },
+      { cap: { sq: "Kompani", en: "Companies" }, n: "4", p: { sq: "Ndërtim, dritare, zhvillim dhe banesa.", en: "Building, windows, development and apartments." } },
+      { cap: { sq: "Qytete", en: "Cities" }, n: "6", p: { sq: "Ku ndërton MAGFA GROUP.", en: "Where MAGFA GROUP builds." } },
+      { cap: { sq: "Ndërtesa", en: "Buildings" }, n: "2", p: { sq: "TORRE HOME, rruga Emin Duraku, Ferizaj.", en: "TORRE HOME, Emin Duraku street, Ferizaj." } },
+    ],
+    contactTitle: { sq: "Na tregoni projektin.", en: "Tell us about your project." },
+    contactBody: { sq: "Telefononi ose shkruani në WhatsApp dhe ju përgjigjemi.", en: "Call or write on WhatsApp and we will answer." },
+  },
+  companies: {
+    h1: { sq: "Katër kompani. Një grup.", en: "Four companies. One group." },
+    lead: { sq: "Secila kompani punon në pjesën e vet të ndërtimit. Zgjidhni atë që i përshtatet projektit tuaj.", en: "Each company works on its own part of building. Pick the one that fits your project." },
+    scheduleTitle: { sq: "Orari i kateve", en: "Schedule of floors" },
+    th: {
+      floor: { sq: "Kati", en: "Floor" },
+      company: { sq: "Kompania", en: "Company" },
+      what: { sq: "Çfarë bën", en: "What it does" },
+      where: { sq: "Ku", en: "Where" },
+    },
+    where: {
+      magfa: { sq: "Prishtinë, Ferizaj, Prizren, Gjakovë, Pejë, Mitrovicë", en: "Prishtina, Ferizaj, Prizren, Gjakova, Peja, Mitrovica" },
+      swisstech: { sq: "Ferizaj — fabrika në Bibaj", en: "Ferizaj — factory in Bibaj" },
+      "torre-umbria": { sq: "Kosovë", en: "Kosovo" },
+      torrehome: { sq: "Ferizaj, rruga Emin Duraku", en: "Ferizaj, Emin Duraku street" },
+    },
+  },
+  magfa: {
+    drawingAlt: { sq: "Ilustrim: vizatim i një shtëpie në prerje. Nuk është projekt i MAGFA.", en: "Illustration: a drawing of a house in section. It is not a MAGFA project." },
+    drawingNote: { sq: "Ilustrim — jo projekt i MAGFA", en: "Illustration — not a MAGFA project" },
+    legendTitle: { sq: "Çfarë ndërtojmë", en: "What we build" },
+    citiesTitle: { sq: "Ku ndërtojmë", en: "Where we build" },
+    ctaTitle: { sq: "Na tregoni shtëpinë që dëshironi.", en: "Tell us about the house you want." },
+  },
+  swisstech: {
+    elevAlt: { sq: "Ilustrim: gjashtë lloje dritaresh dhe dyersh të vizatuara si një fasadë, W1 deri W6.", en: "Illustration: six window and door types drawn as a facade, W1 to W6." },
+    scheduleTitle: { sq: "Orari i dritareve", en: "Window schedule" },
+    th: { type: { sq: "Tipi", en: "Type" }, what: { sq: "Çfarë", en: "What" }, kind: { sq: "Lloji", en: "Kind" } },
+    product: { sq: "Produkt", en: "Product" },
+    service: { sq: "Shërbim", en: "Service" },
+    factoryTitle: { sq: "Fabrika", en: "The factory" },
+    factoryBody: { sq: "Prodhimi dhe montimi i dritareve e dyerve organizohen nga fabrika në Bibaj, Ferizaj.", en: "Windows and doors are manufactured and installed from the factory in Bibaj, Ferizaj." },
+    ctaTitle: { sq: "Kërkoni një ofertë.", en: "Ask for a quote." },
+  },
+  umbria: {
+    layersTitle: { sq: "Çfarë përfshin", en: "What it covers" },
+    layersNote: { sq: "Renditja është ilustrim i fushës së punës, jo rend kohor.", en: "The order illustrates the scope of work; it is not a timeline." },
+    layersAlt: { sq: "Ilustrim: gjashtë shtresa të vendosura si kate të një ndërtese.", en: "Illustration: six layers stacked like the floors of a building." },
+    ctaTitle: { sq: "Keni një projekt ndërtimor?", en: "Have a building project?" },
+  },
+  home4: {
+    plan: {
+      title: { sq: "Planimetria", en: "Floor plan" },
+      alt: { sq: "Planimetri e një apartamenti 3 dhomësh, tipi A2, 132.39 m².", en: "Floor plan of a 3-room apartment, type A2, 132.39 m²." },
+      cap: { sq: "Apartament 3 dhomësh, tipi A2 — 132.39 m² (siç shfaqet në planimetri)", en: "3-room apartment, type A2 — 132.39 m² (as printed on the plan)" },
+    },
+    ctaTitle: { sq: "Pyesni për banesat në shitje.", en: "Ask about apartments for sale." },
+    plates: [
+      { src: "/images/torrehome/hero-day.jpg", w: 1512, h: 1440, cap: { sq: "Fasada, ditë", en: "Facade, day" }, alt: { sq: "Vizualizim i fasadës së TORRE HOME ditën", en: "Render of the TORRE HOME facade by day" } },
+      { src: "/images/torrehome/exterior-night.jpg", w: 1800, h: 1327, cap: { sq: "Natën", en: "At night" }, alt: { sq: "Vizualizim i TORRE HOME natën", en: "Render of TORRE HOME at night" } },
+      { src: "/images/torrehome/exterior-alt.jpg", w: 1800, h: 1327, cap: { sq: "Pamje nga rruga", en: "View from the street" }, alt: { sq: "Vizualizim i TORRE HOME nga rruga", en: "Render of TORRE HOME from the street" } },
+      { src: "/images/torrehome/terrace-corner.jpg", w: 860, h: 756, cap: { sq: "Tarraca në qoshe", en: "Corner terraces" }, alt: { sq: "Vizualizim i tarracave në qoshen e ndërtesës", en: "Render of the terraces at the building corner" } },
+      { src: "/images/torrehome/duplex-lower.jpg", w: 1600, h: 1067, cap: { sq: "Dupleks — kati i poshtëm", en: "Duplex — lower floor" }, alt: { sq: "Vizualizim 3D i katit të poshtëm të një dupleksi", en: "3D render of the lower floor of a duplex" } },
+      { src: "/images/torrehome/duplex-upper.jpg", w: 1600, h: 1067, cap: { sq: "Dupleks — kati i sipërm", en: "Duplex — upper floor" }, alt: { sq: "Vizualizim 3D i katit të sipërm të një dupleksi", en: "3D render of the upper floor of a duplex" } },
+      { src: "/images/torrehome/penthouse-layout.jpg", w: 1600, h: 1067, cap: { sq: "Penthouse", en: "Penthouse" }, alt: { sq: "Vizualizim 3D i planimetrisë së një penthouse-i", en: "3D render of a penthouse layout" } },
+      { src: "/images/torrehome/parking.jpg", w: 1600, h: 1067, cap: { sq: "Garazhi nëntokësor", en: "Underground garage" }, alt: { sq: "Vizualizim i garazhit nëntokësor të TORRE HOME", en: "Render of the TORRE HOME underground garage" } },
+    ],
+  },
+  about: {
+    h1: { sq: "Nga një shtëpi te katër kompani.", en: "From one house to four companies." },
+    rail: { sq: "Kompania", en: "The company" },
+    story: {
+      sq: "Nisëm në 1999, si vëllezër të rinj që donim të ndërtonim shtëpi. Sot jemi katër kompani, secila me specializimin e vet.",
+      en: "We started in 1999 as young brothers who wanted to build houses. Today we are four companies, each with its own specialism.",
+    },
+    tlStart: { sq: "1999", en: "1999" },
+    tlStartText: { sq: "Fillimi: vëllezër të rinj që ndërtonin shtëpi.", en: "The beginning: young brothers building houses." },
+    tlNow: { sq: "Sot", en: "Today" },
+    tlNowText: { sq: "Katër kompani, secila me specializimin e vet.", en: "Four companies, each with its own specialism." },
+    tlAlt: { sq: "Skemë e një kulle: kati i parë është 1999, katër kate sipër janë katër kompanitë e sotme.", en: "Diagram of a tower: the ground level is 1999, the four floors above are today's four companies." },
+    blocksTitle: { sq: "Katër pjesë të ndërtimit", en: "Four parts of building" },
+    blocks: {
+      magfa: { sq: "Ndërton shtëpi private dhe rezidenciale.", en: "Builds private and residential homes." },
+      swisstech: { sq: "Prodhon dhe monton dritare e dyer PVC dhe alumini.", en: "Manufactures and installs PVC and aluminium windows and doors." },
+      "torre-umbria": { sq: "Zhvillon ndërtesa rezidenciale.", en: "Develops residential buildings." },
+      torrehome: { sq: "Ndërton dhe shet banesa në Ferizaj.", en: "Builds and sells apartments in Ferizaj." },
+    },
+    ctaTitle: { sq: "Flisni me ne.", en: "Talk to us." },
+  },
+  contact: {
+    h1: { sq: "Kontakti", en: "Contact" },
+    lead: { sq: "Na tregoni çfarë keni në mendje: një shtëpi, dritare, një ndërtesë apo një banesë.", en: "Tell us what you have in mind: a house, windows, a building or an apartment." },
+    phone: { sq: "Telefon dhe WhatsApp", en: "Phone and WhatsApp" },
+    factory: { sq: "Fabrika SWISSTECH", en: "SWISSTECH factory" },
+  },
+  nf: {
+    h1: { sq: "Ky kat nuk ekziston.", en: "This floor does not exist." },
+    body: { sq: "Adresa që kërkuat nuk ekziston ose është zhvendosur. Zgjidhni një nga katet ose na telefononi.", en: "The address you asked for does not exist or has moved. Pick one of the floors or call us." },
+  },
+} satisfies Record<string, unknown>;
+
+export type Pages = typeof pages;
+export type { L };
